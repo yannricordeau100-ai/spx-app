@@ -25,7 +25,7 @@ import { useT } from "@/lib/i18n/provider";
  * Le CSS (globals.css) en deduit le masquage des flottants sur mobile et en
  * paysage court : aucun bouton ne recouvre plus un graphique.
  */
-function useZoneGraphiqueVisible() {
+export function useZoneGraphiqueVisible() {
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
     const racine = document.documentElement;
@@ -76,4 +76,14 @@ export function CompanyNavChrome() {
       <BackToTop />
     </>
   );
+}
+
+/**
+ * Yann 12 oct 2026 : la fiche passe au rail du concept « rail-survol-v2 »
+ * (components/fiche-rail.tsx). Il ne reste ici que le masquage des flottants
+ * sur les graphiques et le bouton « remonter ».
+ */
+export function FicheChromeBas() {
+  useZoneGraphiqueVisible();
+  return <BackToTop />;
 }

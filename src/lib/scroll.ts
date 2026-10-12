@@ -2,9 +2,9 @@
  * Slow, eased scroll to a given element. Default duration 1.6s — much slower
  * than browser default (which is essentially instant on most platforms).
  */
-export function smoothScrollTo(el: HTMLElement, duration = 1600) {
+export function smoothScrollTo(el: HTMLElement, duration = 1600, offset = 16) {
   const startY = window.scrollY;
-  const targetY = el.getBoundingClientRect().top + window.scrollY - 16; // small offset
+  const targetY = el.getBoundingClientRect().top + window.scrollY - offset; // small offset (+ en-tete collant si fourni)
   const distance = targetY - startY;
   if (Math.abs(distance) < 1) return;
   const start = performance.now();

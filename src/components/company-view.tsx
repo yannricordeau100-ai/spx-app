@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { RachatsBlock, type RachatsFiche } from "@/components/rachats-block";
@@ -67,8 +67,6 @@ import { lienCourtKpi, textePartageX } from "@/lib/kpi-link";
 import { expliqueUnite } from "@/lib/unites-explications";
 import { InterpretationBlock } from "@/components/interpretation-block";
 // Yann 12 juin 2026 : events liés au graph retirés (plus d'import getCompanyEvents).
-import { MesListesMenu } from "@/components/mes-listes-menu";
-import { CompareControl } from "@/components/compare-control";
 import { ZoneReservee } from "@/components/freemium/zone-reservee";
 import { hasStories } from "@/lib/kpi-stories-ordering";
 import { isPhysicalKpi } from "@/lib/kpi-ordering";
@@ -80,7 +78,8 @@ import { AppelAbonnement } from "@/components/appel-abonnement";
 import { PageSearch } from "@/components/page-search";
 // Yann 7 sept 2026 : FreshnessIndicator deplace dans stock-price-block (COL 0).
 
-import { CompanyNavChrome } from "@/components/company-nav-chrome";
+import { FicheChromeBas } from "@/components/company-nav-chrome";
+import { FicheRail, SectionBloc, hauteurEnteteFiche, type BlocFicheId } from "@/components/fiche-rail";
 import { KpiSwapTitle, libelleAnglais, nomEnTechnique } from "@/components/kpi-swap-title";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
@@ -593,9 +592,6 @@ export function CompanyView({
   // code conserve : CompareControl, ComparePanel, compare-overlay-chart).
   // Reactivation : passer COMPARER_ACTIF a true, rien d autre a toucher.
   const COMPARER_ACTIF = true; // Yann 11 sept 2026 : Comparer remis, branche sur les 666 fiches
-  const [compareOpen, setCompareOpen] = useState(false);
-  // Yann 5 oct 2026 : un seul panneau d en-tete ouvert a la fois (Comparer, Mes favoris, menu « ... »).
-  const [panneauNav, setPanneauNav] = useState<"favoris" | "plus" | null>(null);
   const [chartMode, setChartMode] = useChartMode("bars");
   // 10 sept 2026 (Yann) : plus de vue 3D, barres classiques uniquement (toggle 2D/3D retire).
   const [barsVariant] = useState<"iso3d" | "classic">("classic");
@@ -649,7 +645,8 @@ export function CompanyView({
     else if (clicked?.period_type === "semester") setGraphPeriod("semester");
     else setGraphPeriod("year");
     if (heroRef.current) {
-      smoothScrollTo(heroRef.current, 1500);
+      // Yann 12 oct 2026 : le graphique s arrete sous l en-tete collant.
+      smoothScrollTo(heroRef.current, 1500, 16 + hauteurEnteteFiche());
     }
   };
 
@@ -1305,8 +1302,47 @@ export function CompanyView({
     );
   }
 
+  // Yann 12 oct 2026 : fiche en page unique avec le rail du concept
+  // « rail-survol-v2 ». Un bloc n a d entree dans le rail que s il est rendu
+  // (memes conditions que le rendu ci-dessous).
+  const storiesActif = isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories");
+  const aStories = storiesActif ? hasStories(company.kpis, []) : true;
+  const mtActif = isBlockEnabled("image_findings", company.ticker) && !isDisabled("graphiques_schemas");
+  const aMoyen = mtActif ? (((company as Company & { image_findings?: unknown[] }).image_findings ?? []).length > 0) : true;
+  const risquesActif = isBlockEnabled("risks", company.ticker) && !isDisabled("risks");
+  const aRisques = risquesActif ? (company.risks?.length ?? 0) > 0 : true;
+  const gouvActif = isBlockEnabled("governance", company.ticker) && !isDisabled("gouvernance");
+  const aRachats = Boolean(rachats) && isBlockEnabled("rachats", company.ticker) && !isDisabled("rachats");
+  const aGouv = (gouvActif ? Boolean(company.governance) : true) || aRachats;
+  const iaActif = isBlockEnabled("ai_positioning", company.ticker) && !isDisabled("ai_positioning");
+  const aIa = iaActif ? Boolean(company.ai_positioning?.summary && String(company.ai_positioning.summary).trim()) : true;
+  const transcriptsActif = isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets");
+  const aResultats = transcriptsActif
+    ? Boolean(transcriptSummary && transcriptSummary.summary?.bullets?.length) ||
+      Boolean(transcript && (
+        (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
+        (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
+        (transcript.latest?.content && transcript.latest.content.length > 200)
+      ))
+    : true;
+  const aThese = (Boolean(company.these) && !isDisabled("these")) || (Boolean(company.att) && !isDisabled("anti_these"));
+  const aAdmin = Boolean(adminApresHero) || Boolean(adminApresMoyenTerme);
+  const blocsDispo: BlocFicheId[] = [
+    "apercu", "kpi",
+    ...(aMoyen ? (["moyen"] as const) : []),
+    ...(aStories ? (["stories"] as const) : []),
+    "marche",
+    ...(aRisques ? (["risques"] as const) : []),
+    ...(aGouv ? (["gouv"] as const) : []),
+    ...(aIa ? (["ia"] as const) : []),
+    ...(aResultats ? (["resultats"] as const) : []),
+    ...(aThese ? (["these"] as const) : []),
+    ...(aAdmin ? (["admin"] as const) : []),
+  ];
+  const sansCours = hidePriceBar || isDisabled("snapshot_boursier");
+
   return (
-    <div className="relative min-h-screen overflow-clip bg-[#050505]">
+    <div className="relative min-h-screen overflow-clip bg-[#050505] md:pl-[104px]">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[600px]"
         style={{
@@ -1317,7 +1353,7 @@ export function CompanyView({
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
       <CmdFSearch scopeSelector="main" />
 
-      <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9 md:pl-16 xl:pl-6">
+      <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
         {captureInscription && (
           <a
             href={`/?auth=signup&next=${encodeURIComponent("/" + company.ticker.toLowerCase())}`}
@@ -1325,77 +1361,56 @@ export function CompanyView({
             className="fixed inset-0 z-[60] cursor-pointer"
           />
         )}
-        {/* Top nav — tout sur une ligne : back + recherche (collée à gauche)
-            puis actions à droite (variant, comparer, enregistrer, compte). */}
-        <nav className="mb-9 flex flex-nowrap items-center gap-1 sm:gap-3 whitespace-nowrap">
-          {/* Logo wordmark Mettrik AI (taille sm) — cliquable, retour home.
-              Réutilise le composant MettrikWordmark identique au logo home
-              et à la page maintenance. Cohérence brand sur toutes les
-              pages. (8 mai 2026) */}
-          <div className={`flex min-w-0 flex-1 flex-nowrap items-center gap-1 sm:gap-3 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
-          <Link
-            href="/"
-            className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
-            aria-label={t("nav.home")}
-          >
-            <LogoMettrik emplacement="retour-societe" size="sm" animated={false} showRail={false} />
-            <ArrowLeft className="hidden size-4 text-zinc-500 transition-transform sm:block group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
-          </Link>
-          <PageSearch variant="default" />
-          </div>
-          <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
-            <div className={`flex items-center gap-1 sm:gap-2 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
-            {COMPARER_ACTIF && (
-            <CompareControl
-              ticker={company.ticker}
-              activeKpi={active}
-              open={compareOpen}
-              onToggle={() => { setPanneauNav(null); setCompareOpen((o) => !o); }}
-              onPick={(t) => {
-                setCompareTicker(t);
-                setCompareOpen(false);
-              }}
-            />
-            )}
-            {freemiumTier !== "anon" && (
-              <MesListesMenu
-                ouvert={panneauNav === "favoris"}
-                onOuvertChange={(o) => { if (o) setCompareOpen(false); setPanneauNav(o ? "favoris" : (p) => (p === "favoris" ? null : p)); }}
-              />
-            )}
-            <div className="hidden sm:block"><ThemeToggle paid={isPaidTier} /></div>
-              <NavPlusMenu
-                paid={isPaidTier}
-                anon={freemiumTier === "anon"}
-                ouvert={panneauNav === "plus"}
-                onOuvertChange={(o) => { if (o) setCompareOpen(false); setPanneauNav(o ? "plus" : (p) => (p === "plus" ? null : p)); }}
-              />
-            </div>
-            <div className="relative z-[70]">{authSlot}</div>
-          </div>
-        </nav>
-
-        {/* Rich company header.
-            Yann 26 mai 2026 : snapshot_boursier (= StockPriceBlock dans le
-            header) désactivable via /sandbox/v1-8/blocks-toggle. Quand
-            désactivé, la description Mettrik passe full-width côté
-            CompanyProfileCard (cf prop hideSnapshot ci-dessous). */}
-        <CompanyHeader
+        {/* Yann 12 oct 2026 : la barre du haut (logo, recherche, Comparer,
+            favoris, theme, compte) et l ancien rail laissent place au rail du
+            concept valide « rail-survol-v2 » : memes fonctions, dans le rail
+            (ordinateur) ou dans la barre basse et son tiroir (mobile). L en-tete
+            de la societe colle en haut au defilement. */}
+        <FicheRail
           company={company}
-          hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}
-          freeBlocked={false}
-          disabledBlocks={disabledBlocks}
+          blocsDispo={blocsDispo}
+          accent={accent}
+          paid={isPaidTier}
+          anon={anonPage}
+          capture={captureInscription}
+          authSlot={authSlot}
+          activeKpi={active}
+          comparerActif={COMPARER_ACTIF}
+          onComparePick={(t) => {
+            setCompareTicker(t);
+            window.setTimeout(() => {
+              const el = document.getElementById("sec-compare");
+              if (el) smoothScrollTo(el, 900, 16 + hauteurEnteteFiche());
+            }, 450);
+          }}
+          afficherCours={!sansCours}
+          entete={
+            <CompanyHeader
+              company={company}
+              hidePriceBar={sansCours}
+              freeBlocked={false}
+              disabledBlocks={disabledBlocks}
+              rangs="aucun"
+            />
+          }
         />
-        <BandeauIpoRecente ipo={company.ipo} />
+
+        {/* Apercu : rangs (une seule fois, jamais dans l en-tete collant), puis description. */}
+        <SectionBloc id="apercu" accent={accent} premier>
+          <div className="mt-4">
+            <CompanyHeader
+              company={company}
+              hidePriceBar={sansCours}
+              freeBlocked={false}
+              disabledBlocks={disabledBlocks}
+              rangs="seuls"
+            />
+          </div>
+          <BandeauIpoRecente ipo={company.ipo} />
+        </SectionBloc>
         <ZoneReservee actif={anonPage} palier="anon">
 
         {/* Yann 15 sept 2026 : la description de la societe vient juste sous les rangs. */}
-        {/* Profil société & marché — description longue + snapshot
-            boursier + faits clés + sés comparables. (7 mai 2026).
-            Yann 26 mai 2026 : description_mettrik + snapshot (carte
-            "Snapshot boursier" dans le bloc) désactivables séparément
-            via /sandbox/v1-8/blocks-toggle. Si snapshot off → description
-            full-width automatique. */}
         <div id="sec-comprendre" className="scroll-mt-24">
         <CompanyProfileCard
           company={company}
@@ -1405,6 +1420,7 @@ export function CompanyView({
         />
         </div>
 
+        <SectionBloc id="kpi" accent={accent}>
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         {/* Yann 4 sept 2026 : l appel a l abonnement etait rendu DANS la
             section floutee : le flou et pointer-events:none s appliquaient a
@@ -2015,6 +2031,7 @@ export function CompanyView({
         <AnimatePresence>
           {COMPARER_ACTIF && compareTicker && (
             <motion.section
+              id="sec-compare"
               key={compareTicker + active.short}
               initial={{ opacity: 0, y: 12, height: 0 }}
               animate={{ opacity: 1, y: 0, height: "auto" }}
@@ -2034,7 +2051,7 @@ export function CompanyView({
 
         {/* 28 sept 2026 (Yann) : quand le KPI d industrie est un graphique
             moyen terme, le bloc moyen terme passe AVANT le tableau des KPI. */}
-        {mtEnPremier && blocMoyenTerme}
+        {mtEnPremier && aMoyen && <SectionBloc id="moyen" accent={accent}>{blocMoyenTerme}</SectionBloc>}
 
         {/* KPI table */}
         <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="Graphique et indicateurs réservés aux abonnés" detail="Tous les indicateurs de la société, dix ans d’historique, l’export en image et le comparateur : inclus dès le plan Premium.">
@@ -2215,13 +2232,15 @@ export function CompanyView({
           {/* Yann 15 sept 2026 : sources autres que les documents de la societe. */}
         </section>
         </ZoneReservee>
+        </SectionBloc>
 
         {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
             Yann 18 sept 2026 : place AU-DESSUS des Stories (moyen terme avant court terme) ; sans graphique approuve, rien ne change. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
-        {!mtEnPremier && blocMoyenTerme}
+        {!mtEnPremier && aMoyen && <SectionBloc id="moyen" accent={accent}>{blocMoyenTerme}</SectionBloc>}
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
+        {aStories && <SectionBloc id="stories" accent={accent}>
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
           hasStories(company.kpis, []) && (
             <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="KPI stories réservés aux abonnés"><KpiStories company={company} freeBlocked={freeBlocked} styleServeur={styleStory} /></ZoneReservee>
@@ -2229,6 +2248,7 @@ export function CompanyView({
         ) : (
           <BlockComingSoon blockId="stories" />
         )}
+        </SectionBloc>}
 
         {/* Stories Dividendes — RETIRÉ de company-view le 7 mai 2026.
             Yann a demandé que tout le travail dividende se fasse uniquement
@@ -2244,6 +2264,7 @@ export function CompanyView({
         {/* Risk factors */}
         {/* Yann 15 sept 2026 : bloc commun « Chiffre d affaires, avantage concurrentiel et marche ».
             Les trois parties s adaptent : chacune ne s affiche que si la societe porte la donnee. */}
+        <SectionBloc id="marche" accent={accent}>
         <section id="sec-ca-moat-tam" className="mt-9 scroll-mt-24">
           <h2 className="mb-3 font-display text-[20px] font-bold tracking-tight text-zinc-100">Chiffre d’affaires, avantage concurrentiel et marché</h2>
           <div className="grid gap-4 [&>*]:mt-0 [&>*>*]:mt-0">
@@ -2308,7 +2329,9 @@ export function CompanyView({
         )}
           </div>
         </section>
+        </SectionBloc>
 
+        {aRisques && <SectionBloc id="risques" accent={accent}>
         {isBlockEnabled("risks", company.ticker) && !isDisabled("risks") ? (
           company.risks && company.risks.length > 0 ? (
             <div id="sec-risks" data-blur="risks" className="scroll-mt-24">
@@ -2323,6 +2346,7 @@ export function CompanyView({
         ) : (
           <BlockComingSoon blockId="risks" id="sec-risks" data-blur="risks" />
         )}
+        </SectionBloc>}
 
         {/* Anti-thèse d'investissement — juste APRÈS Facteurs de risque
             (Yann 14 août 2026). Rendu uniquement si une ATT existe pour la
@@ -2337,6 +2361,7 @@ export function CompanyView({
         {/* Bloc Dividendes RETIRÉ pour toutes les sociétés (Yann 15 juin 2026). */}
 
         {/* Governance */}
+        {aGouv && <SectionBloc id="gouv" accent={accent}>
         {isBlockEnabled("governance", company.ticker) && !isDisabled("gouvernance") ? (
           company.governance ? (
             <div id="sec-governance" data-blur="governance" className="scroll-mt-24">
@@ -2365,9 +2390,11 @@ export function CompanyView({
         {rachats && isBlockEnabled("rachats", company.ticker) && !isDisabled("rachats") && (
           <RachatsBlock data={rachats} accent={accent} />
         )}
+        </SectionBloc>}
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).
             Pas de bloc vide ou "Absent". Soit la société a du AI réel à montrer, soit on masque. */}
+        {aIa && <SectionBloc id="ia" accent={accent}>
         {isBlockEnabled("ai_positioning", company.ticker) && !isDisabled("ai_positioning") ? (
           (() => {
             const ai = company.ai_positioning;
@@ -2392,6 +2419,7 @@ export function CompanyView({
         ) : (
           <BlockComingSoon blockId="ai_positioning" id="sec-ai" data-blur="ai_positioning" />
         )}
+        </SectionBloc>}
 
         {/* Bloc transactions politiciens US retiré (13 mai 2026 par Yann). */}
 
@@ -2419,6 +2447,7 @@ export function CompanyView({
             dispo. Si pas de bullets et pas de transcript brut : RIEN ne
             s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
             vide pour les sociétés sans transcript accessible). */}
+        {aResultats && <SectionBloc id="resultats" accent={accent}>
         <div id="sec-resultats" className="scroll-mt-24">
         {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
           transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
@@ -2440,28 +2469,37 @@ export function CompanyView({
           <BlockComingSoon blockId="transcripts" />
         )}
         </div>
+        </SectionBloc>}
         {/* Yann 19 sept 2026 : these et anti-these tout en bas de la fiche,
             apres la synthese du communique et les sources. Gating plan Max
             deja applique cote serveur (these.locked / att.locked). */}
+        {aThese && <SectionBloc id="these" accent={accent}>
         {company.these && !isDisabled("these") && (
           <div className="scroll-mt-24"><TheseCard these={company.these} accent={accent} /></div>
         )}
         {company.att && !isDisabled("anti_these") && (
           <div id="sec-att" className="scroll-mt-24"><AntiTheseCard att={company.att} accent={accent} /></div>
         )}
+        </SectionBloc>}
         {/* Yann 21 sept 2026 : le bloc des sources passe tout en bas de la fiche,
             apres la these et l anti-these. */}
-        <div id="sec-sources" className="scroll-mt-24"><SourcesExternes ticker={company.ticker} paid={isPaidTier} extra={company.evenement?.sources} sources={company.sources_externes} /></div>
+        <div id="sec-sources" className="mt-10 scroll-mt-24"><SourcesExternes ticker={company.ticker} paid={isPaidTier} extra={company.evenement?.sources} sources={company.sources_externes} /></div>
         <p className="mt-10 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
           {t("company.provenance")}
         </p>
         </ZoneReservee>
         {/* Yann 7 oct 2026 : les 2 blocs admin entiers tout en bas, apres tous les autres blocs. */}
-        {adminApresHero}
-        {adminApresMoyenTerme}
+        {aAdmin && (
+          <SectionBloc id="admin" accent={accent}>
+            {[
+              <Fragment key="admin-cours">{adminApresHero}</Fragment>,
+              <Fragment key="admin-sur-mesure">{adminApresMoyenTerme}</Fragment>,
+            ]}
+          </SectionBloc>
+        )}
       </main>
 
-      <CompanyNavChrome />
+      <FicheChromeBas />
     </div>
   );
 }
