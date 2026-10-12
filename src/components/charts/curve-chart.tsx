@@ -151,19 +151,19 @@ const DY = -14;         // 3D depth offset (upward in SVG)
 
 /**
  * Curve chart — promoted from chart-lab "Neon Wire 3D" :
- *   - Front curve : color stroke with strong glow filter, white core on top
- *   - Back curve : offset by (DX, DY), dimmer glow, gives 3D depth
+ *   - Front curve : trait plein couleur des barres, halo leger (13 oct 2026)
+ *   - Back curve : offset by (DX, DY), discret, gives 3D depth
  *   - Wall under the front curve : faint color gradient down to baseline
  *   - Connector lines from each year point front → back (depth ticks)
- *   - Glowing pulsating nodes at each data point
+ *   - Points pleins a chaque valeur (sans lueur depuis le 13 oct 2026)
  *   - Faint horizontal grid behind everything
  *
  * Y-axis ticks follow Mettrik's strict format rule : integer for currency,
  * 1 decimal max for percent, FR locale.
  */
-/** Couleur de la courbe (Yann 3 sept 2026) : neon bleu-violet Mettrik, quelle
- *  que soit la categorie du KPI (avant : couleur de la categorie). */
-const COULEUR_COURBE = "#7c5cf0";
+/* Yann 13 oct 2026 : la courbe prend EXACTEMENT la couleur des barres (prop
+   `color`, la meme que BarsIso3DStack recoit de chart-cycle) ; l ancien neon
+   bleu-violet #7c5cf0 et le degrade violet > cyan sont retires. */
 
 export function CurveChart({
   data,
@@ -452,17 +452,11 @@ export function CurveChart({
       })()}
         <defs>
           <filter id={idGlow} x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="8" />
+            <feGaussianBlur stdDeviation="3" />
           </filter>
           <linearGradient id={idWall} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity="0.35" />
+            <stop offset="0%" stopColor={color} stopOpacity="0.22" />
             <stop offset="100%" stopColor={color} stopOpacity="0" />
-          </linearGradient>
-          {/* Gradient horizontal violet → couleur société → cyan pour le trait principal */}
-          <linearGradient id={`${idGlow}-stroke`} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#a78bfa" />
-            <stop offset="50%" stopColor="#6366f1" />
-            <stop offset="100%" stopColor="#38bdf8" />
           </linearGradient>
         </defs>
 
@@ -517,11 +511,10 @@ export function CurveChart({
           data-export-hide="true"
           d={smoothFrom(backPts)}
           fill="none"
-          stroke={COULEUR_COURBE}
-          strokeOpacity="0.55"
-          strokeWidth={2}
+          stroke={color}
+          strokeOpacity="0.22"
+          strokeWidth={1.5}
           strokeLinecap="round"
-          filter={`url(#${idGlow})`}
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 1.3 }}
@@ -531,9 +524,9 @@ export function CurveChart({
         <motion.path
           d={frontPath}
           fill="none"
-          stroke={COULEUR_COURBE}
-          strokeWidth={6}
-          strokeOpacity={0.45}
+          stroke={color}
+          strokeWidth={5}
+          strokeOpacity={0.14}
           strokeLinecap="round"
           strokeLinejoin="round"
           filter={`url(#${idGlow})`}
@@ -541,68 +534,20 @@ export function CurveChart({
           animate={{ pathLength: 1 }}
           transition={{ duration: 1.4 }}
         />
-        {/* Front curve — trait principal en gradient violet → couleur → cyan */}
+        {/* Front curve — trait principal, couleur pleine des barres (Yann 13 oct 2026) */}
         <motion.path
           d={frontPath}
           fill="none"
-          stroke={`url(#${idGlow}-stroke)`}
-          strokeWidth={3.5}
+          stroke={color}
+          strokeWidth={3}
           strokeLinecap="round"
           strokeLinejoin="round"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 1.4 }}
         />
-        {/* Front curve — core blanc fin pour effet "light beam" */}
-        <motion.path
-          d={frontPath}
-          fill="none"
-          stroke="#ffffff"
-          strokeWidth={1}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeOpacity={0.85}
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 1.4 }}
-        />
-
-        {/* Points lumineux glissants le long du trait (Yann 13 mai 2026).
-            3 photons décalés qui parcourent la courbe en boucle, effet "flux
-            de données vivant". SVG <animateMotion> natif → ultra léger CPU. */}
-        <path id={`${idGlow}-motionpath`} d={frontPath} fill="none" stroke="none" />
-        {[0, 0.33, 0.66].map((delay, i) => (
-          <g key={`photon-${i}`}>
-            {/* Halo extérieur du photon */}
-            <circle r={6} fill={color} opacity={0.35} filter={`url(#${idGlow})`}>
-              <animateMotion dur="4s" repeatCount="indefinite" begin={`${delay * 4}s`}>
-                <mpath href={`#${idGlow}-motionpath`} />
-              </animateMotion>
-              <animate
-                attributeName="opacity"
-                values="0;0.4;0.4;0"
-                keyTimes="0;0.1;0.9;1"
-                dur="4s"
-                begin={`${delay * 4}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
-            {/* Core blanc brillant */}
-            <circle r={2} fill="#ffffff">
-              <animateMotion dur="4s" repeatCount="indefinite" begin={`${delay * 4}s`}>
-                <mpath href={`#${idGlow}-motionpath`} />
-              </animateMotion>
-              <animate
-                attributeName="opacity"
-                values="0;1;1;0"
-                keyTimes="0;0.08;0.92;1"
-                dur="4s"
-                begin={`${delay * 4}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
-          </g>
-        ))}
+        {/* Yann 13 oct 2026 : effet « electron » retire (coeur blanc lumineux et
+            trois photons animes qui parcouraient la courbe en boucle). */}
 
         {/* Depth-tick connectors at each data point — forment le "carré 3D"
             autour de chaque point. Masqués dans le PNG export (plat). */}
@@ -615,7 +560,7 @@ export function CurveChart({
             x2={x + DX}
             y2={y + DY}
             stroke={color}
-            strokeOpacity="0.4"
+            strokeOpacity="0.25"
             strokeWidth={1}
           />
         ))}
@@ -658,8 +603,8 @@ export function CurveChart({
                 <circle cx={x} cy={y} r={isHover ? 9 : 7} fill="none" stroke={color} strokeWidth={2} strokeDasharray="3 2" />
               ) : (
                 <>
-                  <circle cx={x} cy={y} r={isHover ? 11 : 8} fill={highlight.includes(i) ? "#f59e0b" : color} fillOpacity={0.55} filter={`url(#${idGlow})`} />
-                  <circle cx={x} cy={y} r={isHover ? 4 : 2.8} fill="#ffffff" />
+                  <circle cx={x} cy={y} r={isHover ? 7 : 5} fill={highlight.includes(i) ? "#f59e0b" : color} />
+                  <circle cx={x} cy={y} r={isHover ? 2.6 : 1.8} fill="#ffffff" fillOpacity={0.85} />
                   {highlight.includes(i) && (
                     <circle cx={x} cy={y} r={isHover ? 13 : 10.5} fill="none" stroke="#f59e0b" strokeWidth={2} />
                   )}

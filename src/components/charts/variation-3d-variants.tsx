@@ -148,7 +148,11 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
     >
       {/* Header d'unité dans le SVG. Yann 2 juin 2026 : repositionné
           juste au-dessus du premier tick Y, aligné fin sur l'axe Y. */}
-      <text x={mobile ? -extraGauche + 2 : PAD_LEFT - 6} y={PAD_TOP - 24} fontSize={13 * (mobile ? 1.4 : 1)} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor={mobile ? "start" : "end"}>
+      {/* Yann 13 oct 2026 : nom de l axe parfois coupe (ancre a droite sur
+          l axe, le texte debordait a gauche du cadre). Plus petit et ancre au
+          bord gauche du cadre : toujours visible en entier, ordinateur,
+          mobile et plein ecran. */}
+      <text x={-extraGauche + 2} y={PAD_TOP - 24} fontSize={mobile ? 15 : 11} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="start">
         {/* Les deltas sont calculés vs le point précédent de la série
             affichée : en trimestriel c'est vs le trimestre précédent,
             pas vs N-1. Le libellé doit suivre. */}

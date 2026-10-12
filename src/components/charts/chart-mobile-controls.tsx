@@ -482,6 +482,16 @@ export function ChartFullscreen({
     };
   }, [open]);
 
+  // Yann 13 oct 2026 : plein ecran aussi sur ordinateur, fermeture par Echap.
+  useEffect(() => {
+    if (!open) return;
+    const echap = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCloseRef.current();
+    };
+    document.addEventListener("keydown", echap);
+    return () => document.removeEventListener("keydown", echap);
+  }, [open]);
+
   // Touche retour du navigateur (Safari : geste de bord, bouton retour) : une
   // entree d historique est posee a l ouverture ; la retirer ferme la vue.
   useEffect(() => {

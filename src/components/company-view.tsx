@@ -30,6 +30,7 @@ import {
   ArrowUpRight,
   Bookmark,
   ChevronDown,
+  Maximize2,
 } from "lucide-react";
 
 import { estKpiDeFlux,
@@ -1798,6 +1799,19 @@ export function CompanyView({
                   graphPeriodAvailable={mobilePeriodAvailable}
                   sansVariation={axeEnPourcent}
                 />
+                {/* Yann 13 oct 2026 : agrandissement plein ecran du graphique,
+                    comme le nouveau style (concept rail-survol-v2). Ordinateur
+                    et tablette ici ; mobile : bouton sous le titre du graphique
+                    (la barre d outils mobile est deja pleine). */}
+                <button
+                  type="button"
+                  onClick={() => setChartPleinEcran(true)}
+                  aria-label="Agrandir le graphique"
+                  title="Agrandir le graphique"
+                  className="hidden size-8 shrink-0 items-center justify-center rounded-full border border-[#262626] bg-[#0a0a0a] text-zinc-400 transition-colors hover:border-[#3a3a3a] hover:text-zinc-100 sm:inline-flex"
+                >
+                  <Maximize2 className="size-3.5" />
+                </button>
               </div>
               <div className="max-lg:order-1 mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
                 {/* Yann 9 juin 2026 : "i" permanent à GAUCHE du titre hero quand
@@ -1966,11 +1980,23 @@ export function CompanyView({
                   l invitation a s abonner PAR-DESSUS le graphique reserve
                   sans qu elle soit floutee avec lui. */}
               <div data-zone-graphique className="relative max-lg:order-4 max-lg:-mx-5">
+              <div className="flex justify-end px-5 pb-1 sm:hidden">
+                <button
+                  type="button"
+                  onClick={() => setChartPleinEcran(true)}
+                  aria-label="Agrandir le graphique"
+                  className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[#262626] bg-[#0a0a0a] px-3 text-[12px] text-zinc-300"
+                >
+                  <Maximize2 className="size-3.5" />
+                  Agrandir
+                </button>
+              </div>
               <div
                 data-blur-part="graphique"
                 data-export-extra="true"
                 // Yann 2 sept 2026 : sur mobile, taper le graph l ouvre en
-                // plein ecran (portrait, bouton paysage). Desktop inchange.
+                // plein ecran (portrait, bouton paysage). Ordinateur : bouton
+                // « Agrandir le graphique » de la barre d outils (13 oct 2026).
                 onClick={() => {
                   if (typeof window !== "undefined" && window.innerWidth < 640) setChartPleinEcran(true);
                 }}
