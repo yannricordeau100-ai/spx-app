@@ -22,3 +22,4 @@ dont le fichier existe et est verifie). Statuts : fait (commit) | en cours | int
 | Deploiement N2 puis go n0 | a faire | dernier essai deploy-niveau2 : TIMEOUT preview (13 oct 06h) | relancer scripts/deploy-niveau2.sh une fois les agents finis, verifier multi-cas, puis go n0 |
 | SQL 20261013_telemetrie_compte.sql | a faire (Yann colle) | supabase/migrations | - |
 | KPI principal absent des KPI IC apres changement de KPI (662/662 fiches) | fait (075ca47b61) | src/lib/groupes-kpis-fiche.ts | - |
+| KPI institutionnels publies mais absents (37 stes, 72 KPI) + 16 incertains a trancher | en cours (wf_fad7ee2d-47f) | preuves/<T>.json statut publie_ajoute + verif_ajout ; puis pose kpis-haut et deploy N2 | relancer seulement les tickers sans verif_ajout |
