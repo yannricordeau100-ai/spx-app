@@ -63,7 +63,7 @@ try:
         if m: c.add(m.group(1).upper())
         c |= {x.upper() for x in pth.split("/")[:-1]}
         return not (c & _vague)
-    modifs = [l for l in modifs if _hors_vague(l)]
+    modifs = [l for l in modifs if _hors_vague(l) and not l.rstrip().endswith("_kpi-lint-report.json")]  # rapport interne reecrit par chaque lint
 except Exception:
     pass
 feu("rouge" if modifs else "vert", "Code", "Aucune modification non commitee dans le code et les donnees servies",
@@ -113,7 +113,9 @@ OPTIONNELLES = {"NEXT_PUBLIC_NIVEAU", "NEXT_PUBLIC_DEPLOY_TARGET", "VERCEL_GIT_C
                 # absentes = univers principal, comportement voulu en production et sur niveau2.
                 "UNIVERS", "UNIVERS_N1_CANDIDATS",
                 # 13 oct 2026 : levier de test local uniquement (NODE_ENV != production, analytics-compte.ts)
-                "ANALYTICS_COMPTE_TEST_USER"}
+                "ANALYTICS_COMPTE_TEST_USER",
+                # 13 oct 2026 : calculees au build par next.config.ts (cle env), jamais posees sur Vercel
+                "MTK_ROUTES_RACINE", "MTK_TICKERS_V17"}
 requises = sorted(utilisees - OPTIONNELLES)
 tok = env_local("VERCEL_TOKEN")
 envs = curl_json("https://api.vercel.com/v9/projects/prj_2fwjkuSPPesO8Xj8gsVfw6KSHiPA/env?teamId=team_3A8Ft1Kze0wYzGbuyHmsaEwC",
