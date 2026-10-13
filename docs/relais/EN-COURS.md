@@ -15,7 +15,7 @@ dont le fichier existe et est verifie). Statuts : fait (commit) | en cours | int
 | Panneau admin KPI institutionnels (vert/rouge/orange/jaune, absent du code n0) | en cours | src/components/admin/kpi-instit-statuts.tsx | finir le cablage company-header/company-view |
 | Barre d outils graphique mobile | en cours | chart-mobile-controls | - |
 | Annees fondation/IPO, emetteurs etrangers, trimestre du moat | en cours | commit local | - |
-| Russell 1000 blocs (workflow-blocs.js) | interrompu (processus arrete la nuit du 13 oct, non relance : quota 91 %) | data-lake/_sp5001000/blocs/<T>/verif.json | relancer sur les tickers sans verif.json (WMS WPC WSC WSO WTFC WLK WTM WTS WTRG WU WING WWD XE XP XPO YETI WHR Z ZION ZM ZS WAL WFRD WEX : theses/verif manquantes) |
+| Russell 1000 blocs (workflow-blocs.js) | en cours (wf_fc370752-d34, 24 derniers tickers, 13 oct 12h) | data-lake/_sp5001000/blocs/<T>/verif.json | relancer sur les tickers sans verif.json (WMS WPC WSC WSO WTFC WLK WTM WTS WTRG WU WING WWD XE XP XPO YETI WHR Z ZION ZM ZS WAL WFRD WEX : theses/verif manquantes) |
 | Russell 1000 parite (workflow-parite.js) | interrompu (limite) | data-lake/_sp5001000/parite/<T>.json avec cle verif | relancer sur les tickers sans parite/<T>.json verifie (a partir de BFAM BIO BIRK BJ BLSH BMRN BOKF BPOP BRKR BHF BROS BILL puis la suite de la liste) |
 | Pose N1 (merge-blocs, onboard, parite, dates, deploy-niveau1) | a faire | ordre dans REPRISE-2026-10-09.md | apres blocs et parite |
 | Pairs Finnhub (US, N2 puis N1, validation Sonnet, design Opus) | en cours (donnees : src/data/pairs-us.json, data-lake/_pairs/brut) ; design a faire | cle FINNHUB_API_KEY presente dans .env.local depuis le 13 oct | - |
