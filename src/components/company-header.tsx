@@ -7,6 +7,7 @@ import { ChevronDown, Info } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { StarButton } from "@/components/star-button";
 import { KpiInstitutionnelsButton } from "@/components/kpi-institutionnels-button";
+import { KpiInstitPastille, type ResumeInstit } from "@/components/kpi-instit-groupe";
 import type { Company } from "@/lib/data";
 import { TICKER_ALIASES } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -94,6 +95,8 @@ function CompanyName({
   allTickers,
   alsoKnownLabel,
   outilsAdmin = true,
+  adminKpiInstit,
+  kpiInstit,
 }: {
   name: string;
   ticker: string;
@@ -101,6 +104,8 @@ function CompanyName({
   allTickers?: Set<string> | ReadonlySet<string>;
   alsoKnownLabel: string;
   outilsAdmin?: boolean;
+  adminKpiInstit?: React.ReactNode;
+  kpiInstit?: ResumeInstit | null;
 }) {
   // Yann 31 mai 2026 : liste les alias pointant vers ce ticker canonique
   // (ex : GOOG → GOOGL ; BRK.A/BRK-A/BRK.B → BRK-B ; FOX → FOXA ; NWSA → NWS ;
@@ -151,8 +156,14 @@ function CompanyName({
         </span>
         {/* Yann 13 sept 2026 : mise en favori de la societe ici, a droite du ticker. */}
         <StarButton ticker={ticker} mode="company" size="sm" />
+        {/* Yann 13 oct 2026 : pastille PUBLIQUE n/N des KPI suivis par les
+            institutionnels ; un clic fait defiler jusqu au groupe jaune du tableau. */}
+        {kpiInstit && <KpiInstitPastille resume={kpiInstit} />}
         {/* Yann 25 sept 2026 : KPI d industrie suivis par les institutionnels, vue admin seulement. */}
-        {outilsAdmin && <KpiInstitutionnelsButton ticker={ticker} accent={accent} />}
+        {/* Yann 13 oct 2026 : quand la page serveur fournit le panneau des statuts
+            (admin verifie, jamais sur mettrik.ai), il remplace le bouton client ;
+            null = visiteur non admin, rien n est rendu. */}
+        {adminKpiInstit !== undefined ? adminKpiInstit : outilsAdmin && <KpiInstitutionnelsButton ticker={ticker} accent={accent} />}
         {aliases.length > 0 && (
           <span className="self-baseline text-[11px] font-medium text-zinc-500 whitespace-nowrap">
             {alsoKnownLabel}{" "}
@@ -564,6 +575,8 @@ export function CompanyHeader({
   rangs = "tous",
   aideRangs = true,
   outilsAdmin = true,
+  adminKpiInstit,
+  kpiInstit,
 }: {
   company: Company;
   hidePriceBar?: boolean;
@@ -575,6 +588,11 @@ export function CompanyHeader({
   aideRangs?: boolean;
   /** false = sans le bouton admin « KPI des institutionnels » (pastille n/16). */
   outilsAdmin?: boolean;
+  /** Yann 13 oct 2026 : panneau SERVEUR des statuts des KPI des institutionnels
+   *  (admin seulement). undefined = ancien bouton client ; null = rien. */
+  adminKpiInstit?: React.ReactNode;
+  /** Yann 13 oct 2026 : resume public des KPI suivis par les institutionnels (pastille n/N). */
+  kpiInstit?: ResumeInstit | null;
   /**
    * Set des tickers de l'univers courant (V1, V1.7, V1.8, etc.). Permet
    * à `displayTicker` de détecter les doublons short (ex ROG.SW vs ROG)
@@ -625,6 +643,8 @@ export function CompanyHeader({
             allTickers={allTickers}
             alsoKnownLabel={t("company.also_known_as")}
             outilsAdmin={outilsAdmin}
+            adminKpiInstit={adminKpiInstit}
+            kpiInstit={kpiInstit}
           />
           {/* Yann 22 septembre 2026 : les QUATRE niveaux de la classification
               (secteur, groupe d industries, industrie, sous-industrie), toujours

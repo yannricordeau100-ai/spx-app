@@ -1,6 +1,5 @@
 "use client";
 
-import ETAT from "@/data/kpi-industries-etat.json";
 
 /**
  * Atelier GICS (/sandbox/gics), 5 sept 2026.
@@ -25,9 +24,12 @@ import { ChevronDown, ChevronRight, ExternalLink, Minus, Plus, Search } from "lu
 import { GICS, type GicsSector, type GicsSubIndustry } from "@/lib/desk/gics";
 import type { AnnuaireGics, DonneesSociete, KpiParSousIndustrie, KpiSouhaite, PointRelecture, PromptCahier } from "@/lib/cahier";
 
-const ETAT_IND = ETAT as {
+/** Yann 13 oct 2026 : l etat des KPI d industrie n est plus importe ici (composant
+ *  client : le JSON entier, raisons comprises, partait dans le JavaScript public).
+ *  La page serveur /sandbox/gics passe une version allegee, apres son controle. */
+export type EtatIndustriesAllege = {
   maj: string; total_kpi: number; deja_presents: number;
-  industries: { code: string; industrie: string; secteur: string; secteur_code: string; stes: string[]; kpis: { fr: string; en: string; stes_avec: string[] }[] }[];
+  industries: { code: string; industrie: string; secteur: string; secteur_code: string; stes: string[]; kpis: { fr: string; en: string; stes_avec: string[]; sans_objet?: string[] }[] }[];
 };
 
 /**
@@ -44,12 +46,12 @@ function Pourcent({ n, d }: { n: number; d: number }) {
 /** Yann 15 sept 2026 : arbre secteur > groupe d industries > industrie > KPI, avec pour
  *  chaque KPI le pourcentage de societes de l industrie qui le possedent (5 ans suffisent ;
  *  un KPI deja present avant le chantier compte comme couvert). */
-function OngletIndustries() {
+function OngletIndustries({ etat: ETAT_IND }: { etat: EtatIndustriesAllege }) {
   const parCode = new Map(ETAT_IND.industries.map((i) => [i.code, i] as const));
   // 15 sept 2026 : les societes pour lesquelles le KPI est sans objet (activite absente)
   // sortent du denominateur ; le pourcentage mesure les societes qui pourraient publier le KPI.
   const sansObjet = (k: unknown) => ((k as { sans_objet?: string[] }).sans_objet ?? []).length;
-  const couverture = (inds: (typeof ETAT_IND.industries)[number][]) => {
+  const couverture = (inds: EtatIndustriesAllege["industries"][number][]) => {
     let n = 0, d = 0;
     for (const i of inds) for (const k of i.kpis) { n += k.stes_avec.length; d += i.stes.length - sansObjet(k); }
     return { n, d };
@@ -63,7 +65,7 @@ function OngletIndustries() {
       </div>
       <div className="mt-4 grid gap-2">
         {GICS.map((sec) => {
-          const indsSec = sec.groups.flatMap((g) => g.industries.map((i) => parCode.get(i.code)).filter(Boolean)) as (typeof ETAT_IND.industries)[number][];
+          const indsSec = sec.groups.flatMap((g) => g.industries.map((i) => parCode.get(i.code)).filter(Boolean)) as EtatIndustriesAllege["industries"][number][];
           const cs = couverture(indsSec);
           return (
             <details key={sec.code} className="rounded-lg border border-white/[0.09] bg-white/[0.02] p-2.5">
@@ -74,7 +76,7 @@ function OngletIndustries() {
               </summary>
               <div className="mt-2 grid gap-1.5 pl-3">
                 {sec.groups.map((g) => {
-                  const indsG = g.industries.map((i) => parCode.get(i.code)).filter(Boolean) as (typeof ETAT_IND.industries)[number][];
+                  const indsG = g.industries.map((i) => parCode.get(i.code)).filter(Boolean) as EtatIndustriesAllege["industries"][number][];
                   const cg = couverture(indsG);
                   return (
                     <details key={g.code} className="rounded-md border border-white/[0.07] bg-white/[0.015] p-2">
@@ -171,6 +173,7 @@ export function GicsAtelier({
   graphiquesMt = {},
   relecture = { intro: "", points: [] },
   jeton = null,
+  etatIndustries,
 }: {
   kpiParSousIndustrie: Record<string, KpiParSousIndustrie>;
   prompts: PromptCahier[];
@@ -183,7 +186,10 @@ export function GicsAtelier({
   relecture?: { intro: string; points: PointRelecture[] };
   /** Jeton d audit (verifications automatiques) ; null pour le proprietaire connecte. */
   jeton?: string | null;
+  /** Etat des KPI des 74 industries, allege, fourni par la page serveur. */
+  etatIndustries: EtatIndustriesAllege;
 }) {
+  const ETAT_IND = etatIndustries;
   const [onglet, setOnglet] = useState<Onglet>("classification");
 
   const nbSous = useMemo(() => GICS.reduce((t, s) => t + compteSous(s), 0), []);
@@ -230,7 +236,7 @@ export function GicsAtelier({
             }}
           />
         )}
-        {onglet === "industries" && <OngletIndustries />}
+        {onglet === "industries" && <OngletIndustries etat={etatIndustries} />}
         {onglet === "societes" && (
           <>
             <DepuisLaSociete annuaire={annuaire} />

@@ -13,7 +13,8 @@ import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
 import { lireAnnuaireGics, lireDonneesKpi, lireKpiParSousIndustrie, lirePrompts, lireRelecture } from "@/lib/cahier";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 import { COMPANIES } from "@/lib/data";
-import { GicsAtelier } from "@/components/sandbox/gics-atelier";
+import { GicsAtelier, type EtatIndustriesAllege } from "@/components/sandbox/gics-atelier";
+import ETAT_IND from "@/data/kpi-industries-etat.json";
 import { GICS } from "@/lib/desk/gics";
 import { lireArbitragesGics } from "@/lib/desk/gics-arbitrage";
 
@@ -79,9 +80,24 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
           {GICS.length} secteurs, {nbGroupes} groupes d’industries, {nbIndustries} industries, {nbSous} sous-industries (structure GICS 2023). Puis, par sous-industrie, les KPIs qu’un investisseur attend, et les prompts qui servent à les trouver.
         </p>
         <div className="mt-6">
-          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} donnees={donnees} graphiquesMt={graphiquesMt} relecture={relecture} jeton={parJeton ? sp.audit_token ?? null : null} />
+          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} donnees={donnees} graphiquesMt={graphiquesMt} relecture={relecture} jeton={parJeton ? sp.audit_token ?? null : null} etatIndustries={etatAllege()} />
         </div>
       </main>
     </div>
   );
+}
+
+/** Yann 13 oct 2026 : seuls les champs lus par l onglet « KPI par industrie »
+ *  partent au navigateur (ni raisons ni statuts des institutionnels). */
+function etatAllege(): EtatIndustriesAllege {
+  const e = ETAT_IND as unknown as EtatIndustriesAllege;
+  return {
+    maj: e.maj,
+    total_kpi: e.total_kpi,
+    deja_presents: e.deja_presents,
+    industries: e.industries.map((i) => ({
+      code: i.code, industrie: i.industrie, secteur: i.secteur, secteur_code: i.secteur_code, stes: i.stes,
+      kpis: i.kpis.map((k) => ({ fr: k.fr, en: k.en, stes_avec: k.stes_avec ?? [], ...(k.sans_objet ? { sans_objet: k.sans_objet } : {}) })),
+    })),
+  };
 }

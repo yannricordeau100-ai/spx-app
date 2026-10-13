@@ -64,6 +64,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { NavPlusMenu } from "@/components/nav-plus-menu";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { KpiInstitEntete, ID_GROUPE_INSTIT, type ResumeInstit } from "@/components/kpi-instit-groupe";
 import { lienCourtKpi, textePartageX } from "@/lib/kpi-link";
 import { expliqueUnite } from "@/lib/unites-explications";
 import { InterpretationBlock } from "@/components/interpretation-block";
@@ -282,6 +283,7 @@ export function CompanyView({
   adminApresHero = null,
   adminApresMoyenTerme = null,
   adminNomsExport = null,
+  adminKpiInstit,
   styleStory,
 }: {
   company: Company;
@@ -327,6 +329,9 @@ export function CompanyView({
   /** Noms des societes rattachees aux graphiques moyen terme, pour la regle
    *  d export multi societes ADMIN. Null hors admin (export public inchange). */
   adminNomsExport?: Record<string, string> | null;
+  /** Yann 13 oct 2026 : panneau serveur des statuts des KPI des institutionnels
+   *  (admin verifie par la page, jamais sur mettrik.ai) ; null hors admin. */
+  adminKpiInstit?: React.ReactNode;
 }) {
   // Yann 9 juin 2026 : helper unique pour savoir si un bloc est désactivé.
   // Si `disabledBlocks` est fourni (page V1.9.5, source Supabase résolue
@@ -911,8 +916,29 @@ export function CompanyView({
   // Activation possible par catégorie via `generic-kpi-activations.json`
   // (à venir Phase 2 — pour l'instant tout masqué).
   const groupesKpis = useMemo(() => groupesKpisFiche(company), [company]);
-  const orderedKpis = groupesKpis.avances;
-  const kpisStandard = groupesKpis.standards;
+  // Yann 13 oct 2026 : les KPI suivis par les institutionnels pour l industrie
+  // (kpi-industries-etat.json, rattaches par le chargeur) sortent des groupes
+  // « avances » et « standard » pour former le PREMIER groupe du tableau, en jaune.
+  const institParShort = useMemo(
+    () => new Map((company.kpi_instit?.kpis ?? []).map((k) => [k.short, k.fr] as const)),
+    [company.kpi_instit],
+  );
+  const kpisInstit = useMemo(
+    () => [...groupesKpis.avances, ...groupesKpis.standards].filter((k) => institParShort.has(k.short)),
+    [groupesKpis, institParShort],
+  );
+  const resumeInstit: ResumeInstit | null = useMemo(() => {
+    const ki = company.kpi_instit;
+    if (!ki || kpisInstit.length === 0) return null;
+    const n = new Set(kpisInstit.map((k) => institParShort.get(k.short))).size;
+    return { n, total: Math.max(ki.total, n), industrie: ki.industrie };
+  }, [company.kpi_instit, kpisInstit, institParShort]);
+  const institDe = (short: string) => {
+    const fr = institParShort.get(short);
+    return fr && company.kpi_instit ? { fr, industrie: company.kpi_instit.industrie } : null;
+  };
+  const orderedKpis = groupesKpis.avances.filter((k) => !institParShort.has(k.short));
+  const kpisStandard = groupesKpis.standards.filter((k) => !institParShort.has(k.short));
   const kpisArretes = groupesKpis.arretes;
   const [showArretes, setShowArretes] = useState(false);
   const caTrimestriels = groupesKpis.caTrimestriels;
@@ -1291,6 +1317,8 @@ export function CompanyView({
             hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}
             freeBlocked={false}
             disabledBlocks={disabledBlocks}
+            adminKpiInstit={adminKpiInstit}
+            kpiInstit={resumeInstit}
           />
         <BandeauIpoRecente ipo={company.ipo} />
         <ZoneReservee actif={anonPage} palier="anon">
@@ -1397,6 +1425,8 @@ export function CompanyView({
               freeBlocked={false}
               disabledBlocks={disabledBlocks}
               rangs="aucun"
+              adminKpiInstit={adminKpiInstit}
+              kpiInstit={resumeInstit}
             />
           }
         />
@@ -1787,7 +1817,7 @@ export function CompanyView({
                   Séparateurs dots violet retirés (cosmétique, prenaient de
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
-              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-nowrap items-center justify-between gap-1 sm:justify-center sm:gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 sm:flex-nowrap sm:gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {/* Yann 2 sept 2026 (ergonomie mobile) : en mobile, un menu
                     Reglages commun (fenetre + frequence + rendu 2D/3D) et un
                     menu deroulant pour l unite de temps remplacent les
@@ -2130,7 +2160,7 @@ export function CompanyView({
                   isGenericKpi) au lieu de company.kpis.length (total brut).
                   Avant : Broadcom affichait "31 indicateurs" mais ne montrait
                   que 5 (génériques filtrés), sans bouton "voir plus". */}
-              {orderedKpis.length + kpisStandard.length + kpisArretes.length} {t("company.kpi_table.count_label")}
+              {kpisInstit.length + orderedKpis.length + kpisStandard.length + kpisArretes.length} {t("company.kpi_table.count_label")}
             </span>
           </div>
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
@@ -2143,9 +2173,34 @@ export function CompanyView({
               <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>
               <div className="col-span-4">{t("company.kpi_table.col_quality")}</div>
             </div>
+            {/* Yann 13 oct 2026 : groupe des KPI suivis par les institutionnels,
+                EN PREMIER et en jaune ; cible de la pastille n/N de l en-tete. */}
+            {resumeInstit && (
+              <div id={ID_GROUPE_INSTIT} className="scroll-mt-24">
+                <KpiInstitEntete resume={resumeInstit} lignes={kpisInstit.length} />
+                <div data-blur-part="tableau">
+                  {kpisInstit.map((kpi) => (
+                    <KpiRow
+                      key={kpi.short}
+                      kpi={kpi}
+                      active={kpi.short === active.short}
+                      subsector={company.subsector}
+                      ticker={company.ticker}
+                      onClick={() => handleKpiClick(kpi.short)}
+                      plageTendance={chartRange}
+                      freeBlocked={freeBlocked}
+                      overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
+                      institutionnel={institDe(kpi.short)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            {orderedKpis.length > 0 && (
             <div className="border-b border-[#1a1a1a] bg-[#090909] px-5 py-2 font-mono text-[10.5px] font-semibold uppercase tracking-[0.16em] text-violet-300/90 sm:px-6">
               {t("company.kpi_table.advanced_label")} <span className="text-zinc-600">· {orderedKpis.length}</span>
             </div>
+            )}
             {/* Yann 8 juin 2026 (Point 3) : la valeur principale affichée à
                 GAUCHE du KPI actif doit TOUJOURS égaler le dernier point
                 visible du chart à DROITE. Recalcule live selon timeFraction
@@ -2270,6 +2325,7 @@ export function CompanyView({
                       plageTendance={chartRange}
                       freeBlocked={freeBlocked}
                       overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
+                      institutionnel={institDe(kpi.short)}
                     />
                   ))}
                 </div>

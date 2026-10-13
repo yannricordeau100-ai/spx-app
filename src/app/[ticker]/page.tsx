@@ -35,6 +35,8 @@ import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { estAdminOutilsFiche, chargeCoursFmp } from "@/lib/admin/outils-admin-fiche";
 import { EvenementsRepere } from "@/components/evenements-repere";
 import { CoursKpiBlock } from "@/components/admin/cours-kpi-block";
+import { KpiInstitStatuts } from "@/components/admin/kpi-instit-statuts";
+import { brand } from "@/lib/brand";
 import { KpiSurMesureBlock, type DonneesDividendes } from "@/components/admin/kpi-sur-mesure-block";
 import DIVIDENDES_TOP5 from "@/data/admin-dividendes-top5.json";
 import INDICES_COMPOSITION from "@/data/indices-composition.json";
@@ -435,7 +437,11 @@ export default async function TickerPage({
   let adminApresHero: React.ReactNode = null;
   let adminApresMoyenTerme: React.ReactNode = null;
   let adminNomsExport: Record<string, string> | null = null;
+  // Yann 13 oct 2026 : statuts des KPI des institutionnels (vert, jaune, orange,
+  // rouge), composant SERVEUR rendu seulement ici, apres le controle admin.
+  let adminKpiInstit: React.ReactNode = null;
   if (adminOutils) {
+    adminKpiInstit = <KpiInstitStatuts ticker={servedCompany.ticker} accent={brand(servedCompany.ticker).primary} />;
     const { cours, couverture } = await chargeCoursFmp(servedCompany.ticker);
     adminApresHero = (
       <CoursKpiBlock
@@ -501,6 +507,7 @@ export default async function TickerPage({
           adminApresHero={adminApresHero}
           adminApresMoyenTerme={adminApresMoyenTerme}
           adminNomsExport={adminNomsExport}
+          adminKpiInstit={adminKpiInstit}
           styleStory={await lireStyleStory()}
         />
       </FreemiumBlurProvider>

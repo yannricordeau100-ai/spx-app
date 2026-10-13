@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownRight, ArrowUpRight, Check } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, Check, Landmark } from "lucide-react";
 import { type KPI, formatCAGR, formatUnit, formatHeroValue, yoySamePeriod, yoyPublieSiArrondi } from "@/lib/data";
 import { cn, yoyTone } from "@/lib/utils";
 import { rate } from "@/lib/brand";
@@ -18,6 +18,7 @@ import { kpiPeriodLabel } from "@/lib/period-label";
 import { normalizeNarrative, ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { getFiscalAudit, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
+import { JAUNE_INSTIT, texteExplicationInstit } from "@/components/kpi-instit-groupe";
 
 const TYPE_COLOR: Record<string, string> = {
   // EN canoniques (legacy)
@@ -57,6 +58,7 @@ export function KpiRow({
   freeBlocked = false,
   overrideValue = null,
   plageTendance = "3y",
+  institutionnel = null,
 }: {
   kpi: KPI;
   active?: boolean;
@@ -72,6 +74,9 @@ export function KpiRow({
   overrideValue?: number | null;
   /** Yann 12 sept 2026 : la tendance suit le reglage du graphe (3 ans ou Max). */
   plageTendance?: "3y" | "max";
+  /** Yann 13 oct 2026 : KPI suivi par les institutionnels pour l industrie
+   *  (libelle du referentiel + industrie) : ligne en jaune. */
+  institutionnel?: { fr: string; industrie: string } | null;
 }) {
   const { t, locale } = useT();
   // Yann FIX 4d : en FR on affiche name_fr en priorité ; si absent fallback name_en
@@ -127,15 +132,16 @@ export function KpiRow({
       }}
       className={cn(
         "group relative grid w-full cursor-pointer grid-cols-12 items-center gap-3 border-b border-[#1a1a1a] px-5 py-2 text-left transition-colors hover:bg-[#0c0c0c] focus:outline-none focus-visible:bg-[#0c0c0c] sm:px-6 sm:py-2.5",
-        active && "bg-[#0d0d0d]"
+        active && "bg-[#0d0d0d]",
+        institutionnel && "bg-[#facc15]/[0.035] hover:bg-[#facc15]/[0.06]"
       )}
     >
       <span
         className={cn(
           "absolute left-0 top-0 h-full w-[3px] origin-bottom transition-transform duration-300",
-          active ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
+          active || institutionnel ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
         )}
-        style={{ background: accent }}
+        style={{ background: institutionnel ? JAUNE_INSTIT : accent }}
       />
 
       {active && (
@@ -172,7 +178,7 @@ export function KpiRow({
           <div className="min-w-0 leading-tight">
             {/* Yann 3 sept 2026 : fin du marquage jaune de revue du lot
                 kpi-sept-2026 (META/GOOGL), tous les titres en blanc. */}
-            <div className="text-[14px] font-medium leading-snug text-zinc-100">
+            <div className={cn("text-[14px] font-medium leading-snug", institutionnel ? "text-[#fde68a]" : "text-zinc-100")}>
               {primaryName}
               {/* 9 sept 2026 : plus de pastille « Nouveau / Allonge / Autre » (demande du proprietaire). */}
               {Array.isArray((kpi as { _estime?: string[] })._estime) && (kpi as { _estime?: string[] })._estime!.length > 0 && (
@@ -193,10 +199,17 @@ export function KpiRow({
             // disponible (specifique ou repli generique). Un nom EN seul ne
             // justifie pas une icone ; le batch des 16 000 redactions est
             // abandonne, trop de travail pour l apport.
-            if (!hasDef && !uniteExpliquee && sigles.length === 0) return null;
+            if (!hasDef && !uniteExpliquee && sigles.length === 0 && !institutionnel) return null;
             return (
           <span className="ml-1.5 inline-flex align-middle">
-          <InfoTooltip color={accent}>
+          <InfoTooltip color={institutionnel ? JAUNE_INSTIT : accent}>
+            {institutionnel && (
+              <div className={hasDef || sigles.length > 0 || uniteExpliquee ? "mb-2 border-b border-white/10 pb-2" : ""}>
+                <span className="font-mono text-[9.5px] uppercase tracking-wider" style={{ color: JAUNE_INSTIT }}>Suivi par les institutionnels</span>
+                <div className="mt-0.5 text-[12px] text-zinc-200">{institutionnel.fr}</div>
+                <div className="mt-0.5 text-[11.5px] text-zinc-400">{texteExplicationInstit(institutionnel.industrie)}</div>
+              </div>
+            )}
             {hasDef && (
               <>
                 {/* Yann 15 sept 2026 : en-tete « Definition » retire, « Type » devient « KPI Type ». */}
@@ -248,6 +261,19 @@ export function KpiRow({
           </div>
         </div>
 
+        {/* Yann 13 oct 2026 : mention visible hors de la zone floutee, pour que
+            le visiteur gratuit sache aussi que la ligne est suivie par les
+            institutionnels (aucun nom de KPI devoile). */}
+        {institutionnel && (
+          <div
+            className="mt-1 inline-flex items-center gap-1 text-[10.5px] font-medium leading-none"
+            style={{ color: JAUNE_INSTIT }}
+            title={texteExplicationInstit(institutionnel.industrie)}
+          >
+            <Landmark className="size-3" strokeWidth={2.4} />
+            Suivi par les institutionnels
+          </div>
+        )}
         {/* Yann 24 aout 2026 : chip categorie/nature ("Structurel", "Volume"...)
             supprimee sous le nom du KPI. Elle allongeait la ligne sans apport
             de lecture. */}

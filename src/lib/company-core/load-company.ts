@@ -3460,6 +3460,20 @@ async function loadV17CompanyBrut(
     console.warn("[load-company] evenements load failed", err);
   }
 
+  // Yann 13 oct 2026 : KPI d industrie suivis par les institutionnels
+  // (src/data/kpi-industries-etat.json), rattaches aux KPI servis. Affichage
+  // seulement : en tete du tableau des indicateurs, en jaune.
+  try {
+    const { kpiInstitPourFiche } = await import("@/lib/kpi-instit-fiche");
+    const etat = await readJsonOrNull<import("@/lib/kpi-instit-fiche").EtatIndustries>(
+      path.join(ROOT, "src/data/kpi-industries-etat.json"),
+    );
+    const ki = kpiInstitPourFiche(etat, canonical, (Array.isArray(company.kpis) ? company.kpis : []) as { short?: unknown; type_comparable?: unknown }[]);
+    if (ki) (company as Company).kpi_instit = ki;
+  } catch (err) {
+    console.warn(`[load-company] kpi_instit failed for ${canonical}:`, err);
+  }
+
   // 7 oct 2026 : CHOIX UNIQUE du hero, sur la liste finale servie.
   {
     const kpisFinaux = (Array.isArray(company.kpis) ? company.kpis : []) as unknown as HeroKpiLike[];

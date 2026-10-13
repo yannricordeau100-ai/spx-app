@@ -120,11 +120,21 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
   );
 }
 
+/** Trimestre et année de la note (« T2 2026 »), jamais le jour ni le mois exact. */
+function trimestreNote(depuis?: string | null): string | null {
+  const m = typeof depuis === "string" ? /^(\d{4})-(\d{2})/.exec(depuis) : null;
+  if (!m) return null;
+  const mois = Number(m[2]);
+  if (mois < 1 || mois > 12) return null;
+  return `T${Math.ceil(mois / 3)} ${m[1]}`;
+}
+
 function BlocMoat({ m, accent, absence }: { m: MoatEntree; accent: string; absence?: AbsencesFiche["moat"] }) {
   const st = NIVEAU[m.niveau] ?? NIVEAU.Aucun!;
   const tendKey = (m.tendance_mettrik ?? m.tendance ?? "stable") as keyof typeof TEND;
   const t = TEND[tendKey] ?? TEND.stable;
   const justification = m.justification_mettrik;
+  const depuisTrimestre = trimestreNote(m.depuis);
   return (
     <div data-blur="moat" className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.04] via-transparent to-transparent p-3.5">
       <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${st.dot}66, transparent)` }} />
@@ -150,6 +160,11 @@ function BlocMoat({ m, accent, absence }: { m: MoatEntree; accent: string; absen
       {/* Yann 13 oct 2026 : premiere note, sans historique. Hors des parties
           floutees (niveau, tendance) : elle ne revele pas la note. */}
       {absence && <DonneeAbsente id={absence} variante="ligne" accent={accent} className="mt-2.5" />}
+      {/* Yann 13 oct 2026 : trimestre et année de la note, hors des parties floutées
+          (ne révèle pas la note). Sans date en vigueur, rien n'est affiché. */}
+      {depuisTrimestre && (
+        <p className="mt-2 font-mono text-[9.5px] uppercase tracking-[0.14em] text-zinc-400">Note depuis le {depuisTrimestre}</p>
+      )}
       {m.niveau !== "Aucun" && m.texte && (
         <p data-blur-part="texte" className="mt-2 text-[12.5px] leading-relaxed text-zinc-300">{m.texte}</p>
       )}

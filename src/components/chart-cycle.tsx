@@ -233,7 +233,7 @@ export function ChartCycleControls({
     // Pas de flex-wrap en desktop : tout sur une ligne (4 modes + Trimestriel/
     // Annuel + 2D/3D). Mobile (1er sept 2026) : les sous-groupes wrappent en
     // lignes centrees, sinon le groupe insecable debordait du 375px.
-    <div className="inline-flex flex-nowrap justify-center items-center gap-1.5">
+    <div className="inline-flex flex-wrap sm:flex-nowrap justify-center items-center gap-1.5">
       <div
         role="tablist"
         className="relative inline-flex items-center gap-0.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-0.5"

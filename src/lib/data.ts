@@ -395,6 +395,8 @@ export type Company = {
   market_positions?: MarketPosition[];
   /** 28 sept 2026 : codes (short) des KPI d industrie de la societe (docs/cahier), affiches en premier. */
   kpi_industrie_shorts?: string[];
+  /** 13 oct 2026 : KPI de la fiche suivis par les institutionnels (kpi-industries-etat.json), en tete du tableau, en jaune. */
+  kpi_instit?: { industrie: string; total: number; kpis: { short: string; fr: string }[] } | null;
   /** 28 sept 2026 : vrai quand un graphique moyen terme approuve porte le KPI d industrie : le bloc passe avant le tableau. */
   mt_industrie_en_premier?: boolean;
   /** 8 sept 2026 : code GICS a 8 chiffres (annuaire docs/cahier/societes-gics.json). */
