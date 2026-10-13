@@ -1123,7 +1123,7 @@
   },
   {
    "short": "REV_TOTAL",
-   "name_fr": "Chiffre d'affaires total",
+   "name_fr": "Chiffre d'affaires total (trimestre)",
    "name_en": "Total revenues",
    "value": 4290.7,
    "unit": "M USD",
@@ -1276,7 +1276,8 @@
     "en": "Total revenue",
     "origine": "nouveau"
    },
-   "_type_pose_le": "2026-09-14"
+   "_type_pose_le": "2026-09-14",
+   "_nom_avant_13oct": "Chiffre d'affaires total"
   },
   {
    "short": "NET_PRODUCT_SALES",
@@ -4570,123 +4571,6 @@
    "_type_pose_le": "2026-09-14"
   },
   {
-   "short": "LT_DEBT",
-   "name_fr": "Dette financière à long terme",
-   "name_en": "Long-term debt",
-   "value": 1986.6,
-   "unit": "M USD",
-   "yoy": "+0,1%",
-   "history": [
-    {
-     "q": "Q3-2020",
-     "v": 1978.3
-    },
-    {
-     "q": "Q4-2020",
-     "v": 1978.5
-    },
-    {
-     "q": "Q1-2021",
-     "v": 1978.9
-    },
-    {
-     "q": "Q2-2021",
-     "v": 1979.2
-    },
-    {
-     "q": "Q3-2021",
-     "v": 1979.6
-    },
-    {
-     "q": "Q4-2021",
-     "v": 1980.0
-    },
-    {
-     "q": "Q1-2022",
-     "v": 1980.4
-    },
-    {
-     "q": "Q2-2022",
-     "v": 1980.7
-    },
-    {
-     "q": "Q3-2022",
-     "v": 1981.1
-    },
-    {
-     "q": "Q4-2022",
-     "v": 1981.4
-    },
-    {
-     "q": "Q1-2023",
-     "v": 1981.8
-    },
-    {
-     "q": "Q2-2023",
-     "v": 1982.2
-    },
-    {
-     "q": "Q3-2023",
-     "v": 1982.6
-    },
-    {
-     "q": "Q4-2023",
-     "v": 1982.9
-    },
-    {
-     "q": "Q1-2024",
-     "v": 1983.3
-    },
-    {
-     "q": "Q2-2024",
-     "v": 1983.6
-    },
-    {
-     "q": "Q3-2024",
-     "v": 1984.0
-    },
-    {
-     "q": "Q4-2024",
-     "v": 1984.4
-    },
-    {
-     "q": "Q1-2025",
-     "v": 1984.8
-    },
-    {
-     "q": "Q2-2025",
-     "v": 1985.1
-    },
-    {
-     "q": "Q3-2025",
-     "v": 1985.5
-    },
-    {
-     "q": "Q4-2025",
-     "v": 1985.9
-    },
-    {
-     "q": "Q1-2026",
-     "v": 1986.2
-    },
-    {
-     "q": "Q2-2026",
-     "v": 1986.6
-    }
-   ],
-   "pv_score": 6,
-   "signal": "Endettement inchangé depuis l'émission obligataire de 2020 et très inférieur aux liquidités : contrainte financière quasi nulle.",
-   "frequency": "quarterly",
-   "last_data_date": "2026-06-30",
-   "_signal_regle_150": "2026-09-14",
-   "type_comparable": {
-    "fr": "Dette financière à long terme",
-    "en": "Long-term debt",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
    "short": "NET_CASH",
    "name_fr": "Trésorerie nette (liquidités et titres moins dette)",
    "name_en": "Net cash position",
@@ -7375,5 +7259,132 @@
    "explanation": "Dépenses de recherche et développement divisées par le chiffre d'affaires de la même année. Au-dessus de 100 %, la société dépense plus en recherche qu'elle ne vend : cela arrive aux biotechs dont les ventes sont encore faibles par rapport aux dépenses."
   }
  ],
- "_extracted_at": "2026-07-26"
+ "_extracted_at": "2026-07-26",
+ "_doublons_retires_13oct": [
+  {
+   "retire": "LT_DEBT",
+   "garde": "dette_annuelle",
+   "type": "arbitrage_14oct",
+   "decision": "valeurs egales a la serie « Dette totale » ; dernier 10-K : pas de dette a court terme hors part courante deja incluse, « Dette totale » seule",
+   "preuve": "ecart annuel/T4 < 0,5 % sur tous les exercices communs (rapport, section Decisions)",
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "LT_DEBT",
+    "name_fr": "Dette financière à long terme",
+    "name_en": "Long-term debt",
+    "value": 1986.6,
+    "unit": "M USD",
+    "yoy": "+0,1%",
+    "history": [
+     {
+      "q": "Q3-2020",
+      "v": 1978.3
+     },
+     {
+      "q": "Q4-2020",
+      "v": 1978.5
+     },
+     {
+      "q": "Q1-2021",
+      "v": 1978.9
+     },
+     {
+      "q": "Q2-2021",
+      "v": 1979.2
+     },
+     {
+      "q": "Q3-2021",
+      "v": 1979.6
+     },
+     {
+      "q": "Q4-2021",
+      "v": 1980.0
+     },
+     {
+      "q": "Q1-2022",
+      "v": 1980.4
+     },
+     {
+      "q": "Q2-2022",
+      "v": 1980.7
+     },
+     {
+      "q": "Q3-2022",
+      "v": 1981.1
+     },
+     {
+      "q": "Q4-2022",
+      "v": 1981.4
+     },
+     {
+      "q": "Q1-2023",
+      "v": 1981.8
+     },
+     {
+      "q": "Q2-2023",
+      "v": 1982.2
+     },
+     {
+      "q": "Q3-2023",
+      "v": 1982.6
+     },
+     {
+      "q": "Q4-2023",
+      "v": 1982.9
+     },
+     {
+      "q": "Q1-2024",
+      "v": 1983.3
+     },
+     {
+      "q": "Q2-2024",
+      "v": 1983.6
+     },
+     {
+      "q": "Q3-2024",
+      "v": 1984.0
+     },
+     {
+      "q": "Q4-2024",
+      "v": 1984.4
+     },
+     {
+      "q": "Q1-2025",
+      "v": 1984.8
+     },
+     {
+      "q": "Q2-2025",
+      "v": 1985.1
+     },
+     {
+      "q": "Q3-2025",
+      "v": 1985.5
+     },
+     {
+      "q": "Q4-2025",
+      "v": 1985.9
+     },
+     {
+      "q": "Q1-2026",
+      "v": 1986.2
+     },
+     {
+      "q": "Q2-2026",
+      "v": 1986.6
+     }
+    ],
+    "pv_score": 6,
+    "signal": "Endettement inchangé depuis l'émission obligataire de 2020 et très inférieur aux liquidités : contrainte financière quasi nulle.",
+    "frequency": "quarterly",
+    "last_data_date": "2026-06-30",
+    "_signal_regle_150": "2026-09-14",
+    "type_comparable": {
+     "fr": "Dette financière à long terme",
+     "en": "Long-term debt",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  }
+ ]
 }

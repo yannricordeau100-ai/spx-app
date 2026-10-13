@@ -37,6 +37,9 @@ import json, re
 import sys
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 import mt_police as POLICE
+# 13 oct 2026 : ecriture de l axe Y lue dans le point unique src/lib/style-axe-y.json.
+import style_axe_y as AXE
+STYLE_AXE = AXE.style_actif()
 import importlib.util
 from pathlib import Path
 
@@ -337,7 +340,8 @@ def construit(spec: dict, theme: str) -> str:
     for g in grads:
         y = y0 - g * ech
         out.append(f'<line x1="{MARGE_G}" y1="{y:.0f}" x2="{W - MARGE_D}" y2="{y:.0f}" stroke="{c["grille"]}" stroke-width="1"/>')
-        out.append(f'<text x="{MARGE_G - 8}" y="{y + 4:.0f}" text-anchor="end" fill="{c["gris"]}" font-size="11" font-family="{POLICE.FAMILLE_MONO}">{format_valeur(g, "")}</text>')
+        out.extend(AXE.graduation(STYLE_AXE, MARGE_G - 8, y, format_valeur(g, ""), c, POLICE.FAMILLE_MONO, MARGE_G))
+    out.extend(AXE.axe_vertical(STYLE_AXE, MARGE_G, y0 - grads[-1] * ech, y0 - grads[0] * ech, c))
 
     # Yann 21 sept 2026 : l unite doit se lire en une seconde. Le signe pourcent,
     # ou le libelle d unite de la spec (champ « unite_axe », par exemple
@@ -347,18 +351,17 @@ def construit(spec: dict, theme: str) -> str:
         # Yann 25 sept 2026 : l unite se lit en haut de l axe vertical, juste
         # au dessus de la graduation la plus haute, sans la toucher, a
         # l horizontale, alignee a droite sur les graduations.
-        taille_axe = 12 if marque_axe == "%" else 11
-        while taille_axe > 8.5 and largeur_texte(marque_axe, taille_axe, mono=True) > 180:
-            taille_axe -= 0.5
-        y_unite = HAUT - 11  # la graduation haute s ecrit a HAUT + 4 (hauteur ~9 px)
-        if largeur_texte(marque_axe, taille_axe, mono=True) <= MARGE_G - 10:
-            x_unite, ancre = MARGE_G - 8, "end"
-        else:
-            x_unite, ancre = 6, "start"
-        out.append(
-            f'<text x="{x_unite:.0f}" y="{y_unite:.0f}" text-anchor="{ancre}" fill="{c["axe"]}" '
-            f'font-size="{taille_axe:g}" font-family="{POLICE.FAMILLE_MONO}">{echappe(marque_axe)}</text>'
-        )
+        # 13 oct 2026 : rendu delegue a scripts/style_axe_y.py (identique en style « actuel »).
+        st_axe = AXE.STYLES[STYLE_AXE]
+        largeur_grads = max(
+            (POLICE.largeur_famille(AXE.texte_graduation(STYLE_AXE, format_valeur(g, "")), 11 * st_axe["taille_g"], st_axe["famille_g"])
+             for g in grads),
+            default=0,
+        ) if st_axe.get("famille_g") in POLICE.FICHIERS_POLICE else 0
+        out.extend(AXE.entete(
+            STYLE_AXE, marque_axe, c, MARGE_G, HAUT, largeur_grads,
+            lambda t, taille: largeur_texte(t, taille, mono=True), POLICE.FAMILLE_MONO,
+        ))
 
     largeur_zone = (W - MARGE_D - MARGE_G) / len(cats)
     n = len(series)
@@ -510,9 +513,25 @@ def main() -> None:
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)
+    global STYLE_AXE
     refuses = []
-    for chemin in sys.argv[1:]:
+    args = sys.argv[1:]
+    # 13 oct 2026 : --style-axe-y X (force un style) et --sortie D (dossier de sortie,
+    # le nom de fichier recoit alors le suffixe -X), pour /concepts/axe-y.
+    sortie = None
+    if "--style-axe-y" in args:
+        i = args.index("--style-axe-y")
+        STYLE_AXE = args[i + 1] if args[i + 1] in AXE.STYLES else STYLE_AXE
+        del args[i:i + 2]
+    if "--sortie" in args:
+        i = args.index("--sortie")
+        sortie = args[i + 1]
+        del args[i:i + 2]
+    for chemin in args:
         spec = json.loads(Path(chemin).read_text())
+        if sortie:
+            spec["dossier"] = sortie
+            spec["slug"] = f'{spec["slug"]}-{STYLE_AXE}'
         dossier = Path(spec.get("dossier", "public/findings/divers"))
         dossier.mkdir(parents=True, exist_ok=True)
         rendus = {theme: construit(json.loads(json.dumps(spec)), theme) for theme in ("dark", "light")}

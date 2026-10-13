@@ -3,107 +3,6 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 21.876,
-   "unit": "Mds $",
-   "yoy": "+10.9%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    16.38,
-    15.425,
-    16.196,
-    15.561,
-    14.918,
-    16.792,
-    19.64,
-    18.982,
-    19.721,
-    21.876
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 21,9 Mds $ en 2025, +10,9 % sur un an, +3,3 % par an depuis 2016.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000004904-19-000009",
-    "0000004904-20-000007",
-    "0000004904-21-000010",
-    "0000004904-22-000024",
-    "0000004904-23-000011",
-    "0000004904-24-000020",
-    "0000004904-25-000027",
-    "0000004904-26-000013",
-    "0000004904-26-000013",
-    "0000004904-26-000013"
-   ]
-  },
-  {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": -1.509,
-   "unit": "Mds $",
-   "yoy": "-82.7%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    -1.088,
-    -1.781,
-    -2.413,
-    -1.82,
-    -1.384,
-    -2.366,
-    -0.826,
-    -1.509
-   ],
-   "history_periods": [
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de −1,5 Md $ en 2025 contre −0,8 Md $ en 2024 : les investissements dépassent le flux de trésorerie d'exploitation chaque année depuis 2018.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000004904-21-000010",
-    "0000004904-21-000010",
-    "0000004904-21-000010",
-    "0000004904-22-000024",
-    "0000004904-23-000011",
-    "0000004904-24-000020",
-    "0000004904-25-000027",
-    "0000004904-26-000013"
-   ],
-   "_calcul": "flux de trésorerie d'exploitation moins dépenses d'investissement (construction), rapports annuels 2020 à 2025"
-  },
-  {
    "short": "dette_annuelle",
    "name_fr": "Dette totale",
    "name_en": "Total debt",
@@ -372,6 +271,217 @@
    "is_generic": false,
    "method": "sec-10k",
    "sources": []
+  }
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "REV_Q",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 16.792,
+     "somme_4T": 16.792,
+     "T4": 4.061,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 19.64,
+     "somme_4T": 19.64,
+     "T4": 4.881,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 18.982,
+     "somme_4T": 18.983,
+     "T4": 4.577,
+     "ecart": 0.005,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 19.721,
+     "somme_4T": 19.721,
+     "T4": 4.696,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 21.876,
+     "somme_4T": 21.875,
+     "T4": 5.315,
+     "ecart": 0.005,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 21.876,
+    "unit": "Mds $",
+    "yoy": "+10.9%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     16.38,
+     15.425,
+     16.196,
+     15.561,
+     14.918,
+     16.792,
+     19.64,
+     18.982,
+     19.721,
+     21.876
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 21,9 Mds $ en 2025, +10,9 % sur un an, +3,3 % par an depuis 2016.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000004904-19-000009",
+     "0000004904-20-000007",
+     "0000004904-21-000010",
+     "0000004904-22-000024",
+     "0000004904-23-000011",
+     "0000004904-24-000020",
+     "0000004904-25-000027",
+     "0000004904-26-000013",
+     "0000004904-26-000013",
+     "0000004904-26-000013"
+    ]
+   }
+  },
+  {
+   "retire": "fcf_annuel",
+   "garde": "FCF_Q",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": -1.82,
+     "somme_4T": -1.82,
+     "T4": -0.706,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": -1.384,
+     "somme_4T": -1.383,
+     "T4": -1.368,
+     "ecart": 0.072,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": -2.366,
+     "somme_4T": -2.365,
+     "T4": -0.274,
+     "ecart": 0.042,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": -0.826,
+     "somme_4T": -0.827,
+     "T4": -0.735,
+     "ecart": 0.121,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": -1.509,
+     "somme_4T": -1.509,
+     "T4": -0.639,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": -1.509,
+    "unit": "Mds $",
+    "yoy": "-82.7%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     -1.088,
+     -1.781,
+     -2.413,
+     -1.82,
+     -1.384,
+     -2.366,
+     -0.826,
+     -1.509
+    ],
+    "history_periods": [
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de −1,5 Md $ en 2025 contre −0,8 Md $ en 2024 : les investissements dépassent le flux de trésorerie d'exploitation chaque année depuis 2018.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000004904-21-000010",
+     "0000004904-21-000010",
+     "0000004904-21-000010",
+     "0000004904-22-000024",
+     "0000004904-23-000011",
+     "0000004904-24-000020",
+     "0000004904-25-000027",
+     "0000004904-26-000013"
+    ],
+    "_calcul": "flux de trésorerie d'exploitation moins dépenses d'investissement (construction), rapports annuels 2020 à 2025"
+   }
   }
  ]
 }

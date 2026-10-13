@@ -3,61 +3,8 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 11.265,
-   "unit": "Mds $",
-   "yoy": "+8.9%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    5.323,
-    6.477,
-    6.892,
-    7.085,
-    7.116,
-    7.854,
-    8.816,
-    9.597,
-    10.34,
-    11.265
-   ],
-   "history_periods": [
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025",
-    "2026"
-   ],
-   "last_data_date": "2026-05-31",
-   "signal": "Ventes de 11,3 Mds $ en 2026, +8,9 % sur un an, +8,7 % par an depuis 2017.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000723254-19-000021",
-    "0000723254-20-000025",
-    "0000723254-21-000021",
-    "0000723254-22-000019",
-    "0000723254-23-000025",
-    "0000723254-24-000036",
-    "0000723254-25-000017",
-    "0000723254-26-000028",
-    "0000723254-26-000028",
-    "0000723254-26-000028"
-   ]
-  },
-  {
    "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
+   "name_fr": "Flux de trésorerie libre (exercice)",
    "name_en": "Free cash flow",
    "value": 1.881,
    "unit": "Mds $",
@@ -106,11 +53,12 @@
     "0000723254-26-000028",
     "0000723254-26-000028",
     "0000723254-26-000028"
-   ]
+   ],
+   "_nom_avant_13oct": "Flux de trésorerie libre"
   },
   {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
+   "name_fr": "Dette totale (exercice)",
    "name_en": "Total debt",
    "value": 2.428,
    "unit": "Mds $",
@@ -160,7 +108,8 @@
     "0000723254-26-000028",
     "0000723254-26-000028"
    ],
-   "_verifie_le": "2026-09-30"
+   "_verifie_le": "2026-09-30",
+   "_nom_avant_13oct": "Dette totale"
   },
   {
    "short": "ca_par_salarie",
@@ -246,5 +195,127 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "TOTAL_REV",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 7.116,
+     "somme_4T": 7116.4,
+     "T4": 1835.7,
+     "ecart": 0.006,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 7.854,
+     "somme_4T": 7854.5,
+     "T4": 2074.7,
+     "ecart": 0.006,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 8.816,
+     "somme_4T": 8815.9,
+     "T4": 2284.5,
+     "ecart": 0.001,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 9.597,
+     "somme_4T": 9596.6,
+     "T4": 2470.9,
+     "ecart": 0.004,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 10.34,
+     "somme_4T": 10340.3,
+     "T4": 2667.7,
+     "ecart": 0.003,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2026,
+     "annuel": 11.265,
+     "somme_4T": 11264.7,
+     "T4": 2905.2,
+     "ecart": 0.003,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 11.265,
+    "unit": "Mds $",
+    "yoy": "+8.9%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     5.323,
+     6.477,
+     6.892,
+     7.085,
+     7.116,
+     7.854,
+     8.816,
+     9.597,
+     10.34,
+     11.265
+    ],
+    "history_periods": [
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025",
+     "2026"
+    ],
+    "last_data_date": "2026-05-31",
+    "signal": "Ventes de 11,3 Mds $ en 2026, +8,9 % sur un an, +8,7 % par an depuis 2017.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000723254-19-000021",
+     "0000723254-20-000025",
+     "0000723254-21-000021",
+     "0000723254-22-000019",
+     "0000723254-23-000025",
+     "0000723254-24-000036",
+     "0000723254-25-000017",
+     "0000723254-26-000028",
+     "0000723254-26-000028",
+     "0000723254-26-000028"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "fcf_annuel": "Flux de trésorerie libre (exercice)",
+  "dette_annuelle": "Dette totale (exercice)"
+ }
 }

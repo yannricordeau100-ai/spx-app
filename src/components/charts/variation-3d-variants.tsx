@@ -9,6 +9,8 @@ import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 import { useT } from "@/lib/i18n/provider";
+import { useStyleAxeY, attrsGraduation, texteGraduation, largeurGraduations, reserveUniteDebout } from "@/lib/style-axe-y";
+import { EnteteAxeY, TraitsGraduationY } from "@/components/charts/axe-y";
 
 /**
  * Essais variation 3D / iso (V11-V12) inspirés freepik.
@@ -92,6 +94,8 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
     setMobile(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
   const AFX = mobile ? AF_AXES : 1;
+  // Yann 13 oct 2026 : ecriture de l axe Y lue dans le module partage.
+  const sAxe = useStyleAxeY();
   const svgRef = useRef<SVGSVGElement>(null);
   useAntiChevauchement(svgRef);
   // Yann 10 juin 2026 (Point 6) : locale courante pour l'export PNG.
@@ -123,7 +127,12 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
     `${v > 0 ? "+" : ""}${Math.round(v).toLocaleString("fr-FR", { maximumFractionDigits: 0 })}\u00a0%`;
   // Mobile : cadre elargi a gauche pour la plus longue graduation.
   const largeurTickMax = Math.max(...ticks.map((v) => fmtTick(v).length), 1) * 15 * AFX * 0.62 + 10 + 4;
-  const extraGauche = mobile ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+  const extraGaucheTicks = mobile ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+  // Unite debout (style A) : posee a gauche des graduations, cadre elargi d autant.
+  const largeurTicksStyle = largeurGraduations(sAxe, ticks.map((v) => texteGraduation(sAxe, fmtTick(v))), 15 * AFX);
+  const reserveDebout = reserveUniteDebout(sAxe, 11 * AFX);
+  const xDebout = PAD_LEFT - 10 - largeurTicksStyle - 10;
+  const extraGauche = reserveDebout ? Math.max(extraGaucheTicks, Math.ceil(reserveDebout - xDebout)) : extraGaucheTicks;
   const tailleX = 15 * AFX;
   // 13 oct 2026 (verif n2, PAYX 64 trimestres illisibles sur ordinateur) : la
   // decimation des trimestres vaut aussi sur ordinateur ; trop serres, seules
@@ -155,22 +164,30 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
           l axe, le texte debordait a gauche du cadre). Plus petit et ancre au
           bord gauche du cadre : toujours visible en entier, ordinateur,
           mobile et plein ecran. */}
-      <text x={-extraGauche + 2} y={PAD_TOP - 24} fontSize={mobile ? 15 : 11} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="start">
-        {/* Les deltas sont calculés vs le point précédent de la série
-            affichée : en trimestriel c'est vs le trimestre précédent,
-            pas vs N-1. Le libellé doit suivre. */}
-        {xLabels.some((l) => splitQuarterLabel(l).isQuarter) ? "% (vs trim. préc.)" : "% (vs N-1)"}
-      </text>
+      {/* Les deltas sont calculés vs le point précédent de la série
+          affichée : en trimestriel c'est vs le trimestre précédent,
+          pas vs N-1. Le libellé doit suivre. */}
+      <EnteteAxeY
+        s={sAxe}
+        lignes={[xLabels.some((l) => splitQuarterLabel(l).isQuarter) ? "% (vs trim. préc.)" : "% (vs N-1)"]}
+        x={-extraGauche + 2}
+        y={PAD_TOP - 24}
+        anchor="start"
+        taille={mobile ? 15 : 11}
+        locale={locale}
+        debout={{ x: xDebout, yHaut: PAD_TOP, aDroite: false }}
+        sansTspan
+      />
       {ticks.map((v, i) => (
         <line key={i} x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={yFor(v)} y2={yFor(v)}
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
       {ticks.map((v, i) => (
-        <text key={i} x={PAD_LEFT - 10} y={yFor(v) + 5} textAnchor="end" fontSize={15 * AFX}
-          fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
-          {fmtTick(v)}
+        <text key={i} x={PAD_LEFT - 10} y={yFor(v) + 5} textAnchor="end" {...attrsGraduation(sAxe, 15 * AFX)}>
+          {texteGraduation(sAxe, fmtTick(v))}
         </text>
       ))}
+      <TraitsGraduationY s={sAxe} ys={ticks.map((v) => yFor(v))} xAxe={PAD_LEFT} aDroite={false} />
       <line x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={zeroY} y2={zeroY} stroke="#3f3f46" strokeWidth={1.5} />
       {deltas.map((pct, i) => {
         const x = PAD_LEFT + slot * i + (slot - barW) / 2;

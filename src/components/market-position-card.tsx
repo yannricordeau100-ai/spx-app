@@ -126,55 +126,185 @@ function fmtPart(share: number): string {
   return fmt(share, 1);
 }
 
-/** « Publicité Google (Recherche, YouTube) » -> ["Publicité Google", "Recherche, YouTube"]. */
-function decoupeSegment(nom: string): [string, string] {
-  const m = nom.match(/^([^(]+?)\s*\((.+)\)\s*$/);
-  if (!m) return [nom, ""];
-  const detail = m[2].trim();
-  return [m[1].trim(), detail.charAt(0).toUpperCase() + detail.slice(1)];
+/** 13 oct 2026 : la note du « i » ne repete pas le nom du marche deja en titre. */
+function noteSansMarche(note: string, marche: string): string {
+  if (!marche) return note;
+  const m = marche.replace(/[.\s]+$/, "");
+  return note.startsWith(m) ? note.slice(m.length).replace(/^[.\s]+/, "").trim() : note;
 }
-
-function Montant({ valeur, unite }: { valeur: number; unite: string }) {
-  return (
-    <span className="flex flex-col font-mono tabular-nums @3xl:block @3xl:whitespace-nowrap">
-      <span className="whitespace-nowrap text-[15px] font-bold text-zinc-50">{fmtMontant(valeur)}</span>
-      <span className="whitespace-nowrap text-[11px] font-medium text-zinc-400 @3xl:ml-1 @3xl:text-[11.5px]">{unitLabel(unite)}</span>
-    </span>
-  );
-}
-
-function Croissance({ cagr, c }: { cagr: number | undefined; c: string }) {
-  if (cagr === undefined || cagr === null || !Number.isFinite(Number(cagr))) {
-    return (
-      <span className="flex flex-col font-mono @3xl:block">
-        <span className="text-[13px] leading-[22px] text-zinc-600 @3xl:leading-normal">n.d.</span>
-        <span className="text-[11px] text-transparent @3xl:hidden" aria-hidden>.</span>
-      </span>
-    );
-  }
-  const v = Number(cagr);
-  const Icone = v < 0 ? TrendingDown : TrendingUp;
-  return (
-    <span className="flex flex-col whitespace-nowrap font-mono tabular-nums @3xl:inline-flex @3xl:flex-row @3xl:items-center @3xl:gap-1">
-      <span className="inline-flex items-center gap-1 text-[15px] font-bold @3xl:text-[14px]" style={{ color: c }}>
-        <Icone className="hidden size-3.5 shrink-0 @3xl:inline" />
-        {v > 0 ? "+" : v < 0 ? "−" : ""}{fmt(Math.abs(v), Number.isInteger(v) ? 0 : 1)} %
-      </span>
-      <span className="text-[11px] font-medium text-zinc-400"><span className="@3xl:hidden">par an</span><span className="hidden @3xl:inline">/an</span></span>
-    </span>
-  );
-}
-
-const ETIQUETTE = "font-mono text-[10px] uppercase tracking-wider text-zinc-400";
 
 /**
- * 9 oct 2026 (Yann) : la grille de cartes TAM cote a cote etait inesthetique
- * (hauteurs, tailles de chiffre et barres differentes, derniere carte en
- * pleine largeur). Une seule carte « Position marché » ; une ligne de hauteur
- * et de typographie constantes par segment, triee par revenu decroissant.
- * Large (conteneur >= 48rem) : tableau a 5 colonnes alignees. Etroit : chaque
- * ligne s'empile (nom, part + barre, trois chiffres) avec la meme structure.
- * Le detail du segment, la methode et la fourchette sont dans le « i ».
+ * 13 oct 2026 (Yann) : retour a l ancien style, present depuis la V1 jusqu au
+ * 9 oct 2026 (commit 46e947f226 l avait remplace par un tableau) : une carte
+ * par TAM, un demi ecran chacune (2 par ligne sur ordinateur, 1 sur mobile).
+ * Titre de la carte = nom du MARCHE (champ « marche », a defaut intitule du
+ * Cahier) ; le segment de la societe en sous-titre. Sans nom de marche, le
+ * segment seul, en sous-titre. Ajouts recents conserves : « i » (segment,
+ * methode avec note de conversion de devise, fourchette, estimation), part
+ * calculee a la meme echelle d unites, marqueurs de flou poses sur des
+ * elements qui ont une boite (valeurs factices floutees au palier gratuit).
+ * Les cartes d une meme ligne partagent leurs rangees (sous-grille) : titre,
+ * part, barre, chiffres, croissance et mention restent alignes.
+ */
+export function MarketPositionCard({
+  company,
+  position,
+  className = "",
+}: {
+  company: Company;
+  position: MarketPosition;
+  className?: string;
+}) {
+  const c = brand(company.ticker).primary;
+  const share = partCaptee(position);
+  const marche = position.marche ? normalizeNarrative(position.marche).trim() : "";
+  const segment = normalizeNarrative(position.segment_name);
+  const estimation = estimationIndicative(position);
+  const note = position.source_note ? noteSansMarche(noteMethodologie(normalizeNarrative(position.source_note), position.source), marche) : "";
+  const cagr = position.market_cagr;
+  const aCroissance = cagr !== undefined && cagr !== null && Number.isFinite(Number(cagr));
+
+  return (
+    <div
+      data-tam-carte
+      className={`row-span-6 grid grid-rows-subgrid gap-y-0 overflow-hidden rounded-2xl border border-[#1a1a1a] bg-gradient-to-b from-[#0a0a0a] to-[#070707] p-5 lg:p-6 ${className}`}
+    >
+      <div data-blur-part="titre" className="min-w-0">
+        <div className="flex items-center gap-2">
+          <Target className="size-4 shrink-0" style={{ color: c }} />
+          <span className="font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300">
+            Position marché
+          </span>
+          <InfoTooltip color={c}>
+            <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: c }}>
+              Segment
+            </div>
+            <p className="text-[12.5px] font-medium leading-snug text-zinc-100">{segment}</p>
+            {note && (
+              <>
+                <div className="mb-1 mt-3 font-mono text-[10px] uppercase tracking-wider" style={{ color: c }}>
+                  Méthodologie
+                </div>
+                <p className="text-[12px] leading-relaxed text-zinc-300">{note}</p>
+              </>
+            )}
+            {position.tam_range && (
+              <p className="mt-2 text-[11.5px] italic text-zinc-400">
+                Fourchette du marché total : {fmt(position.tam_range[0])} à {fmt(position.tam_range[1])} {unitLabel(position.tam_unit)}.
+              </p>
+            )}
+            {estimation && <p className="mt-2 text-[11.5px] italic text-zinc-400">Estimation indicative.</p>}
+          </InfoTooltip>
+        </div>
+        {marche && (
+          <div data-tam-titre className="mt-2 text-[16px] font-semibold leading-snug text-zinc-50">
+            {marche}
+          </div>
+        )}
+        <div className={`${marche ? "mt-1" : "mt-2"} text-[13px] leading-snug text-zinc-400`}>
+          {marche ? <span className="text-zinc-500">Segment : </span> : null}
+          {segment}
+        </div>
+      </div>
+
+      {/* Part captee : le chiffre le plus important, en grand. */}
+      <div className="mt-5 flex items-end gap-3">
+        <div
+          data-blur-part="valeur"
+          className="font-display font-bold leading-none tabular-nums"
+          style={{ color: c, fontSize: "4rem", textShadow: `0 0 40px ${c}55` }}
+        >
+          {fmtPart(share)}
+          <span className="ml-1 font-sans font-semibold" style={{ fontSize: "1.5rem", color: c }}>
+            %
+          </span>
+        </div>
+        <div className="mb-2 text-[14px] leading-tight text-zinc-200">
+          captés par<br />
+          <span className="font-semibold text-zinc-50">{company.name}</span>
+        </div>
+      </div>
+
+      {/* Barre de part de marche : largeur finale des le rendu serveur,
+          animation en CSS pur (@starting-style), sans dependre de l hydratation. */}
+      <div className="mt-5">
+        <div data-blur-part="graphique" className="relative h-3 w-full overflow-hidden rounded-full bg-[#0e0e12]">
+          <div
+            className="absolute inset-y-0 left-0 w-[var(--part)] rounded-full transition-[width] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] starting:w-0"
+            style={{
+              "--part": `${Math.max(0.5, Math.min(100, share))}%`,
+              background: `linear-gradient(90deg, ${c}, ${c}dd 60%, ${c}88)`,
+              boxShadow: `0 0 18px ${c}77`,
+            } as React.CSSProperties}
+          />
+          {[25, 50, 75].map((t) => (
+            <span key={t} className="absolute inset-y-0 w-px bg-[#222]" style={{ left: `${t}%` }} />
+          ))}
+        </div>
+        <div className="mt-1.5 flex items-center justify-between font-mono text-[10.5px] tabular-nums text-zinc-400">
+          <span>0 %</span>
+          <span>50 %</span>
+          <span>100 %</span>
+        </div>
+      </div>
+
+      {/* Revenu du segment et taille du marche, cote a cote. */}
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="min-w-0 rounded-lg border border-[#1f1f1f] bg-[#0c0c0c] p-3">
+          <div className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
+            Revenu du segment
+          </div>
+          <div data-blur-part="valeur" className="mt-1 whitespace-nowrap font-mono text-xl font-bold tabular-nums text-zinc-50 sm:text-2xl">
+            {fmtMontant(position.segment_revenue)}
+            <span className="ml-1 text-sm font-medium text-zinc-300">{unitLabel(position.segment_unit)}</span>
+          </div>
+        </div>
+        <div className="min-w-0 rounded-lg border border-[#1f1f1f] bg-[#0c0c0c] p-3">
+          <div className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
+            Taille totale du marché
+          </div>
+          <div data-blur-part="valeur" className="mt-1 whitespace-nowrap font-mono text-xl font-bold tabular-nums text-zinc-50 sm:text-2xl">
+            {fmtMontant(position.tam)}
+            <span className="ml-1 text-sm font-medium text-zinc-300">{unitLabel(position.tam_unit)}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Ligne absente : place vide gardee pour l alignement des deux cartes. */}
+      {aCroissance ? (
+        <div
+          data-blur-part="texte"
+          className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-lg border px-3 py-2"
+          style={{ borderColor: `${c}33`, background: `${c}10` }}
+        >
+          {Number(cagr) < 0 ? <TrendingDown className="size-4 shrink-0" style={{ color: c }} /> : <TrendingUp className="size-4 shrink-0" style={{ color: c }} />}
+          <span className="text-[12.5px] text-zinc-200">
+            {Number(cagr) < 0 ? "Le marché recule d'environ" : "Le marché grandit d'environ"}
+          </span>
+          <span data-blur-part="valeur" className="font-mono text-[14px] font-bold tabular-nums" style={{ color: c }}>
+            {Number(cagr) > 0 ? "+" : Number(cagr) < 0 ? "−" : ""}{fmt(Math.abs(Number(cagr)), Number.isInteger(Number(cagr)) ? 0 : 1)} %
+          </span>
+          <span className="text-[12.5px] text-zinc-300">par an.</span>
+        </div>
+      ) : (
+        <div aria-hidden />
+      )}
+
+      {estimation ? (
+        <div data-blur-part="source" className="mt-3 text-[11px] italic text-zinc-400">
+          Estimation indicative.
+        </div>
+      ) : (
+        <div aria-hidden />
+      )}
+    </div>
+  );
+}
+
+/**
+ * Bloc complet : toutes les cartes TAM, triees par revenu decroissant,
+ * 1 colonne sur mobile, 2 colonnes des 1024 px. Chaque carte occupe un demi
+ * ecran, y compris une carte seule ou la derniere d une serie impaire.
  */
 export function MarketPositionList({
   company,
@@ -185,111 +315,11 @@ export function MarketPositionList({
   positions: MarketPosition[];
   className?: string;
 }) {
-  const c = brand(company.ticker).primary;
-  const lignes = trierPositions(positions);
-  // Barres : largeur finale des le rendu serveur ; la croissance a l affichage
-  // est en CSS pur (@starting-style), sans dependre de l hydratation.
-  const colonnes = "@3xl:grid-cols-[minmax(0,1.15fr)_minmax(9rem,1fr)_7rem_7rem_5.75rem] @3xl:gap-x-5 @5xl:grid-cols-[minmax(0,1.15fr)_minmax(11rem,1fr)_7.5rem_7.5rem_6.5rem] @5xl:gap-x-6";
-
   return (
-    <div className={`@container overflow-hidden rounded-2xl border border-[#1a1a1a] bg-gradient-to-b from-[#0a0a0a] to-[#070707] ${className}`}>
-      <div className="flex items-center gap-2 border-b border-[#161616] px-5 py-3.5 @3xl:px-6">
-        <Target className="size-4 shrink-0" style={{ color: c }} />
-        <span className="whitespace-nowrap font-sans text-[12.5px] font-semibold uppercase tracking-[0.12em] text-zinc-100">Position marché</span>
-        <span className="ml-auto hidden truncate font-mono text-[11px] text-zinc-400 @md:inline">
-          Part captée par <span className="text-zinc-200">{company.name}</span>
-        </span>
-      </div>
-
-      <div className={`hidden px-6 pb-1 pt-3 @3xl:grid ${colonnes}`} aria-hidden>
-        <span className={ETIQUETTE}>Segment</span>
-        <span className={ETIQUETTE}>Part captée</span>
-        <span className={`${ETIQUETTE} text-right`}>Revenu du segment</span>
-        <span className={`${ETIQUETTE} text-right`}>Taille du marché</span>
-        <span className={`${ETIQUETTE} text-right`}>Croissance</span>
-      </div>
-
-      <ul className="divide-y divide-[#151515]">
-        {lignes.map((p) => {
-          const share = partCaptee(p);
-          const nom = normalizeNarrative(p.segment_name);
-          const [principal, detail] = decoupeSegment(nom);
-          const estimation = estimationIndicative(p);
-          const note = p.source_note ? noteMethodologie(normalizeNarrative(p.source_note), p.source) : "";
-          return (
-            <li key={p.segment_name} className={`grid grid-cols-1 gap-y-3 px-5 py-4 @3xl:items-center @3xl:px-6 ${colonnes}`}>
-              <div data-blur-part="titre" className="min-w-0">
-                <div className="flex min-w-0 items-center gap-1.5">
-                  <span className="truncate text-[14.5px] font-semibold text-zinc-50" title={nom}>{principal}</span>
-                  <span className="shrink-0">
-                    <InfoTooltip color={c}>
-                      <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: c }}>
-                        Segment
-                      </div>
-                      <p className="text-[12.5px] font-medium leading-snug text-zinc-100">{nom}</p>
-                      {note && (
-                        <>
-                          <div className="mb-1 mt-3 font-mono text-[10px] uppercase tracking-wider" style={{ color: c }}>
-                            Méthodologie
-                          </div>
-                          <p className="text-[12px] leading-relaxed text-zinc-300">{note}</p>
-                        </>
-                      )}
-                      {p.tam_range && (
-                        <p className="mt-2 text-[11.5px] italic text-zinc-400">
-                          Fourchette du marché total : {fmt(p.tam_range[0])} à {fmt(p.tam_range[1])} {unitLabel(p.tam_unit)}.
-                        </p>
-                      )}
-                      {estimation && <p className="mt-2 text-[11.5px] italic text-zinc-400">Estimation indicative.</p>}
-                    </InfoTooltip>
-                  </span>
-                </div>
-                <div className="mt-0.5 h-[17px] truncate text-[12px] text-zinc-400" title={detail || undefined}>
-                  {estimation && <span className="italic text-zinc-500">Estimation indicative{detail ? " · " : ""}</span>}
-                  {detail}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span
-                  data-blur-part="valeur"
-                  className="w-[4.75rem] shrink-0 whitespace-nowrap font-display text-[22px] font-bold leading-none tabular-nums"
-                  style={{ color: c }}
-                >
-                  {fmtPart(share)}
-                  <span className="ml-0.5 font-sans text-[13px] font-semibold">%</span>
-                </span>
-                <div data-blur-part="graphique" className="relative h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-[#16161b]">
-                  <div
-                    className="absolute inset-y-0 left-0 w-[var(--part)] rounded-full transition-[width] duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] starting:w-0"
-                    style={{ "--part": `${Math.max(0.8, Math.min(100, share))}%`, background: `linear-gradient(90deg, ${c}, ${c}cc)`, boxShadow: `0 0 10px ${c}66` } as React.CSSProperties}
-                  />
-                </div>
-              </div>
-
-              {/* Yann 13 oct 2026 : le marqueur de flou « valeur » etait pose sur
-                  ce conteneur, qui passe en display:contents en grand format.
-                  Un element sans boite ne se floute pas : revenu et taille du
-                  marche (factices au palier gratuit) s affichaient en clair. Le
-                  marqueur est desormais pose sur chaque montant. */}
-              <div className="grid grid-cols-3 gap-x-3 @3xl:contents">
-                <div className="min-w-0 @3xl:text-right">
-                  <div className={`${ETIQUETTE} mb-1 @3xl:hidden`}>Revenu</div>
-                  <div data-blur-part="valeur"><Montant valeur={p.segment_revenue} unite={p.segment_unit} /></div>
-                </div>
-                <div className="min-w-0 @3xl:text-right">
-                  <div className={`${ETIQUETTE} mb-1 @3xl:hidden`}>Marché</div>
-                  <div data-blur-part="valeur"><Montant valeur={p.tam} unite={p.tam_unit} /></div>
-                </div>
-                <div data-blur-part="texte" className="min-w-0 @3xl:text-right">
-                  <div className={`${ETIQUETTE} mb-1 @3xl:hidden`}>Croissance</div>
-                  <div data-blur-part="valeur"><Croissance cagr={p.market_cagr} c={c} /></div>
-                </div>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+    <div className={`grid gap-4 lg:grid-cols-2 ${className}`}>
+      {trierPositions(positions).map((p) => (
+        <MarketPositionCard key={p.segment_name} company={company} position={p} />
+      ))}
     </div>
   );
 }

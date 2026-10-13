@@ -39,7 +39,7 @@
   },
   {
    "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
+   "name_fr": "Flux de trésorerie libre (exercice)",
    "name_en": "Free cash flow",
    "value": 1.722,
    "unit": "Mds $",
@@ -70,41 +70,8 @@
     "0001944048-26-000030",
     "0001944048-26-000030",
     "0001944048-26-000030"
-   ]
-  },
-  {
-   "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
-   "value": 8.524,
-   "unit": "Mds $",
-   "yoy": "-1.0%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    0,
-    8.286,
-    8.607,
-    8.524
    ],
-   "history_periods": [
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-28",
-   "signal": "Dette de 8,5 Mds $ en 2025, −1,0 % sur un an, nulle en 2022 avant la scission de J&J.",
-   "description_fr": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
-   "description_en": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001944048-25-000033",
-    "0001944048-26-000030",
-    "0001944048-26-000030"
-   ]
+   "_nom_avant_13oct": "Flux de trésorerie libre"
   },
   {
    "short": "dette_sur_ca",
@@ -136,5 +103,80 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "dette_annuelle",
+   "garde": "TOTAL_DEBT",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2023,
+     "annuel": 8.286,
+     "somme_4T": 32596,
+     "T4": 8286,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2024,
+     "annuel": 8.607,
+     "somme_4T": 34341,
+     "T4": 8607,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2025,
+     "annuel": 8.524,
+     "somme_4T": 34845,
+     "T4": 8524,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "dette_annuelle",
+    "name_fr": "Dette totale",
+    "name_en": "Total debt",
+    "value": 8.524,
+    "unit": "Mds $",
+    "yoy": "-1.0%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     0,
+     8.286,
+     8.607,
+     8.524
+    ],
+    "history_periods": [
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-28",
+    "signal": "Dette de 8,5 Mds $ en 2025, −1,0 % sur un an, nulle en 2022 avant la scission de J&J.",
+    "description_fr": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
+    "description_en": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001944048-25-000033",
+     "0001944048-26-000030",
+     "0001944048-26-000030"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "fcf_annuel": "Flux de trésorerie libre (exercice)"
+ }
 }

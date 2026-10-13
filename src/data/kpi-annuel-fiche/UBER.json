@@ -3,59 +3,9 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 9.763,
-   "unit": "Mds $",
-   "yoy": "+41.6%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    -2.239,
-    -2.099,
-    -4.909,
-    -3.361,
-    -0.743,
-    0.39,
-    3.362,
-    6.895,
-    9.763
-   ],
-   "history_periods": [
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 9,8 Mds $ en 2025, +41,6 % sur un an.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001543151-20-000010",
-    "0001543151-21-000014",
-    "0001543151-22-000008",
-    "0001543151-23-000010",
-    "0001543151-24-000012",
-    "0001543151-25-000008",
-    "0001543151-26-000015",
-    "0001543151-26-000015",
-    "0001543151-26-000015"
-   ]
-  },
-  {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
+   "name_fr": "Dette totale (court + long terme)",
+   "name_en": "Total debt (short + long term)",
    "value": 10.521,
    "unit": "Mds $",
    "yoy": "+10.8%",
@@ -97,7 +47,8 @@
     "0001543151-25-000008",
     "0001543151-26-000015",
     "0001543151-26-000015"
-   ]
+   ],
+   "_nom_avant_14oct": "Dette totale"
   },
   {
    "short": "effectifs_annuels",
@@ -289,5 +240,114 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "FCF",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": -0.743,
+     "somme_4T": -743,
+     "T4": -187,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 0.39,
+     "somme_4T": 390,
+     "T4": -303,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 3.362,
+     "somme_4T": 3362,
+     "T4": 768,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 6.895,
+     "somme_4T": 6895,
+     "T4": 1706,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 9.763,
+     "somme_4T": 9763,
+     "T4": 2808,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 9.763,
+    "unit": "Mds $",
+    "yoy": "+41.6%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     -2.239,
+     -2.099,
+     -4.909,
+     -3.361,
+     -0.743,
+     0.39,
+     3.362,
+     6.895,
+     9.763
+    ],
+    "history_periods": [
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 9,8 Mds $ en 2025, +41,6 % sur un an.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001543151-20-000010",
+     "0001543151-21-000014",
+     "0001543151-22-000008",
+     "0001543151-23-000010",
+     "0001543151-24-000012",
+     "0001543151-25-000008",
+     "0001543151-26-000015",
+     "0001543151-26-000015",
+     "0001543151-26-000015"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "dette_annuelle": "Dette totale (court + long terme)"
+ }
 }

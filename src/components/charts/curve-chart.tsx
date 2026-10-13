@@ -62,6 +62,8 @@ function niceTicks(min: number, max: number, count = 5): number[] {
  */
 import { formatChartValueLabel } from "@/lib/chart-label-format";
 import { calculeEnteteAxe } from "@/lib/entete-axe";
+import { useStyleAxeY, attrsGraduation, texteGraduation, largeurGraduations, reserveUniteDebout } from "@/lib/style-axe-y";
+import { EnteteAxeY, TraitsGraduationY } from "@/components/charts/axe-y";
 
 /** Yann 19 juil 2026 : format label point unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
@@ -244,6 +246,8 @@ export function CurveChart({
   const AF = axesMobiles ? AF_AXES : 1;
   // Valeurs au-dessus des points : ~10 px reels sur mobile (selon l echelle du SVG).
   const echelleSvg = useEchelleSvg(svgRef, axesMobiles);
+  // Yann 13 oct 2026 : ecriture de l axe Y lue dans le module partage.
+  const sAxe = useStyleAxeY();
 
 
   // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
@@ -341,7 +345,14 @@ export function CurveChart({
   // Yann 5 oct 2026 : cadre elargi a gauche (mobile) pour que la plus longue
   // graduation ("-60 %") ne soit pas coupee par le bord de l ecran.
   const largeurTickMax = Math.max(...ticks.map(({ v }) => String(formatYTick(v, unit, tickDecimals)).length), 1) * 16 * AF * 0.62 + 6 + 4;
-  const extraGauche = axesMobiles && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+  const extraGaucheTicks = axesMobiles && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+  // Unite debout (style A) : posee a gauche des graduations, cadre elargi d autant.
+  const largeurTicksStyle = largeurGraduations(sAxe, ticks.map(({ v }) => texteGraduation(sAxe, formatYTick(v, unit, tickDecimals))), 16 * AF);
+  const reserveDebout = reserveUniteDebout(sAxe, 13 * AF);
+  const xDebout = yOnRight ? W - 6 + 10 : PAD_LEFT - 6 - largeurTicksStyle - 10;
+  const extraGauche = reserveDebout && !yOnRight
+    ? Math.max(extraGaucheTicks, Math.ceil(reserveDebout - xDebout))
+    : extraGaucheTicks;
 
   // Smoothed paths : front curve and back-offset curve.
   function smoothFrom(pts: readonly (readonly [number, number])[]) {
@@ -398,19 +409,16 @@ export function CurveChart({
         const e = calculeEnteteAxe(header, yOnRight, { W, PAD_LEFT, INNER_W: innerW });
         const yBase = e.lignes.length > 1 ? PAD_TOP - 36 : PAD_TOP - 24;
         return (
-          <text
+          <EnteteAxeY
+            s={sAxe}
+            lignes={e.lignes}
             x={e.x}
             y={yBase}
-            fontSize={13}
-            fontWeight={600}
-            fill="#e4e4e7"
-            fontFamily="ui-monospace, monospace"
-            textAnchor={e.anchor}
-          >
-            {e.lignes.map((l, i) => (
-              <tspan key={i} x={e.x} dy={i === 0 ? 0 : 14}>{l}</tspan>
-            ))}
-          </text>
+            anchor={e.anchor}
+            taille={sAxe.id === "actuel" ? 13 : 13 * AF}
+            locale={effectiveLocale}
+            debout={{ x: xDebout, yHaut: PAD_TOP, aDroite: yOnRight }}
+          />
         );
       })()}
       {/* Yann 16 mai 2026 : TTM cumul affiché comme chip séparé.
@@ -486,17 +494,15 @@ export function CurveChart({
             key={`yn-${i}`}
             // Yann 1er sept 2026 : meme regle que les barres — ancre sur le
             // bord droit, texte etendu vers la gauche, zero clipping.
-            x={yOnRight ? W - 6 : PAD_LEFT - 6}
+            x={yOnRight ? W - 6 : PAD_LEFT - 6 - (sAxe.graduation.trait ? 4 : 0)}
             y={y + 5}
             textAnchor="end"
-            fontSize={16 * AF}
-            fontWeight={500}
-            fill="#e4e4e7"
-            fontFamily="ui-monospace, monospace"
+            {...attrsGraduation(sAxe, 16 * AF)}
           >
-            {formatYTick(v, unit, tickDecimals)}
+            {texteGraduation(sAxe, formatYTick(v, unit, tickDecimals))}
           </text>
         ))}
+        <TraitsGraduationY s={sAxe} ys={ticks.map(({ y }) => y)} xAxe={yOnRight ? PAD_LEFT + innerW : PAD_LEFT} aDroite={yOnRight} />
 
         {/* Yann 2 sept 2026 : bascule d axe au clic desactivee (le clic ouvre le plein ecran en mobile). */}
 

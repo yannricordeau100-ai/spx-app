@@ -4,7 +4,7 @@
  "kpis": [
   {
    "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
+   "name_fr": "Chiffre d’affaires (exercice)",
    "name_en": "Revenue",
    "value": 8.539,
    "unit": "Mds $",
@@ -53,60 +53,8 @@
     "0000811156-26-000004",
     "0000811156-26-000004",
     "0000811156-26-000004"
-   ]
-  },
-  {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": -1.589,
-   "unit": "Mds $",
-   "yoy": "-145.2%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    -0.043,
-    0.04,
-    -0.371,
-    -0.307,
-    -1.035,
-    -0.257,
-    -1.519,
-    -0.098,
-    -0.648,
-    -1.589
    ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre négative de 1,6 Md $ en 2025 : 2,2 Mds $ de flux d’exploitation pour 3,8 Mds $ d’investissements, après −0,6 Md $ en 2024.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000811156-19-000003",
-    "0000811156-20-000004",
-    "0000811156-21-000016",
-    "0000811156-22-000048",
-    "0000811156-23-000014",
-    "0000811156-24-000044",
-    "0000811156-25-000036",
-    "0000811156-26-000004",
-    "0000811156-26-000004",
-    "0000811156-26-000004"
-   ]
+   "_nom_avant_13oct": "Chiffre d’affaires"
   },
   {
    "short": "dette_annuelle",
@@ -299,5 +247,153 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "fcf_q",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2017,
+     "annuel": 0.04,
+     "somme_4T": 40,
+     "T4": 49,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2018,
+     "annuel": -0.371,
+     "somme_4T": -371,
+     "T4": -364,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2019,
+     "annuel": -0.307,
+     "somme_4T": -307,
+     "T4": -132,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2020,
+     "annuel": -1.035,
+     "somme_4T": -1035,
+     "T4": -486,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2021,
+     "annuel": -0.257,
+     "somme_4T": -257,
+     "T4": -298,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": -1.519,
+     "somme_4T": -1519,
+     "T4": -448,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": -0.098,
+     "somme_4T": -98,
+     "T4": -203,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": -0.648,
+     "somme_4T": -648,
+     "T4": -515,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": -1.589,
+     "somme_4T": -1589,
+     "T4": -596,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": -1.589,
+    "unit": "Mds $",
+    "yoy": "-145.2%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     -0.043,
+     0.04,
+     -0.371,
+     -0.307,
+     -1.035,
+     -0.257,
+     -1.519,
+     -0.098,
+     -0.648,
+     -1.589
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre négative de 1,6 Md $ en 2025 : 2,2 Mds $ de flux d’exploitation pour 3,8 Mds $ d’investissements, après −0,6 Md $ en 2024.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000811156-19-000003",
+     "0000811156-20-000004",
+     "0000811156-21-000016",
+     "0000811156-22-000048",
+     "0000811156-23-000014",
+     "0000811156-24-000044",
+     "0000811156-25-000036",
+     "0000811156-26-000004",
+     "0000811156-26-000004",
+     "0000811156-26-000004"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "revenue_annuel": "Chiffre d’affaires (exercice)"
+ }
 }

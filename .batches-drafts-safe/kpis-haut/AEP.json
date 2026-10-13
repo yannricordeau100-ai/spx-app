@@ -211,110 +211,6 @@
    "_type_pose_le": "2026-09-14"
   },
   {
-   "short": "VIU_COMMERCIAL",
-   "name_fr": "Ventes Commercial services intégrés",
-   "name_en": "VIU Commercial KWh Sales",
-   "value": 26.295,
-   "unit": "TWh",
-   "yoy": "+6.7%",
-   "pv_score": 7,
-   "signal": "Commercial VIU à 26,3 Md KWh (+6,7%), plus haut niveau depuis 2018, effet data centers dans les États intégrés.",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2018",
-     "v": 24.452
-    },
-    {
-     "q": "FY2019",
-     "v": 23.839
-    },
-    {
-     "q": "FY2020",
-     "v": 22.225
-    },
-    {
-     "q": "FY2021",
-     "v": 22.833
-    },
-    {
-     "q": "FY2022",
-     "v": 23.77
-    },
-    {
-     "q": "FY2023",
-     "v": 23.481
-    },
-    {
-     "q": "FY2024",
-     "v": 24.647
-    },
-    {
-     "q": "FY2025",
-     "v": 26.295
-    }
-   ],
-   "_fix_note": "lint-mix 18 juil 2026: unité 'M KWh' -> 'TWh', value+history rescalées x0.001",
-   "type_comparable": {
-    "fr": "Ventes commerciales",
-    "en": "Commercial Sales",
-    "origine": "referentiel"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
-   "short": "VIU_WHOLESALE",
-   "name_fr": "Ventes de gros services intégrés",
-   "name_en": "VIU Wholesale KWh Sales",
-   "value": 16.039,
-   "unit": "TWh",
-   "yoy": "+10.4%",
-   "pv_score": 6,
-   "signal": "Ventes de gros VIU volatiles à 16,0 Md KWh (+10,4%): fonction des conditions de marché et des ventes hors réseau.",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2018",
-     "v": 22.682
-    },
-    {
-     "q": "FY2019",
-     "v": 20.09
-    },
-    {
-     "q": "FY2020",
-     "v": 16.987
-    },
-    {
-     "q": "FY2021",
-     "v": 19.025
-    },
-    {
-     "q": "FY2022",
-     "v": 16.099
-    },
-    {
-     "q": "FY2023",
-     "v": 13.401
-    },
-    {
-     "q": "FY2024",
-     "v": 14.523
-    },
-    {
-     "q": "FY2025",
-     "v": 16.039
-    }
-   ],
-   "_fix_note": "lint-mix 18 juil 2026: unité 'M KWh' -> 'TWh', value+history rescalées x0.001",
-   "type_comparable": {
-    "fr": "Ventes d’électricité de gros",
-    "en": "Wholesale Electricity Sales",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
    "short": "DIST_MILES",
    "name_fr": "Miles de lignes de distribution",
    "name_en": "Distribution circuit miles",
@@ -3020,5 +2916,237 @@
  "_extracted_at": "2026-07-04",
  "_aep_chasse_agressive_at": "2026-07-20",
  "_norme_v3_exhaustif_at": "2026-07-25",
- "_norme_v3_correctif_at": "2026-07-25"
+ "_norme_v3_correctif_at": "2026-07-25",
+ "_doublons_retires_13oct": [
+  {
+   "retire": "VIU_COMMERCIAL",
+   "garde": "GWH_VIU_COMM",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2020,
+     "annuel": 22.225,
+     "somme_4T": 22.225,
+     "T4": 5.452,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2021,
+     "annuel": 22.833,
+     "somme_4T": 22.833,
+     "T4": 5.437,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 23.77,
+     "somme_4T": 23.77,
+     "T4": 5.701,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 23.481,
+     "somme_4T": 23.481,
+     "T4": 5.7,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 24.647,
+     "somme_4T": 24.647,
+     "T4": 5.884,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 26.295,
+     "somme_4T": 26.295,
+     "T4": 6.747,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "VIU_COMMERCIAL",
+    "name_fr": "Ventes Commercial services intégrés",
+    "name_en": "VIU Commercial KWh Sales",
+    "value": 26.295,
+    "unit": "TWh",
+    "yoy": "+6.7%",
+    "pv_score": 7,
+    "signal": "Commercial VIU à 26,3 Md KWh (+6,7%), plus haut niveau depuis 2018, effet data centers dans les États intégrés.",
+    "frequency": "annual",
+    "history": [
+     {
+      "q": "FY2018",
+      "v": 24.452
+     },
+     {
+      "q": "FY2019",
+      "v": 23.839
+     },
+     {
+      "q": "FY2020",
+      "v": 22.225
+     },
+     {
+      "q": "FY2021",
+      "v": 22.833
+     },
+     {
+      "q": "FY2022",
+      "v": 23.77
+     },
+     {
+      "q": "FY2023",
+      "v": 23.481
+     },
+     {
+      "q": "FY2024",
+      "v": 24.647
+     },
+     {
+      "q": "FY2025",
+      "v": 26.295
+     }
+    ],
+    "_fix_note": "lint-mix 18 juil 2026: unité 'M KWh' -> 'TWh', value+history rescalées x0.001",
+    "type_comparable": {
+     "fr": "Ventes commerciales",
+     "en": "Commercial Sales",
+     "origine": "referentiel"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  },
+  {
+   "retire": "VIU_WHOLESALE",
+   "garde": "GWH_VIU_WHL",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2020,
+     "annuel": 16.987,
+     "somme_4T": 16.987,
+     "T4": 3.871,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2021,
+     "annuel": 19.025,
+     "somme_4T": 19.025,
+     "T4": 4.183,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 16.099,
+     "somme_4T": 16.099,
+     "T4": 3.711,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 13.401,
+     "somme_4T": 13.401,
+     "T4": 2.781,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 14.523,
+     "somme_4T": 14.523,
+     "T4": 4.025,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 16.039,
+     "somme_4T": 16.039,
+     "T4": 3.588,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "VIU_WHOLESALE",
+    "name_fr": "Ventes de gros services intégrés",
+    "name_en": "VIU Wholesale KWh Sales",
+    "value": 16.039,
+    "unit": "TWh",
+    "yoy": "+10.4%",
+    "pv_score": 6,
+    "signal": "Ventes de gros VIU volatiles à 16,0 Md KWh (+10,4%): fonction des conditions de marché et des ventes hors réseau.",
+    "frequency": "annual",
+    "history": [
+     {
+      "q": "FY2018",
+      "v": 22.682
+     },
+     {
+      "q": "FY2019",
+      "v": 20.09
+     },
+     {
+      "q": "FY2020",
+      "v": 16.987
+     },
+     {
+      "q": "FY2021",
+      "v": 19.025
+     },
+     {
+      "q": "FY2022",
+      "v": 16.099
+     },
+     {
+      "q": "FY2023",
+      "v": 13.401
+     },
+     {
+      "q": "FY2024",
+      "v": 14.523
+     },
+     {
+      "q": "FY2025",
+      "v": 16.039
+     }
+    ],
+    "_fix_note": "lint-mix 18 juil 2026: unité 'M KWh' -> 'TWh', value+history rescalées x0.001",
+    "type_comparable": {
+     "fr": "Ventes d’électricité de gros",
+     "en": "Wholesale Electricity Sales",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  }
+ ]
 }

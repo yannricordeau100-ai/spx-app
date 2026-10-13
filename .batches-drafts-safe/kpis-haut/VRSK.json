@@ -766,7 +766,7 @@
     },
     {
       "short": "fcf",
-      "name_fr": "Flux de trésorerie disponible",
+      "name_fr": "Flux de trésorerie disponible (trimestre)",
       "name_en": "Free Cash Flow",
       "value": 297.9,
       "unit": "M USD",
@@ -845,7 +845,8 @@
       "_type_pose_le": "2026-09-14",
       "_maj_source": "https://www.sec.gov/Archives/edgar/data/1442145/000143774926024748/ex_968691.htm",
       "_maj_le": "2026-09-18",
-      "_maj_q2_2026": "rapport trimestriel du T2 2026 depose le 29 juillet 2026"
+      "_maj_q2_2026": "rapport trimestriel du T2 2026 depose le 29 juillet 2026",
+      "_nom_avant_13oct": "Flux de trésorerie disponible"
     },
     {
       "short": "intl_share",
@@ -4444,59 +4445,124 @@
         "origine": "nouveau"
       },
       "_type_pose_le": "2026-09-14"
-    },
-    {
-      "short": "CLAIMS_REVENUE",
-      "name_fr": "Chiffre d'affaires des solutions de sinistres",
-      "name_en": "Claims solutions revenue",
-      "unit": "M $",
-      "value": 892.8,
-      "yoy": "+4,1%",
-      "period_type": "year",
-      "frequency": "annual",
-      "type": "Volume",
-      "pv_score": 8,
-      "signal": "Produit phare : Logiciel Xactimate",
-      "description_fr": "Xactimate n'est pas ventilé séparément. Conformément au repli prévu en P1, la série retient le chiffre d'affaires publié des solutions de sinistres, catégorie qui comprend les solutions d'estimation immobilière Xactimate.",
-      "history": [
-        {
-          "q": "FY2020",
-          "v": 595.7
-        },
-        {
-          "q": "FY2021",
-          "v": 651.8
-        },
-        {
-          "q": "FY2022",
-          "v": 702.5
-        },
-        {
-          "q": "FY2023",
-          "v": 788.7
-        },
-        {
-          "q": "FY2024",
-          "v": 857.4
-        },
-        {
-          "q": "FY2025",
-          "v": 892.8
-        }
-      ],
-      "last_data_date": "2025-12-31",
-      "is_short_history": false,
-      "_estime": [],
-      "_source": "externe (ChatGPT, mission produit phare, 13 sept 2026)",
-      "_produit_phare": "Logiciel Xactimate",
-      "type_comparable": {
-        "fr": "Chiffre d'affaires du segment",
-        "en": "Segment Revenue",
-        "origine": "nouveau"
-      },
-      "_type_pose_le": "2026-09-14"
     }
   ],
   "_extracted_at": "2026-07-21T18:16:56.049Z",
-  "_kpi_v3_pass": "2026-07-28 norme v3 exhaustif trimestriel"
+  "_kpi_v3_pass": "2026-07-28 norme v3 exhaustif trimestriel",
+  "_doublons_retires_13oct": [
+    {
+      "retire": "CLAIMS_REVENUE",
+      "garde": "claims_rev",
+      "type": "frequence",
+      "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+      "preuve": [
+        {
+          "annee": 2020,
+          "annuel": 595.7,
+          "somme_4T": 595.7,
+          "T4": 156.8,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2021,
+          "annuel": 651.8,
+          "somme_4T": 651.8,
+          "T4": 164.3,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2022,
+          "annuel": 702.5,
+          "somme_4T": 702.5,
+          "T4": 186,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2023,
+          "annuel": 788.7,
+          "somme_4T": 788.7,
+          "T4": 198.3,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2024,
+          "annuel": 857.4,
+          "somme_4T": 857.4,
+          "T4": 224.1,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2025,
+          "annuel": 892.8,
+          "somme_4T": 892.8,
+          "T4": 222.6,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        }
+      ],
+      "script": "scripts/scan-kpi-doublons-servis.py",
+      "kpi": {
+        "short": "CLAIMS_REVENUE",
+        "name_fr": "Chiffre d'affaires des solutions de sinistres",
+        "name_en": "Claims solutions revenue",
+        "unit": "M $",
+        "value": 892.8,
+        "yoy": "+4,1%",
+        "period_type": "year",
+        "frequency": "annual",
+        "type": "Volume",
+        "pv_score": 8,
+        "signal": "Produit phare : Logiciel Xactimate",
+        "description_fr": "Xactimate n'est pas ventilé séparément. Conformément au repli prévu en P1, la série retient le chiffre d'affaires publié des solutions de sinistres, catégorie qui comprend les solutions d'estimation immobilière Xactimate.",
+        "history": [
+          {
+            "q": "FY2020",
+            "v": 595.7
+          },
+          {
+            "q": "FY2021",
+            "v": 651.8
+          },
+          {
+            "q": "FY2022",
+            "v": 702.5
+          },
+          {
+            "q": "FY2023",
+            "v": 788.7
+          },
+          {
+            "q": "FY2024",
+            "v": 857.4
+          },
+          {
+            "q": "FY2025",
+            "v": 892.8
+          }
+        ],
+        "last_data_date": "2025-12-31",
+        "is_short_history": false,
+        "_estime": [],
+        "_source": "externe (ChatGPT, mission produit phare, 13 sept 2026)",
+        "_produit_phare": "Logiciel Xactimate",
+        "type_comparable": {
+          "fr": "Chiffre d'affaires du segment",
+          "en": "Segment Revenue",
+          "origine": "nouveau"
+        },
+        "_type_pose_le": "2026-09-14"
+      }
+    }
+  ]
 }

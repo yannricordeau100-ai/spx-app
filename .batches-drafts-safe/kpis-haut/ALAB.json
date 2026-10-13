@@ -1078,48 +1078,6 @@
       "_type_pose_le": "2026-09-14"
     },
     {
-      "short": "rev_fy",
-      "name_fr": "Chiffre d'affaires annuel",
-      "name_en": "Annual Revenue",
-      "value": 852.525,
-      "unit": "M $",
-      "yoy": "+115%",
-      "history": [
-        {
-          "q": "FY2021",
-          "v": 34.8
-        },
-        {
-          "q": "FY2022",
-          "v": 79.872
-        },
-        {
-          "q": "FY2023",
-          "v": 115.794
-        },
-        {
-          "q": "FY2024",
-          "v": 396.29
-        },
-        {
-          "q": "FY2025",
-          "v": 852.525
-        }
-      ],
-      "pv_score": 9,
-      "signal": "Le rapport annuel retrace une trajectoire de multiplication par 24 depuis 2021, signe d'une montée en puissance continue depuis la création.",
-      "frequency": "annual",
-      "last_data_date": "2025-12-31",
-      "_source": "kpis-haut 10-Q/10-K",
-      "_signal_regle_150": "2026-09-14",
-      "type_comparable": {
-        "fr": "Chiffre d'affaires annuel",
-        "en": "Annual Revenue",
-        "origine": "nouveau"
-      },
-      "_type_pose_le": "2026-09-14"
-    },
-    {
       "short": "net_inc_fy",
       "name_fr": "Résultat net annuel",
       "name_en": "Annual Net Income",
@@ -1707,6 +1665,86 @@
         "origine": "referentiel"
       },
       "_type_pose_le": "2026-10-13"
+    }
+  ],
+  "_doublons_retires_13oct": [
+    {
+      "retire": "rev_fy",
+      "garde": "rev_q",
+      "type": "frequence",
+      "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+      "preuve": [
+        {
+          "annee": 2023,
+          "annuel": 115.794,
+          "somme_4T": 115.794,
+          "T4": 50.514,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2024,
+          "annuel": 396.29,
+          "somme_4T": 396.29,
+          "T4": 141.096,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2025,
+          "annuel": 852.525,
+          "somme_4T": 852.525,
+          "T4": 270.583,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        }
+      ],
+      "script": "scripts/scan-kpi-doublons-servis.py",
+      "kpi": {
+        "short": "rev_fy",
+        "name_fr": "Chiffre d'affaires annuel",
+        "name_en": "Annual Revenue",
+        "value": 852.525,
+        "unit": "M $",
+        "yoy": "+115%",
+        "history": [
+          {
+            "q": "FY2021",
+            "v": 34.8
+          },
+          {
+            "q": "FY2022",
+            "v": 79.872
+          },
+          {
+            "q": "FY2023",
+            "v": 115.794
+          },
+          {
+            "q": "FY2024",
+            "v": 396.29
+          },
+          {
+            "q": "FY2025",
+            "v": 852.525
+          }
+        ],
+        "pv_score": 9,
+        "signal": "Le rapport annuel retrace une trajectoire de multiplication par 24 depuis 2021, signe d'une montée en puissance continue depuis la création.",
+        "frequency": "annual",
+        "last_data_date": "2025-12-31",
+        "_source": "kpis-haut 10-Q/10-K",
+        "_signal_regle_150": "2026-09-14",
+        "type_comparable": {
+          "fr": "Chiffre d'affaires annuel",
+          "en": "Annual Revenue",
+          "origine": "nouveau"
+        },
+        "_type_pose_le": "2026-09-14"
+      }
     }
   ]
 }

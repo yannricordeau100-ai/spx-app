@@ -3,58 +3,8 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 4.812,
-   "unit": "Mds $",
-   "yoy": "+21.7%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    0.119,
-    0.25,
-    0.481,
-    0.874,
-    1.452,
-    2.241,
-    3.056,
-    3.954,
-    4.812
-   ],
-   "history_periods": [
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025",
-    "2026"
-   ],
-   "last_data_date": "2026-01-31",
-   "signal": "Ventes de 4,8 Mds $ en 2026, +21,7 % sur un an, +58,8 % par an depuis 2018.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001535527-20-000006",
-    "0001535527-21-000007",
-    "0001535527-22-000006",
-    "0001535527-23-000008",
-    "0001535527-24-000007",
-    "0001535527-25-000009",
-    "0001535527-26-000010",
-    "0001535527-26-000010",
-    "0001535527-26-000010"
-   ]
-  },
-  {
    "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
+   "name_fr": "Flux de trésorerie libre (exercice)",
    "name_en": "Free cash flow",
    "value": 1.31,
    "unit": "Mds $",
@@ -100,7 +50,8 @@
     "0001535527-26-000010",
     "0001535527-26-000010",
     "0001535527-26-000010"
-   ]
+   ],
+   "_nom_avant_13oct": "Flux de trésorerie libre"
   },
   {
    "short": "dette_annuelle",
@@ -182,5 +133,141 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "Rev",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2019,
+     "annuel": 0.25,
+     "somme_4T": 249.9,
+     "T4": 80.5,
+     "ecart": 0.04,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2020,
+     "annuel": 0.481,
+     "somme_4T": 481.4,
+     "T4": 152.1,
+     "ecart": 0.083,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2021,
+     "annuel": 0.874,
+     "somme_4T": 874.5,
+     "T4": 264.9,
+     "ecart": 0.057,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 1.452,
+     "somme_4T": 1451.6,
+     "T4": 431,
+     "ecart": 0.028,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 2.241,
+     "somme_4T": 2241.3,
+     "T4": 637.4,
+     "ecart": 0.013,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 3.056,
+     "somme_4T": 3055.5,
+     "T4": 845.3,
+     "ecart": 0.016,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 3.954,
+     "somme_4T": 3953.6,
+     "T4": 1058.5,
+     "ecart": 0.01,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2026,
+     "annuel": 4.812,
+     "somme_4T": 4812.0,
+     "T4": 1305.4,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 4.812,
+    "unit": "Mds $",
+    "yoy": "+21.7%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     0.119,
+     0.25,
+     0.481,
+     0.874,
+     1.452,
+     2.241,
+     3.056,
+     3.954,
+     4.812
+    ],
+    "history_periods": [
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025",
+     "2026"
+    ],
+    "last_data_date": "2026-01-31",
+    "signal": "Ventes de 4,8 Mds $ en 2026, +21,7 % sur un an, +58,8 % par an depuis 2018.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001535527-20-000006",
+     "0001535527-21-000007",
+     "0001535527-22-000006",
+     "0001535527-23-000008",
+     "0001535527-24-000007",
+     "0001535527-25-000009",
+     "0001535527-26-000010",
+     "0001535527-26-000010",
+     "0001535527-26-000010"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "fcf_annuel": "Flux de trésorerie libre (exercice)"
+ }
 }

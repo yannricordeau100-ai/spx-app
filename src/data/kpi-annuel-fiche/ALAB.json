@@ -3,41 +3,6 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 0.853,
-   "unit": "Mds $",
-   "yoy": "+115.4%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    0.08,
-    0.116,
-    0.396,
-    0.853
-   ],
-   "history_periods": [
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 0,9 Mds $ en 2025, +115,4 % sur un an, +120,1 % par an depuis 2022.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001736297-25-000003",
-    "0001736297-26-000010",
-    "0001736297-26-000010",
-    "0001736297-26-000010"
-   ]
-  },
-  {
    "short": "fcf_annuel",
    "name_fr": "Flux de trésorerie libre",
    "name_en": "Free cash flow",
@@ -136,6 +101,79 @@
    "is_generic": false,
    "method": "sec-10k",
    "sources": []
+  }
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "rev_q",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2023,
+     "annuel": 0.116,
+     "somme_4T": 115.794,
+     "T4": 50.514,
+     "ecart": 0.178,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 0.396,
+     "somme_4T": 396.29,
+     "T4": 141.096,
+     "ecart": 0.073,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 0.853,
+     "somme_4T": 852.525,
+     "T4": 270.583,
+     "ecart": 0.056,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 0.853,
+    "unit": "Mds $",
+    "yoy": "+115.4%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     0.08,
+     0.116,
+     0.396,
+     0.853
+    ],
+    "history_periods": [
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 0,9 Mds $ en 2025, +115,4 % sur un an, +120,1 % par an depuis 2022.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001736297-25-000003",
+     "0001736297-26-000010",
+     "0001736297-26-000010",
+     "0001736297-26-000010"
+    ]
+   }
   }
  ]
 }

@@ -3,62 +3,9 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 14.092,
-   "unit": "Mds $",
-   "yoy": "-3.1%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    11.069,
-    11.408,
-    12.25,
-    11.937,
-    10.583,
-    12.522,
-    14.853,
-    14.657,
-    14.54,
-    14.092
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 14,1 Mds $ en 2025, −3,1 % sur un an, +2,7 % par an depuis 2016.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000277948-19-000011",
-    "0000277948-20-000008",
-    "0000277948-21-000014",
-    "0000277948-22-000009",
-    "0000277948-23-000006",
-    "0000277948-24-000010",
-    "0000277948-25-000008",
-    "0000277948-26-000006",
-    "0000277948-26-000006",
-    "0000277948-26-000006"
-   ]
-  },
-  {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
+   "name_fr": "Dette totale (court + long terme)",
+   "name_en": "Total debt (short + long term)",
    "value": 18.873,
    "unit": "Mds $",
    "yoy": "+2.0%",
@@ -106,7 +53,8 @@
     "0000277948-25-000008",
     "0000277948-26-000006",
     "0000277948-26-000006"
-   ]
+   ],
+   "_nom_avant_14oct": "Dette totale"
   },
   {
    "short": "effectifs_annuels",
@@ -293,5 +241,117 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "total_revenue",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 12.522,
+     "somme_4T": 12522,
+     "T4": 3427,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 14.853,
+     "somme_4T": 14853,
+     "T4": 3730,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 14.657,
+     "somme_4T": 14657,
+     "T4": 3680,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 14.54,
+     "somme_4T": 14540,
+     "T4": 3539,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 14.092,
+     "somme_4T": 14092,
+     "T4": 3508,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 14.092,
+    "unit": "Mds $",
+    "yoy": "-3.1%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     11.069,
+     11.408,
+     12.25,
+     11.937,
+     10.583,
+     12.522,
+     14.853,
+     14.657,
+     14.54,
+     14.092
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 14,1 Mds $ en 2025, −3,1 % sur un an, +2,7 % par an depuis 2016.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000277948-19-000011",
+     "0000277948-20-000008",
+     "0000277948-21-000014",
+     "0000277948-22-000009",
+     "0000277948-23-000006",
+     "0000277948-24-000010",
+     "0000277948-25-000008",
+     "0000277948-26-000006",
+     "0000277948-26-000006",
+     "0000277948-26-000006"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "dette_annuelle": "Dette totale (court + long terme)"
+ }
 }

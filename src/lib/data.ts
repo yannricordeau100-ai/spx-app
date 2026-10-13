@@ -143,6 +143,8 @@ export type RevenueBreakdown = {
 
 export type MarketPosition = {
   segment_name: string;
+  /** 13 oct 2026 : nom du marche (titre de la carte TAM). A defaut, intitule du TAM du Cahier. */
+  marche?: string;
   /** Company revenue on that segment, in the same unit as `segment_unit`. */
   segment_revenue: number;
   segment_unit: string; // "$B", "$M"

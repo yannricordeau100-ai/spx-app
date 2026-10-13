@@ -360,6 +360,13 @@ export async function downloadSvgAsPng(
     // utilisaient "ui-monospace, monospace" ou des polices web ; on
     // override pour homogénéité PNG.
     t.setAttribute("font-family", PNG_FONT_FAMILY);
+    // 13 oct 2026 : un style d axe Y (src/lib/style-axe-y.ts, A/B/C) pose sa
+    // police en style CSS, qui l emporterait sur l attribut : le PNG garde
+    // Avenir tant que Yann n a pas decide d y porter le style d axe.
+    if (t.hasAttribute("data-axe-y")) {
+      t.style.removeProperty("font-family");
+      t.style.removeProperty("font-variation-settings");
+    }
     // Yann 8 juin 2026 (PRIO 2) : graisse FINE (300) sur TOUS les écriteaux
     // du PNG export (axes, labels valeurs, années, header d'unité). Les
     // <text> injectés ensuite (titre, KPI, footer, CAGR, "par x") posent

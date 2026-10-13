@@ -4,7 +4,7 @@
  "kpis": [
   {
    "short": "USRB_rev",
-   "name_fr": "Chiffre d'affaires US Boissons Rafraîchissantes",
+   "name_fr": "Chiffre d'affaires US Boissons Rafraîchissantes (trimestre)",
    "name_en": "US Refreshment Beverages Net Sales",
    "value": 2925.0,
    "unit": "M USD",
@@ -78,7 +78,8 @@
     "en": "Non-Alcoholic Beverages Net Sales",
     "origine": "nouveau"
    },
-   "_type_pose_le": "2026-09-14"
+   "_type_pose_le": "2026-09-14",
+   "_nom_avant_13oct": "Chiffre d'affaires US Boissons Rafraîchissantes"
   },
   {
    "short": "USCOFFEE_rev",
@@ -6040,53 +6041,6 @@
    "_type_pose_le": "2026-09-14"
   },
   {
-   "short": "COFFEE_NETSALES_FY",
-   "name_fr": "Ventes nettes annuelles du segment café américain (dosettes K-Cup et machines Keurig)",
-   "name_en": "U.S. Coffee segment annual net sales (K-Cup pods and Keurig brewers)",
-   "value": 3990.0,
-   "unit": "M USD",
-   "yoy": "+0.6%",
-   "pv_score": 9,
-   "type": "Revenue",
-   "is_wow": true,
-   "is_generic": false,
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2021",
-     "v": 4089.0
-    },
-    {
-     "q": "FY2022",
-     "v": 4302.0
-    },
-    {
-     "q": "FY2023",
-     "v": 4071.0
-    },
-    {
-     "q": "FY2024",
-     "v": 3967.0
-    },
-    {
-     "q": "FY2025",
-     "v": 3990.0
-    }
-   ],
-   "last_data_date": "2025-12-31",
-   "is_short_history": false,
-   "signal": "Le café américain réalise 3 990 M USD de ventes en 2025, quasi stable sur un an (+0,6 %) et en recul par rapport au pic de 4 302 M USD de 2022.",
-   "explanation_fr": "Ventes du segment café aux États-Unis, dosettes K-Cup et machines Keurig. Série 2021 à 2025 sur le périmètre actuel du segment, le Canada étant rattaché à l'International depuis 2023.",
-   "_source": "Produit phare (Yann, 9 sept 2026) : documents officiels et sources publiques, docs/cahier/produit-phare/KDP.json",
-   "_produit_phare": true,
-   "type_comparable": {
-    "fr": "Chiffre d'affaires du segment café",
-    "en": "Coffee Segment Net Sales",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
    "short": "USRB_NET_SALES_B",
    "name_fr": "Ventes nettes du segment Boissons rafraîchissantes États-Unis",
    "name_en": "U.S. Refreshment Beverages net sales",
@@ -6134,5 +6088,90 @@
    "_type_pose_le": "2026-09-14"
   }
  ],
- "_extracted_at": "2026-07-26"
+ "_extracted_at": "2026-07-26",
+ "_doublons_retires_13oct": [
+  {
+   "retire": "COFFEE_NETSALES_FY",
+   "garde": "USCOFFEE_rev",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2023,
+     "annuel": 4071,
+     "somme_4T": 4071,
+     "T4": 1158,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 3967,
+     "somme_4T": 3967,
+     "T4": 1130,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 3990,
+     "somme_4T": 3990,
+     "T4": 1174,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "COFFEE_NETSALES_FY",
+    "name_fr": "Ventes nettes annuelles du segment café américain (dosettes K-Cup et machines Keurig)",
+    "name_en": "U.S. Coffee segment annual net sales (K-Cup pods and Keurig brewers)",
+    "value": 3990.0,
+    "unit": "M USD",
+    "yoy": "+0.6%",
+    "pv_score": 9,
+    "type": "Revenue",
+    "is_wow": true,
+    "is_generic": false,
+    "frequency": "annual",
+    "history": [
+     {
+      "q": "FY2021",
+      "v": 4089.0
+     },
+     {
+      "q": "FY2022",
+      "v": 4302.0
+     },
+     {
+      "q": "FY2023",
+      "v": 4071.0
+     },
+     {
+      "q": "FY2024",
+      "v": 3967.0
+     },
+     {
+      "q": "FY2025",
+      "v": 3990.0
+     }
+    ],
+    "last_data_date": "2025-12-31",
+    "is_short_history": false,
+    "signal": "Le café américain réalise 3 990 M USD de ventes en 2025, quasi stable sur un an (+0,6 %) et en recul par rapport au pic de 4 302 M USD de 2022.",
+    "explanation_fr": "Ventes du segment café aux États-Unis, dosettes K-Cup et machines Keurig. Série 2021 à 2025 sur le périmètre actuel du segment, le Canada étant rattaché à l'International depuis 2023.",
+    "_source": "Produit phare (Yann, 9 sept 2026) : documents officiels et sources publiques, docs/cahier/produit-phare/KDP.json",
+    "_produit_phare": true,
+    "type_comparable": {
+     "fr": "Chiffre d'affaires du segment café",
+     "en": "Coffee Segment Net Sales",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  }
+ ]
 }

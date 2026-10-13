@@ -3,61 +3,8 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 65.011,
-   "unit": "Mds $",
-   "yoy": "+1.3%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    39.807,
-    40.122,
-    42.294,
-    39.121,
-    41.518,
-    48.704,
-    59.283,
-    60.115,
-    64.168,
-    65.011
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 65,0 Mds $ en 2025, +1,3 % sur un an, +5,6 % par an depuis 2016.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000310158-19-000014",
-    "0000310158-20-000005",
-    "0000310158-21-000004",
-    "0000310158-22-000003",
-    "0001628280-23-005061",
-    "0001628280-24-006850",
-    "0001628280-25-007732",
-    "0000310158-26-000063",
-    "0000310158-26-000063",
-    "0000310158-26-000063"
-   ]
-  },
-  {
    "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
+   "name_fr": "Flux de trésorerie libre (exercice)",
    "name_en": "Free cash flow",
    "value": 12.36,
    "unit": "Mds $",
@@ -106,7 +53,8 @@
     "0000310158-26-000063",
     "0000310158-26-000063",
     "0000310158-26-000063"
-   ]
+   ],
+   "_nom_avant_13oct": "Flux de trésorerie libre"
   },
   {
    "short": "dette_annuelle",
@@ -382,5 +330,117 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "Total revenue",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 48.704,
+     "somme_4T": 48.704,
+     "T4": 12.068,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 59.283,
+     "somme_4T": 59.283,
+     "T4": 13.83,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 60.115,
+     "somme_4T": 60.115,
+     "T4": 14.631,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 64.168,
+     "somme_4T": 64.168,
+     "T4": 15.624,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 65.011,
+     "somme_4T": 65.011,
+     "T4": 16.4,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 65.011,
+    "unit": "Mds $",
+    "yoy": "+1.3%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     39.807,
+     40.122,
+     42.294,
+     39.121,
+     41.518,
+     48.704,
+     59.283,
+     60.115,
+     64.168,
+     65.011
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 65,0 Mds $ en 2025, +1,3 % sur un an, +5,6 % par an depuis 2016.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000310158-19-000014",
+     "0000310158-20-000005",
+     "0000310158-21-000004",
+     "0000310158-22-000003",
+     "0001628280-23-005061",
+     "0001628280-24-006850",
+     "0001628280-25-007732",
+     "0000310158-26-000063",
+     "0000310158-26-000063",
+     "0000310158-26-000063"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "fcf_annuel": "Flux de trésorerie libre (exercice)"
+ }
 }

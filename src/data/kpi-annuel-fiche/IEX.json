@@ -56,62 +56,9 @@
    ]
   },
   {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 0.617,
-   "unit": "Mds $",
-   "yoy": "+2.3%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    0.362,
-    0.389,
-    0.423,
-    0.477,
-    0.518,
-    0.493,
-    0.489,
-    0.627,
-    0.603,
-    0.617
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 0,6 Mds $ en 2025, +2,3 % sur un an, +6,1 % par an depuis 2016.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000832101-19-000005",
-    "0000832101-20-000007",
-    "0000832101-21-000017",
-    "0000832101-22-000008",
-    "0000832101-23-000013",
-    "0000832101-24-000009",
-    "0000832101-25-000010",
-    "0000832101-26-000003",
-    "0000832101-26-000003",
-    "0000832101-26-000003"
-   ]
-  },
-  {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
+   "name_fr": "Dette totale (court + long terme)",
+   "name_en": "Total debt (short + long term)",
    "value": 1.821,
    "unit": "Mds $",
    "yoy": "-7.1%",
@@ -159,7 +106,8 @@
     "0000832101-25-000010",
     "0000832101-26-000003",
     "0000832101-26-000003"
-   ]
+   ],
+   "_nom_avant_14oct": "Dette totale"
   },
   {
    "short": "effectifs_annuels",
@@ -352,5 +300,162 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "FCF",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2016,
+     "annuel": 0.362,
+     "somme_4T": 361.7,
+     "T4": 106,
+     "ecart": 0.083,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2017,
+     "annuel": 0.389,
+     "somme_4T": 388.9,
+     "T4": 120.4,
+     "ecart": 0.026,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2018,
+     "annuel": 0.423,
+     "somme_4T": 423.2,
+     "T4": 137.4,
+     "ecart": 0.047,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2019,
+     "annuel": 0.477,
+     "somme_4T": 477.3,
+     "T4": 137.1,
+     "ecart": 0.063,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2020,
+     "annuel": 0.518,
+     "somme_4T": 517.7,
+     "T4": 149.2,
+     "ecart": 0.058,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2021,
+     "annuel": 0.493,
+     "somme_4T": 492.6,
+     "T4": 135.9,
+     "ecart": 0.081,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 0.489,
+     "somme_4T": 489.4,
+     "T4": 147.3,
+     "ecart": 0.082,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 0.627,
+     "somme_4T": 626.8,
+     "T4": 179.4,
+     "ecart": 0.032,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 0.603,
+     "somme_4T": 603.0,
+     "T4": 157.1,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 0.617,
+     "somme_4T": 616.8,
+     "T4": 189.8,
+     "ecart": 0.032,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 0.617,
+    "unit": "Mds $",
+    "yoy": "+2.3%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     0.362,
+     0.389,
+     0.423,
+     0.477,
+     0.518,
+     0.493,
+     0.489,
+     0.627,
+     0.603,
+     0.617
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 0,6 Mds $ en 2025, +2,3 % sur un an, +6,1 % par an depuis 2016.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000832101-19-000005",
+     "0000832101-20-000007",
+     "0000832101-21-000017",
+     "0000832101-22-000008",
+     "0000832101-23-000013",
+     "0000832101-24-000009",
+     "0000832101-25-000010",
+     "0000832101-26-000003",
+     "0000832101-26-000003",
+     "0000832101-26-000003"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "dette_annuelle": "Dette totale (court + long terme)"
+ }
 }

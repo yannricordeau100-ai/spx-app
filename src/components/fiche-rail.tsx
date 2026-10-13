@@ -39,23 +39,26 @@ import { lienInscription } from "@/components/freemium/zone-reservee";
 /* ------------------------------------------------------------------ */
 
 export type BlocFicheId = "apercu" | "kpi" | "stories" | "moyen" | "marche" | "risques" | "gouv" | "ia" | "resultats" | "these" | "admin";
-type Bloc = { id: BlocFicheId; titre: string; court: string; Icon: LucideIcon; phrase: string; anim: string };
+type Bloc = { id: BlocFicheId; titre: string; court: string; suite: string; Icon: LucideIcon; phrase: string; anim: string };
 
 /** Ordre de la fiche : long terme (Indicateurs clés), moyen terme, puis court terme.
  * « Sources » est en pied de page, hors du rail. `court` : le mot unique affiché
- * sous l icone du rail ferme et dans la barre mobile (Yann 13 oct 2026). */
+ * sous l icone du rail ferme et dans la barre mobile (Yann 13 oct 2026).
+ * `suite` : ce qui se revele a droite du mot court quand le rail s ouvre (le mot
+ * court ne bouge pas, la suite se devoile). Thèses au pluriel dans le rail, chaque
+ * these garde son titre au singulier dans le bloc. */
 export const BLOCS_FICHE: Bloc[] = [
-  { id: "apercu", titre: "Aperçu", court: "Aperçu", Icon: Compass, phrase: "Rangs, description et chiffres de marché", anim: "boussole" },
-  { id: "kpi", titre: "Indicateurs clés", court: "Indicateurs", Icon: BarChart3, phrase: "Graphique du KPI principal et liste des indicateurs", anim: "barres" },
-  { id: "moyen", titre: "Moyen terme", court: "Moyen", Icon: LineChart, phrase: "Graphiques de sources externes", anim: "trace" },
-  { id: "stories", titre: "KPI court terme", court: "Court", Icon: Layers, phrase: "Les indicateurs récents en cartes", anim: "pile" },
-  { id: "marche", titre: "Marché et TAM", court: "Marché", Icon: Target, phrase: "Chiffre d’affaires, clients, avantage, marché", anim: "cible" },
-  { id: "risques", titre: "Risques", court: "Risques", Icon: AlertTriangle, phrase: "Facteurs de risque suivis", anim: "secoue" },
-  { id: "gouv", titre: "Gouvernance et rachats", court: "Gouvernance", Icon: Building2, phrase: "Dirigeants, votes, sociétés rachetées", anim: "monte" },
-  { id: "ia", titre: "IA", court: "IA", Icon: Brain, phrase: "Positionnement en intelligence artificielle", anim: "pulse" },
-  { id: "resultats", titre: "Publications officielles", court: "Publications", Icon: FileText, phrase: "Résultats publiés et dernier appel", anim: "page" },
-  { id: "these", titre: "Thèse et anti-thèse", court: "Thèse", Icon: Scale, phrase: "Cas favorable et cas défavorable", anim: "balance" },
-  { id: "admin", titre: "Admin", court: "Admin", Icon: ShieldCheck, phrase: "Cours de bourse et KPI sur-mesure", anim: "pop" },
+  { id: "apercu", titre: "Aperçu", court: "Aperçu", suite: "", Icon: Compass, phrase: "Rangs, description et chiffres de marché", anim: "boussole" },
+  { id: "kpi", titre: "Indicateurs clés", court: "Indicateurs", suite: " clés", Icon: BarChart3, phrase: "Graphique du KPI principal et liste des indicateurs", anim: "barres" },
+  { id: "moyen", titre: "Moyen terme", court: "Moyen", suite: " terme", Icon: LineChart, phrase: "Graphiques de sources externes", anim: "trace" },
+  { id: "stories", titre: "KPI court terme", court: "Court", suite: " terme", Icon: Layers, phrase: "Les indicateurs récents en cartes", anim: "pile" },
+  { id: "marche", titre: "Marché et TAM", court: "Marché", suite: " et TAM", Icon: Target, phrase: "Chiffre d’affaires, clients, avantage, marché", anim: "cible" },
+  { id: "risques", titre: "Risques", court: "Risques", suite: "", Icon: AlertTriangle, phrase: "Facteurs de risque suivis", anim: "secoue" },
+  { id: "gouv", titre: "Gouvernance et rachats", court: "Gouvernance", suite: " et rachats", Icon: Building2, phrase: "Dirigeants, votes, sociétés rachetées", anim: "monte" },
+  { id: "ia", titre: "IA", court: "IA", suite: "", Icon: Brain, phrase: "Positionnement en intelligence artificielle", anim: "pulse" },
+  { id: "resultats", titre: "Publications officielles", court: "Publications", suite: " officielles", Icon: FileText, phrase: "Résultats publiés et dernier appel", anim: "page" },
+  { id: "these", titre: "Thèse et anti-thèse", court: "Thèses", suite: " et anti-thèses", Icon: Scale, phrase: "Cas favorable et cas défavorable", anim: "balance" },
+  { id: "admin", titre: "Admin", court: "Admin", suite: "", Icon: ShieldCheck, phrase: "Cours de bourse et KPI sur-mesure", anim: "pop" },
 ];
 
 const RAIL = 104;
@@ -87,10 +90,11 @@ export function IntertitreBloc({ id, accent }: { id: BlocFicheId; accent: string
 }
 
 /** Section d un bloc : intertitre puis contenu (la marge haute du premier enfant est neutralisee). */
-export function SectionBloc({ id, accent, premier = false, children }: { id: BlocFicheId; accent: string; premier?: boolean; children: React.ReactNode }) {
+export function SectionBloc({ id, accent, premier = false, serre = false, children }: { id: BlocFicheId; accent: string; premier?: boolean; serre?: boolean; children: React.ReactNode }) {
   const b = BLOCS_FICHE.find((x) => x.id === id);
+  /* Yann 13 oct 2026 : « serre » reduit l ecart au-dessus du bloc (sous « Comprendre la societe »). */
   return (
-    <section data-bloc-fiche={id} aria-label={b?.titre} className={premier ? "" : "mt-14"}>
+    <section data-bloc-fiche={id} aria-label={b?.titre} className={premier ? "" : serre ? "mt-6 sm:mt-7" : "mt-14"}>
       {!premier && <IntertitreBloc id={id} accent={accent} />}
       <div className={premier ? "" : "[&>*:first-child]:!mt-0"}>{children}</div>
     </section>
@@ -238,39 +242,78 @@ function LogoRail({ ouvert }: { ouvert: boolean }) {
   );
 }
 
+/* Yann 13 oct 2026 : fond du rail ouvert. Degrade sombre transparent sur un
+   flou d arriere-plan progressif : plusieurs couches de backdrop-filter, chacune
+   masquee vers la droite, s additionnent. Flou le plus fort a gauche, le plus
+   faible a droite, mais jamais nul (couche de base non masquee). */
+const COUCHES_FLOU: { flou: number; masque?: string }[] = [
+  { flou: 3 },
+  { flou: 7, masque: "linear-gradient(90deg,#000 0,#000 35%,transparent 85%)" },
+  { flou: 14, masque: "linear-gradient(90deg,#000 0,#000 22%,transparent 60%)" },
+  { flou: 24, masque: "linear-gradient(90deg,#000 0,#000 12%,transparent 38%)" },
+];
+
+function FondRail({ ouvert }: { ouvert: boolean }) {
+  return (
+    <span aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      <span className={`absolute inset-0 transition-opacity duration-200 ${ouvert ? "opacity-100" : "opacity-0"}`}>
+        {COUCHES_FLOU.map((c) => (
+          <span key={c.flou} className="absolute inset-0"
+            style={{ backdropFilter: `blur(${c.flou}px)`, WebkitBackdropFilter: `blur(${c.flou}px)`, maskImage: c.masque, WebkitMaskImage: c.masque }} />
+        ))}
+        <span className="absolute inset-0" style={{ background: "linear-gradient(90deg,rgba(8,8,10,0.9) 0,rgba(8,8,10,0.8) 104px,rgba(8,8,10,0.62) 70%,rgba(8,8,10,0.5) 100%)" }} />
+      </span>
+      {/* Rail ferme : fond plein, comme avant. */}
+      <span className={`absolute inset-0 bg-[#08080a] transition-opacity duration-200 ${ouvert ? "opacity-0" : "opacity-100"}`} />
+    </span>
+  );
+}
+
+/* Revelation d un texte deja en place : il ne glisse pas, seule la fenetre qui le
+   montre s ouvre vers la droite (clip-path), au rythme de l ouverture du rail. */
+const revele = (ouvert: boolean) =>
+  `transition-[clip-path,opacity] duration-200 ease-out ${ouvert ? "opacity-100 [clip-path:inset(0_0_0_0)]" : "opacity-0 [clip-path:inset(0_100%_0_0)]"}`;
+
 function RailOrdinateur({ blocs, actif, accent, outils, capture, onBloc, onOutil }: RailProps) {
   const [ouvert, setOuvert] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const rech = outils.find((o) => o.id === "recherche");
   const autres = outils.filter((o) => o.id !== "recherche");
-  const outil = (o: Outil) => (
+  const outil = (o: Outil, grand = false) => (
     <button key={o.id} type="button" aria-label={o.titre} title={ouvert ? undefined : o.titre}
       aria-disabled={o.inerte || undefined}
-      className={`v2-item group flex h-9 min-w-0 items-center text-left outline-none ${o.inerte ? "pointer-events-none opacity-40" : ""}`}
+      className={`v2-item group flex ${grand ? "h-11" : "h-9"} min-w-0 items-center text-left outline-none ${o.inerte ? "pointer-events-none opacity-40" : ""}`}
       onPointerDown={(e) => e.stopPropagation()}
       onClick={(e) => { if (o.inerte) return; const r = e.currentTarget.getBoundingClientRect(); onOutil(o.id, r.top + r.height / 2); setOuvert(false); }}>
       <span className="flex shrink-0 justify-center" style={{ width: RAIL }}>
-        <span className="flex size-8 items-center justify-center rounded-xl text-zinc-400 transition-colors group-hover:bg-white/[0.06] group-hover:text-zinc-100">
-          <o.Icon className={`v2-ico v2a-${o.anim} size-[18px]`} style={o.couleur ? { color: o.couleur } : undefined} aria-hidden />
+        <span className={`flex ${grand ? "size-10" : "size-8"} items-center justify-center rounded-xl text-zinc-400 transition-colors group-hover:bg-white/[0.06] group-hover:text-zinc-100`}>
+          <o.Icon className={`v2-ico v2a-${o.anim} ${grand ? "size-[23px]" : "size-[18px]"}`} style={o.couleur ? { color: o.couleur } : undefined} aria-hidden />
         </span>
       </span>
-      <span className={`min-w-0 whitespace-nowrap pr-2 text-[12.5px] text-zinc-300 transition-opacity duration-200 ${ouvert ? "opacity-100" : "opacity-0"}`}>{o.titre}</span>
+      <span data-rail-libelle className={`min-w-0 whitespace-nowrap pr-2 ${grand ? "text-[13.5px]" : "text-[12.5px]"} text-zinc-300 ${revele(ouvert)}`}>{o.titre}</span>
     </button>
   );
   return (
     // Vitrine anonyme : le rail passe au-dessus du voile d inscription (z 60) pour garder l acces au compte.
     <div data-rail-gauche data-fiche-rail className={`fixed inset-y-0 left-0 hidden md:block ${capture ? "z-[61]" : "z-50"}`} style={{ width: RAIL }}>
-      <nav ref={navRef} aria-label="Blocs de la fiche"
+      <nav ref={navRef} aria-label="Blocs de la fiche" data-rail-ouvert={ouvert ? "1" : "0"}
         onMouseEnter={() => setOuvert(true)} onMouseLeave={() => setOuvert(false)}
         onFocus={(e) => { if ((e.target as HTMLElement).matches?.(":focus-visible")) setOuvert(true); }} onBlur={(e) => { if (!navRef.current?.contains(e.relatedTarget as Node)) setOuvert(false); }}
-        className={`absolute inset-y-0 left-0 flex flex-col overflow-hidden border-r border-white/10 bg-[#08080a] transition-[width,box-shadow] duration-200 ease-out ${ouvert ? "shadow-[14px_0_44px_rgba(0,0,0,0.6)]" : ""}`}
+        className={`absolute inset-y-0 left-0 flex flex-col overflow-hidden border-r transition-[width,box-shadow,border-color] duration-200 ease-out ${ouvert ? "border-transparent shadow-[18px_0_48px_rgba(0,0,0,0.35)]" : "border-white/10"}`}
         style={{ width: ouvert ? RAIL_OUVERT : RAIL, ["--v2-acc" as string]: accent }}>
+        <FondRail ouvert={ouvert} />
         <LogoRail ouvert={ouvert} />
-        {rech && <div className="flex shrink-0 flex-col border-b border-white/[0.06] py-0.5">{outil(rech)}</div>}
-        {/* Yann 13 oct 2026 : blocs serres sous Rechercher, outils en une colonne en bas du rail. */}
+        {/* Yann 13 oct 2026 : loupe agrandie, plus d air et un trait leger (comme en bas du rail) avant les blocs. */}
+        {rech && (
+          <div className="flex shrink-0 flex-col pb-2 pt-2.5">
+            {outil(rech, true)}
+            <div className="mx-4 mt-2.5 h-px bg-white/10" />
+          </div>
+        )}
+        {/* Yann 13 oct 2026 : blocs sous Rechercher, outils en une colonne en bas du rail. */}
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-h-full flex-col pb-2 pt-1">
-            <div role="tablist" aria-orientation="vertical" className="flex flex-col">
+          <div className="flex min-h-full flex-col pb-2 pt-0.5">
+            <div role="tablist" aria-orientation="vertical" className="flex flex-col gap-1">
               {blocs.map((b) => {
                 const on = b.id === actif;
                 return (
@@ -278,16 +321,21 @@ function RailOrdinateur({ blocs, actif, accent, outils, capture, onBloc, onOutil
                     onClick={() => { onBloc(b.id); setOuvert(false); }}
                     className="v2-item group relative flex w-full shrink-0 items-center text-left outline-none">
                     {on && <motion.span layoutId="fiche-rail-trait" className="absolute inset-y-2 left-0 w-[3px] rounded-r-full" style={{ background: accent }} />}
-                    <span className="flex shrink-0 flex-col items-center gap-px px-1.5 py-[2px]" style={{ width: RAIL }}>
+                    <span className="flex shrink-0 flex-col items-center gap-px px-1.5 py-[3px]" style={{ width: RAIL }}>
                       <span className={`flex size-7 items-center justify-center rounded-xl transition-colors duration-150 ${on ? "bg-white/[0.09]" : "group-hover:bg-white/[0.06] group-focus-visible:bg-white/[0.06]"}`}
                         style={on ? { boxShadow: `inset 0 0 0 1px ${accent}40` } : undefined}>
                         <b.Icon className={`v2-ico v2a-${b.anim} size-[19px] transition-colors`} style={{ color: on ? accent : undefined }} aria-hidden />
                       </span>
-                      <span className={`w-full truncate whitespace-nowrap text-center text-[11px] leading-[1.15] transition-opacity duration-150 ${ouvert ? "opacity-0" : "opacity-100"} ${on ? "font-semibold text-zinc-50" : "text-zinc-400 group-hover:text-zinc-200"}`}>{b.court}</span>
-                    </span>
-                    <span className={`min-w-0 flex-1 pr-4 transition-opacity duration-200 ${ouvert ? "opacity-100 delay-75" : "pointer-events-none opacity-0"}`}>
-                      <span className={`block whitespace-nowrap text-[13.5px] ${on ? "font-semibold text-zinc-50" : "text-zinc-200"}`}>{b.titre}</span>
-                      <span className="block whitespace-nowrap text-[11.5px] text-zinc-500">{b.phrase}</span>
+                      {/* Le mot court reste centre sous l icone, a la meme place rail ferme ou ouvert ;
+                          la suite du titre (et la phrase) se revele a sa droite quand le rail s ouvre. */}
+                      <span className={`block w-full whitespace-nowrap text-center text-[11px] leading-[1.15] ${on ? "font-semibold text-zinc-50" : "text-zinc-400 group-hover:text-zinc-200"}`}>
+                        <span data-rail-court className="relative inline-block">
+                          {b.court}
+                          <span aria-hidden className={`absolute left-full top-0 whitespace-pre ${revele(ouvert)}`}>
+                            {b.suite}<span className="ml-2.5 font-normal text-[10.5px] text-zinc-500">{b.phrase}</span>
+                          </span>
+                        </span>
+                      </span>
                     </span>
                   </button>
                 );

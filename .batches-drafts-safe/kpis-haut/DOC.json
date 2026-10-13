@@ -3603,7 +3603,7 @@
   },
   {
    "short": "net_debt",
-   "name_fr": "Dette nette",
+   "name_fr": "Dette nette (trimestre)",
    "name_en": "Net debt",
    "value": 8.52,
    "unit": "Mds $",
@@ -3817,7 +3817,8 @@
     "en": "Net Debt",
     "origine": "nouveau"
    },
-   "_type_pose_le": "2026-09-14"
+   "_type_pose_le": "2026-09-14",
+   "_nom_avant_13oct": "Dette nette"
   },
   {
    "short": "net_debt_ebitda",
@@ -8259,77 +8260,6 @@
    "_type_pose_le": "2026-09-14"
   },
   {
-   "short": "CAHIER_FFO_AFFO_PS",
-   "name_fr": "Fonds provenant de l'exploitation et fonds ajustés par action",
-   "name_en": "Ffo Affo Ps",
-   "value": 1.84,
-   "unit": "$/action",
-   "yoy": "+1.7%",
-   "pv_score": 6,
-   "frequency": "annual",
-   "last_data_date": "2025-12-31",
-   "history": [
-    {
-     "q": "FY2017",
-     "v": 1.95
-    },
-    {
-     "q": "FY2018",
-     "v": 1.82
-    },
-    {
-     "q": "FY2019",
-     "v": 1.76
-    },
-    {
-     "q": "FY2020",
-     "v": 1.64
-    },
-    {
-     "q": "FY2021",
-     "v": 1.61
-    },
-    {
-     "q": "FY2022",
-     "v": 1.74
-    },
-    {
-     "q": "FY2023",
-     "v": 1.78
-    },
-    {
-     "q": "FY2024",
-     "v": 1.81
-    },
-    {
-     "q": "FY2025",
-     "v": 1.84
-    }
-   ],
-   "signal": "Mesure de référence de la rentabilité par action d'une foncière, plus pertinente que le résultat net car elle neutralise l'amortissement comptable.",
-   "_added_batch": "kpi-cahier-sept-2026",
-   "_cahier": "allonge",
-   "_cahier_periodes": [
-    "FY2017",
-    "FY2018",
-    "FY2019",
-    "FY2020",
-    "FY2021",
-    "FY2022",
-    "FY2023",
-    "FY2024",
-    "FY2025"
-   ],
-   "_src_note": "Pose depuis le Cahier le 06/09/2026 (docs/cahier/donnees/DOC.json, KPI FFO_AFFO_PS). Sources : https://www.sec.gov/Archives/edgar/data/765880/000162828026004623/ex99112312025.htm; https://www.sec.gov/Archives/edgar/data/765880/000162828023002583/ex99112312022.htm; https://www.sec.gov/Archives/edgar/data/765880/000162828019001316/ex99112312018.htm",
-   "_signal_regle_150": "2026-09-14",
-   "type_comparable": {
-    "fr": "FFO par action",
-    "en": "FFO per Share (Funds From Operations)",
-    "origine": "referentiel"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
    "short": "ccrc_revpor",
    "name_fr": "Revenu mensuel par logement occupé, résidences CCRC",
    "name_en": "CCRC RevPOR (monthly revenue per occupied unit)",
@@ -8365,5 +8295,86 @@
    "_source": "Présentation/Supplément T3 2025, Total CCRC Portfolio, REVPOR CCRC, p. 25 (lecture par OCR, document sans couche texte)"
   }
  ],
- "_extracted_at": "2026-07-28"
+ "_extracted_at": "2026-07-28",
+ "_doublons_retires_13oct": [
+  {
+   "retire": "CAHIER_FFO_AFFO_PS",
+   "garde": "ffo_ps_annuel",
+   "type": "concept",
+   "decision": "serie la plus recente puis la plus longue gardee",
+   "preuve": "5/5",
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "CAHIER_FFO_AFFO_PS",
+    "name_fr": "Fonds provenant de l'exploitation et fonds ajustés par action",
+    "name_en": "Ffo Affo Ps",
+    "value": 1.84,
+    "unit": "$/action",
+    "yoy": "+1.7%",
+    "pv_score": 6,
+    "frequency": "annual",
+    "last_data_date": "2025-12-31",
+    "history": [
+     {
+      "q": "FY2017",
+      "v": 1.95
+     },
+     {
+      "q": "FY2018",
+      "v": 1.82
+     },
+     {
+      "q": "FY2019",
+      "v": 1.76
+     },
+     {
+      "q": "FY2020",
+      "v": 1.64
+     },
+     {
+      "q": "FY2021",
+      "v": 1.61
+     },
+     {
+      "q": "FY2022",
+      "v": 1.74
+     },
+     {
+      "q": "FY2023",
+      "v": 1.78
+     },
+     {
+      "q": "FY2024",
+      "v": 1.81
+     },
+     {
+      "q": "FY2025",
+      "v": 1.84
+     }
+    ],
+    "signal": "Mesure de référence de la rentabilité par action d'une foncière, plus pertinente que le résultat net car elle neutralise l'amortissement comptable.",
+    "_added_batch": "kpi-cahier-sept-2026",
+    "_cahier": "allonge",
+    "_cahier_periodes": [
+     "FY2017",
+     "FY2018",
+     "FY2019",
+     "FY2020",
+     "FY2021",
+     "FY2022",
+     "FY2023",
+     "FY2024",
+     "FY2025"
+    ],
+    "_src_note": "Pose depuis le Cahier le 06/09/2026 (docs/cahier/donnees/DOC.json, KPI FFO_AFFO_PS). Sources : https://www.sec.gov/Archives/edgar/data/765880/000162828026004623/ex99112312025.htm; https://www.sec.gov/Archives/edgar/data/765880/000162828023002583/ex99112312022.htm; https://www.sec.gov/Archives/edgar/data/765880/000162828019001316/ex99112312018.htm",
+    "_signal_regle_150": "2026-09-14",
+    "type_comparable": {
+     "fr": "FFO par action",
+     "en": "FFO per Share (Funds From Operations)",
+     "origine": "referentiel"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  }
+ ]
 }

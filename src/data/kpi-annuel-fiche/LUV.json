@@ -4,7 +4,7 @@
  "kpis": [
   {
    "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
+   "name_fr": "Flux de trésorerie libre (exercice)",
    "name_en": "Free cash flow",
    "value": -0.831,
    "unit": "Mds $",
@@ -53,60 +53,8 @@
     "0000092380-26-000004",
     "0000092380-26-000004",
     "0000092380-26-000004"
-   ]
-  },
-  {
-   "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
-   "value": 4.901,
-   "unit": "Mds $",
-   "yoy": "-26.8%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    3.387,
-    3.668,
-    3.377,
-    2.665,
-    10.331,
-    10.727,
-    8.088,
-    8.007,
-    6.699,
-    4.901
    ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Dette de 4,9 Mds $ en 2025, −26,8 % sur un an, +4,2 % par an depuis 2016.",
-   "description_fr": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
-   "description_en": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000092380-18-000031",
-    "0000092380-19-000022",
-    "0000092380-20-000024",
-    "0000092380-21-000033",
-    "0000092380-22-000007",
-    "0000092380-23-000010",
-    "0000092380-24-000027",
-    "0000092380-25-000024",
-    "0000092380-26-000004",
-    "0000092380-26-000004"
-   ]
+   "_nom_avant_13oct": "Flux de trésorerie libre"
   },
   {
    "short": "dette_sur_ca",
@@ -150,5 +98,162 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "dette_annuelle",
+   "garde": "Total Debt",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2016,
+     "annuel": 3.387,
+     "somme_4T": 13.34,
+     "T4": 3.39,
+     "ecart": 0.089,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2017,
+     "annuel": 3.668,
+     "somme_4T": 12.92,
+     "T4": 3.67,
+     "ecart": 0.055,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2018,
+     "annuel": 3.377,
+     "somme_4T": 13.94,
+     "T4": 3.38,
+     "ecart": 0.089,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2019,
+     "annuel": 2.665,
+     "somme_4T": 11.98,
+     "T4": 2.67,
+     "ecart": 0.188,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2020,
+     "annuel": 10.331,
+     "somme_4T": 35.87,
+     "T4": 10.33,
+     "ecart": 0.01,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2021,
+     "annuel": 10.727,
+     "somme_4T": 44.09,
+     "T4": 10.73,
+     "ecart": 0.028,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2022,
+     "annuel": 8.088,
+     "somme_4T": 38.05,
+     "T4": 8.09,
+     "ecart": 0.025,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2023,
+     "annuel": 8.007,
+     "somme_4T": 32.08,
+     "T4": 8.01,
+     "ecart": 0.037,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2024,
+     "annuel": 6.699,
+     "somme_4T": 30.71,
+     "T4": 6.7,
+     "ecart": 0.015,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2025,
+     "annuel": 4.901,
+     "somme_4T": 19.79,
+     "T4": 4.9,
+     "ecart": 0.02,
+     "unite_ecart": "%",
+     "mode": "T4"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "dette_annuelle",
+    "name_fr": "Dette totale",
+    "name_en": "Total debt",
+    "value": 4.901,
+    "unit": "Mds $",
+    "yoy": "-26.8%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     3.387,
+     3.668,
+     3.377,
+     2.665,
+     10.331,
+     10.727,
+     8.088,
+     8.007,
+     6.699,
+     4.901
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Dette de 4,9 Mds $ en 2025, −26,8 % sur un an, +4,2 % par an depuis 2016.",
+    "description_fr": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
+    "description_en": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000092380-18-000031",
+     "0000092380-19-000022",
+     "0000092380-20-000024",
+     "0000092380-21-000033",
+     "0000092380-22-000007",
+     "0000092380-23-000010",
+     "0000092380-24-000027",
+     "0000092380-25-000024",
+     "0000092380-26-000004",
+     "0000092380-26-000004"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "fcf_annuel": "Flux de trésorerie libre (exercice)"
+ }
 }

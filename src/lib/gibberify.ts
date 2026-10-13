@@ -148,6 +148,7 @@ export function lockCompany(c: Company): Company {
     market_positions: c.market_positions?.map((mp) => ({
       ...mp,
       segment_name: gibberishText(mp.segment_name ?? "", seed + ":mp:" + (mp.segment_name ?? "")),
+      ...(mp.marche ? { marche: gibberishText(mp.marche, seed + ":mpm:" + mp.marche) } : {}),
     })),
     ai_positioning: c.ai_positioning
       ? {

@@ -56,62 +56,9 @@
    ]
   },
   {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 4.537,
-   "unit": "Mds $",
-   "yoy": "-1.4%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    3.858,
-    4.188,
-    5.157,
-    5.493,
-    3.709,
-    3.254,
-    3.173,
-    3.792,
-    4.603,
-    4.537
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 4,5 Mds $ en 2025, −1,4 % sur un an, +1,8 % par an depuis 2016.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001047469-19-000469",
-    "0001104659-20-021174",
-    "0001104659-21-022074",
-    "0001104659-22-020401",
-    "0001104659-23-022860",
-    "0001104659-24-025516",
-    "0001410578-25-000160",
-    "0001104659-26-017031",
-    "0001104659-26-017031",
-    "0001104659-26-017031"
-   ]
-  },
-  {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
+   "name_fr": "Dette totale (court + long terme)",
+   "name_en": "Total debt (short + long term)",
    "value": 3.954,
    "unit": "Mds $",
    "yoy": "-3.7%",
@@ -159,7 +106,8 @@
     "0001410578-25-000160",
     "0001104659-26-017031",
     "0001104659-26-017031"
-   ]
+   ],
+   "_nom_avant_14oct": "Dette totale"
   },
   {
    "short": "effectifs_annuels",
@@ -381,6 +329,72 @@
    "is_generic": false,
    "method": "sec-10k",
    "sources": []
+  }
+ ],
+ "_libelles_13oct": {
+  "dette_annuelle": "Dette totale (court + long terme)"
+ },
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "OCF",
+   "type": "arbitrage_14oct",
+   "decision": "le repere « flux de tresorerie libre » est le flux d exploitation (concept investissements absent : scripts/kpi-annuel-10ans.py, src/data/kpi-annuel-10ans/PFG.json, concept « flux_exploitation (investissements absents) »)",
+   "preuve": "somme des 4 trimestres du flux d exploitation = repere sur 9 exercices, ecart max 0.01 %",
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 4.537,
+    "unit": "Mds $",
+    "yoy": "-1.4%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     3.858,
+     4.188,
+     5.157,
+     5.493,
+     3.709,
+     3.254,
+     3.173,
+     3.792,
+     4.603,
+     4.537
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 4,5 Mds $ en 2025, −1,4 % sur un an, +1,8 % par an depuis 2016.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001047469-19-000469",
+     "0001104659-20-021174",
+     "0001104659-21-022074",
+     "0001104659-22-020401",
+     "0001104659-23-022860",
+     "0001104659-24-025516",
+     "0001410578-25-000160",
+     "0001104659-26-017031",
+     "0001104659-26-017031",
+     "0001104659-26-017031"
+    ]
+   }
   }
  ]
 }

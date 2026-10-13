@@ -408,3 +408,45 @@ html[data-flot-sur-contenu] .flot-discret:focus-visible { opacity: 1; }
   25% { box-shadow: inset 0 0 0 2px rgba(250, 204, 21, 0.55); }
 }
 .instit-eclair { animation: instit-eclair 1.6s ease-out 0.6s 1; }
+
+/* Yann 13 oct 2026 : main (cursor: pointer) au survol de tout element cliquable,
+   comme sur les autres sites. Tailwind v4 laisse le curseur par defaut sur les
+   boutons. En couche base : une classe utilitaire (cursor-default, cursor-help,
+   cursor-zoom-in...) posee sur un composant garde la priorite. Rien de
+   desactive ne prend la main. */
+@layer base {
+  button:not(:disabled):not([aria-disabled="true"]),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"]:not([aria-disabled="true"]),
+  [role="link"],
+  [role="menuitem"]:not([aria-disabled="true"]),
+  [role="menuitemradio"],
+  [role="menuitemcheckbox"],
+  [role="option"]:not([aria-disabled="true"]),
+  [role="switch"],
+  [role="checkbox"],
+  [role="radio"],
+  a[href],
+  summary,
+  label[for],
+  label:has(> input[type="checkbox"]:not(:disabled)),
+  label:has(> input[type="radio"]:not(:disabled)),
+  [onclick],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="button"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  input[type="file"]:not(:disabled),
+  input[type="color"]:not(:disabled),
+  input[type="range"]:not(:disabled) {
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled="true"],
+  select:disabled,
+  input:disabled {
+    cursor: default;
+  }
+}

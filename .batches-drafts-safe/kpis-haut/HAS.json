@@ -1419,46 +1419,6 @@
    "_type_pose_le": "2026-09-14"
   },
   {
-   "short": "employees",
-   "name_fr": "Effectif mondial",
-   "name_en": "Worldwide Employees",
-   "value": 4520,
-   "unit": "salariés",
-   "yoy": "-9.3%",
-   "history": [
-    {
-     "q": "FY2021",
-     "v": 6640
-    },
-    {
-     "q": "FY2022",
-     "v": 6490
-    },
-    {
-     "q": "FY2023",
-     "v": 5502
-    },
-    {
-     "q": "FY2024",
-     "v": 4985
-    },
-    {
-     "q": "FY2025",
-     "v": 4520
-    }
-   ],
-   "pv_score": 6,
-   "signal": "Effectif réduit d'un tiers depuis 2021: programme d'excellence opérationnelle",
-   "frequency": "annual",
-   "last_data_date": "2025-12-28",
-   "type_comparable": {
-    "fr": "Effectifs",
-    "en": "Employees",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
    "short": "rev_total",
    "name_fr": "Chiffre d'affaires net consolidé",
    "name_en": "Net revenues",
@@ -3871,7 +3831,7 @@
   },
   {
    "short": "gross_debt",
-   "name_fr": "Dette brute",
+   "name_fr": "Dette brute (trimestre)",
    "name_en": "Total debt",
    "value": 3538.2,
    "unit": "M USD",
@@ -4052,7 +4012,8 @@
     "en": "Total debt",
     "origine": "nouveau"
    },
-   "_type_pose_le": "2026-09-14"
+   "_type_pose_le": "2026-09-14",
+   "_nom_avant_13oct": "Dette brute"
   },
   {
    "short": "leverage",
@@ -6501,66 +6462,170 @@
     "origine": "nouveau"
    },
    "_type_pose_le": "2026-09-14"
-  },
-  {
-   "short": "HAS_WOTC",
-   "name_fr": "Chiffre d'affaires du pôle Wizards of the Coast et jeu numérique",
-   "name_en": "Wizards of the Coast and Digital Gaming segment revenue",
-   "unit": "M $",
-   "value": 2186.9,
-   "yoy": "+44.7%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Revenue",
-   "pv_score": 8,
-   "signal": "+44,7 % en 2025",
-   "description_fr": "Chiffre d'affaires annuel du pôle Wizards of the Coast et jeu numérique, qui porte le jeu de cartes à collectionner Magic: The Gathering. Hasbro ne publie ni le volume de cartes vendues ni le chiffre d'affaires annuel de Magic pris isolément.",
-   "history": [
-    {
-     "q": "FY2019",
-     "v": 761.2
-    },
-    {
-     "q": "FY2020",
-     "v": 906.7
-    },
-    {
-     "q": "FY2021",
-     "v": 1286.6
-    },
-    {
-     "q": "FY2022",
-     "v": 1325.1
-    },
-    {
-     "q": "FY2023",
-     "v": 1457.6
-    },
-    {
-     "q": "FY2024",
-     "v": 1511.3
-    },
-    {
-     "q": "FY2025",
-     "v": 2186.9
-    }
-   ],
-   "last_data_date": "2025-12-31",
-   "is_short_history": false,
-   "_estime": [],
-   "_source": "claude (mission produit phare, 13 sept 2026)",
-   "_produit_phare": "Jeu de cartes à collectionner MAGIC: THE GATHERING",
-   "type_comparable": {
-    "fr": "Chiffre d'affaires des jeux de cartes et des jeux numériques",
-    "en": "Trading card and digital gaming revenue",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
   }
  ],
  "_extracted_at": "2026-07-28",
  "_scanned_files": {
   "10-Q": 30,
   "10-K": 10
- }
+ },
+ "_doublons_retires_13oct": [
+  {
+   "retire": "HAS_WOTC",
+   "garde": "WotC_rev",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 1286.6,
+     "somme_4T": 1286.6,
+     "T4": 277.9,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 1325.1,
+     "somme_4T": 1325.1,
+     "T4": 339,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 1457.6,
+     "somme_4T": 1457.6,
+     "T4": 363.2,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 1511.3,
+     "somme_4T": 1511.3,
+     "T4": 339,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 2186.9,
+     "somme_4T": 2186.9,
+     "T4": 630.4,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "HAS_WOTC",
+    "name_fr": "Chiffre d'affaires du pôle Wizards of the Coast et jeu numérique",
+    "name_en": "Wizards of the Coast and Digital Gaming segment revenue",
+    "unit": "M $",
+    "value": 2186.9,
+    "yoy": "+44.7%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Revenue",
+    "pv_score": 8,
+    "signal": "+44,7 % en 2025",
+    "description_fr": "Chiffre d'affaires annuel du pôle Wizards of the Coast et jeu numérique, qui porte le jeu de cartes à collectionner Magic: The Gathering. Hasbro ne publie ni le volume de cartes vendues ni le chiffre d'affaires annuel de Magic pris isolément.",
+    "history": [
+     {
+      "q": "FY2019",
+      "v": 761.2
+     },
+     {
+      "q": "FY2020",
+      "v": 906.7
+     },
+     {
+      "q": "FY2021",
+      "v": 1286.6
+     },
+     {
+      "q": "FY2022",
+      "v": 1325.1
+     },
+     {
+      "q": "FY2023",
+      "v": 1457.6
+     },
+     {
+      "q": "FY2024",
+      "v": 1511.3
+     },
+     {
+      "q": "FY2025",
+      "v": 2186.9
+     }
+    ],
+    "last_data_date": "2025-12-31",
+    "is_short_history": false,
+    "_estime": [],
+    "_source": "claude (mission produit phare, 13 sept 2026)",
+    "_produit_phare": "Jeu de cartes à collectionner MAGIC: THE GATHERING",
+    "type_comparable": {
+     "fr": "Chiffre d'affaires des jeux de cartes et des jeux numériques",
+     "en": "Trading card and digital gaming revenue",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  },
+  {
+   "retire": "employees",
+   "garde": "effectifs_annuels",
+   "type": "arbitrage_14oct",
+   "decision": "meme mesure, serie la plus longue gardee (egalite : kpis-haut)",
+   "preuve": "4 exercices communs, ecart max 0.0 % ; 9 points gardes contre 5",
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "employees",
+    "name_fr": "Effectif mondial",
+    "name_en": "Worldwide Employees",
+    "value": 4520,
+    "unit": "salariés",
+    "yoy": "-9.3%",
+    "history": [
+     {
+      "q": "FY2021",
+      "v": 6640
+     },
+     {
+      "q": "FY2022",
+      "v": 6490
+     },
+     {
+      "q": "FY2023",
+      "v": 5502
+     },
+     {
+      "q": "FY2024",
+      "v": 4985
+     },
+     {
+      "q": "FY2025",
+      "v": 4520
+     }
+    ],
+    "pv_score": 6,
+    "signal": "Effectif réduit d'un tiers depuis 2021: programme d'excellence opérationnelle",
+    "frequency": "annual",
+    "last_data_date": "2025-12-28",
+    "type_comparable": {
+     "fr": "Effectifs",
+     "en": "Employees",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  }
+ ]
 }

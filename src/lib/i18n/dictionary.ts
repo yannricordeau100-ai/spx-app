@@ -576,6 +576,11 @@ export const DICTIONARY: Dict = {
   "governance.subtitle_prefix_future": { fr: "Assemblée générale prévue le", en: "AGM scheduled for" },
   "governance.subtitle_suffix": { fr: "Chiffres relatifs à l'exercice", en: "Figures for fiscal year" },
   "governance.dual_class": { fr: "Dual-class", en: "Dual-class" },
+  "governance.double_vote": { fr: "Droits de vote doubles", en: "Double voting rights" },
+  "governance.double_vote_tooltip": {
+    fr: "Une seule catégorie d'actions, mais un droit de vote double pour les actions détenues au nominatif depuis longtemps (en France, trois ans le plus souvent). Les actionnaires stables, souvent familiaux ou publics, pèsent plus au scrutin que dans leur part de capital.",
+    en: "A single class of shares, but double voting rights for registered shares held for a long period (in France, usually three years). Long-term holders carry more votes than their share of capital.",
+  },
   "governance.mono_class": {
     fr: "Mono-class (1 action = 1 vote)",
     en: "Mono-class (1 share = 1 vote)",

@@ -3,76 +3,6 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 2.203,
-   "unit": "Mds $",
-   "yoy": "+69.5%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    0.667,
-    0.804,
-    1.3,
-    2.203
-   ],
-   "history_periods": [
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 2,2 Mds $ en 2025, +69,5 % sur un an, +48,9 % par an depuis 2022.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001713445-25-000018",
-    "0001713445-26-000022",
-    "0001713445-26-000022",
-    "0001713445-26-000022"
-   ]
-  },
-  {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 0.684,
-   "unit": "Mds $",
-   "yoy": "+216.7%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    -0.1,
-    -0.085,
-    0.216,
-    0.684
-   ],
-   "history_periods": [
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 0,7 Mds $ en 2025, +216,7 % sur un an.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001713445-25-000018",
-    "0001713445-26-000022",
-    "0001713445-26-000022",
-    "0001713445-26-000022"
-   ]
-  },
-  {
    "short": "dette_annuelle",
    "name_fr": "Dette totale",
    "name_en": "Total debt",
@@ -105,38 +35,6 @@
     "0001713445-26-000022",
     "0001713445-26-000022",
     "0001713445-26-000022"
-   ]
-  },
-  {
-   "short": "effectifs_annuels",
-   "name_fr": "Effectifs",
-   "name_en": "Employees",
-   "value": 2555.0,
-   "unit": "salariés",
-   "yoy": "+14.4%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Human capital",
-   "history": [
-    2013.0,
-    2233.0,
-    2555.0
-   ],
-   "history_periods": [
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2026-02-06",
-   "signal": "Effectif de 2 555 salariés en 2025, +14,4 % sur un an.",
-   "description_fr": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
-   "description_en": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "2024-02-22",
-    "2025-02-13",
-    "2026-02-06"
    ]
   },
   {
@@ -252,6 +150,199 @@
    "is_generic": false,
    "method": "sec-10k",
    "sources": []
+  }
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "CA",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2022,
+     "annuel": 0.667,
+     "somme_4T": 666.701,
+     "T4": 200.428,
+     "ecart": 0.045,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 0.804,
+     "somme_4T": 804.029,
+     "T4": 249.75,
+     "ecart": 0.004,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 1.3,
+     "somme_4T": 1300.205,
+     "T4": 427.707,
+     "ecart": 0.016,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 2.203,
+     "somme_4T": 2202.506,
+     "T4": 725.607,
+     "ecart": 0.022,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 2.203,
+    "unit": "Mds $",
+    "yoy": "+69.5%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     0.667,
+     0.804,
+     1.3,
+     2.203
+    ],
+    "history_periods": [
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 2,2 Mds $ en 2025, +69,5 % sur un an, +48,9 % par an depuis 2022.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001713445-25-000018",
+     "0001713445-26-000022",
+     "0001713445-26-000022",
+     "0001713445-26-000022"
+    ]
+   }
+  },
+  {
+   "retire": "fcf_annuel",
+   "garde": "fcf_q",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2023,
+     "annuel": -0.085,
+     "somme_4T": -84.8,
+     "T4": -22,
+     "ecart": 0.235,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 0.216,
+     "somme_4T": 215.9,
+     "T4": 89.2,
+     "ecart": 0.046,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 0.684,
+     "somme_4T": 684.1,
+     "T4": 263.6,
+     "ecart": 0.015,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 0.684,
+    "unit": "Mds $",
+    "yoy": "+216.7%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     -0.1,
+     -0.085,
+     0.216,
+     0.684
+    ],
+    "history_periods": [
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 0,7 Mds $ en 2025, +216,7 % sur un an.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001713445-25-000018",
+     "0001713445-26-000022",
+     "0001713445-26-000022",
+     "0001713445-26-000022"
+    ]
+   }
+  },
+  {
+   "retire": "effectifs_annuels",
+   "garde": "EFFECTIFS",
+   "type": "arbitrage_14oct",
+   "decision": "meme mesure, serie la plus longue gardee (egalite : kpis-haut)",
+   "preuve": "3 exercices communs, ecart max 0.0 % ; 5 points gardes contre 3",
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "effectifs_annuels",
+    "name_fr": "Effectifs",
+    "name_en": "Employees",
+    "value": 2555.0,
+    "unit": "salariés",
+    "yoy": "+14.4%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Human capital",
+    "history": [
+     2013.0,
+     2233.0,
+     2555.0
+    ],
+    "history_periods": [
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2026-02-06",
+    "signal": "Effectif de 2 555 salariés en 2025, +14,4 % sur un an.",
+    "description_fr": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
+    "description_en": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "2024-02-22",
+     "2025-02-13",
+     "2026-02-06"
+    ]
+   }
   }
  ]
 }

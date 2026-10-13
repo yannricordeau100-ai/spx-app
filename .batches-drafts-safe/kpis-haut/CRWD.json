@@ -2200,7 +2200,7 @@
   },
   {
    "short": "FCF",
-   "name_fr": "Flux de trésorerie disponible",
+   "name_fr": "Flux de trésorerie disponible (trimestre)",
    "name_en": "Free cash flow (derived)",
    "value": 493.3,
    "unit": "M $",
@@ -2353,7 +2353,8 @@
     "en": "Free cash flow",
     "origine": "nouveau"
    },
-   "_type_pose_le": "2026-09-14"
+   "_type_pose_le": "2026-09-14",
+   "_nom_avant_13oct": "Flux de trésorerie disponible"
   },
   {
    "short": "Cash",
@@ -2459,114 +2460,6 @@
    "type_comparable": {
     "fr": "Trésorerie et placements",
     "en": "Cash and investments",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
-   "short": "Debt",
-   "name_fr": "Dette financière long terme",
-   "name_en": "Long-term debt (senior notes)",
-   "value": 745.8,
-   "unit": "M $",
-   "yoy": null,
-   "history": [
-    {
-     "q": "Q4-2021",
-     "v": 738.0
-    },
-    {
-     "q": "Q1-2022",
-     "v": 738.4
-    },
-    {
-     "q": "Q2-2022",
-     "v": 738.8
-    },
-    {
-     "q": "Q3-2022",
-     "v": 739.1
-    },
-    {
-     "q": "Q4-2022",
-     "v": 739.5
-    },
-    {
-     "q": "Q1-2023",
-     "v": 739.9
-    },
-    {
-     "q": "Q2-2023",
-     "v": 740.3
-    },
-    {
-     "q": "Q3-2023",
-     "v": 740.6
-    },
-    {
-     "q": "Q4-2023",
-     "v": 741.0
-    },
-    {
-     "q": "Q1-2024",
-     "v": 741.4
-    },
-    {
-     "q": "Q2-2024",
-     "v": 741.8
-    },
-    {
-     "q": "Q3-2024",
-     "v": 742.1
-    },
-    {
-     "q": "Q4-2024",
-     "v": 742.5
-    },
-    {
-     "q": "Q1-2025",
-     "v": 742.9
-    },
-    {
-     "q": "Q2-2025",
-     "v": 743.2
-    },
-    {
-     "q": "Q3-2025",
-     "v": 743.6
-    },
-    {
-     "q": "Q4-2025",
-     "v": 744.0
-    },
-    {
-     "q": "Q1-2026",
-     "v": 744.4
-    },
-    {
-     "q": "Q2-2026",
-     "v": 744.7
-    },
-    {
-     "q": "Q3-2026",
-     "v": 745.1
-    },
-    {
-     "q": "Q4-2026",
-     "v": 745.5
-    },
-    {
-     "q": "Q1-2027",
-     "v": 745.8
-    }
-   ],
-   "pv_score": 5,
-   "signal": "Dette long terme de 746 M$ au 30 avr. 2026 (billets seniors 3,00% échéance 2029), quasi stable, bilan très peu endetté.",
-   "frequency": "quarterly",
-   "last_data_date": "2026-04-30",
-   "type_comparable": {
-    "fr": "Dette financière à long terme",
-    "en": "Long-term debt",
     "origine": "nouveau"
    },
    "_type_pose_le": "2026-09-14"
@@ -3217,5 +3110,123 @@
   }
  ],
  "_extracted_at": "2026-07-23",
- "_v3_note": "Passe v3 exhaustif trimestriel: financiers structurels + geo + SaaS cyber ajoutes depuis data-lake local (XBRL facts.json, companyfacts EDGAR, 10-Q/10-K parses). Sources citees dans chaque signal."
+ "_v3_note": "Passe v3 exhaustif trimestriel: financiers structurels + geo + SaaS cyber ajoutes depuis data-lake local (XBRL facts.json, companyfacts EDGAR, 10-Q/10-K parses). Sources citees dans chaque signal.",
+ "_doublons_retires_13oct": [
+  {
+   "retire": "Debt",
+   "garde": "dette_annuelle",
+   "type": "arbitrage_14oct",
+   "decision": "valeurs egales a la serie « Dette totale » ; dernier 10-K : pas de dette a court terme hors part courante deja incluse, « Dette totale » seule",
+   "preuve": "ecart annuel/T4 < 0,5 % sur tous les exercices communs (rapport, section Decisions)",
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "Debt",
+    "name_fr": "Dette financière long terme",
+    "name_en": "Long-term debt (senior notes)",
+    "value": 745.8,
+    "unit": "M $",
+    "yoy": null,
+    "history": [
+     {
+      "q": "Q4-2021",
+      "v": 738.0
+     },
+     {
+      "q": "Q1-2022",
+      "v": 738.4
+     },
+     {
+      "q": "Q2-2022",
+      "v": 738.8
+     },
+     {
+      "q": "Q3-2022",
+      "v": 739.1
+     },
+     {
+      "q": "Q4-2022",
+      "v": 739.5
+     },
+     {
+      "q": "Q1-2023",
+      "v": 739.9
+     },
+     {
+      "q": "Q2-2023",
+      "v": 740.3
+     },
+     {
+      "q": "Q3-2023",
+      "v": 740.6
+     },
+     {
+      "q": "Q4-2023",
+      "v": 741.0
+     },
+     {
+      "q": "Q1-2024",
+      "v": 741.4
+     },
+     {
+      "q": "Q2-2024",
+      "v": 741.8
+     },
+     {
+      "q": "Q3-2024",
+      "v": 742.1
+     },
+     {
+      "q": "Q4-2024",
+      "v": 742.5
+     },
+     {
+      "q": "Q1-2025",
+      "v": 742.9
+     },
+     {
+      "q": "Q2-2025",
+      "v": 743.2
+     },
+     {
+      "q": "Q3-2025",
+      "v": 743.6
+     },
+     {
+      "q": "Q4-2025",
+      "v": 744.0
+     },
+     {
+      "q": "Q1-2026",
+      "v": 744.4
+     },
+     {
+      "q": "Q2-2026",
+      "v": 744.7
+     },
+     {
+      "q": "Q3-2026",
+      "v": 745.1
+     },
+     {
+      "q": "Q4-2026",
+      "v": 745.5
+     },
+     {
+      "q": "Q1-2027",
+      "v": 745.8
+     }
+    ],
+    "pv_score": 5,
+    "signal": "Dette long terme de 746 M$ au 30 avr. 2026 (billets seniors 3,00% échéance 2029), quasi stable, bilan très peu endetté.",
+    "frequency": "quarterly",
+    "last_data_date": "2026-04-30",
+    "type_comparable": {
+     "fr": "Dette financière à long terme",
+     "en": "Long-term debt",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  }
+ ]
 }

@@ -3,50 +3,6 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 67.535,
-   "unit": "Mds $",
-   "yoy": "+7.6%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    57.714,
-    55.179,
-    57.35,
-    60.53,
-    61.86,
-    62.753,
-    67.535
-   ],
-   "history_periods": [
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 67,5 Mds $ en 2025, +7,6 % sur un an, +2,7 % par an depuis 2019 (périmètre sans Kyndryl).",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001558370-22-001584",
-    "0001558370-23-002376",
-    "0000051143-24-000012",
-    "0000051143-25-000015",
-    "0000051143-26-000010",
-    "0000051143-26-000010",
-    "0000051143-26-000010"
-   ]
-  },
-  {
    "short": "fcf_annuel",
    "name_fr": "Flux de trésorerie libre",
    "name_en": "Free cash flow",
@@ -98,60 +54,196 @@
     "0000051143-26-000010",
     "0000051143-26-000010"
    ]
+  }
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "rev_total",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2022,
+     "annuel": 60.53,
+     "somme_4T": 60.53,
+     "T4": 16.691,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 61.86,
+     "somme_4T": 61.86,
+     "T4": 17.381,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 62.753,
+     "somme_4T": 62.753,
+     "T4": 17.553,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 67.535,
+     "somme_4T": 67.535,
+     "T4": 19.686,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 67.535,
+    "unit": "Mds $",
+    "yoy": "+7.6%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     57.714,
+     55.179,
+     57.35,
+     60.53,
+     61.86,
+     62.753,
+     67.535
+    ],
+    "history_periods": [
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 67,5 Mds $ en 2025, +7,6 % sur un an, +2,7 % par an depuis 2019 (périmètre sans Kyndryl).",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001558370-22-001584",
+     "0001558370-23-002376",
+     "0000051143-24-000012",
+     "0000051143-25-000015",
+     "0000051143-26-000010",
+     "0000051143-26-000010",
+     "0000051143-26-000010"
+    ]
+   }
   },
   {
-   "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
-   "value": 61.26,
-   "unit": "Mds $",
-   "yoy": "+11.4%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    42.169,
-    46.824,
-    45.812,
-    62.899,
-    61.538,
-    51.703,
-    50.949,
-    56.547,
-    54.973,
-    61.26
+   "retire": "dette_annuelle",
+   "garde": "total_debt",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2022,
+     "annuel": 50.949,
+     "somme_4T": 206.372,
+     "T4": 50.949,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2023,
+     "annuel": 56.547,
+     "somme_4T": 227.978,
+     "T4": 56.547,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2024,
+     "annuel": 54.973,
+     "somme_4T": 227.587,
+     "T4": 54.973,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2025,
+     "annuel": 61.26,
+     "somme_4T": 251.824,
+     "T4": 61.26,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    }
    ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Dette de 67,7 Mds $ en 2025, +12,7 % sur un an, +5,4 % par an depuis 2016.",
-   "description_fr": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
-   "description_en": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001047469-18-001117",
-    "0001047469-19-000712",
-    "0001047469-19-000712",
-    "0001558370-21-001489",
-    "0001558370-22-001584",
-    "0001558370-23-002376",
-    "0000051143-24-000012",
-    "0000051143-25-000015",
-    "0000051143-26-000010",
-    "0000051143-26-000010"
-   ],
-   "_verifie_le": "2026-09-30"
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "dette_annuelle",
+    "name_fr": "Dette totale",
+    "name_en": "Total debt",
+    "value": 61.26,
+    "unit": "Mds $",
+    "yoy": "+11.4%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     42.169,
+     46.824,
+     45.812,
+     62.899,
+     61.538,
+     51.703,
+     50.949,
+     56.547,
+     54.973,
+     61.26
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Dette de 67,7 Mds $ en 2025, +12,7 % sur un an, +5,4 % par an depuis 2016.",
+    "description_fr": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
+    "description_en": "Dettes financières à court et à long terme à la clôture de l’exercice, hors dettes d’exploitation.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001047469-18-001117",
+     "0001047469-19-000712",
+     "0001047469-19-000712",
+     "0001558370-21-001489",
+     "0001558370-22-001584",
+     "0001558370-23-002376",
+     "0000051143-24-000012",
+     "0000051143-25-000015",
+     "0000051143-26-000010",
+     "0000051143-26-000010"
+    ],
+    "_verifie_le": "2026-09-30"
+   }
   }
  ]
 }

@@ -45,61 +45,8 @@
    "_perimetre_2026_09_30": "Series tronquees au perimetre sans la production cedee en 2022 (chiffres anterieurs incluant Constellation)."
   },
   {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": -2.275,
-   "unit": "Mds $",
-   "yoy": null,
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    -0.092,
-    -0.104,
-    1.05,
-    -0.589,
-    -3.813,
-    -4.969,
-    -2.277,
-    -2.705,
-    -1.528,
-    -2.275
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre négative de 2,3 Mds $ en 2025, en baisse de 0,7 Mds $ sur un an.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001628280-19-001107",
-    "0001109357-20-000053",
-    "0001109357-21-000022",
-    "0001109357-22-000039",
-    "0001109357-23-000018",
-    "0001109357-24-000053",
-    "0001109357-25-000043",
-    "0001109357-26-000018",
-    "0001109357-26-000018",
-    "0001109357-26-000018"
-   ]
-  },
-  {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
+   "name_fr": "Dette totale (exercice)",
    "name_en": "Total debt",
    "value": 50.04,
    "unit": "Mds $",
@@ -134,7 +81,8 @@
     "0001109357-25-000043",
     "0001109357-26-000018"
    ],
-   "_perimetre_2026_09_30": "Series tronquees au perimetre sans la production cedee en 2022 (chiffres anterieurs incluant Constellation)."
+   "_perimetre_2026_09_30": "Series tronquees au perimetre sans la production cedee en 2022 (chiffres anterieurs incluant Constellation).",
+   "_nom_avant_13oct": "Dette totale"
   },
   {
    "short": "dette_sur_ca",
@@ -169,5 +117,108 @@
    "sources": [],
    "_perimetre_2026_09_30": "Series tronquees au perimetre sans la production cedee en 2022 (chiffres anterieurs incluant Constellation)."
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "fcf",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2022,
+     "annuel": -2.277,
+     "somme_4T": -2277,
+     "T4": -1239,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": -2.705,
+     "somme_4T": -2705,
+     "T4": -457,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": -1.528,
+     "somme_4T": -1528,
+     "T4": -510,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": -2.275,
+     "somme_4T": -2275,
+     "T4": -1190,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": -2.275,
+    "unit": "Mds $",
+    "yoy": null,
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     -0.092,
+     -0.104,
+     1.05,
+     -0.589,
+     -3.813,
+     -4.969,
+     -2.277,
+     -2.705,
+     -1.528,
+     -2.275
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre négative de 2,3 Mds $ en 2025, en baisse de 0,7 Mds $ sur un an.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001628280-19-001107",
+     "0001109357-20-000053",
+     "0001109357-21-000022",
+     "0001109357-22-000039",
+     "0001109357-23-000018",
+     "0001109357-24-000053",
+     "0001109357-25-000043",
+     "0001109357-26-000018",
+     "0001109357-26-000018",
+     "0001109357-26-000018"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "dette_annuelle": "Dette totale (exercice)"
+ }
 }

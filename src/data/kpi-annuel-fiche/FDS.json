@@ -3,61 +3,8 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 0.617,
-   "unit": "Mds $",
-   "yoy": "+0.3%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    0.283,
-    0.284,
-    0.352,
-    0.368,
-    0.428,
-    0.494,
-    0.487,
-    0.585,
-    0.615,
-    0.617
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-08-31",
-   "signal": "Trésorerie libre de 0,6 Mds $ en 2025, +0,3 % sur un an, +9,0 % par an depuis 2016.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001437749-18-019028",
-    "0001437749-19-020894",
-    "0001013237-20-000153",
-    "0001013237-21-000142",
-    "0001013237-22-000159",
-    "0001013237-23-000128",
-    "0001013237-24-000141",
-    "0001628280-25-045769",
-    "0001628280-25-045769",
-    "0001628280-25-045769"
-   ]
-  },
-  {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
+   "name_fr": "Dette totale (exercice)",
    "name_en": "Total debt",
    "value": 1.368,
    "unit": "Mds $",
@@ -106,57 +53,8 @@
     "0001013237-24-000141",
     "0001628280-25-045769",
     "0001628280-25-045769"
-   ]
-  },
-  {
-   "short": "effectifs_annuels",
-   "name_fr": "Effectifs",
-   "name_en": "Employees",
-   "value": 12800.0,
-   "unit": "salariés",
-   "yoy": "+3.2%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Human capital",
-   "history": [
-    9074.0,
-    9571.0,
-    9681.0,
-    10484.0,
-    10892.0,
-    11203.0,
-    12237.0,
-    12398.0,
-    12800.0
    ],
-   "history_periods": [
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-10-22",
-   "signal": "Effectif de 12 800 salariés en 2025, +3,2 % sur un an, +4,4 % par an depuis 2017.",
-   "description_fr": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
-   "description_en": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "2017-10-30",
-    "2018-10-30",
-    "2019-10-30",
-    "2020-10-29",
-    "2021-10-22",
-    "2022-10-21",
-    "2023-10-27",
-    "2024-10-29",
-    "2025-10-22"
-   ]
+   "_nom_avant_13oct": "Dette totale"
   },
   {
    "short": "ca_par_salarie",
@@ -320,5 +218,266 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "effectifs_annuels",
+   "garde": "EMPLOYEES",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 10892,
+     "somme_4T": 42887,
+     "T4": 10892,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2022,
+     "annuel": 11203,
+     "somme_4T": 43576,
+     "T4": 11203,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2023,
+     "annuel": 12237,
+     "somme_4T": 47832,
+     "T4": 12237,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2024,
+     "annuel": 12398,
+     "somme_4T": 49454,
+     "T4": 12398,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    },
+    {
+     "annee": 2025,
+     "annuel": 12800,
+     "somme_4T": 50552,
+     "T4": 12800,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "T4"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "effectifs_annuels",
+    "name_fr": "Effectifs",
+    "name_en": "Employees",
+    "value": 12800.0,
+    "unit": "salariés",
+    "yoy": "+3.2%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Human capital",
+    "history": [
+     9074.0,
+     9571.0,
+     9681.0,
+     10484.0,
+     10892.0,
+     11203.0,
+     12237.0,
+     12398.0,
+     12800.0
+    ],
+    "history_periods": [
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-10-22",
+    "signal": "Effectif de 12 800 salariés en 2025, +3,2 % sur un an, +4,4 % par an depuis 2017.",
+    "description_fr": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
+    "description_en": "Nombre total de salariés du groupe à la clôture de l’exercice, tel qu’annoncé dans le rapport annuel.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "2017-10-30",
+     "2018-10-30",
+     "2019-10-30",
+     "2020-10-29",
+     "2021-10-22",
+     "2022-10-21",
+     "2023-10-27",
+     "2024-10-29",
+     "2025-10-22"
+    ]
+   }
+  },
+  {
+   "retire": "fcf_annuel",
+   "garde": "FCF",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2016,
+     "annuel": 0.283,
+     "somme_4T": 283.4,
+     "T4": 57,
+     "ecart": 0.141,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2017,
+     "annuel": 0.284,
+     "somme_4T": 283.6,
+     "T4": 89.3,
+     "ecart": 0.141,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2018,
+     "annuel": 0.352,
+     "somme_4T": 352.2,
+     "T4": 91.2,
+     "ecart": 0.057,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2019,
+     "annuel": 0.368,
+     "somme_4T": 367.7,
+     "T4": 95.3,
+     "ecart": 0.082,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2020,
+     "annuel": 0.428,
+     "somme_4T": 428.1,
+     "T4": 144.7,
+     "ecart": 0.023,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2021,
+     "annuel": 0.494,
+     "somme_4T": 493.9,
+     "T4": 171.1,
+     "ecart": 0.02,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 0.487,
+     "somme_4T": 487.1,
+     "T4": 136.1,
+     "ecart": 0.021,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 0.585,
+     "somme_4T": 583.5,
+     "T4": 155,
+     "ecart": 0.256,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 0.615,
+     "somme_4T": 614.7,
+     "T4": 137.2,
+     "ecart": 0.049,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 0.617,
+     "somme_4T": 617.4,
+     "T4": 178.1,
+     "ecart": 0.065,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 0.617,
+    "unit": "Mds $",
+    "yoy": "+0.3%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     0.283,
+     0.284,
+     0.352,
+     0.368,
+     0.428,
+     0.494,
+     0.487,
+     0.585,
+     0.615,
+     0.617
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-08-31",
+    "signal": "Trésorerie libre de 0,6 Mds $ en 2025, +0,3 % sur un an, +9,0 % par an depuis 2016.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001437749-18-019028",
+     "0001437749-19-020894",
+     "0001013237-20-000153",
+     "0001013237-21-000142",
+     "0001013237-22-000159",
+     "0001013237-23-000128",
+     "0001013237-24-000141",
+     "0001628280-25-045769",
+     "0001628280-25-045769",
+     "0001628280-25-045769"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "dette_annuelle": "Dette totale (exercice)"
+ }
 }

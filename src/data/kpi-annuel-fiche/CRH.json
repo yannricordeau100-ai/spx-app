@@ -3,82 +3,6 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 37.447,
-   "unit": "Mds $",
-   "yoy": "+5.3%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    29.206,
-    32.723,
-    34.949,
-    35.572,
-    37.447
-   ],
-   "history_periods": [
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 37,4 Mds $ en 2025, +5,3 % sur un an, +6,4 % par an depuis 2021.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001628280-24-007773",
-    "0001628280-25-008179",
-    "0001628280-26-009043",
-    "0001628280-26-009043",
-    "0001628280-26-009043"
-   ]
-  },
-  {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 2.912,
-   "unit": "Mds $",
-   "yoy": "+20.8%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    2.425,
-    2.277,
-    3.2,
-    2.411,
-    2.912
-   ],
-   "history_periods": [
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 2,9 Mds $ en 2025, +20,8 % sur un an, +4,7 % par an depuis 2021.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001628280-24-007773",
-    "0001628280-25-008179",
-    "0001628280-26-009043",
-    "0001628280-26-009043",
-    "0001628280-26-009043"
-   ]
-  },
-  {
    "short": "dette_annuelle",
    "name_fr": "Dette totale",
    "name_en": "Total debt",
@@ -258,6 +182,156 @@
    "is_generic": false,
    "method": "sec-10k",
    "sources": []
+  }
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "total_revenue",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2023,
+     "annuel": 34.949,
+     "somme_4T": 34.96,
+     "T4": 8.69,
+     "ecart": 0.031,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 35.572,
+     "somme_4T": 35.57,
+     "T4": 8.87,
+     "ecart": 0.006,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 37.447,
+     "somme_4T": 37.46,
+     "T4": 9.42,
+     "ecart": 0.035,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 37.447,
+    "unit": "Mds $",
+    "yoy": "+5.3%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     29.206,
+     32.723,
+     34.949,
+     35.572,
+     37.447
+    ],
+    "history_periods": [
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 37,4 Mds $ en 2025, +5,3 % sur un an, +6,4 % par an depuis 2021.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001628280-24-007773",
+     "0001628280-25-008179",
+     "0001628280-26-009043",
+     "0001628280-26-009043",
+     "0001628280-26-009043"
+    ]
+   }
+  },
+  {
+   "retire": "fcf_annuel",
+   "garde": "fcf",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2023,
+     "annuel": 3.2,
+     "somme_4T": 3200,
+     "T4": 1781,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 2.411,
+     "somme_4T": 2411,
+     "T4": 1787,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 2.912,
+     "somme_4T": 2912,
+     "T4": 2094,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 2.912,
+    "unit": "Mds $",
+    "yoy": "+20.8%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     2.425,
+     2.277,
+     3.2,
+     2.411,
+     2.912
+    ],
+    "history_periods": [
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 2,9 Mds $ en 2025, +20,8 % sur un an, +4,7 % par an depuis 2021.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001628280-24-007773",
+     "0001628280-25-008179",
+     "0001628280-26-009043",
+     "0001628280-26-009043",
+     "0001628280-26-009043"
+    ]
+   }
   }
  ]
 }

@@ -3,59 +3,6 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 53.434,
-   "unit": "Mds $",
-   "yoy": "+36.6%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    25.501,
-    27.237,
-    28.076,
-    28.593,
-    28.523,
-    30.435,
-    34.25,
-    36.787,
-    39.112,
-    53.434
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 53,4 Mds $ en 2025, +36,6 % sur un an, +8,6 % par an depuis 2016.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000927628-19-000093",
-    "0000927628-20-000102",
-    "0000927628-21-000094",
-    "0000927628-22-000106",
-    "0000927628-23-000117",
-    "0000927628-24-000094",
-    "0000927628-25-000092",
-    "0000927628-26-000024",
-    "0000927628-26-000024",
-    "0000927628-26-000024"
-   ]
-  },
-  {
    "short": "fcf_annuel",
    "name_fr": "Flux de trésorerie libre",
    "name_en": "Free cash flow",
@@ -110,8 +57,8 @@
   },
   {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
-   "name_en": "Total debt",
+   "name_fr": "Dette totale (court + long terme)",
+   "name_en": "Total debt (short + long term)",
    "value": 51.0,
    "unit": "Mds $",
    "yoy": "+12.0%",
@@ -159,7 +106,8 @@
     "0000927628-25-000092",
     "0000927628-26-000024",
     "0000927628-26-000024"
-   ]
+   ],
+   "_nom_avant_14oct": "Dette totale"
   },
   {
    "short": "effectifs_annuels",
@@ -364,5 +312,117 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "total_net_revenue",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 30.435,
+     "somme_4T": 30435,
+     "T4": 8118,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 34.25,
+     "somme_4T": 34250,
+     "T4": 9040,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 36.787,
+     "somme_4T": 36787,
+     "T4": 9506,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 39.112,
+     "somme_4T": 39112,
+     "T4": 10190,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 53.434,
+     "somme_4T": 53434,
+     "T4": 15583,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 53.434,
+    "unit": "Mds $",
+    "yoy": "+36.6%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     25.501,
+     27.237,
+     28.076,
+     28.593,
+     28.523,
+     30.435,
+     34.25,
+     36.787,
+     39.112,
+     53.434
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 53,4 Mds $ en 2025, +36,6 % sur un an, +8,6 % par an depuis 2016.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000927628-19-000093",
+     "0000927628-20-000102",
+     "0000927628-21-000094",
+     "0000927628-22-000106",
+     "0000927628-23-000117",
+     "0000927628-24-000094",
+     "0000927628-25-000092",
+     "0000927628-26-000024",
+     "0000927628-26-000024",
+     "0000927628-26-000024"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "dette_annuelle": "Dette totale (court + long terme)"
+ }
 }

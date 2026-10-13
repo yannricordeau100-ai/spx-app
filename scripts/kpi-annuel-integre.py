@@ -287,6 +287,20 @@ def main() -> int:
         r = traite(t)
         if not r:
             continue
+        # 13 oct 2026 : doublons retires et libelles precises par
+        # scripts/scan-kpi-doublons-servis.py, conserves a la regeneration.
+        ancien = SORTIE / f"{t}.json"
+        if ancien.exists():
+            a = json.loads(ancien.read_text())
+            retires = {d["retire"] for d in a.get("_doublons_retires_13oct", [])}
+            if retires:
+                r["kpis"] = [k for k in r["kpis"] if k["short"] not in retires]
+                r["_doublons_retires_13oct"] = a["_doublons_retires_13oct"]
+            if a.get("_libelles_13oct"):
+                r["_libelles_13oct"] = a["_libelles_13oct"]
+                for k in r["kpis"]:
+                    if k["short"] in a["_libelles_13oct"]:
+                        k["name_fr"] = a["_libelles_13oct"][k["short"]]
         (SORTIE / f"{t}.json").write_text(json.dumps(r, ensure_ascii=False, indent=1))
         faits += 1
         if any(k["short"] == "effectifs_annuels" for k in r["kpis"]):

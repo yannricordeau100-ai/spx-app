@@ -93,14 +93,16 @@ export function QualityBadge({
 }
 
 /** Exported parts so callers can interleave other chips (e.g. CAGR) between them. */
-export function QualityChipOnly({ rating, size = "md" }: { rating: Rating; size?: "sm" | "md" }) {
+export function QualityChipOnly({ rating, size = "md" }: { rating: Rating; size?: "xs" | "sm" | "md" }) {
   const { t } = useT();
   const isSm = size === "sm";
+  /* Yann 13 oct 2026 : taille « xs » pour le hero (environ 80 % de « md »). */
+  const isXs = size === "xs";
   const tierLabel = t(`tier.${rating.tier}`);
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-md font-medium ${
-        isSm ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-[12.5px]"
+        isXs ? "px-2 py-0.5 text-[10px]" : isSm ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-[12.5px]"
       }`}
       style={{ background: `${rating.color}1f`, color: rating.color }}
     >

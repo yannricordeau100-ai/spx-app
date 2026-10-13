@@ -3,61 +3,8 @@
  "genere_le": "2026-09-04",
  "kpis": [
   {
-   "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
-   "name_en": "Revenue",
-   "value": 54.774,
-   "unit": "Mds $",
-   "yoy": "-0.6%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    29.003,
-    41.581,
-    43.634,
-    45.764,
-    48.097,
-    51.682,
-    54.022,
-    54.607,
-    55.085,
-    54.774
-   ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Ventes de 54,8 Mds $ en 2025, −0,6 % sur un an, +7,3 % par an depuis 2016.",
-   "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001091667-17-000030",
-    "0001091667-20-000024",
-    "0001091667-21-000022",
-    "0001091667-22-000024",
-    "0001091667-23-000024",
-    "0001091667-24-000028",
-    "0001091667-25-000034",
-    "0001091667-26-000017",
-    "0001091667-26-000017",
-    "0001091667-26-000017"
-   ]
-  },
-  {
    "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
+   "name_fr": "Flux de trésorerie libre (exercice)",
    "name_en": "Free cash flow",
    "value": 4.418,
    "unit": "Mds $",
@@ -106,11 +53,12 @@
     "0001091667-26-000017",
     "0001091667-26-000017",
     "0001091667-26-000017"
-   ]
+   ],
+   "_nom_avant_13oct": "Flux de trésorerie libre"
   },
   {
    "short": "dette_annuelle",
-   "name_fr": "Dette totale",
+   "name_fr": "Dette totale (exercice)",
    "name_en": "Total debt",
    "value": 95.674,
    "unit": "Mds $",
@@ -156,7 +104,8 @@
     "0001091667-25-000034",
     "0001091667-26-000017",
     "0001091667-26-000017"
-   ]
+   ],
+   "_nom_avant_13oct": "Dette totale"
   },
   {
    "short": "effectifs_annuels",
@@ -371,5 +320,163 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "revenue_annuel",
+   "garde": "revenue_total",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2016,
+     "annuel": 29.003,
+     "somme_4T": 29.0,
+     "T4": 10.27,
+     "ecart": 0.01,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2017,
+     "annuel": 41.581,
+     "somme_4T": 41.58,
+     "T4": 10.6,
+     "ecart": 0.002,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2018,
+     "annuel": 43.634,
+     "somme_4T": 43.63,
+     "T4": 11.23,
+     "ecart": 0.009,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2019,
+     "annuel": 45.764,
+     "somme_4T": 45.77,
+     "T4": 11.76,
+     "ecart": 0.013,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2020,
+     "annuel": 48.097,
+     "somme_4T": 48.1,
+     "T4": 12.62,
+     "ecart": 0.006,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2021,
+     "annuel": 51.682,
+     "somme_4T": 51.68,
+     "T4": 13.21,
+     "ecart": 0.004,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 54.022,
+     "somme_4T": 54.02,
+     "T4": 13.67,
+     "ecart": 0.004,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 54.607,
+     "somme_4T": 54.6,
+     "T4": 13.71,
+     "ecart": 0.013,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 55.085,
+     "somme_4T": 55.08,
+     "T4": 13.93,
+     "ecart": 0.009,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 54.774,
+     "somme_4T": 54.77,
+     "T4": 13.6,
+     "ecart": 0.007,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "revenue_annuel",
+    "name_fr": "Chiffre d’affaires",
+    "name_en": "Revenue",
+    "value": 54.774,
+    "unit": "Mds $",
+    "yoy": "-0.6%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     29.003,
+     41.581,
+     43.634,
+     45.764,
+     48.097,
+     51.682,
+     54.022,
+     54.607,
+     55.085,
+     54.774
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Ventes de 54,8 Mds $ en 2025, −0,6 % sur un an, +7,3 % par an depuis 2016.",
+    "description_fr": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "description_en": "Ventes totales de l’exercice, telles que publiées dans le rapport annuel déposé à la SEC.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001091667-17-000030",
+     "0001091667-20-000024",
+     "0001091667-21-000022",
+     "0001091667-22-000024",
+     "0001091667-23-000024",
+     "0001091667-24-000028",
+     "0001091667-25-000034",
+     "0001091667-26-000017",
+     "0001091667-26-000017",
+     "0001091667-26-000017"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "fcf_annuel": "Flux de trésorerie libre (exercice)",
+  "dette_annuelle": "Dette totale (exercice)"
+ }
 }

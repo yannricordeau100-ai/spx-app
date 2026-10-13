@@ -1057,3 +1057,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.13.6 (13 Oct 2026 22:13, apres 2a280c020d)
 - Floutage gratuit (KPI moyen terme, TAM coherent), bouton jour/nuit dans le compte seulement, lien compte direct, journaux Supabase reduits, blocs IA en francais, variations nulles masquees, pastille institutionnels alignee, unites, mises a jour post-resultats (11 stes)
+
+## v2026.10.14.1 (14 Oct 2026 00:33, apres b6c4b56b5a)
+- TAM : ancien style par cartes, titres de marche, audit (64 retires) ; logos recadres ; curseur main ; rail ouvert en degrade flou, loupe ; doublons KPI (638) ; libelles sans unite ; LVMH TAM en euros et vote ; PANW NTAP ; hero et espacement

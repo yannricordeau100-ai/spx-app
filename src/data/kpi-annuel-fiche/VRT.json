@@ -53,56 +53,6 @@
    ]
   },
   {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 1.894,
-   "unit": "Mds $",
-   "yoy": "+64.4%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    -0.0,
-    -0.286,
-    0.01,
-    0.165,
-    0.138,
-    -0.253,
-    0.773,
-    1.152,
-    1.894
-   ],
-   "history_periods": [
-    "2016",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 1,9 Mds $ en 2025, +64,4 % sur un an.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001193125-19-072362",
-    "0001628280-21-008318",
-    "0001628280-22-004533",
-    "0001628280-23-005248",
-    "0001628280-24-006498",
-    "0001628280-25-005905",
-    "0001674101-26-000008",
-    "0001674101-26-000008",
-    "0001674101-26-000008"
-   ]
-  },
-  {
    "short": "dette_annuelle",
    "name_fr": "Dette totale",
    "name_en": "Total debt",
@@ -333,6 +283,112 @@
    "is_generic": false,
    "method": "sec-10k",
    "sources": []
+  }
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "FCF",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 0.138,
+     "somme_4T": 137.5,
+     "T4": 6.4,
+     "ecart": 0.362,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": -0.253,
+     "somme_4T": -252.8,
+     "T4": 142.4,
+     "ecart": 0.079,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 0.773,
+     "somme_4T": 772.6,
+     "T4": 308.4,
+     "ecart": 0.052,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 1.152,
+     "somme_4T": 1152.3,
+     "T4": 364.5,
+     "ecart": 0.026,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 1.894,
+     "somme_4T": 1893.8,
+     "T4": 885.6,
+     "ecart": 0.011,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 1.894,
+    "unit": "Mds $",
+    "yoy": "+64.4%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     -0.0,
+     -0.286,
+     0.01,
+     0.165,
+     0.138,
+     -0.253,
+     0.773,
+     1.152,
+     1.894
+    ],
+    "history_periods": [
+     "2016",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 1,9 Mds $ en 2025, +64,4 % sur un an.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001193125-19-072362",
+     "0001628280-21-008318",
+     "0001628280-22-004533",
+     "0001628280-23-005248",
+     "0001628280-24-006498",
+     "0001628280-25-005905",
+     "0001674101-26-000008",
+     "0001674101-26-000008",
+     "0001674101-26-000008"
+    ]
+   }
   }
  ]
 }

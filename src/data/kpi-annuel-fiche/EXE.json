@@ -4,7 +4,7 @@
  "kpis": [
   {
    "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
+   "name_fr": "Chiffre d’affaires (exercice)",
    "name_en": "Revenue",
    "value": 12.124,
    "unit": "Mds $",
@@ -50,57 +50,8 @@
     "0000895126-26-000011",
     "0000895126-26-000011",
     "0000895126-26-000011"
-   ]
-  },
-  {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 1.839,
-   "unit": "Mds $",
-   "yoy": "+22887.5%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    -1.65,
-    0.475,
-    1.73,
-    1.623,
-    0.022,
-    2.302,
-    0.551,
-    0.008,
-    1.839
    ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 1,8 Mds $ en 2025, +22887,5 % sur un an.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0000895126-19-000070",
-    "0000895126-20-000061",
-    "0000895126-21-000078",
-    "0000895126-22-000029",
-    "0000895126-23-000022",
-    "0000895126-25-000021",
-    "0000895126-26-000011",
-    "0000895126-26-000011",
-    "0000895126-26-000011"
-   ]
+   "_nom_avant_13oct": "Chiffre d’affaires"
   },
   {
    "short": "effectifs_annuels",
@@ -271,5 +222,114 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "fcf",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2020,
+     "annuel": 0.022,
+     "somme_4T": 0.022,
+     "T4": -0.16,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 2.302,
+     "somme_4T": 2.302,
+     "T4": 0.526,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 0.551,
+     "somme_4T": 0.551,
+     "T4": 0.091,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 0.008,
+     "somme_4T": 0.008,
+     "T4": -0.154,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 1.839,
+     "somme_4T": 1.839,
+     "T4": 0.215,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 1.839,
+    "unit": "Mds $",
+    "yoy": "+22887.5%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     -1.65,
+     0.475,
+     1.73,
+     1.623,
+     0.022,
+     2.302,
+     0.551,
+     0.008,
+     1.839
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 1,8 Mds $ en 2025, +22887,5 % sur un an.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0000895126-19-000070",
+     "0000895126-20-000061",
+     "0000895126-21-000078",
+     "0000895126-22-000029",
+     "0000895126-23-000022",
+     "0000895126-25-000021",
+     "0000895126-26-000011",
+     "0000895126-26-000011",
+     "0000895126-26-000011"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "revenue_annuel": "Chiffre d’affaires (exercice)"
+ }
 }

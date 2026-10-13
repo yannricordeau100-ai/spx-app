@@ -185,8 +185,9 @@ export function CompanyProfileCard({
         {hasTam && <MarketTamCard positions={tam as MarketPosition[]} accent={accent} />}
       </div>
 
-      {/* Dernière actualité — bloc séparé, full-width, conditionnel */}
-      <div className="mt-4">
+      {/* Dernière actualité — bloc séparé, full-width, conditionnel.
+          Yann 13 oct 2026 : la marge n existe que si un contenu suit (sinon 16 px de vide). */}
+      <div className={news || (!mDesc && legacyDesc) ? "mt-4" : ""}>
         {news ? (
           <div data-blur-part="actualite" className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
             <div className="mb-2 flex items-baseline justify-between gap-3">

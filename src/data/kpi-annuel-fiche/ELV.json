@@ -4,7 +4,7 @@
  "kpis": [
   {
    "short": "revenue_annuel",
-   "name_fr": "Chiffre d’affaires",
+   "name_fr": "Chiffre d’affaires (exercice)",
    "name_en": "Revenue",
    "value": 199.125,
    "unit": "Mds $",
@@ -53,60 +53,8 @@
     "0001156039-26-000013",
     "0001156039-26-000013",
     "0001156039-26-000013"
-   ]
-  },
-  {
-   "short": "fcf_annuel",
-   "name_fr": "Flux de trésorerie libre",
-   "name_en": "Free cash flow",
-   "value": 3.174,
-   "unit": "Mds $",
-   "yoy": "-30.3%",
-   "period_type": "year",
-   "frequency": "annual",
-   "type": "Financials",
-   "history": [
-    2.686,
-    3.394,
-    2.619,
-    4.984,
-    9.667,
-    7.277,
-    7.247,
-    6.765,
-    4.552,
-    3.174
    ],
-   "history_periods": [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "last_data_date": "2025-12-31",
-   "signal": "Trésorerie libre de 3,2 Mds $ en 2025, −30,3 % sur un an, +1,9 % par an depuis 2016.",
-   "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
-   "is_generic": true,
-   "method": "sec-10k",
-   "sources": [
-    "0001156039-19-000004",
-    "0001156039-20-000003",
-    "0001156039-21-000012",
-    "0001156039-22-000009",
-    "0001156039-23-000007",
-    "0001156039-24-000015",
-    "0001156039-25-000010",
-    "0001156039-26-000013",
-    "0001156039-26-000013",
-    "0001156039-26-000013"
-   ]
+   "_nom_avant_13oct": "Chiffre d’affaires"
   },
   {
    "short": "dette_annuelle",
@@ -382,5 +330,117 @@
    "method": "sec-10k",
    "sources": []
   }
- ]
+ ],
+ "_doublons_retires_13oct": [
+  {
+   "retire": "fcf_annuel",
+   "garde": "fcf",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2021,
+     "annuel": 7.277,
+     "somme_4T": 7.277,
+     "T4": 1.332,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2022,
+     "annuel": 7.247,
+     "somme_4T": 7.247,
+     "T4": -1.816,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2023,
+     "annuel": 6.765,
+     "somme_4T": 6.765,
+     "T4": -3.297,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2024,
+     "annuel": 4.552,
+     "somme_4T": 4.552,
+     "T4": 0.384,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 3.174,
+     "somme_4T": 3.174,
+     "T4": -0.209,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "fcf_annuel",
+    "name_fr": "Flux de trésorerie libre",
+    "name_en": "Free cash flow",
+    "value": 3.174,
+    "unit": "Mds $",
+    "yoy": "-30.3%",
+    "period_type": "year",
+    "frequency": "annual",
+    "type": "Financials",
+    "history": [
+     2.686,
+     3.394,
+     2.619,
+     4.984,
+     9.667,
+     7.277,
+     7.247,
+     6.765,
+     4.552,
+     3.174
+    ],
+    "history_periods": [
+     "2016",
+     "2017",
+     "2018",
+     "2019",
+     "2020",
+     "2021",
+     "2022",
+     "2023",
+     "2024",
+     "2025"
+    ],
+    "last_data_date": "2025-12-31",
+    "signal": "Trésorerie libre de 3,2 Mds $ en 2025, −30,3 % sur un an, +1,9 % par an depuis 2016.",
+    "description_fr": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "description_en": "Trésorerie dégagée par l’activité une fois les investissements payés. C’est l’argent réellement disponible pour rembourser la dette, verser un dividende ou racheter des actions.",
+    "is_generic": true,
+    "method": "sec-10k",
+    "sources": [
+     "0001156039-19-000004",
+     "0001156039-20-000003",
+     "0001156039-21-000012",
+     "0001156039-22-000009",
+     "0001156039-23-000007",
+     "0001156039-24-000015",
+     "0001156039-25-000010",
+     "0001156039-26-000013",
+     "0001156039-26-000013",
+     "0001156039-26-000013"
+    ]
+   }
+  }
+ ],
+ "_libelles_13oct": {
+  "revenue_annuel": "Chiffre d’affaires (exercice)"
+ }
 }

@@ -4,7 +4,7 @@
   "kpis": [
     {
       "short": "EP_rev",
-      "name_fr": "Chiffre d'affaires Engine Products",
+      "name_fr": "Chiffre d'affaires Engine Products (trimestre)",
       "name_en": "Engine Products Revenue",
       "value": 1373,
       "unit": "M USD",
@@ -95,7 +95,8 @@
         "en": "Engine Components Revenue",
         "origine": "nouveau"
       },
-      "_type_pose_le": "2026-09-14"
+      "_type_pose_le": "2026-09-14",
+      "_nom_avant_13oct": "Chiffre d'affaires Engine Products"
     },
     {
       "short": "FS_rev",
@@ -3062,7 +3063,7 @@
     },
     {
       "short": "us_revenue",
-      "name_fr": "Chiffre d'affaires Etats-Unis",
+      "name_fr": "Chiffre d'affaires Etats-Unis (exercice)",
       "name_en": "United States Revenue",
       "value": 4377,
       "unit": "M USD",
@@ -3097,66 +3098,8 @@
         "en": "United States Revenue",
         "origine": "nouveau"
       },
-      "_type_pose_le": "2026-09-14"
-    },
-    {
-      "short": "HWM_ENGINE",
-      "name_fr": "Chiffre d'affaires des pièces de moteurs",
-      "name_en": "Engine Products segment third-party sales",
-      "unit": "M $",
-      "value": 4320,
-      "yoy": "+15,7%",
-      "period_type": "year",
-      "frequency": "annual",
-      "type": "Revenue",
-      "pv_score": 8,
-      "signal": "Produit phare : Les pièces tournantes de moteurs d'avion, aubes et couronnes de turbine coulées en superalliage",
-      "description_fr": "Série de 8 exercices civils. Le segment Engine Products n'existe sous ce nom que depuis la séparation d'Arconic et de Howmet, achevée le 1er avril 2020 ; les comptes retraites remontent a 2018, ce qui fixe le début de la série. Howmet ne publie aucun nombre de pièces livrées, d'où le recours au chif",
-      "history": [
-        {
-          "q": "FY2018",
-          "v": 3092
-        },
-        {
-          "q": "FY2019",
-          "v": 3320
-        },
-        {
-          "q": "FY2020",
-          "v": 2406
-        },
-        {
-          "q": "FY2021",
-          "v": 2282
-        },
-        {
-          "q": "FY2022",
-          "v": 2698
-        },
-        {
-          "q": "FY2023",
-          "v": 3266
-        },
-        {
-          "q": "FY2024",
-          "v": 3735
-        },
-        {
-          "q": "FY2025",
-          "v": 4320
-        }
-      ],
-      "last_data_date": "2025-12-31",
-      "is_short_history": false,
-      "_estime": [],
-      "_source": "claude (mission produit phare, 13 sept 2026)",
-      "_produit_phare": "Les pieces tournantes de moteurs d avion, aubes et couronnes de turbine coulees en superalliage",
-      "type_comparable": {
-        "fr": "Chiffre d'affaires des pièces de moteurs",
-        "en": "Engine Components Revenue",
-        "origine": "nouveau"
-      },
-      "_type_pose_le": "2026-09-14"
+      "_type_pose_le": "2026-09-14",
+      "_nom_avant_13oct": "Chiffre d'affaires Etats-Unis"
     },
     {
       "short": "spares_rev",
@@ -3198,5 +3141,111 @@
     }
   ],
   "_extracted_at": "2026-07-23",
-  "_norme_v3": "trimestriel exhaustif ; Q4 derive = FY 10-K - 9 mois (_derived) ; sources data-lake/HWM 10-Q + 10-K"
+  "_norme_v3": "trimestriel exhaustif ; Q4 derive = FY 10-K - 9 mois (_derived) ; sources data-lake/HWM 10-Q + 10-K",
+  "_doublons_retires_13oct": [
+    {
+      "retire": "HWM_ENGINE",
+      "garde": "EP_rev",
+      "type": "frequence",
+      "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+      "preuve": [
+        {
+          "annee": 2022,
+          "annuel": 2698,
+          "somme_4T": 2698,
+          "T4": 732,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2023,
+          "annuel": 3266,
+          "somme_4T": 3266,
+          "T4": 852,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2024,
+          "annuel": 3735,
+          "somme_4T": 3735,
+          "T4": 972,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        },
+        {
+          "annee": 2025,
+          "annuel": 4320,
+          "somme_4T": 4320,
+          "T4": 1163,
+          "ecart": 0.0,
+          "unite_ecart": "%",
+          "mode": "somme"
+        }
+      ],
+      "script": "scripts/scan-kpi-doublons-servis.py",
+      "kpi": {
+        "short": "HWM_ENGINE",
+        "name_fr": "Chiffre d'affaires des pièces de moteurs",
+        "name_en": "Engine Products segment third-party sales",
+        "unit": "M $",
+        "value": 4320,
+        "yoy": "+15,7%",
+        "period_type": "year",
+        "frequency": "annual",
+        "type": "Revenue",
+        "pv_score": 8,
+        "signal": "Produit phare : Les pièces tournantes de moteurs d'avion, aubes et couronnes de turbine coulées en superalliage",
+        "description_fr": "Série de 8 exercices civils. Le segment Engine Products n'existe sous ce nom que depuis la séparation d'Arconic et de Howmet, achevée le 1er avril 2020 ; les comptes retraites remontent a 2018, ce qui fixe le début de la série. Howmet ne publie aucun nombre de pièces livrées, d'où le recours au chif",
+        "history": [
+          {
+            "q": "FY2018",
+            "v": 3092
+          },
+          {
+            "q": "FY2019",
+            "v": 3320
+          },
+          {
+            "q": "FY2020",
+            "v": 2406
+          },
+          {
+            "q": "FY2021",
+            "v": 2282
+          },
+          {
+            "q": "FY2022",
+            "v": 2698
+          },
+          {
+            "q": "FY2023",
+            "v": 3266
+          },
+          {
+            "q": "FY2024",
+            "v": 3735
+          },
+          {
+            "q": "FY2025",
+            "v": 4320
+          }
+        ],
+        "last_data_date": "2025-12-31",
+        "is_short_history": false,
+        "_estime": [],
+        "_source": "claude (mission produit phare, 13 sept 2026)",
+        "_produit_phare": "Les pieces tournantes de moteurs d avion, aubes et couronnes de turbine coulees en superalliage",
+        "type_comparable": {
+          "fr": "Chiffre d'affaires des pièces de moteurs",
+          "en": "Engine Components Revenue",
+          "origine": "nouveau"
+        },
+        "_type_pose_le": "2026-09-14"
+      }
+    }
+  ]
 }

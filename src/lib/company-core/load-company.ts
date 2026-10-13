@@ -597,7 +597,7 @@ const CACHE_TTL_MS = 10 * 60_000;
 // (constate sur RMS.PA : hero_kpi ROC_MARGIN, sans hero_kpi_resolved, alors que
 // le code deploye choisit LEATHER_REV). A INCREMENTER a chaque changement de
 // logique du chargeur.
-const REVISION_CHARGEUR = "hero-select-3-absences-1"; // 13 oct 2026 : marque tam_absence_arbitree
+const REVISION_CHARGEUR = "hero-select-3-absences-1-marche-2"; // 13 oct 2026 : marque tam_absence_arbitree ; nom du marche des cartes TAM
 
 const chargeAvecCachePartage = unstable_cache(
   async (ticker: string, mode: "v17" | "v18", locale: string): Promise<LoadOutcome> =>
@@ -951,6 +951,27 @@ async function loadV17CompanyBrut(
     } else if (!Array.isArray((data as Record<string, unknown>).market_positions)) {
       if (tam && Array.isArray(tam.market_positions) && tam.market_positions.length > 0) {
         (data as Record<string, unknown>).market_positions = tam.market_positions;
+      }
+    }
+    // 13 oct 2026 (Yann) : chaque carte TAM porte le nom du MARCHE en titre.
+    // Champ « marche » lu en priorite ; a defaut, intitule du TAM du Cahier
+    // (docs/cahier/tam/<T>.json, candidat de meme segment).
+    const mps = (data as Record<string, unknown>).market_positions;
+    if (Array.isArray(mps) && mps.some((m) => m && typeof m === "object" && !(m as { marche?: unknown }).marche)) {
+      const cahier = await readJsonOrNull<{ candidats?: { segment?: string; tam_intitule?: string }[] }>(
+        path.join(ROOT, "docs/cahier/tam", `${ticker.toUpperCase()}.json`),
+      );
+      const intitules = new Map<string, string>();
+      for (const c of cahier?.candidats ?? []) {
+        if (c?.segment && typeof c.tam_intitule === "string" && c.tam_intitule.trim()) intitules.set(c.segment.trim(), c.tam_intitule.trim());
+      }
+      if (intitules.size > 0) {
+        (data as Record<string, unknown>).market_positions = mps.map((m) => {
+          const p = m as { segment_name?: string; marche?: string };
+          if (!p || p.marche || !p.segment_name) return m;
+          const marche = intitules.get(p.segment_name.trim());
+          return marche ? { ...p, marche } : m;
+        });
       }
     }
   }
@@ -3567,6 +3588,17 @@ async function loadV17CompanyBrut(
     completerUnitesFiche(company as unknown as Record<string, unknown>);
   } catch (err) {
     console.warn(`unite-objet failed for ${ticker}:`, err);
+  }
+  // 13 oct 2026 (ASML) : libelles de KPI sans unite redondante ni anglais entre
+  // parentheses, montants explicites. Voir libelles-kpi.ts.
+  try {
+    const loc = (opts.locale ?? "fr").toLowerCase();
+    if (loc === "" || loc === "fr" || loc === "fr-fr") {
+      const { nettoyerLibellesKpiFiche } = await import("@/lib/company-core/libelles-kpi");
+      nettoyerLibellesKpiFiche(company as unknown as Record<string, unknown>, ticker);
+    }
+  } catch (err) {
+    console.warn(`libelles-kpi failed for ${ticker}:`, err);
   }
 
   return { kind: "ready", company };

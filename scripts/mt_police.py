@@ -28,6 +28,14 @@ FAMILLE_SANS = "MtSans, Manrope, sans-serif"
 FAMILLE_MONO = "MtMono, 'JetBrains Mono', monospace"
 MARGE_LARGEUR = 1.015
 
+# 13 oct 2026 : polices de l axe Y (styles A, B, C de scripts/style_axe_y.py),
+# ajoutees seulement si leurs TTF ont ete construits. Familles nommees MtAxe*.
+try:
+    import style_axe_y as _AXE
+    FICHIERS_POLICE.update(_AXE.fichiers_polices())
+except Exception:
+    pass
+
 
 @lru_cache(maxsize=None)
 def _police(nom: str):
@@ -46,11 +54,27 @@ def largeur(t: str, taille: float, mono: bool) -> float:
     return total / upem * taille * MARGE_LARGEUR
 
 
+def largeur_famille(t: str, taille: float, nom: str) -> float:
+    """Largeur reelle dans une police nommee (MtSans, MtMono, MtAxe*)."""
+    _, cmap, hmtx, upem = _police(nom)
+    total = 0
+    for ch in t:
+        g = cmap.get(ord(ch))
+        total += hmtx[g][0] if g else upem * 0.6
+    return total / upem * taille * MARGE_LARGEUR
+
+
 def _jeu_caracteres(svg: str):
     sans, mono = set(), set()
+    autres: dict[str, set] = {}
     for m in re.finditer(r"<text\b([^>]*)>(.*?)</text>", svg, re.S):
         txt = html.unescape(re.sub(r"<[^>]+>", "", m.group(2)))
+        axe = re.search(r'font-family="(MtAxe\w+)', m.group(1))
+        if axe and axe.group(1) in FICHIERS_POLICE:
+            autres.setdefault(axe.group(1), set()).update(txt)
+            continue
         (mono if "monospace" in m.group(1) else sans).update(txt)
+    _jeu_caracteres.autres = autres
     return sans, mono
 
 
@@ -78,7 +102,7 @@ def _sous_ensemble(nom: str, caracteres: set) -> str:
 def bloc_style(svg: str) -> str:
     sans, mono = _jeu_caracteres(svg)
     regles = []
-    for nom, jeu in (("MtSans", sans), ("MtMono", mono)):
+    for nom, jeu in (("MtSans", sans), ("MtMono", mono), *sorted(getattr(_jeu_caracteres, "autres", {}).items())):
         if jeu:
             b64 = _sous_ensemble(nom, jeu)
             regles.append(f'@font-face{{font-family:{nom};font-weight:400;font-style:normal;'

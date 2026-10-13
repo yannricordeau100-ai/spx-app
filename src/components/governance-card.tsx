@@ -218,35 +218,31 @@ function formatDate(iso: string | null | undefined, locale: Locale = "fr"): stri
 const MONO_REGEX =
   /\b(?:une|1|chaque)\s+action(?:s)?(?:\s+ordinaires?)?\s*(?:=|[ée]gale?|donne droit [àa]|vaut)\s*(?:une|1|un)\s+(?:seule\s+)?(?:voix|vote)|une action,?\s+(?:une|un)\s+(?:voix|vote)|vote\s+[àa]\s+une\s+action\s+par\s+action|[àa]\s+une\s+voix\s+chacune|droit\s+de\s+vote\s+unique|une\s+seule\s+cat[ée]gorie\s+d.actions|structure\s+de\s+vote\s+unitaire|1[-\s]share[-\s]1[-\s]vote|one[-\s]share[-\s]one[-\s]vote/;
 
-function detectDualClass(
+/** 13 oct 2026 : « droit de vote double » (societes francaises : actions
+ *  nominatives detenues depuis 3 ans) n est PAS une structure a deux classes.
+ *  Les phrases negatives (« sans droit de vote double », « aucun droit de vote
+ *  double ») ne comptent pas comme signal. */
+const NEGATION_VOTE_DOUBLE =
+  /\b(?:sans|aucun(?:e)?(?:\s+mention\s+de)?|pas\s+d['e\s]|ni)\s*(?:actions?\s+(?:[àa]\s+)?)?(?:droits?\s+de\s+vote\s+doubles?|droit\s+de\s+vote\s+double)/g;
+const VOTE_DOUBLE_REGEX = /droits?\s+de\s+vote\s+doubles?|double\s+voting|double[-\s]vote|loyalty\s+shares?/;
+const CLASSES_SIGNALS = [
+  "dual_class", "dual-class", "dual class", "classe b", "class b", "10 vote", "ten vote",
+  "droit de vote multiple", "droits de vote multiple", "actions à droits de vote",
+  "super-vote", "super vote", "multiple vote",
+];
+
+export type StructureVote = "dual" | "double" | "mono";
+
+function detectStructureVote(
   voting?: { name?: string; holder?: string }[],
   capital?: { name?: string; holder?: string }[],
   votingStructure?: string | null
-): boolean {
+): StructureVote {
   // Source 1 : texte voting_structure explicite (FR + EN).
   if (votingStructure) {
-    const v = votingStructure.toLowerCase();
-    const dualSignals = [
-      "dual_class",
-      "dual-class",
-      "dual class",
-      "classe b",
-      "class b",
-      "10 vote",
-      "ten vote",
-      // Yann 9 août 2026 : singulier aussi — formulation standard des URD
-      // français ("un droit de vote double est attribué"), Hermès affichait
-      // "Mono-class" à tort.
-      "droit de vote double",
-      "droits de vote double",
-      "droit de vote multiple",
-      "droits de vote multiple",
-      "actions à droits de vote",
-      "super-vote",
-      "super vote",
-      "multiple vote",
-    ];
-    if (dualSignals.some((s) => v.includes(s))) return true;
+    const v = votingStructure.toLowerCase().replace(NEGATION_VOTE_DOUBLE, " ");
+    if (CLASSES_SIGNALS.some((x) => v.includes(x))) return "dual";
+    if (VOTE_DOUBLE_REGEX.test(v)) return "double";
     // Mono-class explicite = tout aussi fiable que le dual explicite. Sans ce
     // court-circuit, le repli heuristique (source 2) déclarait DUAL-CLASS des
     // sociétés mono-class (JPM, JNJ, WMT, PYPL) simplement parce que leurs listes
@@ -265,15 +261,15 @@ function detectDualClass(
       "1 vote par action",
       "un vote par action",
     ];
-    if (monoSignals.some((s) => v.includes(s))) return false;
+    if (monoSignals.some((x) => v.includes(x))) return "mono";
     // 13 oct 2026 : formulations francaises reelles (AAPL « Une action egale
     // une voix », PANW/SNPS « une action = une voix », WY « 1 action = 1 voix »,
     // RJF « a une voix chacune », PPG « droit de vote unique »). Testees apres
     // les signaux dual : un texte qui cite une classe B reste dual.
-    if (MONO_REGEX.test(v)) return false;
+    if (MONO_REGEX.test(v)) return "mono";
   }
   // Source 2 : repli heuristique par chevauchement de noms.
-  if (!voting?.length || !capital?.length) return false;
+  if (!voting?.length || !capital?.length) return "mono";
   // 13 oct 2026 : une partie des fiches nomme le detenteur « holder » et non
   // « name » ; sans cela le chevauchement valait 0 et AAPL passait en dual-class.
   const nomDe = (s: { name?: string; holder?: string }) =>
@@ -283,7 +279,7 @@ function detectDualClass(
     const n = nomDe(s);
     return n !== null && votingNames.has(n);
   }).length;
-  return overlap < Math.min(voting.length, capital.length) / 2;
+  return overlap < Math.min(voting.length, capital.length) / 2 ? "dual" : "mono";
 }
 
 /**
@@ -594,7 +590,8 @@ export function GovernanceCard({
               // voting_structure_note — fallback pour ne pas retomber sur
               // l'heuristique silencieuse (badge Mono-class faux, ex Hermès).
               const votingText = g.voting_structure ?? (g as { voting_structure_note?: string }).voting_structure_note ?? null;
-              const isDual = detectDualClass(g.top_voting, g.top_capital, votingText);
+              const kind = detectStructureVote(g.top_voting, g.top_capital, votingText);
+              const isDual = kind !== "mono";
               return (
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider ${
@@ -603,13 +600,15 @@ export function GovernanceCard({
                       : "border-[#2a2a2a] bg-[#101014] text-zinc-300"
                   }`}
                   title={
-                    isDual
-                      ? t("governance.dual_class_tooltip")
-                      : t("governance.mono_class_tooltip")
+                    kind === "double"
+                      ? t("governance.double_vote_tooltip")
+                      : isDual
+                        ? t("governance.dual_class_tooltip")
+                        : t("governance.mono_class_tooltip")
                   }
                 >
                   <span className={`size-1.5 rounded-full ${isDual ? "bg-amber-300" : "bg-zinc-400"}`} />
-                  {isDual ? t("governance.dual_class") : t("governance.mono_class")}
+                  {kind === "double" ? t("governance.double_vote") : isDual ? t("governance.dual_class") : t("governance.mono_class")}
                 </span>
               );
             })()}
@@ -678,7 +677,7 @@ export function GovernanceCard({
       })()}
 
       {/* Voting structure note */}
-      {g.voting_structure && !isDisabled("gouvernance_voting_structure") && (
+      {(g.voting_structure ?? (g as { voting_structure_note?: string }).voting_structure_note) && !isDisabled("gouvernance_voting_structure") && (
         <div className="mt-4 rounded-lg border border-[#2a2a2a] bg-[#0c0c0c] p-3.5">
           <div className="flex items-start gap-2.5">
             <Scale className="mt-0.5 size-4 shrink-0 text-zinc-300" />
@@ -686,7 +685,7 @@ export function GovernanceCard({
               <div className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
                 {t("governance.voting_structure")}
               </div>
-              <div className="mt-0.5 text-[13px] text-zinc-200">{libelleStructureVote(g.voting_structure)}</div>
+              <div className="mt-0.5 text-[13px] text-zinc-200">{libelleStructureVote((g.voting_structure ?? (g as { voting_structure_note?: string }).voting_structure_note) as string)}</div>
             </div>
           </div>
         </div>

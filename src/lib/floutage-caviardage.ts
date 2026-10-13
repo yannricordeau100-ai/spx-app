@@ -263,7 +263,10 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
   // 9 sept 2026 : position marche / TAM.
   if (c.market_positions && c.market_positions.length > 0) {
     for (const p of c.market_positions) {
-      if (estActive(zones, "tam", "titre")) p.segment_name = caviarde(p.segment_name);
+      if (estActive(zones, "tam", "titre")) {
+        p.segment_name = caviarde(p.segment_name);
+        if (p.marche) p.marche = caviarde(p.marche);
+      }
       if (estActive(zones, "tam", "texte") || estActive(zones, "tam", "source")) {
         if (p.source_note) p.source_note = caviarde(p.source_note);
         if (p.source) p.source = caviarde(p.source);

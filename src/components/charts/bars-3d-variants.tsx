@@ -23,6 +23,8 @@ const axisHeader = chartAxisHeader;
 
 import { formatChartValueLabel } from "@/lib/chart-label-format";
 import { calculeEnteteAxe } from "@/lib/entete-axe";
+import { useStyleAxeY, attrsGraduation, texteGraduation, largeurGraduations, reserveUniteDebout } from "@/lib/style-axe-y";
+import { EnteteAxeY, TraitsGraduationY } from "@/components/charts/axe-y";
 
 /** Yann 19 juil 2026 : format label barre unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
@@ -147,6 +149,8 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   // Yann 5 oct 2026 : dans la vue agrandie mobile, les valeurs restent affichees
   // sur toutes les barres (comme dans le graphique normal).
   const pleinEcran = usePleinEcran();
+  // Yann 13 oct 2026 : ecriture de l axe Y lue dans le module partage.
+  const sAxe = useStyleAxeY();
   // Mobile (< 640 px) : les graduations negatives ("-60 %") debordaient a gauche.
   const [mobileEcran, setMobile] = useState(false);
   const mobile = mobileEcran && !exportBureau;
@@ -314,7 +318,14 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   // Yann 5 oct 2026 : sur mobile, on elargit le cadre a gauche juste de ce qu il
   // faut pour que la plus longue graduation (ex "-60 %") ne soit pas coupee.
   const largeurTickMax = Math.max(...ticks.map((v) => formatTick(v).length), 1) * 16 * AFX * 0.62 + 12 + 4;
-  const extraGauche = mobile && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+  const extraGaucheTicks = mobile && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+  // Unite debout (style A) : posee a gauche des graduations, cadre elargi d autant.
+  const largeurTicksStyle = largeurGraduations(sAxe, ticks.map((v) => texteGraduation(sAxe, formatTick(v))), 16 * AFX);
+  const reserveDebout = reserveUniteDebout(sAxe, 13 * AFX);
+  const xDebout = yOnRight ? W + 4 : PAD_LEFT - 12 - largeurTicksStyle - 10;
+  const extraGauche = reserveDebout && !yOnRight
+    ? Math.max(extraGaucheTicks, Math.ceil(reserveDebout - xDebout))
+    : extraGaucheTicks;
 
   return (
     <div className="relative w-full">
@@ -347,19 +358,16 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
         const e = calculeEnteteAxe(header, yOnRight, { W, PAD_LEFT, INNER_W });
         const yBase = e.lignes.length > 1 ? PAD_TOP - 36 : PAD_TOP - 24;
         return (
-          <text
+          <EnteteAxeY
+            s={sAxe}
+            lignes={e.lignes}
             x={e.x}
             y={yBase}
-            fontSize={13}
-            fontWeight={600}
-            fill="#e4e4e7"
-            fontFamily="ui-monospace, monospace"
-            textAnchor={e.anchor}
-          >
-            {e.lignes.map((l, i) => (
-              <tspan key={i} x={e.x} dy={i === 0 ? 0 : 14}>{l}</tspan>
-            ))}
-          </text>
+            anchor={e.anchor}
+            taille={sAxe.id === "actuel" ? 13 : 13 * AFX}
+            locale={effectiveLocale}
+            debout={{ x: xDebout, yHaut: PAD_TOP, aDroite: yOnRight }}
+          />
         );
       })()}
       {/* Yann 15 mai 2026 : TTM cumul = chip en haut, pas comme barre.
@@ -422,14 +430,12 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
           x={yOnRight ? W - 6 : PAD_LEFT - 12}
           y={yFor(v) + 5}
           textAnchor="end"
-          fontSize={16 * AFX}
-          fontWeight={500}
-          fill="#e4e4e7"
-          fontFamily="ui-monospace, monospace"
+          {...attrsGraduation(sAxe, 16 * AFX)}
         >
-          {formatTick(v)}
+          {texteGraduation(sAxe, formatTick(v))}
         </text>
       ))}
+      <TraitsGraduationY s={sAxe} ys={ticks.map((v) => yFor(v))} xAxe={yOnRight ? PAD_LEFT + INNER_W : PAD_LEFT} aDroite={yOnRight} />
       {/* Zone cliquable invisible sur l'axe Y. Yann 15 mai 2026. */}
       <rect
         x={yOnRight ? PAD_LEFT + INNER_W : 0}

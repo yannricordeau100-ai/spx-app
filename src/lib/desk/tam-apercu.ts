@@ -29,6 +29,7 @@ export function candidatVersPosition(c: TamCandidat): MarketPosition {
   const src = c.tam_source ?? {};
   return {
     segment_name: c.segment,
+    ...(c.tam_intitule?.trim() ? { marche: c.tam_intitule.trim() } : {}),
     segment_revenue: c.segment_revenu,
     segment_unit: unite(c.segment_unite),
     tam: c.tam,

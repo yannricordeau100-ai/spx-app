@@ -1475,7 +1475,7 @@ export function CompanyView({
         />
         </div>
 
-        <SectionBloc id="kpi" accent={accent}>
+        <SectionBloc id="kpi" accent={accent} serre>
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         {/* Yann 4 sept 2026 : l appel a l abonnement etait rendu DANS la
             section floutee : le flou et pointer-events:none s appliquaient a
@@ -1543,7 +1543,7 @@ export function CompanyView({
                   colonne parent côté layout HERO. */}
               <div className="order-1 max-lg:order-2 mt-0 flex w-full flex-wrap items-baseline gap-x-2 gap-y-1 max-lg:justify-center max-lg:gap-x-3">
                 {freeBlocked ? (
-                  <div style={{ fontSize: "clamp(34px, 4.4vw, 56px)" }}>
+                  <div style={{ fontSize: "clamp(30px, 3.8vw, 48px)" }}>
                     <BlurredFreeValue
                       value={heroFormatted.value}
                       suffix={displayHeroUnit ? ` ${displayHeroUnit}` : ""}
@@ -1554,9 +1554,10 @@ export function CompanyView({
                   <>
                     <div
                       data-blur-part="valeur"
-                      className="font-display font-semibold leading-none tracking-tight gradient-text max-sm:!text-[52px]"
+                      className="font-display font-semibold leading-none tracking-tight gradient-text max-sm:!text-[44px]"
                       style={{
-                        fontSize: "clamp(34px, 4.4vw, 56px)",
+                        /* Yann 13 oct 2026 : gros chiffre reduit (56 -> 48 px, mobile 52 -> 44). */
+                        fontSize: "clamp(30px, 3.8vw, 48px)",
                         wordBreak: "keep-all",
                       }}
                       title={heroPercentAnomaly ? "Donnée incohérente détectée (magnitude aberrante)" : undefined}
@@ -1566,8 +1567,8 @@ export function CompanyView({
                     {displayHeroUnit && (
                       <div
                         data-blur-part="titre"
-                        className="font-medium text-zinc-400 max-sm:!text-[17px]"
-                        style={{ fontSize: "clamp(14px, 1.5vw, 19px)" }}
+                        className="font-medium text-zinc-400 max-sm:!text-[14px]"
+                        style={{ fontSize: "clamp(12px, 1.2vw, 15px)" }}
                       >
                         {displayHeroUnit}
                       </div>
@@ -1580,7 +1581,7 @@ export function CompanyView({
                 {/* YoY pill : masquée si KPI incomplet (= aucune valeur YoY calculable) */}
                 {!isIncompleteKpi && (effectiveYoy !== "" || typeof effectiveYoy === "number") && (
                   <div
-                    className="inline-flex w-fit max-w-full flex-wrap items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-medium lg:flex-nowrap lg:whitespace-nowrap"
+                    className="inline-flex w-fit max-w-full flex-wrap items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium lg:flex-nowrap lg:whitespace-nowrap"
                     style={{
                       color: freeBlocked ? "#52525b" : yoyColor,
                       borderColor: `${freeBlocked ? "#52525b" : yoyColor}40`,
@@ -1590,8 +1591,8 @@ export function CompanyView({
                     {/* 27 sept 2026 : la flèche suit le sens du chiffre, la couleur dit
                         si c'est une bonne ou une mauvaise nouvelle (coût en hausse :
                         flèche montante, rouge). */}
-                    {!freeBlocked && tone !== "neutral" && !String(effectiveYoy).trim().startsWith("-") && !String(effectiveYoy).trim().startsWith("−") && <ArrowUpRight className="size-4" />}
-                    {!freeBlocked && tone !== "neutral" && (String(effectiveYoy).trim().startsWith("-") || String(effectiveYoy).trim().startsWith("−")) && <ArrowDownRight className="size-4" />}
+                    {!freeBlocked && tone !== "neutral" && !String(effectiveYoy).trim().startsWith("-") && !String(effectiveYoy).trim().startsWith("−") && <ArrowUpRight className="size-3" />}
+                    {!freeBlocked && tone !== "neutral" && (String(effectiveYoy).trim().startsWith("-") || String(effectiveYoy).trim().startsWith("−")) && <ArrowDownRight className="size-3" />}
                     <span className="font-mono tabular-nums">
                       {freeBlocked ? (
                         <BlurredFreeValue value="+0,0" suffix=" %" ticker={company.ticker} />
@@ -1612,11 +1613,11 @@ export function CompanyView({
                           .replace(/(\d)\s*%/g, "$1 %");
                       })()}
                     </span>
-                    <span className="text-[11px] italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span>
+                    <span className="text-[9px] italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span>
                   </div>
                 )}
                 {/* Quality + percentile chips : masqués si KPI incomplet (= rating bidon "Moyen Top 50 %") */}
-                {!isIncompleteKpi && <QualityChipOnly rating={heroRating} />}
+                {!isIncompleteKpi && <QualityChipOnly rating={heroRating} size="xs" />}
                 {/* Yann 24 aout 2026 : bulle CAGR sur DEUX lignes (taux au-dessus,
                     periode en dessous), contenu centre dans la bulle, et "i"
                     exercice fiscal a droite, hors bulle, centre verticalement. */}
@@ -1791,16 +1792,16 @@ export function CompanyView({
                 return (
                   <div
                     data-hero-explication
-                    className="order-4 max-lg:order-6 mt-3 flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 max-lg:w-full lg:mt-5"
+                    className="order-4 max-lg:order-6 mt-3 flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3 max-lg:w-full lg:mt-4"
                   >
                     <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
                       {signal && (
-                        <div className="text-[14px] font-semibold leading-snug text-zinc-100">
+                        <div className="text-[11px] font-semibold leading-snug text-zinc-100 max-sm:text-[12px]">
                           {normalizeNarrative(signal)}
                         </div>
                       )}
                       {corps && (
-                        <div className={`${signal ? "mt-1.5 " : ""}text-[13px] leading-relaxed text-zinc-400`}>
+                        <div className={`${signal ? "mt-1 " : ""}text-[10.5px] leading-relaxed text-zinc-400 max-sm:text-[11.5px]`}>
                           {normalizeNarrative(corps)}
                         </div>
                       )}

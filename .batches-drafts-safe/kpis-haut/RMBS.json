@@ -49,72 +49,6 @@
    "_type_pose_le": "2026-09-14"
   },
   {
-   "short": "rev_annual",
-   "name_fr": "Chiffre d'affaires total annuel",
-   "name_en": "Total Annual Revenue",
-   "value": 707.6,
-   "unit": "M$",
-   "yoy": "+27%",
-   "history": [
-    {
-     "q": "FY2015",
-     "v": 296.278
-    },
-    {
-     "q": "FY2016",
-     "v": 336.597
-    },
-    {
-     "q": "FY2017",
-     "v": 393.096
-    },
-    {
-     "q": "FY2018",
-     "v": 231.201
-    },
-    {
-     "q": "FY2019",
-     "v": 227.603
-    },
-    {
-     "q": "FY2020",
-     "v": 246.322
-    },
-    {
-     "q": "FY2021",
-     "v": 328.304
-    },
-    {
-     "q": "FY2022",
-     "v": 454.793
-    },
-    {
-     "q": "FY2023",
-     "v": 461.1
-    },
-    {
-     "q": "FY2024",
-     "v": 556.6
-    },
-    {
-     "q": "FY2025",
-     "v": 707.6
-    }
-   ],
-   "pv_score": 9,
-   "signal": "Deux moteurs portent la croissance : les ventes de puces mémoire, qui montent le plus vite, et les redevances de licences.",
-   "frequency": "annual",
-   "last_data_date": "2025-12-31",
-   "hero_kpi_rationale": "Chiffre d'affaires annuel sur 11 exercices : 296 M$ (2015) puis pic à 393 M$ (2017) porté par les licences mémoire, puis chute à 228 M$ (2019) lors de la bascule du modèle vers les puces produits, puis remontée régulière jusqu'à un record de 707,6 M$ en 2025. La série montre en un coup d'oeil la transformation de Rambus, d'une société de redevances de brevets pure vers un fournisseur de puces et IP silicium pour data centers et IA.",
-   "_signal_regle_150": "2026-09-14",
-   "type_comparable": {
-    "fr": "Chiffre d'affaires",
-    "en": "Revenue",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
-  },
-  {
    "short": "rev_q",
    "name_fr": "Chiffre d'affaires total trimestriel",
    "name_en": "Total Quarterly Revenue",
@@ -481,71 +415,6 @@
    },
    "_type_pose_le": "2026-09-14",
    "_signal_regenere_le": "2026-09-30"
-  },
-  {
-   "short": "net_income_annual",
-   "name_fr": "Résultat net annuel",
-   "name_en": "Total Annual Net Income",
-   "value": 230.455,
-   "unit": "M$",
-   "yoy": "+28%",
-   "history": [
-    {
-     "q": "FY2015",
-     "v": 211.388
-    },
-    {
-     "q": "FY2016",
-     "v": 6.82
-    },
-    {
-     "q": "FY2017",
-     "v": -22.862
-    },
-    {
-     "q": "FY2018",
-     "v": -157.957
-    },
-    {
-     "q": "FY2019",
-     "v": -90.419
-    },
-    {
-     "q": "FY2020",
-     "v": -40.471
-    },
-    {
-     "q": "FY2021",
-     "v": 18.334
-    },
-    {
-     "q": "FY2022",
-     "v": -14.31
-    },
-    {
-     "q": "FY2023",
-     "v": 333.904
-    },
-    {
-     "q": "FY2024",
-     "v": 179.821
-    },
-    {
-     "q": "FY2025",
-     "v": 230.455
-    }
-   ],
-   "pv_score": 7,
-   "signal": "Après des pertes de 2017 à 2020 (litiges, amortissements), la société est rentable ; le pic de 2023 tenait à un avantage fiscal ponctuel.",
-   "frequency": "annual",
-   "last_data_date": "2025-12-31",
-   "_signal_regle_150": "2026-09-14",
-   "type_comparable": {
-    "fr": "Résultat net",
-    "en": "Net Income",
-    "origine": "nouveau"
-   },
-   "_type_pose_le": "2026-09-14"
   },
   {
    "short": "eps_dil_q",
@@ -943,5 +812,192 @@
   }
  ],
  "_extracted_at": "2026-08-08",
- "_sources_note": "Extraction verbatim depuis data-lake/RMBS/8K/ (exhibits 99.1 des communiques de resultats trimestriels T1-2023 a T2-2026) et data-lake/RMBS/10K/ (10-K FY2025, FY2022, FY2019, FY2016) pour les series annuelles 2015-2025 et les effectifs. Rambus ne verse pas de dividende (10-K FY2025 : 'we currently do not anticipate paying any dividends'). T4-2023 absent du data-lake (exhibit manquant)."
+ "_sources_note": "Extraction verbatim depuis data-lake/RMBS/8K/ (exhibits 99.1 des communiques de resultats trimestriels T1-2023 a T2-2026) et data-lake/RMBS/10K/ (10-K FY2025, FY2022, FY2019, FY2016) pour les series annuelles 2015-2025 et les effectifs. Rambus ne verse pas de dividende (10-K FY2025 : 'we currently do not anticipate paying any dividends'). T4-2023 absent du data-lake (exhibit manquant).",
+ "_doublons_retires_13oct": [
+  {
+   "retire": "rev_annual",
+   "garde": "rev_q",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2024,
+     "annuel": 556.6,
+     "somme_4T": 556.6,
+     "T4": 161.1,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 707.6,
+     "somme_4T": 707.6,
+     "T4": 190.2,
+     "ecart": 0.0,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "rev_annual",
+    "name_fr": "Chiffre d'affaires total annuel",
+    "name_en": "Total Annual Revenue",
+    "value": 707.6,
+    "unit": "M$",
+    "yoy": "+27%",
+    "history": [
+     {
+      "q": "FY2015",
+      "v": 296.278
+     },
+     {
+      "q": "FY2016",
+      "v": 336.597
+     },
+     {
+      "q": "FY2017",
+      "v": 393.096
+     },
+     {
+      "q": "FY2018",
+      "v": 231.201
+     },
+     {
+      "q": "FY2019",
+      "v": 227.603
+     },
+     {
+      "q": "FY2020",
+      "v": 246.322
+     },
+     {
+      "q": "FY2021",
+      "v": 328.304
+     },
+     {
+      "q": "FY2022",
+      "v": 454.793
+     },
+     {
+      "q": "FY2023",
+      "v": 461.1
+     },
+     {
+      "q": "FY2024",
+      "v": 556.6
+     },
+     {
+      "q": "FY2025",
+      "v": 707.6
+     }
+    ],
+    "pv_score": 9,
+    "signal": "Deux moteurs portent la croissance : les ventes de puces mémoire, qui montent le plus vite, et les redevances de licences.",
+    "frequency": "annual",
+    "last_data_date": "2025-12-31",
+    "hero_kpi_rationale": "Chiffre d'affaires annuel sur 11 exercices : 296 M$ (2015) puis pic à 393 M$ (2017) porté par les licences mémoire, puis chute à 228 M$ (2019) lors de la bascule du modèle vers les puces produits, puis remontée régulière jusqu'à un record de 707,6 M$ en 2025. La série montre en un coup d'oeil la transformation de Rambus, d'une société de redevances de brevets pure vers un fournisseur de puces et IP silicium pour data centers et IA.",
+    "_signal_regle_150": "2026-09-14",
+    "type_comparable": {
+     "fr": "Chiffre d'affaires",
+     "en": "Revenue",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  },
+  {
+   "retire": "net_income_annual",
+   "garde": "net_income_q",
+   "type": "frequence",
+   "decision": "annuelle retiree (somme ou T4 des trimestres = annuel < 0,5 %)",
+   "preuve": [
+    {
+     "annee": 2024,
+     "annuel": 179.821,
+     "somme_4T": 179.9,
+     "T4": 62.2,
+     "ecart": 0.044,
+     "unite_ecart": "%",
+     "mode": "somme"
+    },
+    {
+     "annee": 2025,
+     "annuel": 230.455,
+     "somme_4T": 230.4,
+     "T4": 63.8,
+     "ecart": 0.024,
+     "unite_ecart": "%",
+     "mode": "somme"
+    }
+   ],
+   "script": "scripts/scan-kpi-doublons-servis.py",
+   "kpi": {
+    "short": "net_income_annual",
+    "name_fr": "Résultat net annuel",
+    "name_en": "Total Annual Net Income",
+    "value": 230.455,
+    "unit": "M$",
+    "yoy": "+28%",
+    "history": [
+     {
+      "q": "FY2015",
+      "v": 211.388
+     },
+     {
+      "q": "FY2016",
+      "v": 6.82
+     },
+     {
+      "q": "FY2017",
+      "v": -22.862
+     },
+     {
+      "q": "FY2018",
+      "v": -157.957
+     },
+     {
+      "q": "FY2019",
+      "v": -90.419
+     },
+     {
+      "q": "FY2020",
+      "v": -40.471
+     },
+     {
+      "q": "FY2021",
+      "v": 18.334
+     },
+     {
+      "q": "FY2022",
+      "v": -14.31
+     },
+     {
+      "q": "FY2023",
+      "v": 333.904
+     },
+     {
+      "q": "FY2024",
+      "v": 179.821
+     },
+     {
+      "q": "FY2025",
+      "v": 230.455
+     }
+    ],
+    "pv_score": 7,
+    "signal": "Après des pertes de 2017 à 2020 (litiges, amortissements), la société est rentable ; le pic de 2023 tenait à un avantage fiscal ponctuel.",
+    "frequency": "annual",
+    "last_data_date": "2025-12-31",
+    "_signal_regle_150": "2026-09-14",
+    "type_comparable": {
+     "fr": "Résultat net",
+     "en": "Net Income",
+     "origine": "nouveau"
+    },
+    "_type_pose_le": "2026-09-14"
+   }
+  }
+ ]
 }

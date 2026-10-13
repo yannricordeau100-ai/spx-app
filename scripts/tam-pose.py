@@ -43,6 +43,8 @@ for t, ids in choix.items():
         src = c.get("tam_source") or {}
         mp.append({
             "segment_name": c["segment"],
+            # 13 oct 2026 : nom du marche, titre de la carte TAM sur la fiche.
+            **({"marche": c["tam_intitule"].strip()} if (c.get("tam_intitule") or "").strip() else {}),
             "segment_revenue": c["segment_revenu"], "segment_unit": unite(c["segment_unite"]),
             "tam": c["tam"], "tam_unit": unite(c["tam_unite"]),
             **({"tam_range": c["tam_fourchette"]} if c.get("tam_fourchette") else {}),
