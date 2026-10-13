@@ -1048,3 +1048,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.13.3 (13 Oct 2026 11:46, apres ac501cf9e4)
 - KPI institutionnels en jaune et en tete, KPI principal garde dans le tableau, ancien affichage du hero, page 404, barre mobile, logo emails, moat date
+
+## v2026.10.13.4 (13 Oct 2026 13:25, apres fa5db6d7f4)
+- KPI institutionnels ajoutes et rattaches
