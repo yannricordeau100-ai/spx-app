@@ -110,7 +110,9 @@ OPTIONNELLES = {"NEXT_PUBLIC_NIVEAU", "NEXT_PUBLIC_DEPLOY_TARGET", "VERCEL_GIT_C
                 "VERCEL_ENV", "IPS_PROPRIETAIRE",
                 # 9 oct 2026 : UNIVERS et UNIVERS_N1_CANDIDATS ne sont posees que sur le niveau 1 (vague sp5001000) ;
                 # absentes = univers principal, comportement voulu en production et sur niveau2.
-                "UNIVERS", "UNIVERS_N1_CANDIDATS"}
+                "UNIVERS", "UNIVERS_N1_CANDIDATS",
+                # 13 oct 2026 : levier de test local uniquement (NODE_ENV != production, analytics-compte.ts)
+                "ANALYTICS_COMPTE_TEST_USER"}
 requises = sorted(utilisees - OPTIONNELLES)
 tok = env_local("VERCEL_TOKEN")
 envs = curl_json("https://api.vercel.com/v9/projects/prj_2fwjkuSPPesO8Xj8gsVfw6KSHiPA/env?teamId=team_3A8Ft1Kze0wYzGbuyHmsaEwC",
@@ -153,7 +155,10 @@ feu("vert" if sha_n2 and sha_n2 == head else "orange", "Niveaux", "niveau2 sert 
 # 5) SUPABASE : configuration d authentification alignee sur le domaine public
 pat = env_local("SUPABASE_PAT")  # jeton personnel Supabase, uniquement dans .env.local
 auth = curl_json("https://api.supabase.com/v1/projects/idpsbtgvuyfwtvzelogw/config/auth", [f"Authorization: Bearer {pat}"]) or {}
-if auth:
+if auth and "site_url" not in auth:
+    # 13 oct 2026 : jeton refuse (expire) = configuration illisible, pas une configuration fausse
+    feu("orange", "Supabase", "Configuration d authentification lisible", f"API refusee : {str(auth)[:80]} (renouveler SUPABASE_PAT)")
+elif auth:
     feu("vert" if auth.get("site_url") == "https://mettrik.ai" else "rouge", "Supabase", "site_url = https://mettrik.ai", str(auth.get("site_url")))
     al = auth.get("uri_allow_list", "")
     feu("vert" if "mettrik.ai/**" in al and "www.mettrik.ai/**" in al else "rouge", "Supabase", "Redirections autorisees vers mettrik.ai et www", al[:120])
