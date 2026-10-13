@@ -1,5 +1,6 @@
 #!/bin/bash
-# Sauvegarde commune aux deux comptes Claude (Yann 9 oct 2026) : a lancer a 95 % puis 98 % de la limite hebdomadaire.
+# Sauvegarde commune aux deux comptes Claude (Yann 9 oct 2026, etendue 13 oct) : protocole complet dans docs/RELAIS-COMPTES.md.
+# A 96 % de la limite hebdomadaire : arreter tous les agents et workflows PUIS lancer ce script (une seule fois), puis plus rien.
 # Usage : bash scripts/sauvegarde-relais.sh <etiquette>
 set -u
 cd /Users/yann/spx-app
@@ -28,9 +29,17 @@ git bundle create "$D/depot-depuis-14-sept.bundle" $(git rev-list -1 --before="2
 git diff > "$D/modifs-non-commitees.diff"; git status --short > "$D/statut.txt"
 tar czf "$D/non-commites-kpis-et-etats.tgz" $(git ls-files --modified --others --exclude-standard .batches-drafts-safe/kpis-haut) data-lake/_sp5001000/*.json data-lake/_sp5001000/etat-extraction data-lake/_kpi-mt/etat.json data-lake/_ir-bloques/etat $(git ls-files --others --exclude-standard src scripts docs public 2>/dev/null) 2>/dev/null
 cp $(ls -t /Users/yann/.claude/projects/-Users-yann/*.jsonl | head -2) "$D/" 2>/dev/null
+# etats des chantiers non commites (data-lake/_*), scripts et journaux des workflows, documents de relais
+tar czf "$D/etats-chantiers.tgz" data-lake/_sp5001000/scripts data-lake/_sp5001000/*.json data-lake/_sp5001000/blocs data-lake/_sp5001000/parite data-lake/_kpi-instit data-lake/_rail-integration data-lake/_etats-vides data-lake/_hero data-lake/_analytics-compte 2>/dev/null
+SESS=$(ls -td /Users/yann/.claude/projects/-Users-yann/*/ 2>/dev/null | head -1)
+tar czf "$D/workflows-scripts-et-journaux.tgz" /Users/yann/.claude/projects/-Users-yann-spx-app/*/workflows/scripts $(ls -d ${SESS}subagents/workflows/*/journal.jsonl 2>/dev/null) 2>/dev/null
+cp -R docs/relais "$D/relais" 2>/dev/null
+ls supabase/migrations/2026101*.sql > "$D/sql-a-verifier.txt" 2>/dev/null
 tar czf "$D/memoire.tgz" -C /Users/yann/.claude/projects/-Users-yann memory
 cp .env.local "$D/env.local.copie"; chmod 600 "$D/env.local.copie"
 # 3. commit des rapports (jamais git add -A)
-git add docs/rapports-session-2026-10 docs/REPRISE-2026-10-09.md HANDOFF.md 2>/dev/null
+git add docs/rapports-session-2026-10 docs/REPRISE-2026-10-09.md docs/RELAIS-COMPTES.md docs/relais HANDOFF.md 2>/dev/null
 git commit -q -m "Sauvegarde relais ($ET) : etat de l extraction sp5001000" 2>/dev/null
+git push -q origin staging 2>/dev/null || { git pull -q --no-rebase origin staging 2>/dev/null && git push -q origin staging 2>/dev/null || git merge --abort 2>/dev/null; } || echo "PUSH A REFAIRE"
+echo "$(date +%F\ %H:%M) $D" >> docs/relais/SAUVEGARDES.log
 echo "sauvegarde : $D ($(du -sh "$D" | cut -f1))"
