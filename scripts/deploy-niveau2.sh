@@ -39,6 +39,8 @@ if python3 scripts/build-home-wow.py >/dev/null 2>&1; then
 else
   echo "ATTENTION : build-home-wow.py a echoue, accueil non regenere" >&2
 fi
+# 14 oct 2026 : les builds automatiques sautent sauf code modifie ou [build] (scripts/vercel-ignore.sh)
+git commit -q --allow-empty -m "[build] niveau2 $(date +%Y-%m-%dT%H:%M)"
 SHA=$(git rev-parse HEAD)
 git push origin HEAD >/dev/null 2>&1 || true
 echo "commit $SHA : attente du build preview..."
