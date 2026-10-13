@@ -564,3 +564,6 @@ des questions et reponses AVANT toute lecture par un modele, ne jamais avaler un
 transcript entier dans le contexte, et ne garder que les elements chiffrables
 reclames par les analystes et absents de la fiche. Modele : Haiku ou moteur
 gratuit, jamais Opus.
+
+## Relais entre comptes
+Lire EN PREMIER docs/RELAIS-COMPTES.md : quoi sauvegarder, ou, comment (96 % sauvegarde, 98 % arret).
