@@ -8,8 +8,8 @@ dont le fichier existe et est verifie). Statuts : fait (commit) | en cours | int
 |---|---|---|---|
 | Protocole relais (RELAIS-COMPTES.md, sauvegarde-relais.sh) | fait | commit du 13 oct | - |
 | Hero : ancien affichage (gros chiffre + indications a gauche, texte explicatif dessous, graphique a droite) | fait (6df0b85b3e) | a verifier visuellement sur N2 | relancer un agent Opus avec la demande de Yann du 13 oct (CONTEXTE-2026-10-13.md, point 1) |
-| KPI institutionnels en jaune et en tete des KPI IC, nom de fiche, explication, UX | en cours | commit local | idem point 2 |
-| Tableau des 68 societes a 1 seul KPI institutionnel, preuve a 100 % | en cours | data-lake/_kpi-instit/preuves/<T>.json | relancer seulement les tickers sans fichier de preuve (liste : scratchpad instit-1.json, recalculable depuis src/data/kpi-industries-etat.json, stes_avec de taille 1) |
+| KPI institutionnels en jaune et en tete des KPI IC, nom de fiche, explication, UX | fait (33c870c65d) | commit local | idem point 2 |
+| Tableau des 68 societes a 1 seul KPI institutionnel, preuve a 100 % | fait | data-lake/_kpi-instit/preuves/<T>.json | relancer seulement les tickers sans fichier de preuve (liste : scratchpad instit-1.json, recalculable depuis src/data/kpi-industries-etat.json, stes_avec de taille 1) |
 | Logo des emails (PNG actuel, affichage reel) | fait (7185c54aee) | public/email/mettrik-logo-email.png ; en ligne seulement apres go n0, puis Yann lance PUSH-VIA-API.sh | - |
 | Page 404 wow | fait (cc9ad099b0) | src/app/not-found.tsx | - |
 | Panneau admin KPI institutionnels (vert/rouge/orange/jaune, absent du code n0) | en cours | src/components/admin/kpi-instit-statuts.tsx | finir le cablage company-header/company-view |
@@ -22,4 +22,4 @@ dont le fichier existe et est verifie). Statuts : fait (commit) | en cours | int
 | Deploiement N2 puis go n0 | a faire | dernier essai deploy-niveau2 : TIMEOUT preview (13 oct 06h) | relancer scripts/deploy-niveau2.sh une fois les agents finis, verifier multi-cas, puis go n0 |
 | SQL 20261013_telemetrie_compte.sql | a faire (Yann colle) | supabase/migrations | - |
 | KPI principal absent des KPI IC apres changement de KPI (662/662 fiches) | fait (075ca47b61) | src/lib/groupes-kpis-fiche.ts | - |
-| KPI institutionnels publies mais absents (37 stes, 72 KPI) + 16 incertains a trancher | en cours (wf_fad7ee2d-47f) | preuves/<T>.json statut publie_ajoute + verif_ajout ; puis pose kpis-haut et deploy N2 | relancer seulement les tickers sans verif_ajout |
+| KPI institutionnels publies mais absents + incertains | fait (fa5db6d7f4, deploy N2 lance) | preuves/<T>.json statut publie_ajoute + verif_ajout ; puis pose kpis-haut et deploy N2 | relancer seulement les tickers sans verif_ajout |
