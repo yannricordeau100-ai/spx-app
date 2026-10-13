@@ -37,6 +37,19 @@ export type FiscalAuditEntry = {
    * (HD "T2 2025" au lieu de "T2 2026").
    */
   fyLabelConvention?: "start" | "end";
+  /**
+   * 13 oct 2026 : exercice decale connu (10-K) mais series de KPI etiquetees
+   * en trimestres CALENDAIRES (FLEX, LOGN.SW, MRVL, QRVO, TECH, RL). L entree
+   * ne sert qu a convertir les « T2 FY27 » des textes (getFiscalAuditTextes) ;
+   * getFiscalAudit l ignore pour ne pas decaler les graphiques et la pastille.
+   */
+  seriesEnCalendrier?: boolean;
+  /**
+   * 13 oct 2026 : les mentions d exercice seules des textes (« FY27 », « FY2026 »)
+   * deviennent « exercice 2027 » (nettoyage-textes.ts). Pose sur les 59 fiches
+   * completees le 13 oct 2026 seulement.
+   */
+  convertirExerciceTextes?: boolean;
 };
 
 const FISCAL_AUDIT: Record<string, FiscalAuditEntry> = fiscalAuditRaw as Record<
@@ -46,7 +59,13 @@ const FISCAL_AUDIT: Record<string, FiscalAuditEntry> = fiscalAuditRaw as Record<
 
 export function getFiscalAudit(ticker: string): FiscalAuditEntry | undefined {
   const up = ticker.toUpperCase();
-  return FISCAL_AUDIT[up];
+  const e = FISCAL_AUDIT[up];
+  return e && !e.seriesEnCalendrier ? e : undefined;
+}
+
+/** Calendrier fiscal pour les textes seulement (inclut les entrees seriesEnCalendrier). */
+export function getFiscalAuditTextes(ticker: string): FiscalAuditEntry | undefined {
+  return FISCAL_AUDIT[ticker.toUpperCase()];
 }
 
 /** True si la société a une fin d'exercice ≠ décembre (= décalée). */

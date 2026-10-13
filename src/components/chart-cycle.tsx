@@ -100,10 +100,15 @@ export function computeChartDisplay(
   const allAbs = [...absData, ...(absTtm != null ? [absTtm] : [])].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
   const maxAbs = allAbs.length > 0 ? Math.max(...allAbs.map((v) => Math.abs(v))) : 0;
   let { unit: newUnit } = rescaleForReadability(maxAbs, unit);
+  // 13 oct 2026 : une unite par element (« $/action », « $/Bbl », « $ / pi2 »)
+  // n est pas une magnitude : elle etait ramenee a « $ » ou « $¢ » et perdait
+  // son « par ... » (ARE, ODFL, OXY, PSA...). On la garde telle quelle.
+  if (unit.includes("/")) newUnit = unit;
   // 28 sept 2026 (export TSM « 2,2 Mds TWD » pour 2 200 Mds) : en devise
   // locale, l echelle « billion » n a pas de libelle et retombait sur « Mds »
   // alors que les valeurs etaient divisees par 1 000 de plus. On reste en Mds.
-  if (newUnit === "$T" && preserveOriginalCurrency(unit, "$T").startsWith("Mds ")) newUnit = "$B";
+  // 13 oct 2026 : idem en euro et en livre (ENX.PA « 8,12 €T »).
+  if (newUnit === "$T" && preserveOriginalCurrency(unit, "$T") !== "$T") newUnit = "$B";
   const newFactor = FACTOR_PER_UNIT[newUnit];
   if (newFactor != null && (newUnit !== unit || divisor !== 1)) {
     scaledData = absData.map((v) => (v == null ? null : v / newFactor));

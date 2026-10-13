@@ -73,6 +73,11 @@ SATELLITES_ANCIENS = [
     "kpis-v3", "quarterly-history", "stories_signal_patch", "hero_name_fr",
 ]
 
+# Cles posees dans le PL par les scripts d enrichissement (12 oct 2026), a conserver
+# quand l onboarding reconstruit le PL.
+CLES_ENRICHIES_PL = ["tagline", "founded", "ipo", "profit_warning", "events", "customer_type",
+                     "revenue_history", "latest_filing", "company_description"]
+
 SECTEURS_EN_FR = {
     "Energy": "Énergie", "Materials": "Matériaux", "Industrials": "Industrie",
     "Consumer Discretionary": "Consommation discrétionnaire", "Consumer Staples": "Consommation de base",
@@ -299,6 +304,19 @@ def construit_pl(T: str, soc: dict, kh: dict, hero: dict, ancien_pl: dict | None
     # 12 oct 2026 : garder la prochaine publication posee par scripts/earnings-dates-yfinance.py.
     if isinstance(ancien_pl, dict) and ancien_pl.get("next_earnings_date"):
         pl["next_earnings_date"] = ancien_pl["next_earnings_date"]
+    # 12 oct 2026 : enrichissements poses directement dans le PL par les chaines
+    # de l univers principal (profit_warning, founded, ipo, tagline, events...) :
+    # conserves a la reconstruction (sinon perdus a chaque passage de l onboarding).
+    if isinstance(ancien_pl, dict) and isinstance(ancien_pl.get("_sp5001000"), dict):
+        for k in CLES_ENRICHIES_PL:
+            if ancien_pl.get(k) not in (None, "", [], {}) and pl.get(k) in (None, "", [], {}):
+                pl[k] = ancien_pl[k]
+        # traduction FR des citations IA : gardee seulement si les citations n ont pas change
+        ia_a, ia_n = ancien_pl.get("ai_positioning"), pl.get("ai_positioning")
+        if isinstance(ia_a, dict) and isinstance(ia_n, dict) and ia_a.get("evidence") == ia_n.get("evidence"):
+            for k in ("evidence_fr", "_evidence_fr_de", "_evidence_fr_moteur", "_evidence_fr_at", "_evidence_fr_note"):
+                if k in ia_a and k not in ia_n:
+                    ia_n[k] = ia_a[k]
     presents = {
         "risques": bool(risks), "gouvernance": bool(gov), "repartition": bool(seg or geo),
         "positionnement_ia": bool(ia),
@@ -498,6 +516,13 @@ def main():
                 # idempotent : on garde les dates deja posees si rien n a change
                 if etat == "inchangee":
                     en = en_ancien
+                else:
+                    # 12 oct 2026 : les enrichissements poses par les scripts de profil,
+                    # calendrier, depots, alerte resultats, dividendes... (cles hors
+                    # _maj_*) sont conserves quand la fiche est reconstruite.
+                    for k, v in en_ancien.items():
+                        if k not in en and not k.startswith("_maj_"):
+                            en[k] = v
             elif not a.simulation:
                 sauvegarde(T, p_en, a.simulation)
             if not a.simulation and en != en_ancien:

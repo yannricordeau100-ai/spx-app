@@ -19,6 +19,7 @@
  * pas de stale data après un rebuild de pipeline). Next.js cache la route
  * via `revalidate` quand pertinent.
  */
+import { sousIndustrieEnFrancais, nettoyerPositionnementIa } from "./libelles-fr";
 import { unstable_cache } from "next/cache";
 import { VERSION } from "@/lib/version";
 import { promises as fs } from "fs";
@@ -35,6 +36,7 @@ import { isGenericKpi } from "@/lib/kpi-generic";
 import { isGenericHeroKpi } from "@/lib/kpi-hero-generic";
 import { choisirHero, type HeroKpiLike } from "@/lib/hero-select";
 import { cleanSourceCitations } from "@/lib/ui-fix-templates";
+import { nettoyerTextesFiche, harmoniserPeriodesFiche } from "@/lib/company-core/nettoyage-textes";
 import { cleCacheUnivers, ficheServie } from "@/lib/univers-actif";
 
 /**
@@ -860,7 +862,22 @@ async function loadV17CompanyBrut(
   try {
     const moat = await readJsonOrNull<Record<string, unknown>>(path.join(ROOT, "src/data/moat-univers.json"));
     const m = moat?.[ticker.toUpperCase()];
-    if (m && typeof m === "object") (data as Record<string, unknown>).moat = m;
+    if (m && typeof m === "object") {
+      // 13 oct 2026 (CAT « Note depuis le T1 2006 ») : 259 entrees portaient la
+      // date de la note Morningstar (usage interne, parfois 2002), pas celle de
+      // la note Mettrik. Une date avant 2020 ou dans le futur est remplacee par
+      // la date de l evaluation Mettrik (docs/cahier/moat-tendance-mettrik.json),
+      // sinon retiree (le bloc n affiche alors aucune date).
+      const entree = { ...(m as Record<string, unknown>) };
+      const d = typeof entree.depuis === "string" ? entree.depuis : null;
+      const aujourdhui = new Date().toISOString().slice(0, 10);
+      if (d && (d < "2020" || d.slice(0, 10) > aujourdhui)) {
+        const evals = await readJsonOrNull<Record<string, { date?: string }>>(path.join(ROOT, "docs/cahier/moat-tendance-mettrik.json"));
+        const dm = evals?.[ticker.toUpperCase()]?.date;
+        entree.depuis = typeof dm === "string" && dm >= "2020" && dm.slice(0, 10) <= aujourdhui ? dm : null;
+      }
+      (data as Record<string, unknown>).moat = entree;
+    }
   } catch {
     /* pas de moat */
   }
@@ -999,7 +1016,9 @@ async function loadV17CompanyBrut(
     const v2Stance = aiPosV2.stance;
     const v2Evidence = Array.isArray(aiPosV2.evidence) ? aiPosV2.evidence : [];
     // Override si v2 a plus d'evidence ou si v1 disait "absent" / vide.
+    // 13 oct 2026 : un fichier reecrit a la main (_rewritten) prime toujours.
     const v1Weak =
+      aiPosV2._rewritten !== undefined ||
       !cur ||
       curStance === "absent" ||
       curStance === null ||
@@ -3409,6 +3428,8 @@ async function loadV17CompanyBrut(
   // citations SEC techniques ("10-Q", "XBRL", noms de balises) de tous les
   // textes affichés, sur toutes les sociétés.
   deepCleanCitations(company as unknown as Record<string, unknown>);
+  // 13 oct 2026 : cuisine interne, unites anglaises, periodes fiscales dans les commentaires.
+  nettoyerTextesFiche(company as unknown as Record<string, unknown>, ticker);
 
   // Yann 30 août 2026 (KO "Effet prix/mix" affiché en double) : dédup finale
   // des KPI dont les séries se recouvrent (mêmes chiffres sous deux libellés,
@@ -3509,6 +3530,24 @@ async function loadV17CompanyBrut(
       console.warn(`[load-company] override hero orphelin ${canonical}: "${choix.orphelin}" absent des KPI servis, regle appliquee (${choix.hero})`);
     }
   }
+
+  // 13 oct 2026 : libelles francais (sous-industrie GICS, gabarit IA de
+  // remplissage). Voir libelles-fr.ts.
+  try {
+    const loc = (opts.locale ?? "fr").toLowerCase();
+    if (loc === "" || loc === "fr" || loc === "fr-fr") {
+      const c = company as unknown as Record<string, unknown>;
+      const sousInd = sousIndustrieEnFrancais(ticker, c.subsector);
+      if (sousInd) c.subsector = sousInd;
+      const ai = c.ai_positioning as Record<string, unknown> | undefined;
+      if (ai && typeof ai === "object" && nettoyerPositionnementIa(ai) === "supprimer") delete c.ai_positioning;
+    }
+  } catch (err) {
+    console.warn(`libelles-fr failed for ${ticker}:`, err);
+  }
+
+  // 13 oct 2026 : periodes fiscales des blocs injectes apres nettoyerTextesFiche.
+  harmoniserPeriodesFiche(company as unknown as Record<string, unknown>, ticker);
 
   return { kind: "ready", company };
 }

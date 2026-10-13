@@ -35,6 +35,10 @@ def traite(p):
 if __name__ == '__main__':
     univers = json.load(open(f'{ROOT}/src/data/v1-9-5-clean-all-tickers.json'))['tickers']
     cibles = sys.argv[1:] or univers
+    # 12 oct 2026 : --tickers-file <json {tickers:[]}> (fiches niveau 1 sp5001000) ; sans l option : inchange.
+    if '--tickers-file' in sys.argv:
+        tf = json.load(open(sys.argv[sys.argv.index('--tickers-file') + 1]))
+        cibles = tf['tickers'] if isinstance(tf, dict) else tf
     bilan = {}
     for t in cibles:
         p = f'{ROOT}/src/data/v2-pipeline/{t.lower()}.json'

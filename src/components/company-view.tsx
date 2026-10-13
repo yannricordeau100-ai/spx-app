@@ -1817,7 +1817,13 @@ export function CompanyView({
                   Séparateurs dots violet retirés (cosmétique, prenaient de
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
-              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 sm:flex-nowrap sm:gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {/* 13 oct 2026 (CAT, 1440 px : « ans MAX » coupe a gauche, « i » renvoye
+                  sous les lettres) : avec l unite de temps A M S J H m s, la
+                  barre depasse la colonne ; centree et sans retour a la ligne,
+                  son debut sortait a gauche, hors de portee du defilement.
+                  Retour a la ligne autorise (2 lignes centrees si besoin) et
+                  centrage « sur » qui ne coupe jamais le debut. */}
+              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap items-center justify-center-safe gap-x-2 gap-y-1.5 sm:gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {/* Yann 2 sept 2026 (ergonomie mobile) : en mobile, un menu
                     Reglages commun (fenetre + frequence + rendu 2D/3D) et un
                     menu deroulant pour l unite de temps remplacent les
@@ -2190,6 +2196,7 @@ export function CompanyView({
                       plageTendance={chartRange}
                       freeBlocked={freeBlocked}
                       overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
+                      overrideUnit={kpi.short === active.short ? heroAxisUnit : null}
                       institutionnel={institDe(kpi.short)}
                     />
                   ))}
@@ -2231,6 +2238,7 @@ export function CompanyView({
                   plageTendance={chartRange}
                   freeBlocked={freeBlocked}
                   overrideValue={isActive ? heroLastVisibleValue : null}
+                  overrideUnit={isActive ? heroAxisUnit : null}
                 />
               );
             })}
@@ -2290,6 +2298,7 @@ export function CompanyView({
                       plageTendance={chartRange}
                       freeBlocked={freeBlocked}
                       overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
+                      overrideUnit={kpi.short === active.short ? heroAxisUnit : null}
                     />
                   ))}
                 </div>
@@ -2325,6 +2334,7 @@ export function CompanyView({
                       plageTendance={chartRange}
                       freeBlocked={freeBlocked}
                       overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
+                      overrideUnit={kpi.short === active.short ? heroAxisUnit : null}
                       institutionnel={institDe(kpi.short)}
                     />
                   ))}

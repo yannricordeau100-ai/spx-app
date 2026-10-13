@@ -23,6 +23,10 @@ Methode de correspondance, par ordre de priorite :
     puis affaiblie en cas d'incoherence d'unite, de nature (part contre
     croissance, marge contre niveau) ou de concept metier.
 
+Reclassement (13 oct 2026) : docs/cahier/kpi/_reclassement.json impose, pour
+une societe donnee, la sous-industrie dont on prend la LISTE DE KPI (champ
+"reclassement" ecrit dans la sortie). La sous-industrie affichee ne change pas.
+
 Etape 1 : cache des fiches (resumable, une ligne JSON par societe).
 Etape 2 : rapprochement et ecriture du fichier de donnees.
 
@@ -324,7 +328,8 @@ function utilisable(k: any): boolean {
 (async () => {
   const { loadV17Company } = await import("DEPOT/src/lib/company-core/load-company");
   const { orderKpis } = await import("DEPOT/src/lib/kpi-ordering");
-  const uni = JSON.parse(await fs.readFile("DEPOT/src/data/v1-9-5-clean-all-tickers.json", "utf-8")) as { tickers: string[] };
+  const { groupesKpisFiche } = await import("DEPOT/src/lib/groupes-kpis-fiche");
+  const uni = JSON.parse(await fs.readFile("TICKERS_FILE", "utf-8")) as { tickers: string[] };
 
   const deja = new Set<string>();
   try {
@@ -347,9 +352,20 @@ function utilisable(k: any): boolean {
         const c: any = r.company;
         const cache = new Set<string>(c._kpis_hidden_by_history_rule ?? []);
         const req = (pt?: string) => (pt === "quarter" ? 4 : pt === "semester" ? 2 : 3);
-        const kpis = orderKpis(c.kpis, c.hero_kpi).map((k: any) => {
+        // 13 oct 2026 : orderKpis retire le hero et les series a historique court ; le
+        // tableau de la fiche (groupesKpisFiche) remet le hero en tete et garde parfois une
+        // serie courte. Ces KPI servis sont AJOUTES (champ « ajout ») pour compter comme
+        // presents ; les stories (hors tableau) restent exclues.
+        const base = orderKpis(c.kpis, c.hero_kpi);
+        const g = groupesKpisFiche(c);
+        const tableau = new Set<string>([...g.avances, ...g.standards, ...g.arretes].map((k: any) => k.short));
+        const dansBase = new Set<string>(base.map((k: any) => k.short));
+        const ajouts = (c.kpis ?? []).filter((k: any) => !dansBase.has(k.short) && tableau.has(k.short));
+        const kpis = [...base, ...ajouts].map((k: any) => {
+          const ajout = dansBase.has(k.short) ? null : k.short === c.hero_kpi ? "hero" : "tableau";
           let servi = true;
-          if (!utilisable(k)) servi = false;
+          if (ajout) servi = true;
+          else if (!utilisable(k)) servi = false;
           else if (k.short === c.hero_kpi) servi = true;
           else if (k.hors_document === true) servi = true;
           else if (cache.has(k.short)) servi = false;
@@ -358,7 +374,8 @@ function utilisable(k: any): boolean {
             short: k.short, short_raw: k._short_raw ?? null,
             name_fr: k.name_fr ?? null, name_en: k.name_en ?? null,
             tc_fr: k.type_comparable?.fr ?? null, tc_en: k.type_comparable?.en ?? null,
-            unit: k.unit ?? null, servi,
+            tc_origine: k.type_comparable?.origine ?? null,
+            unit: k.unit ?? null, servi, ajout,
           };
         });
         rec = { ticker: t, gics: c.gics_code ?? null, n_total: kpis.length,
@@ -379,15 +396,30 @@ function utilisable(k: any): boolean {
 
 def construire_cache():
     """Ecrit le cache des fiches ; reprend la ou il s'etait arrete."""
-    src = DUMPER_TS.replace("DEPOT", ROOT).replace("CACHE", CACHE)
+    src = DUMPER_TS.replace("TICKERS_FILE", TICKERS_FILE).replace("DEPOT", ROOT).replace("CACHE", CACHE)
     chemin = "/tmp/build-kpi-industrie-dump.ts"
     with open(chemin, "w", encoding="utf-8") as f:
         f.write(src)
-    subprocess.run(["npx", "tsx", chemin], cwd=ROOT, check=True)
+    env = dict(os.environ)
+    if TICKERS_FILE_N1:
+        # fiches du niveau 1 : chargees avec l univers sp5001000 (sinon « missing »)
+        env["UNIVERS"] = "sp5001000"
+        env["UNIVERS_N1_CANDIDATS"] = ",".join(json.load(open(TICKERS_FILE, encoding="utf-8"))["tickers"])
+    subprocess.run(["npx", "tsx", chemin], cwd=ROOT, check=True, env=env)
 
 
 ROOT = "/Users/yann/spx-app"
 CACHE = "/tmp/fiches-kpi-cache.jsonl"
+# 12 oct 2026 : --tickers-file <json {tickers:[]}> (fiches niveau 1 sp5001000) : cache a part,
+# fiches chargees avec UNIVERS=sp5001000, et les societes traitees sont AJOUTEES au fichier
+# existant (les autres entrees et les statistiques restent telles quelles).
+# Sans l option : comportement inchange.
+TICKERS_FILE = os.path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json")
+TICKERS_FILE_N1 = False
+if "--tickers-file" in sys.argv:
+    TICKERS_FILE = os.path.abspath(sys.argv[sys.argv.index("--tickers-file") + 1])
+    TICKERS_FILE_N1 = True
+    CACHE = "/tmp/fiches-kpi-cache-sp5001000.jsonl"
 KPI_DIR = os.path.join(ROOT, "docs/cahier/kpi")
 DONNEES_DIR = os.path.join(ROOT, "docs/cahier/donnees")
 
@@ -430,6 +462,30 @@ def charger_donnees():
     return dons
 
 
+def charger_reclassements():
+    """13 oct 2026 : docs/cahier/kpi/_reclassement.json {"<T>": {"code_gics", "pourquoi", "date"}}.
+    Le code de reclassement prime sur le code du Cahier et de la fiche POUR LA LISTE DE KPI
+    SEULEMENT (la sous-industrie affichee en haut de fiche ne change pas).
+    Champ optionnel "correspondances_refusees" {short attendu: [codes de fiche]} : rapprochements
+    lexicaux faux, verifies a la main, ecartes pour cette societe."""
+    p = os.path.join(KPI_DIR, "_reclassement.json")
+    if not os.path.exists(p):
+        return {}
+    d = json.load(open(p, encoding="utf-8"))
+    return {t: v for t, v in d.items() if not t.startswith("_") and isinstance(v, dict) and v.get("code_gics")}
+
+
+def charger_refus_globaux():
+    """13 oct 2026 : docs/cahier/kpi/_correspondances_refusees.json {"<T>": {short attendu: [codes de fiche]}}
+    rapprochements faux verifies a la main, pour toute societe (meme role que
+    correspondances_refusees de _reclassement.json, qui reste lu)."""
+    p = os.path.join(KPI_DIR, "_correspondances_refusees.json")
+    if not os.path.exists(p):
+        return {}
+    d = json.load(open(p, encoding="utf-8"))
+    return {t: v for t, v in d.items() if not t.startswith("_") and isinstance(v, dict)}
+
+
 def alias_corpus(dons):
     """Alias empiriques : short attendu -> libelles observes en ligne (campagne septembre)."""
     al = collections.defaultdict(set)
@@ -450,7 +506,9 @@ def idf_table(fiches):
         n += 1
         vus = set()
         for k in f["kpis"]:
-            vus |= canon_tokens(k.get("name_en")) | canon_tokens(k.get("name_fr"))
+            if k.get("ajout"):
+                continue  # 13 oct 2026 : hero et series du tableau ajoutes, hors table de rarete (inchangee)
+            vus |=canon_tokens(k.get("name_en")) | canon_tokens(k.get("name_fr"))
         for t in vus:
             df[t] += 1
     return {t: min(math.log((n + 1) / (c + 1)) + 1.0, 4.0) for t, c in df.items()}, n
@@ -538,7 +596,7 @@ OUT_FILE = os.path.join(ROOT, "src/data/kpi-industrie-par-societe.json")
 
 
 def main():
-    etapes = set(a for a in sys.argv[1:] if a.startswith("--"))
+    etapes = set(a for a in sys.argv[1:] if a.startswith("--") and a != "--tickers-file")
     if not etapes or "--cache" in etapes:
         construire_cache()
         if etapes == {"--cache"}:
@@ -548,9 +606,11 @@ def main():
     fiches = charger_fiches()
     refs = charger_referentiels()
     dons = charger_donnees()
+    reclass = charger_reclassements()
+    refus_glob = charger_refus_globaux()
     al_corp = alias_corpus(dons)
     idf, n_fiches = idf_table(fiches)
-    tickers = json.load(open(os.path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"), encoding="utf-8"))["tickers"]
+    tickers = json.load(open(TICKERS_FILE, encoding="utf-8"))["tickers"]
 
     societes = {}
     for t in tickers:
@@ -563,6 +623,10 @@ def main():
             continue
         dd = dons.get(t)
         code = (dd or {}).get("code") or fiche.get("gics")
+        rc = reclass.get(t)
+        code_origine = code
+        if rc:
+            code = rc["code_gics"]
         ref = refs.get(code)
         if not ref:
             societes[t] = {"erreur": "referentiel_absent", "code_gics": code}
@@ -577,7 +641,9 @@ def main():
             d = par_short.get(att.get("short"))
             st_cahier = (d or {}).get("statut")
             al_soc = {d["short_en_ligne"]} if d and d.get("short_en_ligne") else set()
-            k, score, methode = apparier(att, servis, al_soc, al_corp.get(att.get("short"), set()), idf, seuil)
+            refus = set(((rc or {}).get("correspondances_refusees") or {}).get(att.get("short")) or [])
+            refus |= set((refus_glob.get(t) or {}).get(att.get("short")) or [])
+            k, score, methode = apparier(att, [x for x in servis if x.get("short") not in refus], al_soc, al_corp.get(att.get("short"), set()), idf, seuil)
             sur_fiche = bool(k) and score >= seuil
 
             if sur_fiche:
@@ -631,6 +697,9 @@ def main():
             "taux_couverture": taux,
             "indicateurs": inds,
         }
+        if rc:
+            societes[t]["reclassement"] = {"code_gics_origine": code_origine,
+                                           "pourquoi": rc.get("pourquoi"), "date": rc.get("date")}
 
     # statistiques
     complet = partielle = aucune = 0
@@ -662,6 +731,14 @@ def main():
         "stats": stats,
         "societes": societes,
     }
+    if TICKERS_FILE_N1:
+        cible = os.environ.get("OUT", OUT_FILE)
+        out = json.load(open(cible, encoding="utf-8"))
+        out["societes"].update(societes)
+        out["sp5001000_ajoutees_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+        json.dump(out, open(cible, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(json.dumps(stats, ensure_ascii=False, indent=1))
+        return
     json.dump(out, open(os.environ.get("OUT", OUT_FILE), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(json.dumps(stats, ensure_ascii=False, indent=1))
 

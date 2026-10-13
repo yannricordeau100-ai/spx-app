@@ -1051,3 +1051,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.13.4 (13 Oct 2026 13:25, apres fa5db6d7f4)
 - KPI institutionnels ajoutes et rattaches
+
+## v2026.10.13.5 (13 Oct 2026 20:58, apres 7f8356fb59)
+- Corrections apres controle de mettrik.ai : unites hero/tableau, doublons KPI, variations, textes anglais et internes, gouvernance, rachats, risques, IA, accueil, 404, KPI institutionnels (24 stes, reclassement), OMC

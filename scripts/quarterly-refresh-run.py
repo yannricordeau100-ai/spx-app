@@ -419,7 +419,11 @@ def refresh_kpis(ticker: str) -> dict:
     added, updated, failed = [], [], []
     kpi_points = []  # VERROU 1 (Yann 16 juil 2026) : points exposés pour la
                      # contre-vérification indépendante qr-lock1-dual-check.py
+    # Series retirees a la main (ex. MRNA, controle du 1 oct 2026) : jamais reinjectees.
+    retires = {str(x).strip().lower() for x in enrich.get("_kpis_retires", [])}
     for short, spec in STD.items():
+        if short.strip().lower() in retires:
+            continue
         ptypes = (["quarter"] if spec["period"] == "both"
                   else ["instant"] if spec["period"] == "instant" else ["year"])
         for pt in ptypes:

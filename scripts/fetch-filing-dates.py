@@ -177,11 +177,19 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--top", type=int, default=307)
     ap.add_argument("--ticker", help="Forcer un seul ticker")
+    ap.add_argument("--tickers-file", default=None,
+                    help="JSON {tickers:[...]} a traiter (ex. src/data/univers-sp5001000.json) ; "
+                         "l audit est alors ecrit dans data-lake/_sp5001000/freshness-audit.json")
     args = ap.parse_args()
+    global AUDIT
 
     cik_map = load_cik_map()
     if args.ticker:
         tickers = [args.ticker.upper()]
+    elif args.tickers_file:
+        d = json.loads(Path(args.tickers_file).read_text())
+        tickers = list(d["tickers"] if isinstance(d, dict) else d)
+        AUDIT = ROOT / "data-lake/_sp5001000/freshness-audit.json"
     else:
         sorted_list = json.loads(V18.read_text())
         tickers = sorted_list[: args.top]

@@ -215,9 +215,12 @@ function formatDate(iso: string | null | undefined, locale: Locale = "fr"): stri
  * différents → super-vote en place (cas GOOGL avec Larry Page / Sergey
  * Brin via Class B et top_capital institutionnel distinct).
  */
+const MONO_REGEX =
+  /\b(?:une|1|chaque)\s+action(?:s)?(?:\s+ordinaires?)?\s*(?:=|[ée]gale?|donne droit [àa]|vaut)\s*(?:une|1|un)\s+(?:seule\s+)?(?:voix|vote)|une action,?\s+(?:une|un)\s+(?:voix|vote)|vote\s+[àa]\s+une\s+action\s+par\s+action|[àa]\s+une\s+voix\s+chacune|droit\s+de\s+vote\s+unique|une\s+seule\s+cat[ée]gorie\s+d.actions|structure\s+de\s+vote\s+unitaire|1[-\s]share[-\s]1[-\s]vote|one[-\s]share[-\s]one[-\s]vote/;
+
 function detectDualClass(
-  voting?: { name: string }[],
-  capital?: { name: string }[],
+  voting?: { name?: string; holder?: string }[],
+  capital?: { name?: string; holder?: string }[],
   votingStructure?: string | null
 ): boolean {
   // Source 1 : texte voting_structure explicite (FR + EN).
@@ -263,15 +266,23 @@ function detectDualClass(
       "un vote par action",
     ];
     if (monoSignals.some((s) => v.includes(s))) return false;
+    // 13 oct 2026 : formulations francaises reelles (AAPL « Une action egale
+    // une voix », PANW/SNPS « une action = une voix », WY « 1 action = 1 voix »,
+    // RJF « a une voix chacune », PPG « droit de vote unique »). Testees apres
+    // les signaux dual : un texte qui cite une classe B reste dual.
+    if (MONO_REGEX.test(v)) return false;
   }
   // Source 2 : repli heuristique par chevauchement de noms.
   if (!voting?.length || !capital?.length) return false;
-  const votingNames = new Set(
-    voting.filter((s) => typeof s.name === "string").map((s) => s.name.toLowerCase()),
-  );
-  const overlap = capital.filter(
-    (s) => typeof s.name === "string" && votingNames.has(s.name.toLowerCase()),
-  ).length;
+  // 13 oct 2026 : une partie des fiches nomme le detenteur « holder » et non
+  // « name » ; sans cela le chevauchement valait 0 et AAPL passait en dual-class.
+  const nomDe = (s: { name?: string; holder?: string }) =>
+    typeof s.name === "string" ? s.name.toLowerCase() : typeof s.holder === "string" ? s.holder.toLowerCase() : null;
+  const votingNames = new Set(voting.map(nomDe).filter((n): n is string => n !== null));
+  const overlap = capital.filter((s) => {
+    const n = nomDe(s);
+    return n !== null && votingNames.has(n);
+  }).length;
   return overlap < Math.min(voting.length, capital.length) / 2;
 }
 
@@ -607,9 +618,12 @@ export function GovernanceCard({
             {(() => {
               const dateStr = formatDate(g.agm_date, locale);
               if (dateStr) {
+                // 13 oct 2026 : une assemblee a venir (date de convocation du proxy)
+                // n est pas une date de mise a jour : libelle « prevue le ».
+                const aVenir = new Date(g.agm_date as string).getTime() > Date.now();
                 return (
                   <>
-                    {t("governance.subtitle_prefix")} {dateStr}. {t("governance.subtitle_suffix")} {g.fiscal_year}.
+                    {t(aVenir ? "governance.subtitle_prefix_future" : "governance.subtitle_prefix")} {dateStr}. {t("governance.subtitle_suffix")} {g.fiscal_year}.
                   </>
                 );
               }

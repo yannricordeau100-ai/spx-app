@@ -110,6 +110,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--tickers-file", default=None,
+                    help="JSON {tickers:[...]} a traiter a la place de l univers (ex. src/data/univers-sp5001000.json)")
     args = ap.parse_args()
 
     if not UNIVERS.exists() and not V17.exists():
@@ -118,6 +120,9 @@ def main():
     ENR.mkdir(parents=True, exist_ok=True)
 
     tickers = univers_tickers()
+    if args.tickers_file:
+        d = json.loads(Path(args.tickers_file).read_text())
+        tickers = list(d["tickers"] if isinstance(d, dict) else d)
 
     pending = []
     for t in tickers:

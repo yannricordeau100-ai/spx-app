@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import { HomeView } from "@/components/home-view";
 import { HomeTopBar } from "@/components/home-top-bar";
-import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { AuthModal } from "@/components/auth-modal";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { PricingCards } from "@/components/billing/pricing-cards";
@@ -17,6 +16,8 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getServerFreemiumTier } from "@/lib/freemium/server";
 import { comptesGicsPublics } from "@/lib/comptes-gics-public";
 import { estUniversN1 } from "@/lib/univers-actif";
+import { zonesVitrineGratuite } from "@/lib/accueil-vitrine";
+import { chargeVisiblesGratuit } from "@/lib/desk/visibles-gratuit";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
@@ -63,7 +64,15 @@ export default async function SandboxV195HubPage() {
   // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) : ni KPI de vitrine ni carte des
   // pays (elles ne citent que des societes de l univers principal).
   const n1 = estUniversN1();
-  const accueilKpis = n1 ? {} : await kpisAccueilPersonnalises().catch(() => ({}));
+  // Yann 13 oct 2026 : aucune valeur de KPI d une societe hors de la liste
+  // « visibles en gratuit » sur l accueil (cartes et KPI personnalises).
+  const gratuites = new Set(await chargeVisiblesGratuit());
+  const accueilKpis = n1
+    ? {}
+    : Object.fromEntries(
+        Object.entries(await kpisAccueilPersonnalises().catch(() => ({}))).filter(([t]) => gratuites.has(t.toUpperCase())),
+      );
+  const zonesVitrine = n1 ? {} : await zonesVitrineGratuite();
   const themePaid = freemiumTier === "premium" || freemiumTier === "max";
 
   return (
@@ -81,6 +90,7 @@ export default async function SandboxV195HubPage() {
         gatePath="/"
         contentOverrides={homeOverrides}
         accueilKpis={accueilKpis}
+        zonesVitrine={zonesVitrine}
         comptesGics={comptesGicsPublics()}
         masquerCartePays={n1}
       />
@@ -111,7 +121,7 @@ export default async function SandboxV195HubPage() {
         <div className="mt-10">
           <SignupGateOverlay enabled={!isAuthed} gatePath="/" initialAuthed={isAuthed}>
             <PricingCards
-              ctaTrackingPrefix="v195_home_inline_"
+              ctaTrackingPrefix="accueil_inline_"
               plans={catalog.plans}
               features={catalog.features}
               carteGratuit={catalog.carte_gratuit}
@@ -124,7 +134,7 @@ export default async function SandboxV195HubPage() {
           <SignupGateOverlay enabled={!isAuthed} gatePath="/" initialAuthed={isAuthed}>
             <Link
               href="/pricing#compare"
-              data-pricing-cta="v195_home_see_full"
+              data-pricing-cta="accueil_voir_tarifs"
               className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.08] px-3.5 py-2 font-semibold text-violet-100 hover:bg-violet-500/15"
             >
               Voir le comparatif détaillé (toutes les fonctionnalités)
@@ -144,7 +154,9 @@ export default async function SandboxV195HubPage() {
       </section>
       </>
       )}
-      <DisclaimerFooter />
+      {/* 13 oct 2026 : pied de page rendu une seule fois, par src/app/layout.tsx
+          (FooterGate). L accueil est servi sur « / » : le layout l affichait
+          deja, d ou le doublon. */}
     </>
   );
 }

@@ -37,7 +37,7 @@ function currentQuarter(): { q: number; year: number } {
   };
 }
 
-function render(q: number, year: number, locale: string): string | null {
+export function render(q: number, year: number, locale: string): string | null {
   const cur = currentQuarter();
   if (year > cur.year || (year === cur.year && q >= cur.q)) return null;
   return `${locale.startsWith("fr") ? "T" : "Q"}${q} ${year}`;

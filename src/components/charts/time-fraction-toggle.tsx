@@ -66,7 +66,7 @@ export function TimeFractionToggle({
   const { t } = useT();
 
   return (
-    <div className="inline-flex flex-wrap items-center gap-1.5">
+    <div className="inline-flex shrink-0 flex-nowrap items-center gap-1.5">
       <div
         role="tablist"
         className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5"

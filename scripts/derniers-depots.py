@@ -7,9 +7,19 @@ pour les societes europeennes) est retenue. Sortie : src/data/derniers-depots.js
 """
 import datetime, glob, json, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import sys
 univ = json.load(open(os.path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json")))["tickers"]
 auj = datetime.date.today().isoformat()
 out = {}
+# 12 oct 2026 : --tickers-file <json {tickers:[]}> ajoute ces societes (niveau 1 sp5001000)
+# a l index existant au lieu de le reconstruire. Sans l option : comportement inchange.
+if "--tickers-file" in sys.argv:
+    d = json.load(open(sys.argv[sys.argv.index("--tickers-file") + 1]))
+    univ = d["tickers"] if isinstance(d, dict) else d
+    try:
+        out = json.load(open(os.path.join(ROOT, "src/data/derniers-depots.json")))
+    except Exception:
+        out = {}
 for t in univ:
     dl = os.path.join(ROOT, "data-lake", t)
     dates = []

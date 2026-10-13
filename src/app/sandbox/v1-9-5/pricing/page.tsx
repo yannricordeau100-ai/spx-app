@@ -110,7 +110,7 @@ export default async function V195PricingPage() {
         </div>
 
         <div className="mx-auto mt-6 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="v195_top_" plans={catalog.plans} features={catalog.features} carteGratuit={catalog.carte_gratuit} currency={currency} taglines={taglines} />
+          <PricingCards ctaTrackingPrefix="tarifs_haut_" plans={catalog.plans} features={catalog.features} carteGratuit={catalog.carte_gratuit} currency={currency} taglines={taglines} />
         </div>
 
         <section id="compare" className="mx-auto mt-20 max-w-5xl scroll-mt-20">
@@ -169,7 +169,7 @@ export default async function V195PricingPage() {
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href={`/sandbox/${LATEST_VERSION_SLUG}/contact-api`}
-              data-pricing-cta="v195_bottom_contact_api"
+              data-pricing-cta="tarifs_bas_contact_api"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 px-6 py-3 text-[14px] font-bold text-zinc-900 shadow-lg shadow-amber-500/25 transition-shadow hover:shadow-amber-500/40"
             >
               <Mail className="size-4" />

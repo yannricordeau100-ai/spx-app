@@ -27,17 +27,52 @@ export type RachatsFiche = {
 const VERSIONS = ["Par année", "Liste"] as const;
 const PLIE = 5;
 
-function milliards(m: string | null): number {
-  if (!m) return 0;
-  const x = parseFloat(m.replace(",", "."));
-  if (!Number.isFinite(x)) return 0;
-  return m.includes("Mds") ? x : x / 1000;
+const DEVISES: Record<string, string> = {
+  "$": "$", usd: "$", dollar: "$", dollars: "$",
+  "€": "€", eur: "€", euro: "€", euros: "€",
+  "£": "£", gbp: "£",
+  chf: "CHF", aud: "AUD", inr: "INR", jpy: "JPY", "¥": "¥", sek: "SEK",
+};
+
+/** Montant de tete d un libelle (« 15,8 milliards USD », « 650 M€ », « 17,2 Mds $ ») :
+ *  valeur en millions et devise. null si le libelle n est pas de la forme
+ *  « nombre + unite + devise » (environ, jusqu a, fourchette, par action, devise
+ *  absente...) : jamais de montant devine. */
+function montantEnMillions(m: string | null): { millions: number; devise: string } | null {
+  if (!m) return null;
+  const r = m
+    .trim()
+    .match(/^(\d+(?:[.,]\d+)?)\s*(milliards?|millions?|mds|md|m)(?![A-Za-z])\s*(?:de\s+|d['\u2019])?([$€£¥]|[A-Za-z]{3,7})(?![A-Za-z\u00C0-\u017F])/i);
+  if (!r) return null;
+  const x = parseFloat(r[1].replace(",", "."));
+  if (!Number.isFinite(x)) return null;
+  const devise = DEVISES[r[3].toLowerCase()];
+  if (!devise) return null;
+  const u = r[2].toLowerCase();
+  const millions = u === "mds" || u === "md" || u.startsWith("milliard") ? x * 1000 : x;
+  return { millions, devise };
 }
 
+/** Gros rachat (surlignage) : au moins 5 milliards dans sa propre devise
+ *  (dollar, euro, livre, franc suisse). */
+function estGros(m: string | null): boolean {
+  const a = montantEnMillions(m);
+  return !!a && a.millions >= 5000 && ["$", "€", "£", "CHF"].includes(a.devise);
+}
+
+/** Total du bloc : somme des seuls montants connus, uniquement si tous sont lisibles
+ *  et de la meme devise (aucune conversion de change n est faite) ; sinon pas de total. */
 function total(r: RachatFiche[]): string | null {
-  const t = r.reduce((a, x) => a + milliards(x.montant), 0);
+  const lus = r.filter((x) => x.montant).map((x) => montantEnMillions(x.montant));
+  if (lus.length === 0 || lus.some((a) => a === null)) return null;
+  const devises = new Set(lus.map((a) => a!.devise));
+  if (devises.size !== 1) return null;
+  const dev = [...devises][0];
+  const t = lus.reduce((a, x) => a + x!.millions, 0);
   if (!t) return null;
-  return t >= 1 ? `${t.toFixed(1).replace(".", ",")} Mds $` : `${Math.round(t * 1000)} M$`;
+  const court = dev === "$" || dev === "€" || dev === "£";
+  if (t >= 1000) return `${(t / 1000).toFixed(1).replace(".", ",")} Mds ${dev}`;
+  return court ? `${Math.round(t)} M${dev}` : `${Math.round(t)} M ${dev}`;
 }
 
 function Vide({ couverte }: { couverte: boolean }) {
@@ -79,7 +114,7 @@ function VersionA({ d, accent }: { d: RachatsFiche; accent: string }) {
             </div>
             <ul className="space-y-1.5">
               {liste.map((r, i) => (
-                <li key={`${r.nom}-${i}`} className={`rounded-lg border px-2 py-1.5 text-[12px] ${milliards(r.montant) >= 5 ? "border-cyan-400/40 bg-cyan-500/10 text-cyan-50" : "border-white/[0.08] bg-white/[0.02] text-zinc-200"}`}>
+                <li key={`${r.nom}-${i}`} className={`rounded-lg border px-2 py-1.5 text-[12px] ${estGros(r.montant) ? "border-cyan-400/40 bg-cyan-500/10 text-cyan-50" : "border-white/[0.08] bg-white/[0.02] text-zinc-200"}`}>
                   <div className="font-medium leading-tight">{r.nom}</div>
                   {r.montant && <div className="mt-0.5 font-mono text-[10.5px] text-zinc-400">{r.montant}</div>}
                 </li>

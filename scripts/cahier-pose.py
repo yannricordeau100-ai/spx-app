@@ -117,7 +117,14 @@ def pose(ticker, autres=False, retire=False):
                     cible["_cahier_note"] = note
                     bilan.append(f"{k['short']} : serie {cible['short']} allongee de {len(ajout)} exercices")
                     continue
-                # serie en ligne trimestrielle ou introuvable : serie annuelle a part
+                # 13/10/2026 (verif n0, JPM CET1 / ROTCE, CAT carnet) : une serie annuelle
+                # posee a cote d une serie trimestrielle deja en ligne cree un DOUBLON dans le
+                # tableau (meme concept, deux valeurs, deux dates). Plus de pose dans ce cas ;
+                # --annuel-a-part retablit l ancien comportement. Les doublons deja poses sont
+                # traites par scripts/scan-kpi-doublons-concept.py.
+                if "--annuel-a-part" not in sys.argv:
+                    bilan.append(f"{k['short']} : existe deja en ligne ({'trimestriel' if cible else 'introuvable par nom'}), pas de serie annuelle a part")
+                    continue
                 # Yann 07/09/2026 : plus de mention (serie annuelle) dans les titres.
                 marque, suffixe = "allonge", ""
             else:

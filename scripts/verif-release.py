@@ -152,6 +152,10 @@ sha_n2 = next((d.get("meta", {}).get("githubCommitSha", "") for d in deps.get("d
 feu("vert" if sha_n2 and sha_n2 == head else "orange", "Niveaux", "niveau2 sert bien le commit courant",
     f"niveau2 = {sha_n2[:8] or 'inconnu'} / local = {head[:8]}")
 
+# 4bis) 13 oct 2026 : aucun identifiant interne visible dans le DOM public (data-pricing-cta="v195_..." trouve en vue connectee)
+_hits = sh("grep -rnE '\"(v195|niveau2|n2)_[a-z]' src/components src/app --include=*.tsx | grep -v '/sandbox/v1-9-5/.*import' | head -5")
+feu("rouge" if _hits.strip() else "vert", "Fuites", "Aucun identifiant interne (v195_, niveau2_) dans les attributs rendus", _hits.strip()[:200])
+
 # 5) SUPABASE : configuration d authentification alignee sur le domaine public
 pat = env_local("SUPABASE_PAT")  # jeton personnel Supabase, uniquement dans .env.local
 auth = curl_json("https://api.supabase.com/v1/projects/idpsbtgvuyfwtvzelogw/config/auth", [f"Authorization: Bearer {pat}"]) or {}

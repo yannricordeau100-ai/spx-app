@@ -20,7 +20,6 @@ import {
 } from "@/components/home-popular-block";
 import { CarteSteWow, type SteWow } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
-import ZONES_KPIS from "@/data/carte-pays-kpis.json";
 import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
 
 export function HomeCartePays({
@@ -30,7 +29,12 @@ export function HomeCartePays({
   kpisPerso,
   requireSignupGate = false,
   gatePath = "/",
+  zones,
 }: {
+  /** Yann 13 oct 2026 : cartes fournies par le serveur, societes « visibles en
+   *  gratuit » seulement (src/lib/accueil-vitrine.ts). Plus aucune valeur de KPI
+   *  d une autre societe dans la page ni dans le code envoye au navigateur. */
+  zones: Record<string, SteWow[]>;
   locale: string;
   routePrefix?: string;
   /** Yann 15 sept 2026 : visiteur anonyme, chaque lien de fiche pointe vers l inscription gratuite. */
@@ -39,7 +43,6 @@ export function HomeCartePays({
   requireSignupGate?: boolean;
   gatePath?: string;
 }) {
-  const zones = (ZONES_KPIS as { zones: Record<string, SteWow[]> }).zones;
   // Yann 16 sept 2026 : la zone Monde est affichee par defaut (Google y figure).
   const [activeTab, setActiveTab] = useState<string>(() => (zones.world?.length ? "world" : zones[locale]?.length ? locale : "world"));
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
@@ -89,7 +92,7 @@ export function HomeCartePays({
   return (
     <div className="mb-8">
       <ConstellationZones
-        tabs={TABS.filter((tb) => (zones[tb.key]?.length ?? 0) >= 3)}
+        tabs={TABS.filter((tb) => (zones[tb.key]?.length ?? 0) >= 1)}
         labels={labels}
         activeTab={activeTab}
         hoveredTab={hoveredTab}

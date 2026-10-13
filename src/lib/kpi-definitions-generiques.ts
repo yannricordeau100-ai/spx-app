@@ -17,6 +17,20 @@
  */
 
 const DEFS: Array<[RegExp, string]> = [
+  // 13 oct 2026 (controle visuel n0) : noms qui tombaient sur une definition sans rapport
+  // (ex. « Interets sur fonds clients » -> « Nombre de clients servis »). Ces regles passent
+  // AVANT les filets larges et les motifs trop gourmands.
+  [/^int[ée]r[eê]ts? (per[çc]us )?sur (les )?fonds (d[ée]tenus )?(pour (le compte de )?(les )?)?clients|^interest on (client )?funds/i, "Intérêts que la société gagne en plaçant, quelques jours, l'argent des salaires et des impôts de ses clients avant de le reverser. Ils montent avec les taux d'intérêt et avec le volume de paie traité."],
+  [/rendement .*fonds (d[ée]tenus )?(pour (le compte de )?(les )?)?clients/i, "Taux d'intérêt moyen obtenu sur les fonds des clients placés par la société. Il suit les taux directeurs et, avec le montant placé, fixe les intérêts encaissés."],
+  [/fonds (d[ée]tenus )?(pour (le compte de )?(les )?)?clients/i, "Montant des fonds des clients (salaires et impôts à reverser) que la société détient temporairement. Plus il est élevé, plus les intérêts qu'elle encaisse sont importants."],
+  [/flux de tr[ée]sorerie distribuable|tr[ée]sorerie distribuable/i, "Trésorerie dégagée par les pipelines et terminaux après intérêts et entretien, disponible pour le dividende. L'équivalent du FFO des foncières pour le midstream."],
+  [/taux d.utilisation/i, "Part de la capacité (usines, consultants, avions) réellement utilisée. Un taux élevé dope la rentabilité, un taux bas la détruit."],
+  [/\bgmv\b|volume brut (de dollars|de marchandises|des? paiements?)|volume de marchandises|volume total de paiements|payment volume|\btpv\b|\bgdv\b/i, "Valeur totale des achats ou des paiements traités par la plateforme. Elle en prélève un petit pourcentage : c'est le moteur direct de ses revenus."],
+  [/^clients? .*(\barr\b|>\s?\d|plus de \d|seuil)|^clients? .*\d+\s?k\s?\$/i, "Nombre de clients au-dessus d'un seuil de dépenses annuelles. Ce sont les plus gros comptes : leur progression montre que l'offre s'installe durablement."],
+  [/clients? (faisant|repr[ée]sentant)|concentration .*client|principal client|plus gros clients?/i, "Poids des plus gros clients dans les ventes. Plus quelques clients pèsent lourd, plus la perte de l'un d'eux serait coûteuse."],
+  [/(r[ée]sultat|b[ée]n[ée]fice) .*avant amortissements/i, "Bénéfice avant intérêts, impôts, dépréciations et amortissements. Approxime la trésorerie générée par l'exploitation courante."],
+  [/^surface\b|surface totale/i, "Superficie totale occupée par les sites de l'entreprise. Elle mesure la capacité d'accueil de la production ; l'agrandir demande du temps et de l'investissement."],
+  [/encours (de |des )?(pr[eê]ts?|cartes?|cr[ée]dits?|cr[ée]ances)|(pr[eê]ts?|cr[ée]dits?) en cours/i, "Montant des prêts ou des créances en cours à la date de clôture. C'est la base sur laquelle la banque ou l'émetteur de cartes gagne ses intérêts."],
   // Yann 17 sept 2026 : vocabulaire des secteurs a metrique propre (chantier KPI star)
   [/ventes? d.[ée]lectricit[ée]|[ée]lectricit[ée] (livr[ée]e|vendue)|(gwh|kwh|mwh) sales|electric(ity)? (sales|deliver)|retail (electric )?sales|deliveries in franchise area/i, "Quantité d'électricité vendue ou livrée aux clients sur la période, en gigawattheures. C'est le volume de base d'un réseau électrique : le chiffre d'affaires est ce volume multiplié par les tarifs autorisés."],
   [/volumes? (distribu[ée]s?|de gaz)|distribution throughput|gas deliver|\bmmcf\b|\bdth\b|d[ée]catherm/i, "Quantité de gaz naturel acheminée aux clients sur la période (million de pieds cubes ou décatherms). Le volume dépend surtout de la rigueur de l'hiver ; c'est la base d'activité d'un distributeur de gaz."],
@@ -88,13 +102,14 @@ const DEFS: Array<[RegExp, string]> = [
   [/abonn[ée]s|subscribers/i, "Nombre de clients payant un abonnement récurrent. Chaque abonné supplémentaire accroît les revenus prévisibles."],
   [/\barpu\b|revenu moyen par (utilisateur|abonn[ée])/i, "Revenu moyen généré par utilisateur. Sa progression montre que l'entreprise monétise mieux son audience existante."],
   [/taux de r[ée]tention|retention|churn|attrition/i, "Capacité à conserver ses clients (ou salariés) d'une période à l'autre. Une rétention élevée rend la croissance beaucoup moins coûteuse."],
-  [/clients?$|nombre de clients/i, "Nombre de clients servis. Sa croissance est le premier moteur d'expansion du chiffre d'affaires."],
+  [/^(nombre (total |de )?(de )?)?clients( (actifs|totaux|servis|payants|actuels|uniques|desservis|dans le monde))?$|^nombre de clients/i, "Nombre de clients servis. Sa croissance est le premier moteur d'expansion du chiffre d'affaires."],
 
   // --- Immobilier et infrastructures ------------------------------------------
   [/taux d.occupation|occupancy/i, "Part des surfaces (ou chambres, logements) effectivement louées. Chaque point d'occupation supplémentaire tombe presque intégralement dans le résultat."],
   [/\bffo\b|funds from operations/i, "Résultat des foncières corrigé des amortissements immobiliers, la vraie mesure de leur capacité à générer du cash et payer les dividendes."],
   [/\bloyers?\b|revenus locatifs|rental/i, "Revenus tirés de la location des actifs. Leur croissance vient des hausses de loyers et du taux d'occupation."],
   [/same[- ]store|p[ée]rim[eè]tre comparable|comparable/i, "Croissance mesurée sur les seuls sites ouverts depuis plus d'un an. Élimine l'effet des ouvertures pour montrer la santé réelle du réseau existant."],
+  [/^(chiffre d.affaires|ca)\s(?!.*(organique|comparable|par\s|croissance|marge|variation|loyer|locatif))/i, "Total des ventes de la période. Point de départ de toute analyse : sans croissance des ventes, la croissance du bénéfice a des limites."],
   [/magasins|restaurants|sites|implantations|points de vente|stores/i, "Taille du réseau physique. La croissance vient soit de nouvelles ouvertures, soit de faire mieux dans chaque site existant."],
 
   // --- Finance et assurance ---------------------------------------------------

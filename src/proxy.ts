@@ -1,7 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { signaleTokenInvalide } from "./lib/security/alerte";
-import { estUniversN1, tickersUniversActif } from "./lib/univers-actif";
+import { estUniversN1, ficheServie, tickersUniversActif } from "./lib/univers-actif";
+import RETIREES from "./data/societes-retirees.json";
 import { TICKER_ALIASES } from "./lib/ticker-aliases";
 import { COOKIE_ADMIN_2FA, PAGE_VERIFICATION, cookieAdminValide, estRouteOutillage2FA } from "./lib/security/admin-2fa";
 
@@ -20,6 +21,39 @@ for (const t of tickersUniversActif()) {
 }
 function estFichePublique(seg: string): boolean {
   return TICKERS_PUBLICS.has(seg.toUpperCase());
+}
+
+// 13 oct 2026 : adresse d un segment qui ne mene a rien (ni route, ni fiche).
+// Sans ce controle, la route [ticker] repondait 200 (sa page de chargement est
+// diffusee avant notFound(), le statut ne peut plus changer ensuite). Listes
+// calculees au build dans next.config.ts. Liste des routes vide = controle
+// inactif (jamais de 404 par erreur sur une vraie page).
+const ROUTES_RACINE = new Set((process.env.MTK_ROUTES_RACINE ?? "").split(",").filter(Boolean).map((r) => r.toLowerCase()));
+const TICKERS_V17 = new Set<string>();
+for (const t of (process.env.MTK_TICKERS_V17 ?? "").split(",").filter(Boolean)) {
+  const u = t.toUpperCase();
+  TICKERS_V17.add(u);
+  TICKERS_V17.add(u.replace(/\./g, "-"));
+  TICKERS_V17.add(u.replace(/-/g, "."));
+}
+const EXT_FICHIER = /\.(png|jpe?g|gif|webp|avif|svg|ico|css|js|mjs|map|json|txt|xml|webmanifest|pdf|mp4|webm|woff2?|ttf|otf|html?)$/i;
+function estAdresseInconnue(pathname: string): boolean {
+  if (ROUTES_RACINE.size === 0) return false;
+  const m = pathname.match(/^\/([^/]+)\/?$/);
+  if (!m) return false;
+  let seg: string;
+  try {
+    seg = decodeURIComponent(m[1]);
+  } catch {
+    return true;
+  }
+  if (ROUTES_RACINE.has(seg.toLowerCase())) return false;
+  if (seg.toLowerCase().startsWith("desk-")) return false; // porte du bureau : gardee plus haut
+  if (EXT_FICHIER.test(seg)) return false; // fichiers statiques : Next repond seul
+  const u = seg.toUpperCase();
+  if (u in (RETIREES.tickers as Record<string, string>)) return true;
+  if (!ficheServie(u)) return true;
+  return !(TICKERS_PUBLICS.has(u) || TICKERS_V17.has(u));
 }
 
 /**
@@ -760,6 +794,15 @@ export async function proxy(request: NextRequest) {
       url.pathname = "/_not-found-desk";
       return NextResponse.rewrite(url);
     }
+  }
+
+  // 13 oct 2026 : adresse inconnue pour un visiteur connecte = vrai statut 404
+  // (page 404 du site, adresse inchangee). Les cookies de session rafraichis
+  // sont recopies.
+  if (estAdresseInconnue(pathname)) {
+    const introuvable = pageIntrouvable(request);
+    response.cookies.getAll().forEach((c) => introuvable.cookies.set(c.name, c.value, c));
+    return introuvable;
   }
 
   // Header X-Mettrik-Version (Yann 16 mai 2026, archi 3 niveaux) :

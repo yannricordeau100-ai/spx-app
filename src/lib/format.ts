@@ -87,7 +87,10 @@ const CURRENCY_CODES = new Set([
 
 function canonicalMoneyUnit(u: string): string | null {
   const s = String(u).trim().replace(/\s+/g, " ");
-  const m = s.match(/^(Mds|Md|M|K|T)\s?(\$|€|£|[A-Z]{3})$/);
+  // 13 oct 2026 (ADBE, AEE « $Md ») : devise ecrite AVANT la magnitude. Non
+  // reconnue, l unite valait « $ » : 19,2 Mds $ s affichait « 19,2 $ ».
+  const inv = s.match(/^(\$|€|£)\s?(Mds|Md|M|K|T)$/);
+  const m = inv ? [s, inv[2], inv[1]] : s.match(/^(Mds|Md|M|K|T)\s?(\$|€|£|[A-Z]{3})$/);
   if (!m) return null;
   const mag = m[1] === "Md" ? "Mds" : m[1];
   const cur = m[2];

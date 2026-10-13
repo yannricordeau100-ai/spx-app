@@ -561,7 +561,9 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease, delay: 0.05 }}
             key={`source-${index}`}
-            className="relative z-10 flex flex-col items-center gap-1.5 text-center"
+            // 13 oct 2026 : sur mobile, marge basse pour que la source ne
+            // passe plus sous le guillemet fermant (bas droit de la carte).
+            className="relative z-10 flex flex-col items-center gap-1.5 pb-10 text-center sm:pb-0"
           >
             {/* Ligne 1 : auteur */}
             <div
@@ -612,6 +614,7 @@ export function HomeView({
   requireSignupGate = false,
   anonLinks = false,
   accueilKpis,
+  zonesVitrine = {},
   gatePath = "/",
   contentOverrides,
   comptesGics = null,
@@ -628,6 +631,8 @@ export function HomeView({
   anonLinks?: boolean;
   /** Yann 16 sept 2026 : KPI de l accueil choisis par le proprietaire (ticker -> 3 KPI). */
   accueilKpis?: Record<string, { nom: string; valeur: string; unite: string; yoy: string | null; periode: string | null }[]>;
+  /** Cartes de KPI de l accueil, societes visibles en gratuit seulement (Yann 13 oct 2026). */
+  zonesVitrine?: Record<string, { ticker: string; nom: string; kpis: { nom: string; valeur: string; unite?: string | null; yoy?: string | null; periode?: string | null }[] }[]>;
   /** Page qui monte <AuthModal /> (utilisée pour le redirect signup). */
   gatePath?: string;
   /** Yann 12 mai 2026 : textes editables via /desk-mtk9x4kp/page-content.
@@ -765,6 +770,7 @@ export function HomeView({
               routePrefix={routePrefix}
               anonLinks={anonLinks}
               kpisPerso={accueilKpis}
+              zones={zonesVitrine}
               requireSignupGate={requireSignupGate}
               gatePath={gatePath}
             />

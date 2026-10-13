@@ -46,6 +46,27 @@ def fmt(v):
         if isinstance(v,float): return str(v).replace('.',',')
         return str(v)
     return re.sub(r'(\d)\.(\d)',r'\1,\2',str(v))
+# 13 oct 2026 (revue de l accueil) : un montant en millions de devise
+# superieur a 1 000 s affiche en milliards (« 678 000 M$ » -> « 678 Mds $ »).
+_MDEV=re.compile(r'^\s*M\s*(\$|€|£|¥|USD|EUR|GBP|CHF|JPY)\s*$',re.I)
+def en_milliards(v,u):
+    m=_MDEV.match(str(u or ''))
+    if not m or not isinstance(v,(int,float)) or abs(v)<1000: return v,u
+    d=m.group(1); d={'USD':'$','EUR':'€','GBP':'£','JPY':'¥'}.get(d.upper(),d)
+    x=round(v/1000,1)
+    return (int(x) if x==int(x) else x),f'Mds {d}'
+def yoy_affichable(y):
+    """Une variation nulle (« 0,0 % ») n apporte rien sur la carte : masquee."""
+    if not y: return None
+    m=re.search(r'-?\d+(?:[.,]\d+)?',str(y))
+    if m and float(m.group(0).replace(',','.'))==0: return None
+    return y
+# 13 oct 2026 : jalon ponctuel (« 3 milliardieme iPhone expedie depuis 2007 »)
+# = KPI anecdotique, jamais en vitrine ; seuls les KPI recurrents (2 points ou plus).
+_JALON=re.compile(r'(i[eè]me|ieme)\b|\bdepuis (19|20)\d\d',re.I)
+def anecdotique(k):
+    h=k.get('history') or []
+    return (isinstance(h,list) and len(h)<2) or bool(_JALON.search(str(k.get('name_fr') or k.get('name_en') or '')))
 def slug(n):
     n=unicodedata.normalize('NFD',str(n or '').lower())
     n=''.join(c for c in n if unicodedata.category(c)!='Mn')
@@ -155,6 +176,7 @@ def fiche_wow(T):
     kpis=[k for k in kpis if affichable(k)]
     # Periode recente : dernier point dans les 18 derniers mois.
     kpis=[k for k in kpis if recent(k)]
+    kpis=[k for k in kpis if not anecdotique(k)]
     ind=_noms_ind(T)
     for k in kpis: k['_ind']=bool({k.get('name_fr'),k.get('name_en'),k.get('short')}&ind)
     # Yann 25 sept 2026 (cas Broadcom, flux de tresorerie disponible) : la home
@@ -172,12 +194,14 @@ def fiche_wow(T):
         tri.append(k)
         if len(tri)==3: break
     if not tri: return None
-    return {'ticker':T,'nom':nom or T,'kpis':[
-        {'nom':k.get('name_fr') or k.get('name_en'),'valeur':fmt(k.get('value')),
-         'unite':fmt(k['unit']) if k.get('unit') else None,'yoy':(lambda v: v and __import__('re').sub(r'\\s*(pp|pts?)\\b',' %',v))(fr_yoy(k.get('yoy'))),
+    def carte(k):
+        v,u=en_milliards(k.get('value'),k.get('unit'))
+        return {'nom':k.get('name_fr') or k.get('name_en'),'valeur':fmt(v),
+         'unite':fmt(u) if u else None,'yoy':yoy_affichable((lambda v: v and __import__('re').sub(r'\s*(pp|pts?)\b',' %',v))(fr_yoy(k.get('yoy')))),
          # Yann 30 aout 2026 : dater chaque chiffre de la vitrine (une IA externe
          # a lu des KPI de mars 2026 sans aucune indication de date).
-         'periode':periode_de(k)} for k in tri]}
+         'periode':periode_de(k)}
+    return {'ticker':T,'nom':nom or T,'kpis':[carte(k) for k in tri]}
 
 out=[]
 for t in POP:
@@ -214,6 +238,18 @@ for T in ordre:
     f=cache[T]
     if not f: continue
     for k in cibles: zones[k].append(f)
+# 13 oct 2026 (decision Yann) : l accueil ne montre AUCUNE valeur de KPI d une
+# societe hors de la liste « visibles en gratuit » (base, modifiable sans
+# redeploiement). Les cartes de toutes les societes de l univers sont donc
+# ecrites ici, et le serveur de l accueil (src/lib/accueil-vitrine.ts) ne
+# transmet au navigateur que celles de la liste. Fichier lu cote serveur seul.
+par_ticker={}
+for T in sorted(uni):
+    if T not in cache: cache[T]=fiche_wow(T)
+    if cache[T]: par_ticker[T]=cache[T]
+json.dump({'generation':'scripts/build-home-wow.py','societes':par_ticker},
+ open('src/data/vitrine-kpis-par-ticker.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
+print(len(par_ticker),'cartes par ticker')
 json.dump({'generation':'scripts/build-home-wow.py','zones':zones},
  open('src/data/carte-pays-kpis.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
 print({z:len(l) for z,l in zones.items()},'carte des pays')

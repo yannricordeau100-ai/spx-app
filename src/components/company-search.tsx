@@ -254,7 +254,7 @@ export function CompanySearch({
         <span
           className={
             variant === "hero"
-              ? "relative flex-1 text-[15px]"
+              ? "relative flex-1 text-[15px] max-sm:min-w-0 max-sm:truncate max-sm:text-[14px]"
               : "relative hidden flex-1 truncate text-[12.5px] sm:block"
           }
         >
@@ -263,7 +263,7 @@ export function CompanySearch({
         <kbd
           className={
             variant === "hero"
-              ? "relative inline-flex items-center gap-0.5 rounded-md border border-white/15 bg-white/5 px-1.5 py-0.5 font-mono text-[10.5px] font-semibold text-zinc-400"
+              ? "relative hidden items-center gap-0.5 rounded-md border border-white/15 bg-white/5 px-1.5 py-0.5 font-mono text-[10.5px] font-semibold text-zinc-400 sm:inline-flex"
               : "relative hidden items-center gap-0.5 rounded-md border border-white/15 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-zinc-400 sm:inline-flex"
           }
         >

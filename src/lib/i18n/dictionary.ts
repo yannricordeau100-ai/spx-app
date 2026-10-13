@@ -573,6 +573,7 @@ export const DICTIONARY: Dict = {
   /* Governance */
   "governance.title": { fr: "Gouvernance & rémunération", en: "Governance & compensation" },
   "governance.subtitle_prefix": { fr: "À jour de l'assemblée générale du", en: "Updated as of the AGM on" },
+  "governance.subtitle_prefix_future": { fr: "Assemblée générale prévue le", en: "AGM scheduled for" },
   "governance.subtitle_suffix": { fr: "Chiffres relatifs à l'exercice", en: "Figures for fiscal year" },
   "governance.dual_class": { fr: "Dual-class", en: "Dual-class" },
   "governance.mono_class": {

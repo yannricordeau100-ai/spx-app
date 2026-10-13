@@ -3,6 +3,7 @@
 import { ArrowDownRight, ArrowUpRight, Check, Landmark } from "lucide-react";
 import { type KPI, formatCAGR, formatUnit, formatHeroValue, yoySamePeriod, yoyPublieSiArrondi } from "@/lib/data";
 import { cn, yoyTone } from "@/lib/utils";
+import { variationAffichee } from "@/lib/variation-kpi";
 import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
 import { QualityBadge } from "@/components/quality-badge";
@@ -57,6 +58,7 @@ export function KpiRow({
   ticker,
   freeBlocked = false,
   overrideValue = null,
+  overrideUnit = null,
   plageTendance = "3y",
   institutionnel = null,
 }: {
@@ -72,6 +74,10 @@ export function KpiRow({
    *  affichée à gauche avec le dernier point visible du chart à droite
    *  (mise à jour live selon frequency / view quarterly vs annual). */
   overrideValue?: number | null;
+  /** 13 oct 2026 (CAT « 25,1 M $ » au lieu de « 25,1 Mds $ ») : unite dans
+   *  laquelle overrideValue est exprimee (unite de l axe du graphe, deja remise
+   *  a l echelle). Sans elle, la valeur rescalee etait collee a kpi.unit. */
+  overrideUnit?: string | null;
   /** Yann 12 sept 2026 : la tendance suit le reglage du graphe (3 ans ou Max). */
   plageTendance?: "3y" | "max";
   /** Yann 13 oct 2026 : KPI suivi par les institutionnels pour l industrie
@@ -107,7 +113,9 @@ export function KpiRow({
   // brut hors [1, 999] (ex "1 067 000 000,0 $" devient "1,07 Mds $" ;
   // "5 848 M €" devient "5,85 Mds €"). Regle CLAUDE.md S6 : chiffres 1-999 + bonne
   // unite de magnitude. La valeur ET l'unite sont rescalees ensemble (coherent).
-  const heroFmt = Number.isFinite(valueAsNum) ? formatHeroValue(valueAsNum, kpi.unit ?? "") : null;
+  const avecOverride = overrideValue != null && Number.isFinite(overrideValue);
+  const uniteValeur = avecOverride && overrideUnit != null ? overrideUnit : (kpi.unit ?? "");
+  const heroFmt = Number.isFinite(valueAsNum) ? formatHeroValue(valueAsNum, uniteValeur) : null;
   const marque = (v: string) => ((kpi as { approx?: string }).approx === "min" ? `${v}+` : (kpi as { approx?: string }).approx === "env" ? `≈${v}` : v);
   const formattedValue = marque(heroFmt ? heroFmt.value : String(kpi.value ?? "—"));
   const formattedUnit = heroFmt ? heroFmt.unit : formatUnit(kpi.unit);
@@ -399,6 +407,9 @@ export function KpiRow({
               yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")}\u00a0%`;
             }
           }
+          if (!yoyStr) return null;
+          // 13 oct 2026 : KPI variation / solde / flux net -> ecart en valeur ; zero sans signe.
+          yoyStr = variationAffichee(kpi as unknown as Parameters<typeof variationAffichee>[0], yoyStr);
           if (!yoyStr) return null;
           // Yann 4 oct 2026 : couleur calculee sur la variation AFFICHEE (recalculee
           // depuis la serie), plus sur le yoy stocke qui peut etre d un autre signe.

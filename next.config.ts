@@ -1,7 +1,41 @@
 import type { NextConfig } from "next";
 import path from "path";
+import fs from "fs";
+
+// 13 oct 2026 : une adresse inconnue (/page-qui-n-existe-pas) repondait HTTP 200
+// a un visiteur connecte : la route [ticker] diffuse sa page de chargement
+// (loading.tsx) avant que notFound() ne s execute, le statut est alors fige a
+// 200. Le proxy tranche donc AVANT la page ; il lui faut la liste des routes de
+// premier niveau (dossiers de src/app, lue au build, sans entretien a la main)
+// et les fiches servies hors univers principal (cles de v1-7-public.json).
+function routesRacine(): string[] {
+  const app = path.join(process.cwd(), "src/app");
+  const noms: string[] = [];
+  try {
+    for (const d of fs.readdirSync(app, { withFileTypes: true })) {
+      if (!d.isDirectory() || d.name.startsWith("[") || d.name.startsWith("_") || d.name.startsWith("@")) continue;
+      if (d.name.startsWith("(")) {
+        for (const e of fs.readdirSync(path.join(app, d.name), { withFileTypes: true })) if (e.isDirectory() && !/^[[(_@]/.test(e.name)) noms.push(e.name);
+      } else noms.push(d.name);
+    }
+  } catch {
+    /* liste vide : le proxy ne renvoie alors aucun 404 (comportement d avant) */
+  }
+  return noms;
+}
+function tickersV17(): string[] {
+  try {
+    return Object.keys(JSON.parse(fs.readFileSync(path.join(process.cwd(), "src/data/v1-7-public.json"), "utf8")));
+  } catch {
+    return [];
+  }
+}
 
 const nextConfig: NextConfig = {
+  env: {
+    MTK_ROUTES_RACINE: routesRacine().join(","),
+    MTK_TICKERS_V17: tickersV17().join(","),
+  },
   // 8 oct 2026 : dossier de sortie reglable pour le controle des fuites
   // (build local d audit dans un dossier separe, sans toucher au serveur de
   // dev). Vercel ne pose pas NEXT_DIST_DIR : .next par defaut.
@@ -84,7 +118,7 @@ const nextConfig: NextConfig = {
   // pas : aucune fiche ne les affichait en ligne. On les inclut explicitement.
   outputFileTracingIncludes: {
     // 1er oct 2026 (mission admin cours x KPI) : un fichier de cours par societe, lu a l execution.
-    "/[ticker]": ["./src/data/these/**/*", "./src/data/att/**/*", "./src/data/cours-fmp/**/*"],
+    "/[ticker]": ["./src/data/these/**/*", "./src/data/att/**/*", "./src/data/cours-fmp/**/*", "./docs/cahier/moat-tendance-mettrik.json"],
     "/sandbox/**": ["./src/data/these/**/*", "./src/data/att/**/*"],
     // 9 oct 2026 : consignes d ajout de societes, lues a l execution par /sandbox/consignes-societes.
     "/sandbox/consignes-societes": ["./docs/CONSIGNES-NOUVELLES-SOCIETES.md"],

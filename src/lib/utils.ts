@@ -21,6 +21,9 @@ export function yoyTone(yoy: string | number | null | undefined, type?: string):
     return "neutral";
   }
   let raw: "pos" | "neg" | "neutral" = "neutral";
+  // 13 oct 2026 : un zero (« -0,0 % », « +0 ») reste neutre, jamais rouge ni vert.
+  const num = parseFloat(s.replace(/[+\-−\s ]/g, "").replace(",", "."));
+  if (Number.isFinite(num) && num === 0 && !/[1-9]/.test(s)) return "neutral";
   if (s.startsWith("+")) raw = "pos";
   else if (s.startsWith("-")) raw = "neg";
 

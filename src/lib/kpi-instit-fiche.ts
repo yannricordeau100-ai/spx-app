@@ -6,7 +6,9 @@
  * Correspondance, la meme que /admin/kpis-toggle (categorie « industrie ») :
  *   1. la societe figure dans `stes_avec` du KPI d industrie (pastille admin n/16) ;
  *   2. un KPI de la fiche porte ce KPI comme type comparable du referentiel
- *      (type_comparable.origine = "referentiel", meme libelle anglais).
+ *      (type_comparable.origine = "referentiel", meme libelle anglais),
+ *      ou figure dans shorts_fiche[ticker] du KPI (rattachement explicite des
+ *      societes reclassees, scripts/kpi-instit-reclasser.py, 13 oct 2026).
  * Aucune donnee n est modifiee : on renvoie seulement quels KPI de la fiche
  * sont concernes, pour les mettre en tete du tableau et en jaune.
  */
@@ -18,6 +20,7 @@ type KpiEtat = {
   stes_avec?: string[];
   sans_objet?: string[];
   non_applicable?: Raisons;
+  shorts_fiche?: Record<string, string[]>;
 };
 type Industrie = { code: string; industrie: string; stes: string[]; kpis: KpiEtat[] };
 export type EtatIndustries = { industries?: Industrie[] };
@@ -49,14 +52,20 @@ export function kpiInstitPourFiche(
   const dansRaisons = (r?: Raisons) => Object.keys(r ?? {}).some((s) => cles.includes(s.toUpperCase()));
   const applicables = ind.kpis.filter((k) => dans(k.stes_avec) || !(dans(k.sans_objet) || dansRaisons(k.non_applicable)));
   const parEn = new Map<string, string>();
-  for (const k of ind.kpis) if (dans(k.stes_avec)) parEn.set(norm(k.en), k.fr);
+  const parShort = new Map<string, string>();
+  for (const k of ind.kpis) {
+    if (!dans(k.stes_avec)) continue;
+    parEn.set(norm(k.en), k.fr);
+    for (const [s, l] of Object.entries(k.shorts_fiche ?? {})) {
+      if (cles.includes(s.toUpperCase())) for (const sh of l) if (!parShort.has(sh)) parShort.set(sh, k.fr);
+    }
+  }
   const lignes: { short: string; fr: string }[] = [];
   const vus = new Set<string>();
   for (const k of kpis) {
     const tc = k.type_comparable as { en?: string; origine?: string } | null | undefined;
-    if (!tc || tc.origine !== "referentiel") continue;
-    const fr = parEn.get(norm(tc.en));
     const short = typeof k.short === "string" ? k.short : "";
+    const fr = parShort.get(short) ?? (tc && tc.origine === "referentiel" ? parEn.get(norm(tc.en)) : undefined);
     if (!fr || !short || vus.has(short)) continue;
     vus.add(short);
     lignes.push({ short, fr });

@@ -218,28 +218,32 @@ export function CarteSteWow({
       </div>
       <div className={`mt-2.5 divide-y divide-white/[0.05] border-t border-white/[0.07] ${flouKpis ? "select-none blur-[5px]" : ""}`} aria-hidden={flouKpis || undefined}>
         {s.kpis.map((k, i) => (
-          <div key={i} className="flex items-baseline justify-between gap-2 py-[5px]">
-            <span className="min-w-0 flex-1 truncate text-[13px] text-zinc-300" title={k.nom}>
+          // 13 oct 2026 (revue de l accueil) : plus aucune coupure. Le libelle
+          // passe a la ligne si besoin, la periode s affiche sous la valeur.
+          <div key={i} className="flex items-start justify-between gap-3 py-[5px]">
+            <span className="min-w-0 flex-1 break-words text-[13px] leading-snug text-zinc-300">
               {k.nom}
-              {(k as { periode?: string | null }).periode && (
-                <span className="ml-1.5 font-mono text-[10px] uppercase tracking-wide text-zinc-500">
-                  {(k as { periode?: string | null }).periode}
-                </span>
-              )}
             </span>
-            <span className="inline-flex shrink-0 items-baseline gap-1 whitespace-nowrap">
-              <span className="font-mono text-[15px] font-semibold tabular-nums text-zinc-100">
-                {k.valeur}
+            <span className="flex max-w-[55%] shrink-0 flex-col items-end text-right">
+              <span className="inline-flex flex-wrap items-baseline justify-end gap-x-1">
+                <span className="whitespace-nowrap font-mono text-[15px] font-semibold tabular-nums text-zinc-100">
+                  {k.valeur}
+                </span>
+                {k.unite && (
+                  <span className="text-[12px] font-medium text-zinc-400">{k.unite}</span>
+                )}
+                {k.yoy && (
+                  <span
+                    className="ml-1 whitespace-nowrap font-mono text-[12px] tabular-nums"
+                    style={{ color: couleurYoy(k.yoy) }}
+                  >
+                    {k.yoy}
+                  </span>
+                )}
               </span>
-              {k.unite && (
-                <span className="text-[12px] font-medium text-zinc-400">{k.unite}</span>
-              )}
-              {k.yoy && (
-                <span
-                  className="ml-1 font-mono text-[12px] tabular-nums"
-                  style={{ color: couleurYoy(k.yoy) }}
-                >
-                  {k.yoy}
+              {(k as { periode?: string | null }).periode && (
+                <span className="mt-0.5 whitespace-nowrap font-mono text-[10px] uppercase tracking-wide text-zinc-500">
+                  {(k as { periode?: string | null }).periode}
                 </span>
               )}
             </span>
