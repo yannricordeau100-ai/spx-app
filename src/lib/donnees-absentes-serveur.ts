@@ -62,7 +62,11 @@ export function absencesFiche(c: Company): AbsencesFiche {
     if (!estNombre(g.exec_comp_approval_pct)) manque.push("vote");
     const etranger = FORMULAIRES_ETRANGERS.test(String(c.latest_filing?.form ?? ""));
     const montantGlobal = estNombre(g.comp_aggregate_directors_officers_m) || estNombre(g.remuneration_dirigeants_total_m);
-    if (etranger && manque.length > 0) a.gouvernance = { id: "etranger_gouvernance", manque };
+    // Yann 13 oct 2026 : un émetteur étranger qui publie malgré tout la rémunération
+    // individuelle de son dirigeant (rapport de rémunération vérifié, marque posée
+    // dans la gouvernance) n est pas « dispensé » : la carte ne s affiche pas.
+    const publieIndividuel = g.remuneration_individuelle_publiee === true && estNombre(g.ceo_total_comp_m);
+    if (etranger && !publieIndividuel && manque.length > 0) a.gouvernance = { id: "etranger_gouvernance", manque };
     else if (montantGlobal && manque.includes("remuneration")) a.gouvernance = { id: "remuneration_globale", manque: ["remuneration"] };
   }
 
