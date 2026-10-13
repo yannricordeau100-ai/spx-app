@@ -54,14 +54,15 @@ try:
     _vague -= _univ
     import re as _re
     def _hors_vague(l):
-        # 10 oct 2026 : etendu a tout fichier PAR SOCIETE (src/data/<dossier>/<t>.*, public/logos/<T>.*, kpis-haut) :
-        # transcripts, syntheses, kpi-annuel-fiche, logos de la vague ne sont servis que par le niveau 1.
-        f = l.strip().split()[-1]
-        m = _re.search(r"(?:\.batches-drafts-safe/kpis-haut|src/data/[^/]+|public/logos)/([^/]+)$", f)
-        if not m: return True
-        b = _re.sub(r"\.(json|png|svg|webp|jpg)$", "", m.group(1), flags=_re.I)
-        b = _re.sub(r"\.(ranks|tam|mettrik-description|description|ai-pos|calls|suivi|quarterly-history)$", "", b)
-        return not ({b.upper(), b.upper().replace("-", ".")} & _vague)
+        # 13 oct 2026 : tout fichier dont le nom ou un dossier est un ticker de la vague (kpis-haut, these, att,
+        # kpi-annuel, transcripts, specs-findings/these-<t>-..., public/findings/theses/<t>/...) est ignore.
+        pth = l[3:].strip().strip('"')
+        b0 = _re.sub(r"\.(json|png|svg|txt|md|webp|gz)$", "", pth.split("/")[-1])
+        c = {b0.upper(), b0.split(".")[0].upper()}
+        m = _re.match(r"^(?:these-)?([a-z0-9.\-]+?)[.\-](ranks|tam|ai-pos|description|quarterly-history|mettrik-description|risks|gov|these|att)", b0, _re.I)
+        if m: c.add(m.group(1).upper())
+        c |= {x.upper() for x in pth.split("/")[:-1]}
+        return not (c & _vague)
     modifs = [l for l in modifs if _hors_vague(l)]
 except Exception:
     pass
