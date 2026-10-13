@@ -105,6 +105,17 @@ async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
   return parEnv;
 }
 
+// 13 oct 2026 (Yann) : les routes internes refusees affichent la page 404 du
+// site (statut 404, adresse inchangee) au lieu d une reponse vide. La
+// reecriture vise un chemin neutre qui n existe pas : rien ne trahit l outil
+// demande.
+function pageIntrouvable(request: NextRequest): NextResponse {
+  const url = request.nextUrl.clone();
+  url.pathname = "/_introuvable";
+  url.search = "";
+  return NextResponse.rewrite(url, { status: 404 });
+}
+
 function isPublicPath(pathname: string): boolean {
   if (pathname === "/") return true;
   if (pathname === "/login" || pathname === "/signup") return true;
@@ -459,7 +470,7 @@ export async function proxy(request: NextRequest) {
   // vague Russell 1000 ; l outillage (qui liste l univers principal) y repond 404
   // pour tout le monde, comme sur mettrik.ai. Il reste sur le niveau 2.
   if ((isProdDomain || estUniversN1()) && estRouteInterne) {
-    return new NextResponse(null, { status: 404 });
+    return pageIntrouvable(request);
   }
   if (isMaintenanceOn) {
     const isMaintenancePage = routePathname === "/maintenance";
@@ -706,7 +717,7 @@ export async function proxy(request: NextRequest) {
     const courriel = (user?.email ?? "").toLowerCase().trim();
     const comptesAdmin = [adminEmail, "yannricordeau100@gmail.com", "ricordeauyann@gmail.com", "mettrikai@gmail.com"];
     if (!courriel || !comptesAdmin.includes(courriel)) {
-      return new NextResponse(null, { status: 404 });
+      return pageIntrouvable(request);
     }
     // 9 oct 2026 : seconde verification. Compte admin connecte mais sans
     // cookie de verification valide (signe, lie a son identifiant, 30 jours)

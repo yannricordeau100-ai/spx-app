@@ -744,7 +744,7 @@ export function HomeView({
         {/* Search — pill arrondie qui zoome en modal centrée au clic.
             Si requireSignupGate=true et user anonyme : tout clic redirige
             vers signup (intercepté par SignupGateOverlay). */}
-        <div className="mx-auto mt-4 flex max-w-2xl justify-center sm:mt-5">
+        <div id="recherche" className="mx-auto mt-4 flex max-w-2xl scroll-mt-24 justify-center sm:mt-5">
           <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
             <CompanySearch variant="hero" />
           </SignupGateOverlay>
