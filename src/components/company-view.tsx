@@ -1451,7 +1451,7 @@ export function CompanyView({
                 Yann 13 juin 2026 : flex flex-col + order-* pour remonter le
                 gros chiffre (order-1) et descendre les badges meta sous les
                 chips (order-3). */}
-            <div className="max-lg:contents order-2 flex min-w-0 flex-col lg:order-none lg:col-span-2">
+            <div className="max-lg:contents order-2 flex min-w-0 flex-col lg:order-none lg:col-span-4">
               {/*
                 ┌────────────────────────────────────────────────────────────┐
                 │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)        │
@@ -1719,20 +1719,51 @@ export function CompanyView({
                   inutilement verbeux. Le signal seul suffit pour la PV.
                   Yann 15 mai 2026 : masqué si signal vide (évite box vide). */}
               {/* Yann 21 août 2026 : étoile "IA" (Sparkles) retirée du hero. */}
-              {typeof active.signal === "string" && active.signal.trim() && (
-                <div className="order-4 max-lg:order-6 mt-3 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 max-lg:w-full max-lg:max-w-none lg:mt-5">
-                  <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
-                    <div className="text-[14px] font-semibold leading-snug text-zinc-100">
-                      {normalizeNarrative(active.signal)}
-                    </div>
-                  </BlurredFreeText>
-                </div>
-              )}
+              {/* Yann 13 oct 2026 : retour de la disposition gauche/droite du
+                  hero (gauche 4/12 : chiffre, indications, puis texte
+                  explicatif du KPI ; droite 8/12 : graphique). Le texte vient
+                  des champs du KPI selectionne dans le tableau des indicateurs
+                  (signal, puis description, sinon explication) : il change
+                  quand on clique un autre KPI. Mobile : sous le graphique. */}
+              {(() => {
+                type AvecI18n = typeof active & { explanation_fr?: string };
+                const a = active as AvecI18n;
+                const propre = (v: unknown) => (typeof v === "string" ? v.trim() : "");
+                const signal = propre(a.signal);
+                const description = propre(a.description);
+                const explication = propre(a.explanation_fr) || propre(a.explanation);
+                const corps =
+                  description && description !== signal
+                    ? description
+                    : explication && explication !== signal
+                      ? explication
+                      : "";
+                if (!signal && !corps) return null;
+                return (
+                  <div
+                    data-hero-explication
+                    className="order-4 max-lg:order-6 mt-3 flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 max-lg:w-full lg:mt-5"
+                  >
+                    <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
+                      {signal && (
+                        <div className="text-[14px] font-semibold leading-snug text-zinc-100">
+                          {normalizeNarrative(signal)}
+                        </div>
+                      )}
+                      {corps && (
+                        <div className={`${signal ? "mt-1.5 " : ""}text-[13px] leading-relaxed text-zinc-400`}>
+                          {normalizeNarrative(corps)}
+                        </div>
+                      )}
+                    </BlurredFreeText>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* RIGHT: chart — élargi à 10/12 (était 9) pour plus de place au
                 graph principal. */}
-            <div className="max-lg:contents order-1 min-w-0 lg:order-none lg:col-span-10">
+            <div className="max-lg:contents order-1 min-w-0 lg:order-none lg:col-span-8">
               {/* Toolbar au-dessus du graph en 2 LIGNES :
                     Ligne 1 : titre du KPI centré, agrandi
                     Ligne 2 : styles graph (gauche) + période 5/10/20 (droite)
