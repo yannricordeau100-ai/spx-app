@@ -112,7 +112,11 @@ export type GroupesKpisFiche = {
 
 /** Les groupes du tableau des KPI, tels que la fiche les affiche. */
 export function groupesKpisFiche(company: Company): GroupesKpisFiche {
-    const all = orderKpis(company.kpis, company.hero_kpi);
+    // Yann 13 oct 2026 : le KPI principal reste dans le tableau (en tete), sinon il
+    // disparait des KPI IC des que le visiteur affiche un autre KPI en haut de fiche.
+    const ordonnes = orderKpis(company.kpis);
+    const heroKpi = company.kpis?.find((k) => k.short === company.hero_kpi);
+    const all = heroKpi && !ordonnes.includes(heroKpi) ? [heroKpi, ...ordonnes] : ordonnes;
     // Libelles deja montres par le bloc de repartition du chiffre d affaires.
     const libellesRepartition = new Set<string>();
     for (const b of [company.revenue_by_geography, company.revenue_by_segment]) {
