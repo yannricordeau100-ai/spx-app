@@ -12,6 +12,8 @@
  * sert toutes les pages indifféremment.
  */
 import { createClient } from "@supabase/supabase-js";
+import { invaliderReglages } from "@/lib/reglages-cache";
+import { invaliderTarifs } from "@/lib/billing/tarifs-cache";
 import type { Locale } from "@/lib/i18n/types";
 
 export type PageContent = {
@@ -80,10 +82,23 @@ export async function upsertPageContent(input: Partial<PageContent>): Promise<Pa
     .select()
     .single();
   if (error) throw error;
+  invaliderPageReglages((data as PageContent)?.page_key ?? input.page_key ?? null);
   return data as PageContent;
 }
 
 export async function deletePageContent(id: string): Promise<void> {
   const { error } = await adminClient().from("desk_page_content").delete().eq("id", id);
   if (error) throw error;
+  invaliderPageReglages(null);
+}
+
+/**
+ * 13 oct 2026 (journaux Supabase) : les reglages lus a chaque page vue
+ * (telemetrie, floutage, maintenance, carte Gratuit des tarifs) sont en cache
+ * partage ; une ecriture depuis l editeur generique les vide. Page inconnue
+ * (suppression par identifiant) : tout est vide.
+ */
+function invaliderPageReglages(pageKey: string | null): void {
+  invaliderReglages(pageKey);
+  if (!pageKey || pageKey === "pricing") invaliderTarifs();
 }

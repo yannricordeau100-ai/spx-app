@@ -91,7 +91,8 @@ function VersionA({ d, accent }: { d: RachatsFiche; accent: string }) {
   const parAn = useMemo(() => {
     const m = new Map<string, RachatFiche[]>();
     for (const r of s?.rachats ?? []) {
-      const k = r.annee ? String(r.annee) : "Année n.c.";
+      // 13 oct 2026 (verif n2, OMC « Année n.c. ») : libelle en clair, groupe en fin de frise.
+      const k = r.annee ? String(r.annee) : "Année non précisée";
       m.set(k, [...(m.get(k) ?? []), r]);
     }
     return [...m.entries()].sort((a, b) => a[0].localeCompare(b[0]));
@@ -147,7 +148,7 @@ function VersionB({ d }: { d: RachatsFiche }) {
       <ul data-blur-part="liste" className="mt-2 divide-y divide-white/[0.05]">
         {visibles.map((r, i) => (
           <li key={`${r.nom}-${i}`} className="flex items-center gap-3 py-1.5 text-[13px]">
-            <span className="w-11 font-mono text-[11px] text-violet-300">{r.annee ?? "n.c."}</span>
+            <span className="w-11 font-mono text-[11px] text-violet-300" title={r.annee ? undefined : "Année non précisée par la société"}>{r.annee ?? ""}</span>
             <span className="flex-1 text-zinc-100">{r.nom}</span>
             <span className="font-mono text-[12px] text-zinc-300">{r.montant ?? ""}</span>
           </li>

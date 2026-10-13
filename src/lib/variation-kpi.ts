@@ -7,6 +7,12 @@
  *    « +250,0 % ». On affiche l ecart en valeur avec l exercice ou le meme
  *    trimestre N-1 (« +1,0 Mds $ »), ou rien si l ecart n est pas calculable.
  * 2) Un zero s affiche « 0,0 % » sans signe (JPM « -0,0 % » en rouge).
+ * 3) 13 oct 2026 (verif n2) : un KPI exprime en % (marge, ratio, taux) varie en
+ *    POINTS, affiches « pt » / « pts » (AAPL marge brute Produits « +5,6 % » ->
+ *    « +5,6 pts »). Une variation nulle apres arrondi est masquee ; un petit
+ *    ecart non nul garde deux decimales (JPM marge nette d interet « -0,03 pt »
+ *    au lieu de « -0,0 % »). Ce reglage annule celui du 30 aout 2026 (points
+ *    affiches « % ») : un seul interrupteur, ECART_EN_POINTS.
  */
 import { formatHeroValue } from "@/lib/data";
 
@@ -30,7 +36,7 @@ function sansAccent(s: string): string {
 
 /** KPI hors % dont le nom dit variation / solde / flux net. */
 export function estKpiVariation(kpi: KpiVar): boolean {
-  if (String(kpi.unit ?? "").trim() === "%") return false;
+  if (estUnitePourcent(kpi.unit)) return false;
   return RE_VARIATION_FR.test(sansAccent(kpi.name_fr ?? "")) || RE_VARIATION_EN.test(sansAccent(kpi.name_en ?? ""));
 }
 
@@ -63,6 +69,67 @@ function pointsN1(kpi: KpiVar): { last: number; prev: number } | null {
   return typeof prev === "number" && Number.isFinite(prev) ? { last, prev } : null;
 }
 
+/** Interrupteur : true = ecart d un KPI en % affiche en « pt(s) », false = en « % » (regle du 30 aout). */
+export const ECART_EN_POINTS = false; // regle de Yann du 30 aout 2026 : ecart d un KPI en % affiche en « % »
+
+/** Unite exprimee en pourcentage (« % », « % du CA », « % par an »...). */
+export function estUnitePourcent(unit: unknown): boolean {
+  return /^%/.test(String(unit ?? "").trim());
+}
+
+function nombreFr(v: number, dec: number): string {
+  return Math.abs(v).toFixed(dec).replace(".", ",");
+}
+
+/** Decimales : 1, ou 2 pour un petit ecart non nul qui s arrondirait a zero. */
+function decimales(v: number): number {
+  return Math.abs(v) < 0.05 ? 2 : 1;
+}
+
+/** Variation relative en % (« +4,5 % »), ou "" si nulle apres arrondi. */
+export function formatVariationPct(pct: number): string {
+  if (!Number.isFinite(pct)) return "";
+  const dec = decimales(pct);
+  if (Number(nombreFr(pct, dec).replace(",", ".")) === 0) return "";
+  return `${pct > 0 ? "+" : "-"}${nombreFr(pct, dec)}\u00a0%`;
+}
+
+/** Ecart d un KPI en % (« +0,5 pt », « -1,2 pts »), ou "" si nul apres arrondi. */
+export function formatEcartPoints(diff: number): string {
+  if (!Number.isFinite(diff)) return "";
+  if (!ECART_EN_POINTS) return formatVariationPct(diff);
+  const dec = decimales(diff);
+  const txt = nombreFr(diff, dec);
+  const n = Number(txt.replace(",", "."));
+  if (n === 0) return "";
+  return `${diff > 0 ? "+" : "-"}${txt}\u00a0${n >= 2 ? "pts" : "pt"}`;
+}
+
+/**
+ * Normalise une variation deja ecrite (yoy stocke « -0.03pp », « +8pt », « +4% ») :
+ * virgule, espace insecable, points en « pt(s) », zero masque (retourne "").
+ */
+export function normaliserVariation(s: string, unit?: unknown): string {
+  let x = String(s ?? "").trim();
+  if (!x) return "";
+  const m = x.match(/^([+\-−]?)\s*(\d+(?:[.,]\d+)?)\s*(pp|pts?|points?|%)?(.*)$/i);
+  if (!m) return x;
+  const signe = m[1] === "−" ? "-" : m[1];
+  const v = Number(m[2].replace(",", ".")) * (signe === "-" ? -1 : 1);
+  const suffixe = (m[3] ?? "").toLowerCase();
+  const reste = m[4] ?? "";
+  if (reste.trim()) {
+    // Format libre (« +1,0 Mds $ », « -3.2 j ») : seulement le zero signe.
+    x = x.replace(/(\d)\.(\d)/g, "$1,$2");
+    return Number(m[2].replace(",", ".")) === 0 ? "" : x;
+  }
+  if (suffixe === "pp" || suffixe.startsWith("pt") || suffixe.startsWith("point") || (suffixe === "%" && estUnitePourcent(unit))) {
+    return formatEcartPoints(v);
+  }
+  if (suffixe === "%" || suffixe === "") return formatVariationPct(v);
+  return x;
+}
+
 /** Retire le signe d un zero affiche (« -0,0 % » -> « 0,0 % »). */
 export function sansZeroSigne(s: string): string {
   return s.replace(/^([+\-−])\s*(0(?:[.,]0+)?)(?![.,]?\d)/, "$2");
@@ -73,7 +140,7 @@ export function sansZeroSigne(s: string): string {
  * Retourne null quand rien ne doit etre affiche.
  */
 export function variationAffichee(kpi: KpiVar, yoyStr: string): string | null {
-  const pctUnit = String(kpi.unit ?? "").trim() === "%";
+  const pctUnit = estUnitePourcent(kpi.unit);
   const pts = pctUnit ? null : pointsN1(kpi);
   // Flux qui change de signe ou part de zero (N-1 <= 0, ou N < 0) : un % n a pas de sens.
   const signeInstable = !!pts && (pts.prev <= 0 || pts.last < 0);
@@ -81,9 +148,10 @@ export function variationAffichee(kpi: KpiVar, yoyStr: string): string | null {
     const p = pts ?? pointsN1(kpi);
     if (!p) return null;
     const d = p.last - p.prev;
-    if (d === 0) return "0";
+    if (d === 0) return null;
     const f = formatHeroValue(Math.abs(d), String(kpi.unit ?? ""));
     return `${d > 0 ? "+" : "-"}${f.value}${f.unit ? ` ${f.unit}` : ""}`;
   }
-  return sansZeroSigne(yoyStr);
+  const n = normaliserVariation(yoyStr, kpi.unit);
+  return n ? n : null;
 }

@@ -80,7 +80,83 @@ const MAP_FR: Record<string, string> = {
   "REST OF WORLD": "Reste du monde",
   INTERNATIONAL: "International",
   DOMESTIC: "Marché domestique",
+  // 13 oct 2026 (verif n2, JPM « Europe/Middle East/Africa ») : libelles
+  // geographiques anglais releves sur l univers (66 libelles, 116 fiches).
+  ASIA: "Asie",
+  "ASIA-PACIFIC": "Asie-Pacifique",
+  "ASIA/PACIFIC": "Asie-Pacifique",
+  PACIFIC: "Pacifique",
+  AFRICA: "Afrique",
+  CARIBBEAN: "Caraïbes",
+  CIS: "CEI",
+  "SOUTH AMERICA": "Amérique du Sud",
+  "WESTERN EUROPE": "Europe de l'Ouest",
+  "EASTERN EUROPE": "Europe de l'Est",
+  "CENTRAL EUROPE": "Europe centrale",
+  "REST OF THE WORLD": "Reste du monde",
+  "REST OF ASIA-PACIFIC": "Reste Asie-Pacifique",
+  "EUROPE MIDDLE EAST AFRICA": "Europe, Moyen-Orient et Afrique",
+  "EUROPE, MIDDLE EAST AND AFRICA": "Europe, Moyen-Orient et Afrique",
+  "MIDDLE EAST AND AFRICA": "Moyen-Orient et Afrique",
+  OTHER: "Autres",
+  OTHERS: "Autres",
+  "OTHER REGIONS": "Autres régions",
+  "OTHER REGION": "Autre région",
+  "OTHER SEGMENTS": "Autres segments",
+  "OTHER REVENUE": "Autres revenus",
+  "OTHER COUNTRIES": "Autres pays",
+  "ALL OTHER COUNTRIES": "Autres pays",
+  "REMAINING COUNTRIES": "Autres pays",
+  "OTHER GEOGRAPHICAL AREAS": "Autres zones géographiques",
+  "OTHER GEOGRAPHICAL AREA": "Autres zones géographiques",
+  "OTHER GEOGRAPHIC AREAS": "Autres zones géographiques",
+  "OTHER GEOGRAPHICAL REGION": "Autres zones géographiques",
+  "OTHER GEOGRAPHIC LOCATIONS": "Autres zones géographiques",
+  "OTHER GEOGRAPHICAL": "Autres zones géographiques",
+  "OTHER FOREIGN LOCATIONS": "Autres pays étrangers",
+  "OTHER INTERNATIONAL OPERATIONS": "Autres activités internationales",
+  "OTHER NORTH AMERICA": "Reste de l'Amérique du Nord",
+  "NON-NORTH AMERICA": "Hors Amérique du Nord",
+  "AMERICAS OTHER THAN U S": "Amériques hors États-Unis",
+  "WESTERN HEMISPHERE, EXCLUDING U.S.": "Hémisphère occidental hors États-Unis",
+  "EUROPE (EXCLUDING GERMANY)": "Europe (hors Allemagne)",
+  "ASIA PACIFIC AND OTHER": "Asie-Pacifique et autres",
+  "UNITED STATES (DOMESTIC OPERATIONS)": "États-Unis (activités domestiques)",
+  "INTERNATIONAL MARKETS": "Marchés internationaux",
+  "EMERGING MARKETS": "Marchés émergents",
+  FOREIGN: "Étranger",
+  NORTH: "Nord",
+  "SOUTH CENTRAL": "Centre-Sud",
+  "GREATER BOSTON": "Grand Boston",
+  TAIWAN: "Taïwan",
+  KOREA: "Corée du Sud",
+  "SOUTH KOREA": "Corée du Sud",
 };
+
+/**
+ * 13 oct 2026 : libelle compose (« Europe/Middle East/Africa », « Asia, Middle
+ * East & Africa », « Latin America/Caribbean ») traduit morceau par morceau,
+ * SEULEMENT si chaque morceau est un nom geographique connu ; sinon (nom de
+ * marque ou de segment, « Walmart International ») le libelle reste tel quel.
+ */
+function geoComposeFr(s: string): string | null {
+  const morceaux = s.split(/\s*(?:\/|,|&|\band\b)\s*/i).map((m) => m.trim()).filter(Boolean);
+  if (morceaux.length < 2) return null;
+  const fr: string[] = [];
+  for (const m of morceaux) {
+    const t = MAP_FR[m.toUpperCase()];
+    if (!t) return null;
+    fr.push(t);
+  }
+  return fr.length === 2 ? `${fr[0]} et ${fr[1]}` : `${fr.slice(0, -1).join(", ")} et ${fr[fr.length - 1]}`;
+}
+
+/** Traduction francaise d un libelle geographique, ou null si inconnu. */
+export function geoLabelFr(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const s = String(raw).trim().replace(/\s+segments?$/i, "");
+  return MAP_FR[s.toUpperCase()] ?? geoComposeFr(s);
+}
 
 const MAP_EN: Record<string, string> = {
   "TAIWAN, PROVINCE OF CHINA": "Taiwan",
@@ -118,6 +194,10 @@ export function geoLabel(raw: string | null | undefined, locale = "fr"): string 
   const key = s.toUpperCase();
   const table = locale.startsWith("fr") ? MAP_FR : MAP_EN;
   if (table[key]) return table[key];
+  if (locale.startsWith("fr")) {
+    const compose = geoComposeFr(s);
+    if (compose) return compose;
+  }
   if (MAP_FR[key] && !locale.startsWith("fr")) return MAP_FR[key];
   // Tout-majuscule non répertorié : on évite le cri visuel.
   if (s === key && /[A-Z]{4,}/.test(s)) return titleCase(s);

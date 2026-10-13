@@ -14,6 +14,7 @@
 
 import { NextResponse, type NextRequest } from "next/server";
 import { requireDeskOwner } from "@/lib/desk/auth";
+import { invaliderTarifs } from "@/lib/billing/tarifs-cache";
 import {
   loadAllTaglines,
   upsertTagline,
@@ -74,6 +75,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await upsertTagline(planKey, taglineFr, newHash, i18n);
+    invaliderTarifs(); // 13 oct 2026 : accroches en cache partage
   } catch (e) {
     return NextResponse.json(
       { error: `BDD : ${(e as Error).message}` },

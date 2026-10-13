@@ -20,6 +20,7 @@ import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
 import {
   caviardeCompanyPourGratuit,
+  caviardeMoyenTermePourGratuit,
   caviardeTranscriptDocPourGratuit,
   caviardeTranscriptsPourGratuit,
   caviardeRachatsPourGratuit,
@@ -410,9 +411,14 @@ export default async function TickerPage({
   ).zones;
   const zonesEffectives = vitrineGratuite ? [] : zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
   const estGratuit = zonesEffectives.length > 0;
-  const servedCompany = estGratuit
+  // Yann 13 oct 2026 : bloc KPI moyen terme reserve aux abonnes. Paliers
+  // gratuit et anonyme hors vitrine (la vitrine est deja servie en Max) :
+  // graphiques remplaces par des factices AVANT tout rendu.
+  const moyenTermeReserve = freemiumTier === "free" || freemiumTier === "anon";
+  const servedCompanyZones = estGratuit
     ? caviardeCompanyPourGratuit(gatedCompany, zonesEffectives)
     : gatedCompany;
+  const servedCompany = moyenTermeReserve ? caviardeMoyenTermePourGratuit(servedCompanyZones) : servedCompanyZones;
   const servedTranscriptSummary = estGratuit
     ? caviardeTranscriptsPourGratuit(transcriptSummary ?? null, zonesEffectives)
     : transcriptSummary;

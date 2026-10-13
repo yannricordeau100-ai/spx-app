@@ -302,7 +302,10 @@ export function CurveChart({
   const xLabelFontSize = (isCrowded ? 13 : 14) * AF;
   const nReelAxe = hasTTM ? allData.length - 1 : allData.length;
   const slotAxe = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
-  const pasX = pasTrimestres(pasEtiquettes(axesMobiles, slotAxe, Math.max(...allLabels.map((l) => splitQuarterLabel(l ?? "").top.length), 1), xLabelFontSize), allLabels);
+  // 13 oct 2026 (verif n2, PAYX 64 trimestres illisibles sur ordinateur) : la
+  // decimation des trimestres vaut aussi sur ordinateur ; trop serres, seules
+  // les annees restent.
+  const pasX = pasTrimestres(pasEtiquettes(true, slotAxe, Math.max(...allLabels.map((l) => splitQuarterLabel(l ?? "").top.length), 1), xLabelFontSize), allLabels);
   const nbGroupes = yearGroups.length;
   const pasAnnee = pasEtiquettes(axesMobiles, nbGroupes ? (innerW / nbGroupes) : innerW, 4, 13 * AF);
   const baselineY = PAD_TOP + innerH;

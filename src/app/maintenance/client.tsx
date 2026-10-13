@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import type { Locale } from "@/lib/i18n/types";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeApplique } from "@/components/theme-toggle";
 import { LogoMettrik } from "@/components/logo-mettrik";
 // BrandWordmark retiré 3 juin 2026 — remplacé par <img> du logo PNG combined.
 
@@ -51,9 +51,8 @@ export function MaintenanceClient({
           sombre est libre. Il n a rien a voir avec le reste du site, ou le
           theme clair est reserve aux offres payantes : ici il n y a ni compte
           ni offre, juste un visiteur qui attend l ouverture. */}
-      <div className="absolute right-5 top-5 z-10 flex items-center gap-3">
-        <ThemeToggle paid />
-      </div>
+      {/* Yann 13 oct 2026 : plus de bouton Jour / Nuit hors de la page compte. */}
+      <ThemeApplique paid />
 
       {/* Contenu central */}
       <main className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-20 text-center">

@@ -215,6 +215,35 @@ function traduireTexteKpi(s: string, appliquees?: Record<string, number>): strin
     .replace(RE_ASO_PEO_RETRAITE, "ASO/PEO (externalisation RH) et retraite")
     .replace(RE_ASO_PEO, "ASO/PEO (externalisation RH)");
   note("aso-peo", avant);
+  // 13 oct 2026 (verif n2, JPM « (reported) », « en managed », « wholesale ») :
+  // mots comptables anglais en minuscules dans une phrase francaise. Un nom de
+  // segment avec majuscule (« Wholesale Banking ») reste tel quel.
+  avant = out;
+  out = out
+    .replace(/\(reported\)/g, "(publié)")
+    .replace(/\ben managed\b/g, "en base gérée")
+    .replace(/\bpar wholesale\b/g, "par l’activité de gros")
+    .replace(/\ble wholesale\b/g, "la vente en gros")
+    .replace(/\bdu wholesale\b/g, "de la vente en gros")
+    .replace(/(?<![(,]\s?)\bwholesale\b(?!,)/g, "de gros");
+  note("compta-anglais", avant);
+  return out;
+}
+
+/**
+ * 13 oct 2026 (verif n2, MC.PA « 2% », « milliards USD ») : espace insecable entre
+ * un nombre et « % » ; montants en dollars et euros a la convention du site
+ * (« Mds $ », « M $ », « Mds € »). Les codes CHF, GBP restent (memes unites que les KPI).
+ */
+function espacePourcent(s: string, appliquees?: Record<string, number>): string {
+  let out = s.includes("%") ? s.replace(/(\d)%/g, "$1\u00a0%") : s;
+  if (appliquees && out !== s) appliquees["espace-pourcent"] = (appliquees["espace-pourcent"] ?? 0) + 1;
+  const avant = out;
+  out = out.replace(/(\d)\s(milliards?|Mds|Md|millions?|M)\s(USD|EUR)\b/g, (_m, n: string, e: string, d: string) => {
+    const echelle = /^(milliards?|Mds|Md)$/.test(e) ? "Mds" : "M";
+    return `${n}\u00a0${echelle}\u00a0${d === "USD" ? "$" : "€"}`;
+  });
+  if (appliquees && out !== avant) appliquees["devise-convention"] = (appliquees["devise-convention"] ?? 0) + 1;
   return out;
 }
 
@@ -235,8 +264,40 @@ function trimestreCalendaire(ticker: string, q: string, fy: string): string | nu
   return rendreTrimestre(cal.q, cal.year, "fr");
 }
 
+const MOIS_FR = ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+const RE_TRIM_FR = /\bT([1-4])\s(20\d{2})\b/g;
+const RE_EXERCICE_SEUL = /\bexercice (?:fiscal )?(20\d{2})\b(?!\s*(?:\(clos|clos|,\s*clos|complet,\s*clos))/i;
+
+/**
+ * 13 oct 2026 (verif n2, PAYX « T1 2027 », « exercice 2027 ») : societe a exercice
+ * decale. (1) Un trimestre « Tn AAAA » qui, lu comme calendaire, finirait plus de
+ * 45 jours apres aujourd hui ne peut etre qu un trimestre FISCAL : il est
+ * converti en trimestre calendaire, la convention de toute la fiche. (2) La
+ * premiere mention « exercice AAAA » d un texte recoit « (clos en <mois>) ».
+ */
+function periodesExerciceDecale(texte: string, ticker: string): string {
+  const fa = getFiscalAuditTextes(ticker);
+  const fin = fa?.fiscalYearEndMonth;
+  if (!fa || !fin || fin === 12) return texte;
+  const limite = Date.now() + 45 * 86400000;
+  let out = texte.replace(RE_TRIM_FR, (m, q: string, an: string) => {
+    const finTrim = Date.UTC(Number(an), Number(q) * 3, 0);
+    if (finTrim <= limite) return m;
+    const cal = fiscalQuarterToCalendar(Number(q), Number(an), fin, fa.fyLabelConvention ?? "end");
+    return rendreTrimestre(cal.q, cal.year, "fr") ?? m;
+  });
+  out = out.replace(RE_EXERCICE_SEUL, (m) => `${m} (clos en ${MOIS_FR[fin]})`);
+  return out;
+}
+
 export function harmoniserPeriodes(texte: string, ticker: string, appliquees?: Record<string, number>): string {
-  if (typeof texte !== "string" || !/FY/i.test(texte)) return texte;
+  if (typeof texte !== "string") return texte;
+  if (!/FY/i.test(texte)) {
+    if (!/\bT[1-4]\s20\d{2}\b|\bexercice\b/i.test(texte)) return texte;
+    const r = periodesExerciceDecale(texte, ticker);
+    if (appliquees && r !== texte) appliquees["periode-exercice-decale"] = (appliquees["periode-exercice-decale"] ?? 0) + 1;
+    return r;
+  }
   const avant = texte;
   let out = texte.replace(RE_TRIM_FY_A, (m, _l, q, fy) => trimestreCalendaire(ticker, q, fy) ?? m);
   out = out.replace(RE_TRIM_FY_B, (m, fy, _l, q) => trimestreCalendaire(ticker, q, fy) ?? m);
@@ -244,6 +305,7 @@ export function harmoniserPeriodes(texte: string, ticker: string, appliquees?: R
   if (getFiscalAuditTextes(ticker)?.convertirExerciceTextes) {
     out = out.replace(RE_EXERCICE_FY, (_m, fy: string) => `exercice ${fy.length === 2 ? `20${fy}` : fy}`);
   }
+  out = periodesExerciceDecale(out, ticker);
   if (appliquees && out !== avant) appliquees["periode-fy"] = (appliquees["periode-fy"] ?? 0) + 1;
   return out;
 }
@@ -258,6 +320,7 @@ function parcourir(v: unknown, ticker: string, cle: string | undefined, dansKpi:
     if (/^(?:https?:)?\/\//i.test(v)) return v;
     let out = nettoyerCuisineInterne(v, ap);
     out = harmoniserPeriodes(out, ticker, ap);
+    out = espacePourcent(out, ap);
     if (dansKpi && cle && CHAMPS_KPI_TRADUITS.has(cle)) out = traduireTexteKpi(out, ap);
     return out;
   }
@@ -307,7 +370,8 @@ export function harmoniserPeriodesFiche(company: Record<string, unknown>, ticker
     if (typeof v === "string") {
       if (cle && CLES_IGNOREES.test(cle)) return v;
       if (/^(?:https?:)?\/\//i.test(v)) return v;
-      return harmoniserPeriodes(v, ticker);
+      // 13 oct 2026 : blocs injectes apres nettoyerTextesFiche (descriptions de KPI) : meme espacement.
+      return espacePourcent(harmoniserPeriodes(v, ticker));
     }
     if (Array.isArray(v)) {
       for (let i = 0; i < v.length; i += 1) v[i] = marcher(v[i], cle);

@@ -18,6 +18,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Compass, BarChart3, Layers, LineChart, Target, AlertTriangle, Building2, Brain, FileText, Scale, ShieldCheck,
@@ -25,7 +26,7 @@ import {
 } from "lucide-react";
 import type { Company, KPI } from "@/lib/data";
 import { PageSearch } from "@/components/page-search";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeApplique } from "@/components/theme-toggle";
 import { CompareControl } from "@/components/compare-control";
 import { StarButton } from "@/components/star-button";
 import { LogoMettrik } from "@/components/logo-mettrik";
@@ -150,8 +151,8 @@ type Outil = { id: OutilId; titre: string; Icon: LucideIcon; anim: string; coule
 export const TITRE_COMPTE = "Mon compte et analytics";
 
 /* Yann 13 oct 2026 : le reglage Jour/Nuit quitte le rail pour la page compte
-   (/account). Le ThemeToggle reste monte hors ecran sur la fiche : c est lui
-   qui applique le mode choisi (stockage local, compte, gating abonnes). */
+   (/account). ThemeApplique, sans bouton, applique sur la fiche le mode
+   choisi (stockage local, compte, gating abonnes). */
 function listeOutils(anon: boolean): Outil[] {
   const l: Outil[] = [];
   // Favoris : reserve aux visiteurs connectes (comme le menu « Mes favoris »).
@@ -577,8 +578,12 @@ export function FicheRail({
     window.scrollTo({ top: Math.max(0, haut), behavior: "smooth" });
   };
   const fermerPanneau = useCallback(() => setPanneau(null), []);
+  const router = useRouter();
   const onOutil = (id: OutilId, y: number) => {
     if (capture && id !== "compte") { versInscription(); return; }
+    // Yann 13 oct 2026 : connecte, « Mon compte et analytics » mene directement
+    // a la page compte, sans panneau. Anonyme : panneau de connexion inchange.
+    if (id === "compte" && !anon && !capture) { router.push("/account"); return; }
     if (id === "recherche") {
       refRecherche.current?.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')?.click();
       return;
@@ -593,14 +598,12 @@ export function FicheRail({
       <style>{STYLE_ANIM}</style>
       <RailOrdinateur {...rail} />
       <BarreMobile {...rail} />
-      {/* Declencheurs reels du site, hors ecran : recherche (panneau plein ecran) ; le ThemeToggle
-          n a plus de bouton dans le rail (reglage dans /account) mais applique le mode enregistre. */}
+      {/* Declencheurs reels du site, hors ecran : recherche (panneau plein ecran) ; ThemeApplique
+          (sans bouton, reglage dans /account) applique le mode enregistre. */}
       <div ref={refRecherche} className="fixed -left-[400vw] top-0 z-[150]">
         <PageSearch variant="default" />
       </div>
-      <div aria-hidden className="fixed -left-[400vw] top-0">
-        <ThemeToggle paid={paid} />
-      </div>
+      <ThemeApplique paid={paid} />
 
       {/* En-tete collant : la barre du nom de la societe, rien au-dessus. */}
       <div ref={refEntete} data-entete-fiche className={`${grand ? "relative" : "sticky top-0"} z-[45] -mx-4 -mt-7 border-b border-white/[0.07] bg-[#050505] px-4 pb-3 pt-4 sm:-mx-6 sm:-mt-9 sm:px-6`}>

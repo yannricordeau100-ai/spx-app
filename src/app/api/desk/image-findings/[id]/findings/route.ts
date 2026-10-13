@@ -8,6 +8,7 @@ import {
   refreshRequestCounters,
   motifRejetSourceDate,
 } from "@/lib/desk/image-findings";
+import { tableFindingsApprouves } from "@/lib/desk/tables-fiche";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -38,6 +39,9 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   // Yann 17 sept 2026 : la fiche est mise en cache 6 h ; sans ceci, un
   // graphique approuve n apparaissait sur la fiche qu au prochain deploiement
   // ou a l expiration du cache (constate sur GOOG).
+  // 13 oct 2026 : la table lue par les fiches est en cache ; videe AVANT les
+  // fiches, pour que leur reconstruction relise la base.
+  tableFindingsApprouves.invalider();
   revalidateTag("fiches", "max");
   return NextResponse.json({ row });
 }
@@ -49,6 +53,9 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
   if (!findingId) return NextResponse.json({ error: "findingId required" }, { status: 400 });
   await deleteFinding(findingId);
   await refreshRequestCounters(id);
+  // 13 oct 2026 : la table lue par les fiches est en cache ; videe AVANT les
+  // fiches, pour que leur reconstruction relise la base.
+  tableFindingsApprouves.invalider();
   revalidateTag("fiches", "max");
   return NextResponse.json({ ok: true });
 }

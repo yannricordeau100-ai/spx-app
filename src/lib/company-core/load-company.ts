@@ -624,6 +624,16 @@ export async function loadV17Company(
   const cle = `${ticker.toUpperCase()}|${opts.mode ?? "v17"}|${opts.locale ?? "fr"}`;
   const hit = CACHE_FICHES.get(cle);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.valeur;
+  // 13 oct 2026 (journaux Supabase) : les tables du back-office lues par le
+  // chargeur sont chargees en une fois depuis le cache partage, AVANT la
+  // construction (qui tourne dans un unstable_cache imbrique, ou Next contourne
+  // le cache partage). Jamais d exception.
+  try {
+    const { prechaufferTablesFiche } = await import("@/lib/desk/tables-fiche");
+    await prechaufferTablesFiche();
+  } catch {
+    // chaque lecture retombera sur sa propre requete
+  }
   let valeur: LoadOutcome;
   try {
     valeur = await chargeAvecCachePartage(ticker, opts.mode ?? "v17", opts.locale ?? "fr");
@@ -2033,8 +2043,9 @@ async function loadV17CompanyBrut(
     // pour ce ticker. APPEND comme indicateurs clés ou remplace hero si is_hero.
     // Convertit le format desk_special_kpis → KPI standard.
     try {
-      const { listPublishedForTicker } = await import("@/lib/desk/special-kpis");
-      const specials = await listPublishedForTicker(ticker);
+      // 13 oct 2026 : table lue en une fois et mise en cache (journaux Supabase).
+      const { specialPubliesPour } = await import("@/lib/desk/tables-fiche");
+      const specials = await specialPubliesPour(ticker);
       if (Array.isArray(specials) && specials.length > 0 && Array.isArray(data.kpis)) {
         const existingShorts = new Set(
           (data.kpis as AnyKPI[]).map((k) => k?.short).filter(Boolean),
@@ -2577,8 +2588,9 @@ async function loadV17CompanyBrut(
   // Image findings approuvés (Yann 15 mai 2026) — bloc "Graphiques et
   // Schémas de sources diverses".
   try {
-    const { listApprovedForTicker } = await import("@/lib/desk/image-findings");
-    const findings = await listApprovedForTicker(ticker);
+    // 13 oct 2026 : table lue en une fois et mise en cache (journaux Supabase).
+    const { findingsApprouvesPour } = await import("@/lib/desk/tables-fiche");
+    const findings = await findingsApprouvesPour(ticker);
     if (Array.isArray(findings) && findings.length > 0) {
       // 28 sept 2026 (Yann) : les graphiques lies a un KPI d industrie passent
       // en tete du carrousel, et le bloc entier passe avant le tableau des KPI.
@@ -3548,6 +3560,14 @@ async function loadV17CompanyBrut(
 
   // 13 oct 2026 : periodes fiscales des blocs injectes apres nettoyerTextesFiche.
   harmoniserPeriodesFiche(company as unknown as Record<string, unknown>, ticker);
+  // 13 oct 2026 (verif n2) : unite de comptage sans objet (« 10,4 M ») completee
+  // par le nom compte lu dans le libelle (« 10,4 M comptes »).
+  try {
+    const { completerUnitesFiche } = await import("@/lib/company-core/unite-objet");
+    completerUnitesFiche(company as unknown as Record<string, unknown>);
+  } catch (err) {
+    console.warn(`unite-objet failed for ${ticker}:`, err);
+  }
 
   return { kind: "ready", company };
 }

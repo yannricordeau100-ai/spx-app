@@ -2,10 +2,18 @@ import { NextResponse } from "next/server";
 import { requireDeskOwner } from "@/lib/desk/auth";
 import {
   getSpecialKpi,
-  upsertSpecialKpi,
+  upsertSpecialKpi as upsertSpecialKpiBrut,
   buildExtractionPrompt,
   type SpecialKpiData,
 } from "@/lib/desk/special-kpis";
+import { tableSpecialPublies } from "@/lib/desk/tables-fiche";
+
+// 13 oct 2026 : chaque ecriture vide le cache de la table lue par les fiches.
+async function upsertSpecialKpi(p: Parameters<typeof upsertSpecialKpiBrut>[0]) {
+  const r = await upsertSpecialKpiBrut(p);
+  tableSpecialPublies.invalider();
+  return r;
+}
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

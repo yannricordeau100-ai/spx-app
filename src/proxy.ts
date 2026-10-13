@@ -150,6 +150,9 @@ function pageIntrouvable(request: NextRequest): NextResponse {
   return NextResponse.rewrite(url, { status: 404 });
 }
 
+// 13 oct 2026 : fichiers servis tels quels (public/), sans besoin de session.
+const FICHIER_STATIQUE = /\.(png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|css|js|map|txt|xml|json|webmanifest|pdf|mp4|webm)$/i;
+
 function isPublicPath(pathname: string): boolean {
   if (pathname === "/") return true;
   if (pathname === "/login" || pathname === "/signup") return true;
@@ -641,9 +644,24 @@ export async function proxy(request: NextRequest) {
 
   // IMPORTANT : appelle getUser() pour forcer le refresh du token
   // (sinon les cookies ne sont pas mis à jour).
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // 13 oct 2026 (journaux Supabase, docs/rapports-session-2026-10/
+  // supabase-journaux.md) : plus d appel pour les fichiers statiques et les
+  // API. Pour ces chemins publics, `user` ne sert a aucun controle ci-dessous :
+  // isPublicPath les laisse passer, le portail du bureau et l outillage interne
+  // sont exclus, et les hotes fermes (pre, staging, dev) gardent leur controle.
+  // Les routes /api qui ont besoin de la session la lisent (et la
+  // rafraichissent) elles-memes. /_next/static, /_next/image, favicon, robots
+  // et sitemap ne passent deja pas par le proxy (matcher en fin de fichier).
+  const hoteFerme = host === "pre.mettrik.ai" || host === "staging.mettrik.ai" || host === "dev.mettrik.ai";
+  const sansSession =
+    !hoteFerme &&
+    !estRouteInterne &&
+    !routePathname.startsWith("/desk-") &&
+    isPublicPath(routePathname) &&
+    (routePathname.startsWith("/api/") || FICHIER_STATIQUE.test(routePathname));
+  const user = sansSession
+    ? null
+    : (await supabase.auth.getUser()).data.user;
 
   // ────────────────────────────────────────────────────────────────────
   // ARCHITECTURE 3 NIVEAUX (Yann 16-17 mai 2026)

@@ -1,5 +1,6 @@
 "use client";
 
+import { normaliserVariation } from "@/lib/variation-kpi";
 import { TrendingUp } from "lucide-react";
 import type { KPI, MarketPosition } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -351,10 +352,10 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   {(estEvenement ? kpi.unit : storyFmt(kpi.value, kpi.unit).unit).replace(/\//g, " / ")}
                 </div>
               )}
-              {!freeBlocked && kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
+              {!freeBlocked && kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && normaliserVariation(kpi.yoy, kpi.unit) && (
                 <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 text-[16px] font-bold text-emerald-200">
                   <TrendingUp className="size-4" />
-                  <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1\u00a0%")}</span>
+                  <span className="font-mono tabular-nums">{normaliserVariation(kpi.yoy, kpi.unit)}</span>
                   <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">{t("story.vs_n1")}</span>
                 </div>
               )}

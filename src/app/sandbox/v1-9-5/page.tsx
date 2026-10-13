@@ -8,7 +8,7 @@ import { AuthModal } from "@/components/auth-modal";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
-import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
+import { loadAllTaglines } from "@/lib/billing/tarifs-cache"; // 13 oct 2026 : en cache partage
 import { loadPageContent } from "@/lib/desk/page-content";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";

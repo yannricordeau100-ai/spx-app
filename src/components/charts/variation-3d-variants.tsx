@@ -125,7 +125,10 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
   const largeurTickMax = Math.max(...ticks.map((v) => fmtTick(v).length), 1) * 15 * AFX * 0.62 + 10 + 4;
   const extraGauche = mobile ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
   const tailleX = 15 * AFX;
-  const pasX = pasTrimestres(pasEtiquettes(mobile, slot, Math.max(...xLabels.map((l) => splitQuarterLabel(l).top.length), 1), tailleX), xLabels);
+  // 13 oct 2026 (verif n2, PAYX 64 trimestres illisibles sur ordinateur) : la
+  // decimation des trimestres vaut aussi sur ordinateur ; trop serres, seules
+  // les annees restent.
+  const pasX = pasTrimestres(pasEtiquettes(true, slot, Math.max(...xLabels.map((l) => splitQuarterLabel(l).top.length), 1), tailleX), xLabels);
   const pasAnnee = pasEtiquettes(mobile, yearGroups.length ? INNER_W / yearGroups.length : INNER_W, 4, 13 * AFX);
 
   return (

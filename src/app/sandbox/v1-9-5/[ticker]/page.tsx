@@ -14,6 +14,7 @@ import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
 import {
   caviardeCompanyPourGratuit,
+  caviardeMoyenTermePourGratuit,
   caviardeTranscriptDocPourGratuit,
   caviardeTranscriptsPourGratuit,
 } from "@/lib/floutage-caviardage";
@@ -387,9 +388,11 @@ export default async function SandboxV195TickerPage({
   const zonesDuTicker = (await chargeZonesFloutage(r.company.ticker)).zones;
   const zonesEffectives = vitrineGratuite ? [] : zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
   const estGratuit = zonesEffectives.length > 0;
-  const servedCompany = estGratuit
+  const servedCompanyZones = estGratuit
     ? caviardeCompanyPourGratuit(gatedCompany, zonesEffectives)
     : gatedCompany;
+  // Yann 13 oct 2026 : bloc KPI moyen terme reserve aux abonnes (gratuit et anonyme hors vitrine).
+  const servedCompany = freemiumTier === "free" || freemiumTier === "anon" ? caviardeMoyenTermePourGratuit(servedCompanyZones) : servedCompanyZones;
   const servedTranscriptSummary = estGratuit
     ? caviardeTranscriptsPourGratuit(transcriptSummary ?? null, zonesEffectives)
     : transcriptSummary;

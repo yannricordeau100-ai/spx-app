@@ -7,7 +7,7 @@
  */
 import { promises as fs } from "fs";
 import path from "path";
-import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { tableThese } from "@/lib/desk/tables-fiche";
 import { coerceThese, type CompanyThese } from "@/lib/these";
 
 type CacheEntry = { these: CompanyThese | null; at: number };
@@ -25,10 +25,14 @@ async function readLocal(ticker: string): Promise<CompanyThese | null> {
 
 async function readSupabase(ticker: string): Promise<CompanyThese | null> {
   try {
-    const supabase = createSupabaseAdminClient();
-    const { data, error } = await supabase.from("desk_these").select("payload").eq("ticker", ticker.toUpperCase()).maybeSingle();
-    if (error || !data) return null;
-    return coerceThese((data as { payload?: unknown }).payload);
+    // 13 oct 2026 : la table desk_these n existe pas en base (404 a chaque
+    // appel, ~14 400 lignes de journal par jour). Lue en une fois et mise en
+    // cache, absence comprise (tables-fiche.ts) : plus aucun appel par societe.
+    const { absente, parTicker } = await tableThese.lire();
+    if (absente) return null;
+    const payload = parTicker[ticker.toUpperCase()];
+    if (payload === undefined || payload === null) return null;
+    return coerceThese(structuredClone(payload)); // copie : jamais l objet du cache
   } catch {
     return null;
   }
@@ -47,4 +51,5 @@ export async function loadTheseForTicker(ticker: string): Promise<CompanyThese |
 export function invalidateTheseCache(ticker?: string): void {
   if (ticker) cache.delete(ticker.toUpperCase());
   else cache.clear();
+  tableThese.invalider();
 }

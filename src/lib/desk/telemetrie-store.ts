@@ -4,6 +4,7 @@
  * immédiat en production. Par défaut : ACTIF.
  */
 import { createClient } from "@supabase/supabase-js";
+import { reglagesTelemetrie } from "@/lib/reglages-cache";
 
 const PAGE_KEY = "telemetrie";
 const SECTION_KEY = "reglages";
@@ -28,12 +29,10 @@ export type ConfigTelemetrie = {
  *  ses propres visites ne doivent jamais compter dans la telemetrie). */
 export async function chargeConfigTelemetrie(): Promise<ConfigTelemetrie> {
   try {
-    const { data } = await admin()
-      .from("desk_page_content")
-      .select("content_fr")
-      .eq("page_key", PAGE_KEY)
-      .eq("section_key", SECTION_KEY)
-      .maybeSingle();
+    // 13 oct 2026 (journaux Supabase) : lu a chaque page vue et a chaque
+    // evenement ; desormais en cache partage, vide a l enregistrement.
+    const lignes = await reglagesTelemetrie.lire();
+    const data = lignes[SECTION_KEY] ?? null;
     if (!data?.content_fr) return { actif: true, hashesExclus: [], usersExclus: [] };
     const cfg = JSON.parse(data.content_fr) ?? {};
     return {
@@ -58,4 +57,5 @@ export async function enregistreReglageTelemetrie(actif: boolean): Promise<void>
       { onConflict: "page_key,section_key" },
     );
   if (error) throw new Error(error.message);
+  reglagesTelemetrie.invalider();
 }

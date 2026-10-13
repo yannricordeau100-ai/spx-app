@@ -5,17 +5,16 @@
  * réglage : les visiteurs non inscrits sont alors renvoyés vers l inscription.
  * Réglage partagé avec la maintenance : desk_page_content, page_key « maintenance ».
  */
-import { createClient } from "@supabase/supabase-js";
+import { reglagesMaintenance } from "@/lib/reglages-cache";
 
 let cache: { valeur: boolean; expire: number } = { valeur: false, expire: 0 };
 
 export async function tarifsReservesAuxInscrits(): Promise<boolean> {
   if (Date.now() < cache.expire) return cache.valeur;
   try {
-    const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
-    const { data } = await sb.from("desk_page_content").select("content_fr").eq("page_key", "maintenance").eq("section_key", "reglages").maybeSingle();
+    // 13 oct 2026 (journaux Supabase) : reglage en cache partage, vide par
+    // /api/sandbox/lancement a chaque enregistrement.
+    const data = (await reglagesMaintenance.lire())["reglages"] ?? null;
     const brut = data?.content_fr ? (JSON.parse(data.content_fr) as { tarifs_anonymes?: string }) : null;
     cache = { valeur: brut?.tarifs_anonymes === "inscrits", expire: Date.now() + 30_000 };
   } catch {

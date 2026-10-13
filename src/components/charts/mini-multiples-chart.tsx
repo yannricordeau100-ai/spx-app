@@ -1,5 +1,6 @@
 "use client";
 
+import { normaliserVariation } from "@/lib/variation-kpi";
 import { useMemo } from "react";
 import { motion } from "motion/react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
@@ -67,11 +68,10 @@ export function MiniMultiplesChart({
                   // Yann 15 mai 2026 : guard anti-"null" en plein texte.
                   if (k.yoy == null) return null;
                   if (typeof k.yoy === "number" && Number.isFinite(k.yoy)) {
-                    const sign = k.yoy > 0 ? "+" : "";
-                    return `${sign}${k.yoy}%`;
+                    return normaliserVariation(`${k.yoy > 0 ? "+" : ""}${k.yoy}`, k.unit) || null;
                   }
                   if (typeof k.yoy === "string" && k.yoy.trim() && k.yoy.trim().toLowerCase() !== "null") {
-                    return k.yoy;
+                    return normaliserVariation(k.yoy, k.unit) || null;
                   }
                   return null;
                 })()}

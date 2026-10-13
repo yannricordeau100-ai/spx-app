@@ -1,5 +1,6 @@
 "use client";
 
+import { normaliserVariation } from "@/lib/variation-kpi";
 import Link from "next/link";
 import {
   AlertTriangle,
@@ -198,11 +199,10 @@ function ComparePanelContenu({ paire, sourceCompany, onClose }: { paire: Paire; 
                   // Yann 15 mai 2026 : guard anti-"null" en plein texte.
                   if (kpi.yoy == null) return null;
                   if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
-                    const sign = kpi.yoy > 0 ? "+" : "";
-                    return `${sign}${kpi.yoy}%`;
+                    return normaliserVariation(`${kpi.yoy > 0 ? "+" : ""}${kpi.yoy}`, kpi.unit) || null;
                   }
                   if (typeof kpi.yoy === "string" && kpi.yoy.trim() && kpi.yoy.trim().toLowerCase() !== "null") {
-                    return kpi.yoy;
+                    return normaliserVariation(kpi.yoy, kpi.unit) || null;
                   }
                   return null;
                 })()}

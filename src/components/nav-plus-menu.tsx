@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { MoreHorizontal } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 /**
  * Yann 5 oct 2026 : sur mobile, la bascule jour/nuit quitte la barre du haut
@@ -11,13 +10,13 @@ import { ThemeToggle } from "@/components/theme-toggle";
  * Visible uniquement sous 640 px (la bascule reste directe au-dessus).
  */
 export function NavPlusMenu({
-  paid,
   anon = false,
   liens = [],
   ouvert: ouvertProp,
   onOuvertChange,
 }: {
-  paid: boolean;
+  /** Conserve pour compatibilite (la bascule jour/nuit n est plus ici). */
+  paid?: boolean;
   /** Visiteur non connecte : « S'inscrire » vit ici sur mobile. */
   anon?: boolean;
   /** Liens supplementaires du menu (accueil : Contact, Rejoindre Mettrik). */
@@ -33,6 +32,9 @@ export function NavPlusMenu({
     onOuvertChange?.(o);
   };
   const ref = useRef<HTMLDivElement>(null);
+  // Yann 13 oct 2026 : la bascule jour/nuit quitte ce menu (page compte seulement).
+  // Sans lien ni inscription a proposer, le menu n a plus rien a montrer.
+  const vide = liens.length === 0 && !anon;
   useEffect(() => {
     if (!ouvert) return;
     const dehors = (e: Event) => {
@@ -46,6 +48,7 @@ export function NavPlusMenu({
       document.removeEventListener("keydown", echap);
     };
   }, [ouvert, onOuvertChange]);
+  if (vide) return null;
   return (
     <div ref={ref} className="relative sm:hidden">
       <button
@@ -63,10 +66,6 @@ export function NavPlusMenu({
           role="menu"
           className="fixed right-3 top-[4.5rem] z-[80] flex w-[min(14rem,calc(100vw-1.5rem))] flex-col gap-2 rounded-xl border border-[#262626] bg-[#0a0a0a] px-3 py-2.5 shadow-2xl"
         >
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-[12.5px] font-medium text-zinc-200">Affichage</span>
-            <ThemeToggle paid={paid} />
-          </div>
           {liens.map((l) => (
             <Link
               key={l.href}

@@ -75,9 +75,14 @@ function applyFilter(m: Mode) {
  *              Résolu côté serveur via getServerFreemiumTier() ou la prop
  *              freemiumTier (CompanyView), puis `tier === "premium" || tier === "max"`.
  */
-export function ThemeToggle({ paid = false }: { paid?: boolean }) {
+/**
+ * Yann 13 oct 2026 : le bouton Jour / Nuit n existe plus que dans la page
+ * « Mon compte et analytics ». Partout ailleurs, ThemeApplique applique le
+ * mode enregistre (stockage local, preference du compte, gating abonnes)
+ * sans rien afficher.
+ */
+function useThemeSync(paid: boolean): [Mode, (m: Mode) => void] {
   const [mode, setMode] = useState<Mode>("dark");
-  const { t } = useT();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -144,19 +149,29 @@ export function ThemeToggle({ paid = false }: { paid?: boolean }) {
     })();
 
     // Bascule sur SIGNED_IN (login après sign-out) : refetch et sync.
-    const { data: sub } = supabase.auth.onAuthStateChange(async (event) => {
+    // Yann 13 oct 2026 : le rappel ne doit JAMAIS attendre un autre appel
+    // d authentification. Supabase l execute sous son verrou de session (et
+    // emet SIGNED_IN au chargement d une session existante) : un getUser
+    // attendu ici bloquait toute la page (getUser et updateUser du bouton
+    // restaient suspendus, le choix Jour / Nuit n etait jamais enregistre dans
+    // le compte). On differe donc le travail hors du rappel.
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       if (event !== "SIGNED_IN") return;
-      const { data: d2 } = await supabase.auth.getUser();
-      const remote = (d2.user?.user_metadata?.theme as Mode | undefined) ?? null;
-      if (remote) {
-        setMode(remote);
-        applyFilter(remote);
-        window.localStorage.setItem(STORAGE_KEY, remote);
-      } else {
-        // Pas de pref serveur (1ère co après signup) : push le local actuel.
-        const cur = (window.localStorage.getItem(STORAGE_KEY) as Mode | null) ?? defaultBySystemPreference();
-        await supabase.auth.updateUser({ data: { theme: cur } });
-      }
+      setTimeout(async () => {
+        if (cancelled) return;
+        const { data: d2 } = await supabase.auth.getUser();
+        const remote = (d2.user?.user_metadata?.theme as Mode | undefined) ?? null;
+        if (cancelled) return;
+        if (remote) {
+          setMode(remote);
+          applyFilter(remote);
+          window.localStorage.setItem(STORAGE_KEY, remote);
+        } else {
+          // Pas de pref serveur (1ère co après signup) : push le local actuel.
+          const cur = (window.localStorage.getItem(STORAGE_KEY) as Mode | null) ?? defaultBySystemPreference();
+          await supabase.auth.updateUser({ data: { theme: cur } });
+        }
+      }, 0);
     });
 
     return () => {
@@ -170,6 +185,19 @@ export function ThemeToggle({ paid = false }: { paid?: boolean }) {
       }
     };
   }, [paid]);
+
+  return [mode, setMode];
+}
+
+/** Applique le mode enregistre, sans bouton (toutes les pages hors compte). */
+export function ThemeApplique({ paid = false }: { paid?: boolean }) {
+  useThemeSync(paid);
+  return null;
+}
+
+export function ThemeToggle({ paid = false }: { paid?: boolean }) {
+  const [mode, setMode] = useThemeSync(paid);
+  const { t } = useT();
 
   const toggle = (next: Mode) => {
     // Non-payant : le clic sur l'option claire est inerte (clair verrouillé).

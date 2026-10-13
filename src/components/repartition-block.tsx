@@ -1,5 +1,6 @@
 "use client";
 
+import { geoLabelFr } from "@/lib/geo-label";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Globe2, LayoutGrid, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
@@ -48,7 +49,8 @@ const FR_LABELS: Record<string, string> = {
 };
 function translateLabelFr(label: string): string {
   if (!label) return label;
-  return FR_LABELS[label.trim()] ?? label;
+  // 13 oct 2026 : repli sur la table geographique commune (libelles composes).
+  return FR_LABELS[label.trim()] ?? geoLabelFr(label) ?? label;
 }
 
 function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) {

@@ -9,6 +9,7 @@
  * Effet en production sous ~20 s (cache du proxy), sans redéploiement.
  */
 import { NextResponse, type NextRequest } from "next/server";
+import { reglagesMaintenance } from "@/lib/reglages-cache";
 import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
@@ -151,5 +152,7 @@ export async function POST(req: NextRequest) {
       { onConflict: "page_key,section_key" },
     );
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  // 13 oct 2026 : reglage lu en cache partage hors du proxy (tarifs-anonymes.ts).
+  reglagesMaintenance.invalider();
   return NextResponse.json({ ok: true, mode, programme, tarifs, tarifs_anonymes, delai: "effet sous ~20 secondes" });
 }

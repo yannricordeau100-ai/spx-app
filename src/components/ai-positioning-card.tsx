@@ -209,7 +209,7 @@ export function AIPositioningCard({
         {evenement && evenement.ia.length > 0 && (
           <div className="mt-5">
             <div className="mb-2.5 font-mono text-[12px] uppercase tracking-wider text-zinc-300">
-              Annoncé lors de {evenement.nom}
+              Annoncé lors de l’événement {evenement.nom}
             </div>
             <ul className="grid gap-2 sm:grid-cols-2">
               {evenement.ia.map((x) => (

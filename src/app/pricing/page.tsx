@@ -10,7 +10,7 @@ import { ScrollToTopOnMount } from "@/components/scroll-to-top-on-mount";
 import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
 import { CurrencyPicker } from "@/components/billing/currency-picker";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
-import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
+import { loadAllTaglines } from "@/lib/billing/tarifs-cache"; // 13 oct 2026 : en cache partage
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { isDeskOwner } from "@/lib/desk/auth";

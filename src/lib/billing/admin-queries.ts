@@ -8,6 +8,7 @@
  * Et ils requireDeskOwner() pour gate au niveau code.
  */
 import { createClient } from "@supabase/supabase-js";
+import { invaliderTarifs } from "./tarifs-cache";
 import type {
   PricingPlan,
   PricingPrice,
@@ -44,7 +45,7 @@ export async function getPlan(id: string): Promise<PricingPlan | null> {
   return (data as PricingPlan) ?? null;
 }
 
-export async function upsertPlan(plan: Partial<PricingPlan>): Promise<PricingPlan> {
+async function upsertPlanBrut(plan: Partial<PricingPlan>): Promise<PricingPlan> {
   const { data, error } = await adminClient()
     .from("pricing_plans")
     .upsert(plan, { onConflict: "id" })
@@ -59,7 +60,7 @@ export async function upsertPlan(plan: Partial<PricingPlan>): Promise<PricingPla
  * non dans le body. Plus prévisible qu'upsert (qui peut INSERT silencieux
  * si la PK est interprétée bizarrement).
  */
-export async function updatePlanById(id: string, partial: Partial<PricingPlan>): Promise<PricingPlan> {
+async function updatePlanByIdBrut(id: string, partial: Partial<PricingPlan>): Promise<PricingPlan> {
   // Strip id du body pour éviter de se le faire imposer
   const { id: _ignored, ...rest } = partial as PricingPlan;
   const { data, error } = await adminClient()
@@ -72,7 +73,7 @@ export async function updatePlanById(id: string, partial: Partial<PricingPlan>):
   return data as PricingPlan;
 }
 
-export async function duplicatePlan(sourceId: string, newCode: string, newNameFr: string): Promise<PricingPlan> {
+async function duplicatePlanBrut(sourceId: string, newCode: string, newNameFr: string): Promise<PricingPlan> {
   const src = await getPlan(sourceId);
   if (!src) throw new Error("Source plan introuvable");
   const { id: _ignored, created_at: _c, updated_at: _u, ...rest } = src;
@@ -97,7 +98,7 @@ export async function duplicatePlan(sourceId: string, newCode: string, newNameFr
   return newPlan;
 }
 
-export async function deletePlan(id: string): Promise<void> {
+async function deletePlanBrut(id: string): Promise<void> {
   const { error } = await adminClient().from("pricing_plans").delete().eq("id", id);
   if (error) throw error;
 }
@@ -119,7 +120,7 @@ export async function listPricesForPlan(planId: string): Promise<PricingPrice[]>
   return (data ?? []) as PricingPrice[];
 }
 
-export async function upsertPrice(price: Partial<PricingPrice>): Promise<PricingPrice> {
+async function upsertPriceBrut(price: Partial<PricingPrice>): Promise<PricingPrice> {
   // Yann 9 mai 2026 : bug "le prix revient à 0" → cause = upsert(price) sans
   // onConflict, qui partait sur INSERT puis silent-fail sur la contrainte
   // unique (plan_id, currency, frequency). Fix : si id présent → UPDATE
@@ -145,7 +146,7 @@ export async function upsertPrice(price: Partial<PricingPrice>): Promise<Pricing
   return data as PricingPrice;
 }
 
-export async function deletePrice(id: string): Promise<void> {
+async function deletePriceBrut(id: string): Promise<void> {
   const { error } = await adminClient().from("pricing_prices").delete().eq("id", id);
   if (error) throw error;
 }
@@ -164,7 +165,7 @@ export async function listFeatures(): Promise<PricingFeature[]> {
   return (data ?? []) as PricingFeature[];
 }
 
-export async function upsertFeature(feature: Partial<PricingFeature>): Promise<PricingFeature> {
+async function upsertFeatureBrut(feature: Partial<PricingFeature>): Promise<PricingFeature> {
   // Yann 9 mai 2026 : même bug que upsertPrice (le upsert sans onConflict
   // silently fail sur insert quand l'id existe déjà). Fix : update strict
   // si id présent, insert sinon.
@@ -197,7 +198,7 @@ export async function upsertFeature(feature: Partial<PricingFeature>): Promise<P
  * newName peut être vide ("") → toutes les features de la catégorie
  * deviennent "sans catégorie" (affichées en haut de la matrice).
  */
-export async function renameCategory(oldName: string, newName: string): Promise<{ updated: number }> {
+async function renameCategoryBrut(oldName: string, newName: string): Promise<{ updated: number }> {
   const supa = adminClient();
   const trimmedNew = (newName ?? "").trim();
   const { data, error } = await supa
@@ -213,7 +214,7 @@ export async function renameCategory(oldName: string, newName: string): Promise<
  * Fixe l ordre d affichage des categories sur la page publique :
  * category_order = (rang + 1) * 10 pour toutes les features de la categorie.
  */
-export async function setCategoryOrder(order: string[]): Promise<{ updated: number }> {
+async function setCategoryOrderBrut(order: string[]): Promise<{ updated: number }> {
   const supa = adminClient();
   let updated = 0;
   for (let i = 0; i < order.length; i++) {
@@ -229,7 +230,7 @@ export async function setCategoryOrder(order: string[]): Promise<{ updated: numb
 }
 
 /** Swap feature_order entre 2 features (utilisé par les flèches up/down du back office). */
-export async function swapFeatureOrders(idA: string, idB: string): Promise<void> {
+async function swapFeatureOrdersBrut(idA: string, idB: string): Promise<void> {
   const supa = adminClient();
   const { data, error } = await supa
     .from("pricing_features")
@@ -253,7 +254,7 @@ export async function swapFeatureOrders(idA: string, idB: string): Promise<void>
  * complète d'IDs dans le nouvel ordre voulu. Permet drag-and-drop +
  * sélection multiple. Plus puissant que swap pair-by-pair.
  */
-export async function reorderFeatures(orderedIds: string[]): Promise<void> {
+async function reorderFeaturesBrut(orderedIds: string[]): Promise<void> {
   if (!Array.isArray(orderedIds) || orderedIds.length === 0) return;
   const supa = adminClient();
   // Update séquentiel (Postgres unique constraint sur feature_order géré
@@ -274,7 +275,7 @@ export async function reorderFeatures(orderedIds: string[]): Promise<void> {
   for (const r of updates) if (r.error) throw r.error;
 }
 
-export async function deleteFeature(id: string): Promise<void> {
+async function deleteFeatureBrut(id: string): Promise<void> {
   const { error } = await adminClient().from("pricing_features").delete().eq("id", id);
   if (error) throw error;
 }
@@ -296,7 +297,7 @@ export async function listAllPlanFeatures(): Promise<PricingPlanFeature[]> {
   return (data ?? []) as PricingPlanFeature[];
 }
 
-export async function upsertPlanFeature(pf: Partial<PricingPlanFeature>): Promise<PricingPlanFeature> {
+async function upsertPlanFeatureBrut(pf: Partial<PricingPlanFeature>): Promise<PricingPlanFeature> {
   const { data, error } = await adminClient()
     .from("pricing_plan_features")
     .upsert(pf, { onConflict: "plan_id,feature_id" })
@@ -311,7 +312,7 @@ export async function upsertPlanFeature(pf: Partial<PricingPlanFeature>): Promis
  * de reproduire le texte affiché d'un plan vers un autre (ou tous) en
  * un clic, puis ajuster ensuite si besoin.
  */
-export async function copyFeatureValueAcrossPlans(
+async function copyFeatureValueAcrossPlansBrut(
   featureId: string,
   sourcePlanId: string,
   targetPlanIds: string[],
@@ -404,4 +405,105 @@ export async function validatePromoCode(
     return { ok: false, reason: "frequency_not_eligible" };
   }
   return { ok: true, promo: p };
+}
+
+// 13 oct 2026 (journaux Supabase) : le catalogue public est en cache partage
+// (tarifs-cache.ts) ; chaque ecriture du back-office le vide.
+export async function upsertPlan(...a: Parameters<typeof upsertPlanBrut>): ReturnType<typeof upsertPlanBrut> {
+  try {
+    return await upsertPlanBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function updatePlanById(...a: Parameters<typeof updatePlanByIdBrut>): ReturnType<typeof updatePlanByIdBrut> {
+  try {
+    return await updatePlanByIdBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function duplicatePlan(...a: Parameters<typeof duplicatePlanBrut>): ReturnType<typeof duplicatePlanBrut> {
+  try {
+    return await duplicatePlanBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function deletePlan(...a: Parameters<typeof deletePlanBrut>): ReturnType<typeof deletePlanBrut> {
+  try {
+    return await deletePlanBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function upsertPrice(...a: Parameters<typeof upsertPriceBrut>): ReturnType<typeof upsertPriceBrut> {
+  try {
+    return await upsertPriceBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function deletePrice(...a: Parameters<typeof deletePriceBrut>): ReturnType<typeof deletePriceBrut> {
+  try {
+    return await deletePriceBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function upsertFeature(...a: Parameters<typeof upsertFeatureBrut>): ReturnType<typeof upsertFeatureBrut> {
+  try {
+    return await upsertFeatureBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function renameCategory(...a: Parameters<typeof renameCategoryBrut>): ReturnType<typeof renameCategoryBrut> {
+  try {
+    return await renameCategoryBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function setCategoryOrder(...a: Parameters<typeof setCategoryOrderBrut>): ReturnType<typeof setCategoryOrderBrut> {
+  try {
+    return await setCategoryOrderBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function swapFeatureOrders(...a: Parameters<typeof swapFeatureOrdersBrut>): ReturnType<typeof swapFeatureOrdersBrut> {
+  try {
+    return await swapFeatureOrdersBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function reorderFeatures(...a: Parameters<typeof reorderFeaturesBrut>): ReturnType<typeof reorderFeaturesBrut> {
+  try {
+    return await reorderFeaturesBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function deleteFeature(...a: Parameters<typeof deleteFeatureBrut>): ReturnType<typeof deleteFeatureBrut> {
+  try {
+    return await deleteFeatureBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function upsertPlanFeature(...a: Parameters<typeof upsertPlanFeatureBrut>): ReturnType<typeof upsertPlanFeatureBrut> {
+  try {
+    return await upsertPlanFeatureBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
+}
+export async function copyFeatureValueAcrossPlans(...a: Parameters<typeof copyFeatureValueAcrossPlansBrut>): ReturnType<typeof copyFeatureValueAcrossPlansBrut> {
+  try {
+    return await copyFeatureValueAcrossPlansBrut(...a);
+  } finally {
+    invaliderTarifs();
+  }
 }

@@ -47,6 +47,7 @@ import { estKpiDeFlux,
   yoyPublieSiArrondi,
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
+import { estUnitePourcent, formatEcartPoints, formatVariationPct, normaliserVariation } from "@/lib/variation-kpi";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
 import { translate } from "@/lib/i18n/dictionary";
 import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
@@ -60,7 +61,7 @@ import { ChartSettingsMenu, TimeUnitSelect, ChartFullscreen } from "@/components
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeApplique } from "@/components/theme-toggle";
 import { NavPlusMenu } from "@/components/nav-plus-menu";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
@@ -923,22 +924,34 @@ export function CompanyView({
     () => new Map((company.kpi_instit?.kpis ?? []).map((k) => [k.short, k.fr] as const)),
     [company.kpi_instit],
   );
-  const kpisInstit = useMemo(
-    () => [...groupesKpis.avances, ...groupesKpis.standards].filter((k) => institParShort.has(k.short)),
-    [groupesKpis, institParShort],
-  );
+  // 13 oct 2026 (verif n2, CAT 4/10 pour 7 lignes jaunes) : UNE ligne jaune par
+  // indicateur du referentiel (la premiere dans l ordre de la fiche). Les autres
+  // series du meme indicateur (segments, doublons de source) restent dans leur
+  // groupe habituel, sans jaune. Pastille n/N, en-tete et lignes jaunes
+  // comptent ainsi la meme chose.
+  const kpisInstit = useMemo(() => {
+    const vus = new Set<string>();
+    return [...groupesKpis.avances, ...groupesKpis.standards].filter((k) => {
+      const fr = institParShort.get(k.short);
+      if (!fr || vus.has(fr)) return false;
+      vus.add(fr);
+      return true;
+    });
+  }, [groupesKpis, institParShort]);
+  const shortsInstitJaunes = useMemo(() => new Set(kpisInstit.map((k) => k.short)), [kpisInstit]);
   const resumeInstit: ResumeInstit | null = useMemo(() => {
     const ki = company.kpi_instit;
     if (!ki || kpisInstit.length === 0) return null;
-    const n = new Set(kpisInstit.map((k) => institParShort.get(k.short))).size;
+    const n = kpisInstit.length;
     return { n, total: Math.max(ki.total, n), industrie: ki.industrie };
-  }, [company.kpi_instit, kpisInstit, institParShort]);
+  }, [company.kpi_instit, kpisInstit]);
   const institDe = (short: string) => {
+    if (!shortsInstitJaunes.has(short)) return null;
     const fr = institParShort.get(short);
     return fr && company.kpi_instit ? { fr, industrie: company.kpi_instit.industrie } : null;
   };
-  const orderedKpis = groupesKpis.avances.filter((k) => !institParShort.has(k.short));
-  const kpisStandard = groupesKpis.standards.filter((k) => !institParShort.has(k.short));
+  const orderedKpis = groupesKpis.avances.filter((k) => !shortsInstitJaunes.has(k.short));
+  const kpisStandard = groupesKpis.standards.filter((k) => !shortsInstitJaunes.has(k.short));
   const kpisArretes = groupesKpis.arretes;
   const [showArretes, setShowArretes] = useState(false);
   const caTrimestriels = groupesKpis.caTrimestriels;
@@ -955,6 +968,7 @@ export function CompanyView({
           ticker={company.ticker}
           nomSociete={company.name}
           adminNomsExport={adminNomsExport}
+          reserve={freeBlocked}
         />
       ) : null
     ) : (
@@ -969,7 +983,7 @@ export function CompanyView({
 
   // Yann 14 mai 2026 : fallback YoY computed from history when dataset
   // yoy is empty (ex Tesla Energy Storage GWh : yoy='', history dispo).
-  const effectiveYoy: string | number = (() => {
+  const effectiveYoyBrut: string | number = (() => {
     const h = Array.isArray(active.history) ? active.history : [];
     // Yann 15 juil 2026 (screen AAPL "+0,3 %") : sur une série trimestrielle,
     // le YoY affiché DOIT être vs même trimestre N-1 (4 pas en arrière),
@@ -987,11 +1001,11 @@ export function CompanyView({
       // croissance) se compare en POINTS. Avant, la croissance des impressions
       // publicitaires de META (5 % au T1 2025 -> 19 % au T1 2026) s'affichait
       // "+280,0 %", lu comme une hausse de 280 % des impressions.
-      const isPctUnit = String(active.unit ?? "").trim() === "%";
+      const isPctUnit = estUnitePourcent(active.unit);
       // Yann 30 aout 2026 : plus de "pt"/"pts"/"pp" affiches. La variation
       // d'un KPI en % s'ecrit comme un % qui change : "+0,5 %" / "-4,0 %".
-      const ptsLabel = (diff: number) =>
-        `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+      // 13 oct 2026 : ecart en points « pt(s) », zero masque (variation-kpi.ts).
+      const ptsLabel = (diff: number) => formatEcartPoints(diff);
       if (byLabel !== null) {
         if (isPctUnit) {
           const li = h.length - 1;
@@ -1001,8 +1015,7 @@ export function CompanyView({
         }
         const pub = yoyPublieSiArrondi(active, h[h.length - 1] as number, h[h.length - 5] as number);
         const v = pub ?? byLabel;
-        const sign = v > 0 ? "+" : "";
-        return `${sign}${v.toFixed(1).replace(".", ",")} %`;
+        return formatVariationPct(v);
       }
       const last = h[h.length - 1];
       const prevY = h[h.length - 5];
@@ -1011,23 +1024,22 @@ export function CompanyView({
       }
       if (typeof last === "number" && typeof prevY === "number" && prevY !== 0) {
         const pct = ((last - prevY) / Math.abs(prevY)) * 100;
-        const sign = pct > 0 ? "+" : "";
-        return `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+        return formatVariationPct(pct);
       }
     }
     // Yann 30 aout 2026 : les yoy stockes "pp"/"pt(s)" s'affichent en " %"
     // (une variation de KPI en % s'ecrit comme un % qui change).
     // 27 sept 2026 : KPI en % annuel : ecart en points calcule, jamais le
     // yoy stocke (souvent un ratio de taux, ex GEHC « -480 % »).
-    if (String(active.unit ?? "").trim() === "%" && h.length >= 2) {
+    if (estUnitePourcent(active.unit) && h.length >= 2) {
       const a = h[h.length - 1], b = h[h.length - 2];
       if (typeof a === "number" && typeof b === "number") {
         const diff = a - b;
-        return `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+        return formatEcartPoints(diff);
       }
     }
     if (typeof active.yoy === "string" && active.yoy.trim())
-      return active.yoy.replace(/\s*(pp|pts?)\b/g, " %");
+      return active.yoy;
     if (typeof active.yoy === "number" && Number.isFinite(active.yoy)) return active.yoy;
     if (h.length < 2) return "";
     const last = h[h.length - 1];
@@ -1036,14 +1048,21 @@ export function CompanyView({
     // Yann 30 aout 2026 : meme regle que le bloc trimestriel, un KPI deja en %
     // se compare en points (affiches " %"), jamais en ratio (KO "Effet
     // prix/mix" 5 -> 2 affichait "-60,0 %").
-    if (String(active.unit ?? "").trim() === "%") {
+    if (estUnitePourcent(active.unit)) {
       const diff = last - prev;
-      return `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+      return formatEcartPoints(diff);
     }
     const pct = ((last - prev) / Math.abs(prev)) * 100;
-    const sign = pct > 0 ? "+" : "";
-    return `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+    return formatVariationPct(pct);
   })();
+  // 13 oct 2026 (verif n2) : meme normalisation que le tableau (points en
+  // « pt(s) », zero masque, jamais « -0,0 % »).
+  const effectiveYoy: string = normaliserVariation(
+    typeof effectiveYoyBrut === "number"
+      ? `${effectiveYoyBrut > 0 ? "+" : ""}${effectiveYoyBrut}`
+      : String(effectiveYoyBrut ?? ""),
+    active.unit,
+  );
   const tone = yoyTone(effectiveYoy, active.type);
   const yoyColor =
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
@@ -1306,7 +1325,7 @@ export function CompanyView({
             </Link>
             <PageSearch variant="default" />
             <div className="ml-auto flex shrink-0 items-center gap-1 pl-2 sm:gap-2 sm:pl-3">
-              <div className="hidden sm:block"><ThemeToggle paid={isPaidTier} /></div>
+              <ThemeApplique paid={isPaidTier} />
               <NavPlusMenu paid={isPaidTier} anon={freemiumTier === "anon"} />
               <div className="relative z-[70]">{authSlot}</div>
             </div>

@@ -16,7 +16,7 @@
  * visibles, et `short` sert de clé logique partout.
  */
 
-import type { Company } from "@/lib/data";
+import type { Company, MarketPosition } from "@/lib/data";
 import type { Zone } from "@/lib/floutage";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { estKpiStandard } from "@/lib/kpi-standard";
@@ -62,6 +62,84 @@ export function caviardeNombre(n: number): number {
   const faux = magnitude * facteur;
   const decimales = abs < 10 ? 1 : 0;
   return signe * Number(faux.toFixed(decimales));
+}
+
+/** Graine deterministe tiree d une chaine (meme rendu serveur et client). */
+function graineDe(t: string): number {
+  let g = 7;
+  for (let i = 0; i < t.length; i++) g = (g * 31 + t.charCodeAt(i)) % 100003;
+  return g;
+}
+
+/** Arrondi d affichage d un montant factice (entier au-dela de 10). */
+function arrondiMontant(v: number): number {
+  const a = Math.abs(v);
+  return Number(v.toFixed(a < 1 ? 3 : a < 10 ? 1 : 0));
+}
+
+/** Facteur d unite vers le milliard (M = 1e-3), meme regle que enMilliards. */
+function versMilliards(unite: string | null | undefined): number {
+  const u = (unite ?? "").replace(/[\s$€£]/g, "");
+  return /^(M|m|Mn|Mio)$/.test(u) ? 1e-3 : /^(K|k)$/.test(u) ? 1e-6 : 1;
+}
+
+/**
+ * Yann 13 oct 2026 : positions de marche factices COHERENTES. Avant, revenu du
+ * segment et taille du marche etaient brouilles separement : une capture du
+ * palier gratuit pouvait montrer 143 Mds $ de revenu pour un marche de
+ * 140 Mds $. Desormais la taille du marche est brouillee (meme ordre de
+ * grandeur), puis le revenu en est deduit par une part factice de 4 a 38 %,
+ * unites converties ; la fourchette encadre le marche factice et la
+ * croissance reste entre -15 et +40 % par an.
+ */
+export function caviardePositionMarche(p: MarketPosition): MarketPosition {
+  const g = graineDe(`${p.segment_name}|${p.tam}|${p.segment_revenue}`);
+  const tam = Number.isFinite(p.tam) && p.tam > 0 ? Math.abs(caviardeNombre(p.tam)) : 100;
+  const part = 0.04 + (g % 35) / 100; // 4 a 38 %
+  const fTam = versMilliards(p.tam_unit);
+  const fSeg = versMilliards(p.segment_unit);
+  const revenu = arrondiMontant((tam * fTam * part) / fSeg);
+  const out: MarketPosition = { ...p, tam, segment_revenue: revenu > 0 ? revenu : arrondiMontant((tam * fTam * 0.05) / fSeg) };
+  if (p.tam_range) out.tam_range = [arrondiMontant(tam * 0.8), arrondiMontant(tam * 1.25)];
+  if (typeof p.market_cagr === "number" && Number.isFinite(p.market_cagr)) {
+    out.market_cagr = Math.max(-15, Math.min(40, caviardeNombre(p.market_cagr)));
+  }
+  return out;
+}
+
+/** Parts d actionnaires factices : decroissantes, total au plus 100 %. */
+function remetEnOrdreParts<T extends { stake_pct?: number }>(liste: T[] | undefined): T[] | undefined {
+  if (!Array.isArray(liste)) return liste;
+  const parts = liste.map((x) => (typeof x.stake_pct === "number" && Number.isFinite(x.stake_pct) ? Math.min(100, Math.abs(x.stake_pct)) : null));
+  const somme = parts.reduce<number>((a, b) => a + (b ?? 0), 0);
+  const echelle = somme > 95 ? 95 / somme : 1;
+  const triees = parts.filter((x): x is number => x !== null).map((x) => Number((x * echelle).toFixed(1))).sort((a, b) => b - a);
+  let i = 0;
+  return liste.map((x, k) => (parts[k] === null ? x : { ...x, stake_pct: triees[i++] }));
+}
+
+/**
+ * Gouvernance factice coherente : pourcentages entre 0 et 100, top 3 dans
+ * l ordre et sommant a 100 % au plus, remuneration totale = somme des parts.
+ */
+function remetEnCoherenceGouvernance<G>(g: G): G {
+  const o = g as Record<string, unknown>;
+  for (const [k, v] of Object.entries(o)) {
+    if (k.endsWith("_pct") && typeof v === "number") o[k] = Math.max(0, Math.min(100, v));
+  }
+  o.top_voting = remetEnOrdreParts(o.top_voting as { stake_pct?: number }[] | undefined);
+  o.top_capital = remetEnOrdreParts(o.top_capital as { stake_pct?: number }[] | undefined);
+  const cd = o.comp_detail as Record<string, unknown> | undefined;
+  if (cd) {
+    const cles = ["ceo_salary_m", "ceo_bonus_m", "ceo_stock_awards_m", "ceo_option_awards_m", "ceo_non_equity_incentive_m", "ceo_other_m"];
+    const comps = cles.map((k) => cd[k]).filter((x): x is number => typeof x === "number" && Number.isFinite(x));
+    if (comps.length > 0) {
+      const total = Number(comps.reduce((a, b) => a + Math.abs(b), 0).toFixed(1));
+      cd.ceo_total_comp_m = total;
+      if (typeof o.ceo_total_comp_m === "number") o.ceo_total_comp_m = total;
+    }
+  }
+  return g;
 }
 
 // Clés STRUCTURELLES jamais caviardées : ce sont des repères de lecture ou des
@@ -142,7 +220,7 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
   if (estActive(zones, "governance", "texte") && c.governance) {
     // Gouvernance : les montants (rémunérations, ratios) sont la donnée
     // elle-même — nombres remplacés par des factices de même magnitude.
-    c.governance = caviardeProfond(c.governance, true);
+    c.governance = remetEnCoherenceGouvernance(caviardeProfond(c.governance, true));
   }
 
   if (estActive(zones, "ai_positioning", "texte") && c.ai_positioning) {
@@ -175,6 +253,10 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
       // 25 sept 2026 : la borne « < 1 % » (valeur texte) restait en clair.
       if (cc.top && (typeof cc.top.pct === "number" || cc.top.pct === "<1")) cc.top.pct = Math.min(99, caviardeNombre(typeof cc.top.pct === "number" ? cc.top.pct : 0.7));
       if (cc.top10 && (typeof cc.top10.pct === "number" || cc.top10.pct === "<1")) cc.top10.pct = Math.min(99, caviardeNombre(typeof cc.top10.pct === "number" ? cc.top10.pct : 0.7));
+      // 13 oct 2026 : les dix premiers clients pesent au moins autant que le premier.
+      if (cc.top && cc.top10 && typeof cc.top.pct === "number" && typeof cc.top10.pct === "number" && cc.top10.pct < cc.top.pct) {
+        cc.top10.pct = Math.min(99, Number((cc.top.pct * 1.6).toFixed(1)));
+      }
     }
   }
 
@@ -186,12 +268,9 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
         if (p.source_note) p.source_note = caviarde(p.source_note);
         if (p.source) p.source = caviarde(p.source);
       }
-      if (estActive(zones, "tam", "valeur") || estActive(zones, "tam", "graphique")) {
-        p.segment_revenue = caviardeNombre(p.segment_revenue);
-        p.tam = caviardeNombre(p.tam);
-        if (p.tam_range) p.tam_range = [caviardeNombre(p.tam_range[0]), caviardeNombre(p.tam_range[1])];
-        if (typeof p.market_cagr === "number") p.market_cagr = caviardeNombre(p.market_cagr);
-      }
+    }
+    if (estActive(zones, "tam", "valeur") || estActive(zones, "tam", "graphique")) {
+      c.market_positions = c.market_positions.map(caviardePositionMarche);
     }
   }
 
@@ -286,4 +365,39 @@ export function caviardeRachatsPourGratuit<
     c.classement = { us: f(c.classement.us), eu: f(c.classement.eu) };
   }
   return c;
+}
+
+/**
+ * Yann 13 oct 2026 : bloc « KPI moyen terme » (graphiques image_findings)
+ * entierement reserve aux abonnes. Aux paliers gratuit et anonyme (hors
+ * vitrine), AUCUNE donnee reelle du bloc ne part au navigateur : titre,
+ * legende, lecture et date sont remplaces par du texte factice, et l image par
+ * un graphique generique sans donnee. Le nombre de graphiques est conserve
+ * (navigation identique). Le titre et le sous-titre du bloc, communs a toutes
+ * les fiches, ne sont pas des donnees et restent lisibles.
+ */
+export const IMAGE_MOYEN_TERME_RESERVE = "/findings/_reserve-abonnes.svg";
+export function caviardeMoyenTermePourGratuit<C extends object>(company: C): C {
+  const c = company as C & { image_findings?: Record<string, unknown>[] };
+  if (!Array.isArray(c.image_findings) || c.image_findings.length === 0) return company;
+  const factices = c.image_findings.map((f, i) => {
+    const t = (v: unknown) => (typeof v === "string" && v ? caviarde(v) : null);
+    return {
+      id: `reserve-${i + 1}`,
+      image_url: IMAGE_MOYEN_TERME_RESERVE,
+      image_local_path: IMAGE_MOYEN_TERME_RESERVE,
+      title: t(f.title),
+      caption: t(f.caption),
+      summary: t(f.summary),
+      source_url: null,
+      source_author: null,
+      source_handle: null,
+      source_date: null,
+      source_platform: null,
+      show_summary: f.show_summary !== false,
+      target_tickers: [],
+      industry_kpi: f.industry_kpi ? "reserve" : null,
+    };
+  });
+  return { ...c, image_findings: factices };
 }

@@ -232,7 +232,10 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   const AFX = mobile ? Math.min(AF_AXES, Math.max(1, 10 / (echelleSvg * 13))) : 1;
   const labelFontSize = (isCrowded ? 13 : 17) * AFX;
   const nReelAxe = hasTTM ? allLabels.length - 1 : allLabels.length;
-  const pasX = pasTrimestres(pasEtiquettes(mobile, INNER_W / Math.max(allData.length, 1), Math.max(...allLabels.map((l) => splitQuarterLabel(l).top.length), 1), labelFontSize), allLabels);
+  // 13 oct 2026 (verif n2, PAYX 64 trimestres illisibles sur ordinateur) : la
+  // decimation des trimestres vaut aussi sur ordinateur ; trop serres, seules
+  // les annees restent.
+  const pasX = pasTrimestres(pasEtiquettes(true, INNER_W / Math.max(allData.length, 1), Math.max(...allLabels.map((l) => splitQuarterLabel(l).top.length), 1), labelFontSize), allLabels);
   const pasAnnee = pasEtiquettes(mobile, yearGroups.length ? INNER_W / yearGroups.length : INNER_W, 4, 13 * AFX);
   // Valeurs TOUJOURS affichées au-dessus de chaque barre (demande Yann
   // 5 mai 2026), font-size adapté à la densité pour éviter les chevauchements.

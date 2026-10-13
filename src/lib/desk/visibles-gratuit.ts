@@ -8,6 +8,7 @@
  * sur la fiche) et seules elles peuvent aller au comparateur et aux favoris.
  */
 import { createClient } from "@supabase/supabase-js";
+import { reglagesFloutage } from "@/lib/reglages-cache";
 import type { UserTier } from "@/lib/freemium/context";
 import { VISIBLES_GRATUIT_DEFAUT } from "@/lib/freemium/visibles-gratuit-defaut";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
@@ -43,12 +44,9 @@ export async function chargeVisiblesGratuit(): Promise<string[]> {
   if (CACHE && Date.now() - CACHE.at < 60_000) return CACHE.v;
   let v: string[] = [...VISIBLES_GRATUIT_DEFAUT];
   try {
-    const { data } = await admin()
-      .from("desk_page_content")
-      .select("content_fr")
-      .eq("page_key", PAGE_KEY)
-      .eq("section_key", SECTION)
-      .maybeSingle();
+    // 13 oct 2026 (journaux Supabase) : page floutage lue en une fois, en
+    // cache partage vide a chaque enregistrement.
+    const data = (await reglagesFloutage.lire())[SECTION] ?? null;
     if (data) {
       try {
         v = normalise(JSON.parse(data.content_fr ?? "[]"));
@@ -76,6 +74,7 @@ export async function enregistreVisiblesGratuit(tickers: unknown): Promise<strin
       { onConflict: "page_key,section_key" },
     );
   if (error) throw new Error(error.message);
+  reglagesFloutage.invalider();
   CACHE = null;
   return liste;
 }

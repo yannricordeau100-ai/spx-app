@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { requireDeskOwner } from "@/lib/desk/auth";
+import { tableFindingsApprouves } from "@/lib/desk/tables-fiche";
 import {
   listRequests,
   upsertRequest,
@@ -97,5 +98,7 @@ export async function DELETE(req: Request) {
   const { id } = await req.json();
   if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
   await deleteRequest(id);
+  // 13 oct 2026 : les graphiques de la demande peuvent partir avec elle.
+  tableFindingsApprouves.invalider();
   return NextResponse.json({ ok: true });
 }

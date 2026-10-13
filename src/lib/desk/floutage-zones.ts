@@ -13,6 +13,7 @@
  */
 import { createClient } from "@supabase/supabase-js";
 import type { Zone } from "@/lib/floutage";
+import { reglagesFloutage } from "@/lib/reglages-cache";
 
 const PAGE_KEY = "floutage";
 const SECTION_GLOBAL = "zones";
@@ -30,12 +31,15 @@ function admin() {
 }
 
 async function lit(section: string): Promise<Zone[] | null> {
-  const { data } = await admin()
-    .from("desk_page_content")
-    .select("content_fr")
-    .eq("page_key", PAGE_KEY)
-    .eq("section_key", section)
-    .maybeSingle();
+  // 13 oct 2026 (journaux Supabase) : toutes les lignes de la page floutage
+  // sont lues en une fois, en cache partage vide a chaque enregistrement.
+  // Base injoignable : null, comme avant (aucune ligne lue).
+  let data: { content_fr: string | null } | null = null;
+  try {
+    data = (await reglagesFloutage.lire())[section] ?? null;
+  } catch {
+    data = null;
+  }
   if (!data) return null;
   try {
     const parsed = JSON.parse(data.content_fr ?? "[]");
@@ -88,6 +92,7 @@ export async function enregistreZonesFloutage(
       { onConflict: "page_key,section_key" },
     );
   if (error) throw new Error(error.message);
+  reglagesFloutage.invalider();
   // Le cache memoire garderait l ancien reglage jusqu a 60 s : on le vide
   // pour que l enregistrement se voie immediatement sur la fiche.
   CACHE_ZONES.delete((ticker ?? "*").toUpperCase());
@@ -102,6 +107,8 @@ export async function supprimeZonesFloutage(ticker: string): Promise<void> {
     .eq("page_key", PAGE_KEY)
     .eq("section_key", sectionPour(ticker));
   if (error) throw new Error(error.message);
+  reglagesFloutage.invalider();
+  CACHE_ZONES.delete(ticker.toUpperCase());
 }
 
 /** Societes ayant un reglage propre (section zones:<TICKER>). */

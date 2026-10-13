@@ -16,7 +16,7 @@
  */
 import { promises as fs } from "fs";
 import path from "path";
-import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { tableAtt } from "@/lib/desk/tables-fiche";
 import { coerceAtt, type CompanyAtt } from "@/lib/att";
 
 type CacheEntry = { att: CompanyAtt | null; at: number };
@@ -39,14 +39,12 @@ async function readLocalAtt(ticker: string): Promise<CompanyAtt | null> {
 
 async function readSupabaseAtt(ticker: string): Promise<CompanyAtt | null> {
   try {
-    const supabase = createSupabaseAdminClient();
-    const { data, error } = await supabase
-      .from("desk_att")
-      .select("payload")
-      .eq("ticker", ticker.toUpperCase())
-      .maybeSingle();
-    if (error || !data) return null;
-    return coerceAtt((data as { payload?: unknown }).payload);
+    // 13 oct 2026 : table lue en une fois et mise en cache (tables-fiche.ts),
+    // au lieu d une requete par societe (journaux Supabase).
+    const { parTicker } = await tableAtt.lire();
+    const payload = parTicker[ticker.toUpperCase()];
+    if (payload === undefined || payload === null) return null;
+    return coerceAtt(structuredClone(payload)); // copie : jamais l objet du cache
   } catch {
     // Env vars absentes / table absente / réseau : fallback local silencieux.
     return null;
@@ -74,4 +72,6 @@ export async function loadAttForTicker(
 export function invalidateAttCache(ticker?: string): void {
   if (ticker) cache.delete(ticker.toUpperCase());
   else cache.clear();
+  // 13 oct 2026 : vide aussi la table en cache (memoire + cache partage).
+  tableAtt.invalider();
 }

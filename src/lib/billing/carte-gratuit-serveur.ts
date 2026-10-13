@@ -3,6 +3,7 @@
  * Stockage : desk_page_content (page_key « pricing », section_key « carte_gratuit »).
  */
 import { createClient } from "@supabase/supabase-js";
+import { invaliderTarifs, tarifsCarteGratuit } from "./tarifs-cache";
 import { CARTE_GRATUIT_PAGE_KEY, CARTE_GRATUIT_SECTION_KEY, lireCarteGratuit, type CarteGratuit } from "./carte-gratuit";
 
 function adminClient() {
@@ -15,12 +16,8 @@ function adminClient() {
 /** Réglage enregistré, ou null (affichage par défaut). Jamais d exception. */
 export async function chargeCarteGratuit(): Promise<CarteGratuit | null> {
   try {
-    const { data } = await adminClient()
-      .from("desk_page_content")
-      .select("content_fr, is_active")
-      .eq("page_key", CARTE_GRATUIT_PAGE_KEY)
-      .eq("section_key", CARTE_GRATUIT_SECTION_KEY)
-      .maybeSingle();
+    // 13 oct 2026 (journaux Supabase) : en cache partage, vide a l enregistrement.
+    const data = await tarifsCarteGratuit.lire();
     if (!data || data.is_active === false) return null;
     return lireCarteGratuit(data.content_fr as string | null);
   } catch {
@@ -42,4 +39,5 @@ export async function enregistreCarteGratuit(reglage: CarteGratuit | null): Prom
       { onConflict: "page_key,section_key" },
     );
   if (error) throw error;
+  invaliderTarifs();
 }

@@ -267,18 +267,23 @@ export function MarketPositionList({
                 </div>
               </div>
 
-              <div data-blur-part="valeur" className="grid grid-cols-3 gap-x-3 @3xl:contents">
+              {/* Yann 13 oct 2026 : le marqueur de flou « valeur » etait pose sur
+                  ce conteneur, qui passe en display:contents en grand format.
+                  Un element sans boite ne se floute pas : revenu et taille du
+                  marche (factices au palier gratuit) s affichaient en clair. Le
+                  marqueur est desormais pose sur chaque montant. */}
+              <div className="grid grid-cols-3 gap-x-3 @3xl:contents">
                 <div className="min-w-0 @3xl:text-right">
                   <div className={`${ETIQUETTE} mb-1 @3xl:hidden`}>Revenu</div>
-                  <Montant valeur={p.segment_revenue} unite={p.segment_unit} />
+                  <div data-blur-part="valeur"><Montant valeur={p.segment_revenue} unite={p.segment_unit} /></div>
                 </div>
                 <div className="min-w-0 @3xl:text-right">
                   <div className={`${ETIQUETTE} mb-1 @3xl:hidden`}>Marché</div>
-                  <Montant valeur={p.tam} unite={p.tam_unit} />
+                  <div data-blur-part="valeur"><Montant valeur={p.tam} unite={p.tam_unit} /></div>
                 </div>
                 <div data-blur-part="texte" className="min-w-0 @3xl:text-right">
                   <div className={`${ETIQUETTE} mb-1 @3xl:hidden`}>Croissance</div>
-                  <Croissance cagr={p.market_cagr} c={c} />
+                  <div data-blur-part="valeur"><Croissance cagr={p.market_cagr} c={c} /></div>
                 </div>
               </div>
             </li>

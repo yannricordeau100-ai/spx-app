@@ -1,5 +1,6 @@
 "use client";
 
+import { normaliserVariation } from "@/lib/variation-kpi";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import dynamic from "next/dynamic";
@@ -65,7 +66,7 @@ function enCarte(sl: StorySlide, i: number, ticker: string, locale: string): Car
   }
   const d = k.last_data_date ? Date.parse(String(k.last_data_date)) : NaN;
   const yoy = typeof k.yoy === "string" && k.yoy.trim() && k.yoy.toLowerCase() !== "n/a"
-    ? k.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1 %")
+    ? normaliserVariation(k.yoy, k.unit) || null
     : null;
   return {
     id: `kpi-${k.short ?? i}-${i}`,

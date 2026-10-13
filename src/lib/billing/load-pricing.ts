@@ -17,7 +17,7 @@
  */
 import { chargeVisiblesGratuit } from "@/lib/desk/visibles-gratuit";
 import { TICKER_DEDUP_ALIASES } from "@/lib/ticker-dedup-aliases";
-import { createClient } from "@supabase/supabase-js";
+import { tarifsFonctions, tarifsPlansPrix } from "./tarifs-cache";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, type PlanDisplay, type PlanTier, type FeatureRow } from "./plans";
 import type { Currency, Frequency } from "./admin-types";
 import { getExchangeRate } from "@/lib/currency";
@@ -125,17 +125,14 @@ export async function loadPricingForPublic(targetCurrency?: string): Promise<Loa
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!url || !key) throw new Error("Supabase keys missing");
 
-    const supabase = createClient(url, key, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
+    // 13 oct 2026 (journaux Supabase) : lignes brutes en cache partage de
+    // 5 min, vide a chaque enregistrement du back-office (tarifs-cache.ts).
+    // Une erreur de base remonte et mene au repli ci-dessous, comme avant.
+    const { plans: plansBruts, prix } = await tarifsPlansPrix.lire();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const plans = plansBruts as any[];
 
-    const { data: plans, error: plansErr } = await supabase
-      .from("pricing_plans")
-      .select("*")
-      .eq("is_active", true)
-      .order("tier_order", { ascending: true });
-
-    if (plansErr || !plans || plans.length === 0) {
+    if (!plans || plans.length === 0) {
       // Migration pas appliquée OU BDD vide → fallback
       return FALLBACK_PLANS.map((p) => ({ ...p, code: p.tier, prices: defaultPricesForTier(p.tier) }));
     }
@@ -144,7 +141,8 @@ export async function loadPricingForPublic(targetCurrency?: string): Promise<Loa
     // pouvoir griser les CTAs des devises non encore activées au lieu
     // de les masquer. Le filtre is_active est appliqué côté front en
     // lisant `prices[currency].monthly.active`.
-    const { data: prices } = await supabase.from("pricing_prices").select("*");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const prices = prix as any[];
     // 8 oct 2026 (Yann) : le back-office fait foi. Le montant affiche est celui
     // de la base ; chaque enregistrement cree le prix Stripe correspondant
     // (src/lib/billing/stripe-prix-sync.ts), donc affiche = facture.
@@ -276,27 +274,29 @@ async function loadPricingCatalogBrut(targetCurrency?: string): Promise<LoadedCa
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!url || !key) throw new Error("Supabase keys missing");
-    const supabase = createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
+    // Yann 25 mai 2026 : sort UNIQUEMENT par feature_order (== ordre BO).
+    // Avant : (category_order, feature_order) ce qui réordonnait
+    // silencieusement quand 2 features avaient le même category_order et
+    // que l'utilisateur déplaçait via flèches/drag (qui ne touchent QUE
+    // feature_order). Résultat : ordre BO ≠ ordre app. La matrice reste
+    // groupée par category (logique côté composant).
+    // 13 oct 2026 (journaux Supabase) : memes requetes, en cache partage de
+    // 5 min vide a chaque enregistrement du back-office (tarifs-cache.ts).
+    const { fonctions, valeurs, codesPlans } = await tarifsFonctions.lire();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const featRes = { data: fonctions as any[] };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pfRes = { data: valeurs as any[] };
 
-    const [featRes, pfRes] = await Promise.all([
-      // Yann 25 mai 2026 : sort UNIQUEMENT par feature_order (== ordre BO).
-      // Avant : (category_order, feature_order) ce qui réordonnait
-      // silencieusement quand 2 features avaient le même category_order et
-      // que l'utilisateur déplaçait via flèches/drag (qui ne touchent QUE
-      // feature_order). Résultat : ordre BO ≠ ordre app. La matrice reste
-      // groupée par category (logique côté composant).
-      supabase.from("pricing_features").select("*").eq("is_active", true).order("feature_order"),
-      supabase.from("pricing_plan_features").select("*").eq("is_active", true),
-    ]);
-
-    if (featRes.error || !featRes.data || featRes.data.length === 0) {
+    if (!featRes.data || featRes.data.length === 0) {
       // BDD vide → fallback
       return { plans, features: FALLBACK_FEATURES };
     }
 
     // Mapping {plan_id → tier interne normalisé}
     const tierByPlanId = new Map<string, PlanTier>();
-    const { data: dbPlans } = await supabase.from("pricing_plans").select("id, code");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const dbPlans = codesPlans as any[];
     if (dbPlans) {
       for (const p of dbPlans) tierByPlanId.set(p.id, normalizePlanCode(p.code));
     }

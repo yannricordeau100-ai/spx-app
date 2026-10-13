@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { headers } from "next/headers";
 import { getServerLocale } from "@/lib/i18n/server";
 import { AuthNav } from "@/components/auth-nav";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeApplique } from "@/components/theme-toggle";
 import { AuthModal } from "@/components/auth-modal";
 import { AuthRequiredBanner } from "@/components/auth-required-banner";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -250,7 +250,7 @@ async function PopulairePageArchivee() {
         </Link>
       </div>
       <div className="relative z-50 flex w-full items-center justify-between gap-2 px-4 pt-4 sm:fixed sm:left-auto sm:right-6 sm:top-6 sm:w-auto sm:justify-end sm:gap-3 sm:px-0 sm:pt-0">
-        <ThemeToggle paid={themePaid} />
+        <ThemeApplique paid={themePaid} />
         <AuthNav />
       </div>
       <PopulaireClient

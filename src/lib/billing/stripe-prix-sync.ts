@@ -20,6 +20,7 @@
  * periode n existe deja (nouveau plan) : jamais de doublon de produit.
  */
 import type Stripe from "stripe";
+import { invaliderTarifs } from "./tarifs-cache";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { getStripe } from "./stripe";
 
@@ -215,5 +216,11 @@ export async function synchroniseStripeServeur(opts: { planId?: string; simulati
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error("Supabase service role keys missing");
   const supa = createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
-  return synchroniseStripe(getStripe(), supa, opts);
+  try {
+    return await synchroniseStripe(getStripe(), supa, opts);
+  } finally {
+    // 13 oct 2026 : les identifiants de prix Stripe sont lus par le catalogue
+    // public en cache partage (tarifs-cache.ts).
+    invaliderTarifs();
+  }
 }

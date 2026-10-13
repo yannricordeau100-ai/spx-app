@@ -3,7 +3,7 @@
 import { ArrowDownRight, ArrowUpRight, Check, Landmark } from "lucide-react";
 import { type KPI, formatCAGR, formatUnit, formatHeroValue, yoySamePeriod, yoyPublieSiArrondi } from "@/lib/data";
 import { cn, yoyTone } from "@/lib/utils";
-import { variationAffichee } from "@/lib/variation-kpi";
+import { variationAffichee, estUnitePourcent, formatEcartPoints, formatVariationPct } from "@/lib/variation-kpi";
 import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
 import { QualityBadge } from "@/components/quality-badge";
@@ -326,7 +326,10 @@ export function KpiRow({
           // Yann 30 aout 2026 : un KPI deja exprime en % se compare en POINTS
           // (affiches " %", plus jamais "pp"/"pts"), jamais en ratio. Avant,
           // KO "Effet prix/mix" 5 % -> 2 % affichait "-60,0 %".
-          const isPctUnit = String(kpi.unit ?? "").trim() === "%";
+          const isPctUnit = estUnitePourcent(kpi.unit);
+          // 13 oct 2026 : vrai des qu une variation a ete calculee depuis la serie,
+          // meme nulle (masquee) : le yoy stocke ne doit pas reprendre la main.
+          let calcule = false;
           if (
             isPctUnit &&
             kpi.period_type === "quarter" &&
@@ -338,7 +341,7 @@ export function KpiRow({
             const prevV = kpi.history[li - 4];
             if (typeof lastV === "number" && typeof prevV === "number") {
               const diff = lastV - prevV;
-              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+              yoyStr = formatEcartPoints(diff); calcule = true;
             }
           }
           // 27 sept 2026 : meme regle pour un KPI en % annuel (544 KPI
@@ -350,7 +353,7 @@ export function KpiRow({
             const prevV = kpi.history[li - 1];
             if (typeof lastV === "number" && typeof prevV === "number") {
               const diff = lastV - prevV;
-              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")}\u00a0%`;
+              yoyStr = formatEcartPoints(diff); calcule = true;
             }
           }
           if (
@@ -376,11 +379,10 @@ export function KpiRow({
               const hh = kpi.history as number[];
               const pub = yoyPublieSiArrondi(kpi, hh[hh.length - 1], hh[hh.length - 5]);
               if (pub !== null) pct = pub;
-              const sign = pct > 0 ? "+" : "";
-              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")}\u00a0%`;
+              yoyStr = formatVariationPct(pct); calcule = true;
             }
           }
-          if (yoyStr) {
+          if (yoyStr || calcule) {
             // recalcul trimestriel prioritaire déjà posé
           } else if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
             const sign = kpi.yoy > 0 ? "+" : "";
@@ -390,7 +392,8 @@ export function KpiRow({
             // Yann 16 mai 2026 : normalise format point décimal US (data brut
             // "+0.8 pts" ou "-1.2%") vers virgule FR. Match floats avec point.
             // Yann 9 août 2026 : + espace insécable avant % ("+4%" → "+4 %").
-            yoyStr = kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1 %").replace(/\s*(pp|pts?)\b/g, "\u00a0%");
+            // 13 oct 2026 : normalisation (points, zero, virgule) faite par variationAffichee.
+            yoyStr = kpi.yoy;
           } else if (Array.isArray(kpi.history) && kpi.history.length >= 2) {
             const last = kpi.history[kpi.history.length - 1];
             // Série trimestrielle : YoY = vs même trimestre N-1 (4 pas), pas QoQ.
@@ -400,11 +403,10 @@ export function KpiRow({
               // Yann 30 aout 2026 : KPI en % -> delta en points affiche " %",
               // jamais un ratio (KO "Effet prix/mix" 5 -> 2 donnait "-60,0 %").
               const diff = last - prev;
-              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")}\u00a0%`;
+              yoyStr = formatEcartPoints(diff); calcule = true;
             } else if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
               const pct = ((last - prev) / Math.abs(prev)) * 100;
-              const sign = pct > 0 ? "+" : "";
-              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")}\u00a0%`;
+              yoyStr = formatVariationPct(pct); calcule = true;
             }
           }
           if (!yoyStr) return null;

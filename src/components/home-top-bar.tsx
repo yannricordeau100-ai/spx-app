@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { AuthNav } from "@/components/auth-nav";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeApplique } from "@/components/theme-toggle";
 import { NavPlusMenu } from "@/components/nav-plus-menu";
 import { LogoMettrik } from "@/components/logo-mettrik";
 
 /**
  * Barre du haut de l'accueil.
  * Mobile : une seule barre fixe (logo a gauche ; Tarifs, langue, compte et
- * menu « ... » regroupes a droite, jour/nuit dans le menu).
+ * menu « ... » regroupes a droite ; jour/nuit dans la page compte seulement).
  * Ordinateur : groupe flottant en haut a droite, comme avant.
  */
 export function HomeTopBar({
@@ -36,9 +36,8 @@ export function HomeTopBar({
               Tarifs
             </Link>
           )}
-          <span className="max-sm:hidden">
-            <ThemeToggle paid={themePaid} />
-          </span>
+          {/* Yann 13 oct 2026 : plus de bouton Jour / Nuit ici (reglage dans la page compte). */}
+          <ThemeApplique paid={themePaid} />
           <AuthNav scope="home" compactMobile />
           <NavPlusMenu
             paid={themePaid}

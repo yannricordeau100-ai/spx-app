@@ -7,6 +7,7 @@ import { downloadSvgAsPng } from "@/lib/chart-export";
 import { pickI18n, type LocalizedString } from "@/lib/desk/image-findings";
 import { translate } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/types";
+import { ZoneReservee } from "@/components/freemium/zone-reservee";
 
 /**
  * Yann 20 sept 2026 : le titre pose en haut du document exporte ne porte
@@ -74,6 +75,7 @@ export function ImageFindingsBlock({
   ticker,
   nomSociete,
   adminNomsExport = null,
+  reserve = false,
 }: {
   findings: ImageFindingPublic[];
   accent?: string;
@@ -87,6 +89,10 @@ export function ImageFindingsBlock({
   /** Mission admin (1er oct 2026) : present uniquement pour l admin (controle
    *  serveur). Active la regle d export multi societes admin. */
   adminNomsExport?: Record<string, string> | null;
+  /** Yann 13 oct 2026 : palier gratuit (hors vitrine). Tout le bloc est floute
+   *  et inerte, sauf son titre et son sous-titre (communs a toutes les fiches).
+   *  Les graphiques recus sont deja factices (caviardage serveur). */
+  reserve?: boolean;
 }) {
   const [idx, setIdx] = useState(0);
   // Yann 18 sept 2026 : export PNG comme les graphiques long terme (signature Mettrik,
@@ -189,7 +195,11 @@ export function ImageFindingsBlock({
             {tt("image_findings.section_subtitle")}
           </p>
         </div>
-        <div data-blur="mt_fleches" className="flex items-center gap-1.5 self-end sm:self-auto">
+        <div
+          data-blur="mt_fleches"
+          className={`flex items-center gap-1.5 self-end sm:self-auto ${reserve ? "pointer-events-none select-none blur-[6px]" : ""}`}
+          aria-hidden={reserve || undefined}
+        >
           <span className="mr-1 text-[12px] text-zinc-500">
             ({safe + 1}/{findings.length})
           </span>
@@ -223,6 +233,7 @@ export function ImageFindingsBlock({
         </div>
       </div>
 
+      <ZoneReservee actif={reserve} palier="free" titre="KPI moyen terme réservés aux abonnés" detail="Tous les graphiques moyen terme de la société et leur lecture : inclus dès le plan Premium.">
       <div className="rounded-2xl border border-white/[0.08] bg-[#0a0a0a] p-4">
         {/* Titre du graph AU-DESSUS (Yann 17 mai 2026 : remettre comme avant).
             Le SVG n'a plus son titre rasterisé (strip), donc on l'affiche en
@@ -240,7 +251,7 @@ export function ImageFindingsBlock({
         <div
           data-blur-part="graphique"
           className="aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl bg-black/60 sm:cursor-default"
-          onClick={() => { if (typeof window !== "undefined" && window.innerWidth < 640) setAgrandi(true); }}
+          onClick={() => { if (!reserve && typeof window !== "undefined" && window.innerWidth < 640) setAgrandi(true); }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {/* Yann 18 mai 2026 : priorité au SVG local recréé. f.image_url
@@ -321,6 +332,7 @@ export function ImageFindingsBlock({
           ))}
         </div>
       )}
+      </ZoneReservee>
       <ChartFullscreen open={agrandi} onClose={() => setAgrandi(false)} titre={displayTitle ?? ""}>
         {inlineSvg ? (
           <div className="w-full [&>svg]:h-auto [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: inlineSvg }} />
