@@ -51,7 +51,7 @@ const FONT =
 
 // Yann 15 sept 2026 : logo servi depuis le domaine public stable (niveau2 change a chaque build).
 const LOGO_URL =
-  "https://mettrik.ai/brand/mettrik-ai-white-purple.png";
+  "https://mettrik.ai/email/mettrik-logo-email.png";
 
 const STR: Record<
   LayoutLocale,
@@ -149,7 +149,7 @@ export function renderEmailLayout(opts: EmailLayoutOptions): string {
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;">
 
 <tr><td style="padding:0 4px 20px;">
-<img src="${LOGO_URL}" width="140" alt="Mettrik AI · KPI Intelligence" style="display:block;width:140px;max-width:140px;height:auto;border:0;">
+<img src="${LOGO_URL}" width="180" height="37" alt="Mettrik AI · KPI Intelligence" style="display:block;width:180px;max-width:180px;height:auto;border:0;">
 </td></tr>
 
 <tr><td bgcolor="#0b0b0e" style="background:${C.card};border:1px solid ${C.border};border-radius:16px;padding:32px;">
