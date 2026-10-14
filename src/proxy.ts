@@ -89,8 +89,12 @@ let maintenanceCache: { valeur: "on" | "off" | "env"; tarifs: "ouvert" | "mainte
 async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
   const maintenant = Date.now();
   if (maintenant > maintenanceCache.expire) {
-    // Valeur par defaut si la lecture echoue : suivre l env.
-    maintenanceCache = { valeur: "env", tarifs: "ouvert", expire: maintenant + 20_000 };
+    // 14 oct 2026 : si la lecture echoue (delai, demarrage a froid), on GARDE la derniere valeur
+    // connue au lieu de retomber sur l env (MAINTENANCE_MODE) : un visiteur voyait « Bientot en ligne »
+    // pendant 20 s alors que le reglage en base est « off ». L env ne sert qu avant toute lecture reussie.
+    const precedent = maintenanceCache;
+    maintenanceCache = { ...precedent, expire: maintenant + 20_000 };
+    let lu = false;
     try {
       const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
       const cle = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -99,7 +103,7 @@ async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
           `${url}/rest/v1/desk_page_content?select=content_fr&page_key=eq.maintenance&section_key=eq.reglages`,
           {
             headers: { apikey: cle, Authorization: `Bearer ${cle}` },
-            signal: AbortSignal.timeout(1500),
+            signal: AbortSignal.timeout(precedent.valeur === "env" ? 4000 : 1500),
           },
         );
         if (r.ok) {
@@ -124,15 +128,19 @@ async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
             ) {
               mode = prog.mode;
             }
+            maintenanceCache.tarifs = reglage?.tarifs === "maintenance" ? "maintenance" : "ouvert";
             if (mode === "on" || mode === "off" || mode === "env") {
               maintenanceCache.valeur = mode;
+              lu = true;
             }
           }
         }
       }
     } catch {
-      // silence : l env fait foi
+      // silence : la derniere valeur connue fait foi
     }
+    // Echec de lecture : nouvel essai dans 3 s plutot que 20 s.
+    if (!lu) maintenanceCache.expire = maintenant + 3_000;
   }
   if (maintenanceCache.valeur === "on") return true;
   if (maintenanceCache.valeur === "off") return false;
