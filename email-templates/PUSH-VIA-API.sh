@@ -22,11 +22,11 @@ RESET_HTML=$(cat password-reset.html | jq -Rs .)
 
 PAYLOAD=$(cat <<EOF
 {
-  "mailer_subjects_confirmation": "Active ton accès Mettrik",
+  "mailer_subjects_confirmation": "Active ton accès Mettrik AI",
   "mailer_templates_confirmation_content": $CONFIRM_HTML,
-  "mailer_subjects_magic_link": "Ton lien de connexion Mettrik",
+  "mailer_subjects_magic_link": "Ton lien de connexion Mettrik AI",
   "mailer_templates_magic_link_content": $MAGIC_HTML,
-  "mailer_subjects_recovery": "Réinitialiser ton mot de passe Mettrik",
+  "mailer_subjects_recovery": "Réinitialise ton mot de passe Mettrik AI",
   "mailer_templates_recovery_content": $RESET_HTML,
   "mailer_subjects_invite": "Invitation à rejoindre Mettrik",
   "mailer_templates_invite_content": $CONFIRM_HTML,
