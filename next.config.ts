@@ -31,6 +31,24 @@ function tickersV17(): string[] {
   }
 }
 
+// 14 oct 2026 (facture Vercel : l etape « Deploying outputs » prend ~32 des ~36 min
+// de chaque build, a cause du volume de donnees copie dans chaque fonction). Liste
+// des sous-dossiers d un dossier de travail, sauf ceux lus en ligne, pour les
+// retirer des fonctions sans entretien a la main.
+function sousDossiersSauf(base: string, garder: string[]): string[] {
+  try {
+    return fs
+      .readdirSync(path.join(process.cwd(), base), { withFileTypes: true })
+      .filter((d) => d.isDirectory() && !garder.includes(d.name))
+      .map((d) => `./${base}/${d.name}/**/*`);
+  } catch {
+    return [];
+  }
+}
+// Fichiers jamais lus par les fonctions de l outillage (les images de public/ sont
+// servies par le CDN, pas par les fonctions).
+const HORS_OUTILLAGE = ["./public/**/*", "./src/data/transcripts-kpi/**/*"];
+
 const nextConfig: NextConfig = {
   env: {
     MTK_ROUTES_RACINE: routesRacine().join(","),
@@ -124,7 +142,31 @@ const nextConfig: NextConfig = {
     "/sandbox/consignes-societes": ["./docs/CONSIGNES-NOUVELLES-SOCIETES.md"],
   },
   outputFileTracingExcludes: {
+    // 14 oct 2026 : routes dont le code lit un chemin construit depuis la racine
+    // (path.join(process.cwd(), ...variable)) : le tracage y copiait TOUT le depot
+    // (~1,25 Go par fonction, avertissements « matches 86854 files » du build).
+    // Les 15 maquettes /concepts/fiche-onglets (ajoutees le 7 oct, date ou les builds
+    // sont passes de ~15 a ~28 min) lisent les fiches (src/data, docs/cahier) ;
+    // l outillage synchro / mises a jour / sante lit src/data et .conv-state seulement.
+    "/concepts/fiche-onglets": [...HORS_OUTILLAGE, ...sousDossiersSauf("docs", ["cahier"])],
+    "/sandbox/synchro": [...HORS_OUTILLAGE, "./docs/**/*"],
+    "/sandbox/mises-a-jour": [...HORS_OUTILLAGE, "./docs/**/*"],
+    "/api/cron/alertes-maj": [...HORS_OUTILLAGE, "./docs/**/*"],
+    "/api/sandbox/structure-health": [...HORS_OUTILLAGE, "./docs/**/*"],
+    // data-status verifie la presence des logos (public/logos) : public garde.
+    "/sandbox/data-status": ["./src/data/transcripts-kpi/**/*", "./docs/**/*"],
     "*": [
+      // 14 oct 2026 : dossiers de travail jamais lus en ligne. De .batches-drafts-safe
+      // seul kpis-haut est lu ; de .conv-state seuls les fichiers de premier niveau
+      // (att-state.json, post-earnings-etat.json...) ; images de public/ servies par le CDN.
+      ...sousDossiersSauf(".batches-drafts-safe", ["kpis-haut"]),
+      ...sousDossiersSauf(".conv-state", []),
+      "./.backups/**/*",
+      "./scratch/**/*",
+      "./public/findings/**/*",
+      "./public/logos-marketbeat/**/*",
+      "./public/logos-avant-marketbeat/**/*",
+      "./public/logos-candidats/**/*",
       // Audits intermédiaires + datasets jamais lus au runtime
       // Drafts de batchs : seul kpis-haut est lu au runtime (load-company.ts),
       // tout le reste est exclu du bundle des fonctions (fix deploy 21 juil 2026).

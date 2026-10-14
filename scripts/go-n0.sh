@@ -10,11 +10,23 @@ TOKEN=$(grep "^VERCEL_TOKEN=" .env.local | cut -d= -f2)
 TEAM=team_3A8Ft1Kze0wYzGbuyHmsaEwC
 N2=$(npx vercel alias ls --token "$TOKEN" --scope $TEAM 2>/dev/null | awk '$2=="mettrik-niveau2.vercel.app"{print $1}' | head -1)
 [ -n "$N2" ] || { echo "alias niveau2 introuvable"; exit 1; }
-echo "Promotion en production de $N2 (identique a niveau2)..."
-npx vercel promote "https://$N2" --yes --token "$TOKEN" --scope $TEAM 2>&1 | tail -2
-for i in $(seq 1 40); do
+# 14 oct 2026 : niveau2 est construit en cible production sans domaine (deploy-niveau2.sh) :
+# la promotion est alors instantanee, sans recompilation. Un niveau2 encore en preview
+# (ancien chemin, N2_CIBLE=preview) est recompile en production par Vercel (~35 min, facture).
+CIBLE_N2=$(curl -s "https://api.vercel.com/v13/deployments/$N2?teamId=$TEAM" -H "Authorization: Bearer $TOKEN" \
+  | python3 -c "import json,sys;print(json.loads(sys.stdin.read(),strict=False).get('target') or 'preview')" 2>/dev/null || echo inconnu)
+N0_AVANT=$(npx vercel alias ls --token "$TOKEN" --scope $TEAM 2>/dev/null | awk '$2=="mettrik.ai"{print $1}' | head -1)
+if [ "$CIBLE_N2" = "production" ]; then
+  echo "Promotion instantanee de $N2 (le build de niveau2 lui-meme, sans recompilation)..."
+else
+  echo "ATTENTION : niveau2 ($N2) est un deploiement $CIBLE_N2 : Vercel va le RECOMPILER en production (~35 min)."
+fi
+npx vercel promote "https://$N2" --yes --timeout 40m --token "$TOKEN" --scope $TEAM 2>&1 | tail -2
+for i in $(seq 1 160); do
   CUR=$(npx vercel alias ls --token "$TOKEN" --scope $TEAM 2>/dev/null | awk '$2=="mettrik.ai"{print $1}' | head -1)
-  [ "$CUR" = "$N2" ] && break; sleep 15
+  [ "$CUR" = "$N2" ] && break
+  [ "$CIBLE_N2" != "production" ] && [ -n "$CUR" ] && [ "$CUR" != "$N0_AVANT" ] && break
+  sleep 15
 done
 echo "mettrik.ai = $(npx vercel alias ls --token "$TOKEN" --scope $TEAM 2>/dev/null | awk '$2=="mettrik.ai"{print $1}' | head -1)"
 curl -s -o /dev/null -w "mettrik.ai health: %{http_code}\n" https://mettrik.ai/api/billing/health

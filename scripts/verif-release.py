@@ -76,7 +76,12 @@ feu("vert" if head[:10] == remote[:10] else "rouge", "Code", "Le commit local es
 racines = set(re.findall(r"src/data/[a-zA-Z0-9_.-]+|\.batches-drafts-safe/[a-zA-Z0-9_-]+",
                          sh("grep -rhoE 'src/data/[a-zA-Z0-9_.-]+|\\.batches-drafts-safe/[a-zA-Z0-9_-]+' src/lib src/app 2>/dev/null")))
 # Seuls les dossiers exclus EN ENTIER comptent ("./x/**/*"), pas les motifs de fichiers.
-exclus = [m.rstrip("/") for m in re.findall(r'"\./([^"]+?)/\*\*/\*"', (ROOT / "next.config.ts").read_text())]
+# 14 oct 2026 : seul le bloc "*" (toutes les routes) compte ; les exclusions par route
+# (maquettes, outillage) ne retirent rien aux fiches.
+_cfg = (ROOT / "next.config.ts").read_text()
+_bloc = _cfg[_cfg.find('"*": ['):] if '"*": [' in _cfg else _cfg
+_bloc = _bloc[:_bloc.find("],")] if "]," in _bloc else _bloc
+exclus = [m.rstrip("/") for m in re.findall(r'"\./([^"]+?)/\*\*/\*"', _bloc)]
 non_suivis, exclus_mais_lus = [], []
 for r in sorted(racines):
     if not Path(r).exists():
@@ -148,8 +153,11 @@ def cible(nom):
             return p[0]
     return ""
 n0, n2, n1 = cible("mettrik.ai"), cible("mettrik-niveau2.vercel.app"), cible("mettrik-niveau1.vercel.app")
-feu("vert" if n0 and n2 and n0 != n2 else "orange", "Niveaux", "mettrik.ai (n0) et niveau2 (n2) pointent vers des deploiements distincts",
-    f"n0={n0[:30]} / n2={n2[:30]}" + (" (identiques : toute mise en ligne n2 est publique)" if n0 == n2 else ""))
+# 14 oct 2026 : depuis que go-n0 promeut le build de niveau2 lui-meme (sans recompilation),
+# n0 = n2 juste apres un go n0 est normal ; la mise en ligne n2 suivante cree un autre
+# deploiement (production sans domaine) et ne deplace que l alias niveau2.
+feu("vert" if n0 and n2 else "orange", "Niveaux", "mettrik.ai (n0) et niveau2 (n2) lisibles",
+    f"n0={n0[:30]} / n2={n2[:30]}" + (" (identiques : dernier go n0 = niveau2 actuel)" if n0 == n2 else ""))
 deps = curl_json("https://api.vercel.com/v6/deployments?app=mettrik&limit=12&teamId=team_3A8Ft1Kze0wYzGbuyHmsaEwC", [f"Authorization: Bearer {tok}"]) or {}
 sha_n2 = next((d.get("meta", {}).get("githubCommitSha", "") for d in deps.get("deployments", []) if d["url"] == n2), "")
 feu("vert" if sha_n2 and sha_n2 == head else "orange", "Niveaux", "niveau2 sert bien le commit courant",
