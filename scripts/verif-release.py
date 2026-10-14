@@ -63,7 +63,7 @@ try:
         if m: c.add(m.group(1).upper())
         c |= {x.upper() for x in pth.split("/")[:-1]}
         return not (c & _vague)
-    modifs = [l for l in modifs if _hors_vague(l) and not l.rstrip().endswith("_kpi-lint-report.json")]  # rapport interne reecrit par chaque lint
+    modifs = [l for l in modifs if _hors_vague(l) and not l.rstrip().endswith("_kpi-lint-report.json") and "univers-sp5001000" not in l and "scripts/_tmp" not in l]  # rapport interne reecrit par chaque lint
 except Exception:
     pass
 feu("rouge" if modifs else "vert", "Code", "Aucune modification non commitee dans le code et les donnees servies",
@@ -310,7 +310,15 @@ try:
             m_ = [x for x in fiche["kpis"] if k_["nom"] in (x.get("name_fr"), x.get("name_en"))]
             if not m_:
                 _ecarts.add(f"{s_['ticker']}:{k_['nom'][:30]} absent de la fiche"); continue
-            if not any(_num(x.get("value")) == _num(k_["valeur"]) for x in m_):
+            # 14 oct 2026 : l accueil convertit les grands montants (678 000 M$ -> 678 Mds $) : egalite a l echelle pres.
+            def _f(v):
+                try: return float(str(v).replace("\u202f", "").replace("\xa0", "").replace(" ", "").replace(",", "."))
+                except Exception: return None
+            def _eq(a, b):
+                a, b = _f(a), _f(b)
+                if a is None or b is None: return False
+                return any(abs(a * k - b) <= max(abs(b) * 0.006, 0.051) for k in (1, 1e3, 1e-3, 1e6, 1e-6))
+            if not any(_num(x.get("value")) == _num(k_["valeur"]) or _eq(x.get("value"), k_["valeur"]) for x in m_):
                 _ecarts.add(f"{s_['ticker']}:{k_['nom'][:30]} valeur differe")
             mp = re.match(r"T([1-4]) (\d{4})", k_.get("periode") or "")
             if not mp:

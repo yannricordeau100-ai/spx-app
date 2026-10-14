@@ -1,6 +1,7 @@
 /**
  * Style d ecriture de l axe Y des graphiques (Yann 13 oct 2026).
  *
+ * Note du reglage : Point unique d activation du style d ecriture de l axe Y (13 oct 2026, D a G ajoutes le 14 oct). Lu par src/lib/style-axe-y.ts (graphiques des fiches, export PNG) et scripts/style_axe_y.py (KPI moyen terme). Valeurs : actuel, A, B, C (refuses), D, E, F, G (refuses), sobre (retenu le 14 oct). Voir docs/rapports-session-2026-10/axe-y-13oct-v2.md avant de changer.
  * Point unique : le style actif se lit dans style-axe-y.json (champ « actif »),
  * partage avec scripts/style_axe_y.py (KPI moyen terme). Valeurs :
  *   - actuel : ecriture d avant le 13 oct (police systeme a chasse fixe) ;
@@ -291,7 +292,7 @@ export const STYLES_AXE_Y: Record<IdStyleAxeY, StyleAxeY> = {
   sobre: {
     id: "sobre",
     nom: "Sobre",
-    parti: "Meme disposition que l axe d avant (chiffres a gauche, unite en haut), seule la police change : Public Sans, une sans-serif libre tres lisible en petit, chiffres tabulaires, virgule francaise nette. Decision de Yann du 14 oct 2026.",
+    parti: "Meme disposition que l axe d avant (chiffres a gauche, unite en haut), seule la police change : Public Sans, une sans-serif libre tres lisible en petit, chiffres tabulaires, virgule francaise nette.",
     graduation: {
       famille: "Public Sans, sans-serif",
       familleCss: "var(--font-axe-sobre), sans-serif",
