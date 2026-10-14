@@ -123,6 +123,21 @@ export function ImageFindingsBlock({
     }
     return () => { vivant = false; };
   }, [chemins]);
+  // 14 oct 2026 : version mobile dessinee pour le telephone (scripts/finding-svg.py,
+  // « -dark-mobile.svg ») : chiffres d au moins 11 px reels. Chargee seulement
+  // sous 640 px ; si elle manque, repli sur la version ordinateur agrandie.
+  const [svgMobile, setSvgMobile] = useState<Record<string, string>>({});
+  useEffect(() => {
+    if (!mobile || !chemins) return;
+    let vivant = true;
+    for (const c of chemins.split("|")) {
+      fetch(c.replace(/\.svg$/, "-mobile.svg"))
+        .then((r) => (r.ok && (r.headers.get("content-type") || "").includes("svg") ? r.text() : ""))
+        .then((t) => { if (vivant) setSvgMobile((m) => (m[c] !== undefined ? m : { ...m, [c]: t.includes("<svg") ? t : "" })); })
+        .catch(() => { if (vivant) setSvgMobile((m) => (m[c] !== undefined ? m : { ...m, [c]: "" })); });
+    }
+    return () => { vivant = false; };
+  }, [chemins, mobile]);
   if (!findings || findings.length === 0) return null;
   const safe = safeIdx;
   const f = findings[safe];
@@ -132,6 +147,7 @@ export function ImageFindingsBlock({
   const grossir = (t: string) =>
     t.replace(/font-size="([0-9.]+)"/g, (m, v) => (Number(v) < 24 ? `font-size="${24}"` : m));
   const inlineSvg = svgBrut && mobile ? grossir(svgBrut) : svgBrut;
+  const svgTelephone = mobile && f.image_local_path ? svgMobile[f.image_local_path] || "" : "";
   const exporter = async () => {
     let svg: SVGSVGElement | null = null;
     let t = svgBrut ?? "";
@@ -250,14 +266,16 @@ export function ImageFindingsBlock({
         )}
         <div
           data-blur-part="graphique"
-          className="aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl bg-black/60 sm:cursor-default"
+          className={`${svgTelephone ? "aspect-[34/29]" : "aspect-video"} w-full cursor-zoom-in overflow-hidden rounded-xl bg-black/60 sm:cursor-default`}
           onClick={() => { if (!reserve && typeof window !== "undefined" && window.innerWidth < 640) setAgrandi(true); }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {/* Yann 18 mai 2026 : priorité au SVG local recréé. f.image_url
               pointe vers la source externe (PDF / article) qui n'est pas
               le visuel attendu. */}
-          {inlineSvg ? (
+          {svgTelephone ? (
+            <div ref={boxRef} className="size-full [&>svg]:size-full [&>svg]:object-contain" dangerouslySetInnerHTML={{ __html: svgTelephone }} />
+          ) : inlineSvg ? (
             <div ref={boxRef} className="size-full [&>svg]:size-full [&>svg]:object-contain" dangerouslySetInnerHTML={{ __html: inlineSvg }} />
           ) : (
             <img

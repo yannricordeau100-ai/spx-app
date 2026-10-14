@@ -53,7 +53,25 @@ CONCEPTS = {
         "PaymentsToAcquirePropertyPlantAndEquipment",
         "PaymentsToAcquireProductiveAssets",
         "PaymentsForCapitalImprovements",
+        # Balises de repli (audit FCF 14 oct 2026), par ordre de preference. Une
+        # balise ne sert que si les precedentes ne renseignent PAS l exercice.
+        # Petrole et gaz : les depenses de developpement SONT les investissements.
+        "PaymentsToAcquireOilAndGasPropertyAndEquipment",
+        "PaymentsToExploreAndDevelopOilAndGasProperties",
+        # Autres immobilisations corporelles (Eli Lilly, ADP, Lamar...).
+        "PaymentsToAcquireOtherPropertyPlantAndEquipment",
+        "PaymentsToAcquireMachineryAndEquipment",
+        # Services aux collectivites : depenses de construction.
+        "PaymentsForConstructionInProcess",
+        "PaymentsToAcquireOtherProductiveAssets",
+        # Net des cessions : en dernier recours seulement.
+        "PaymentsForProceedsFromProductiveAssets",
     ],
+    # Balises petrole et gaz auxquelles s ajoutent les "autres immobilisations"
+    # (EOG : puits 6,1 Mds + autres 0,5 Md = investissements 6,6 Mds).
+    "capex_og": ["PaymentsToAcquireOilAndGasPropertyAndEquipment",
+                 "PaymentsToExploreAndDevelopOilAndGasProperties"],
+    "capex_autres_immos": ["PaymentsToAcquireOtherPropertyPlantAndEquipment"],
     # Dette : trois postes assembles, cf. dette_totale(). Les societes changent
     # de concept au fil des annees (Coca-Cola bascule en 2023 sur les intitules
     # "AndCapitalLeaseObligations") : chaque poste accepte donc plusieurs noms.
@@ -242,6 +260,19 @@ def cik_du_datalake(ticker: str) -> str | None:
 
 
 def _extrait(cik: str) -> dict | None:
+    # Cache disque optionnel (audit FCF 14 oct) : MET_COMPANYFACTS_CACHE=<dossier>
+    cache = os.environ.get("MET_COMPANYFACTS_CACHE")
+    if cache:
+        fc = Path(cache) / f"CIK{int(cik):010d}.json"
+        if fc.exists():
+            try:
+                return (json.loads(fc.read_text()).get("facts") or {}).get("us-gaap") or None
+            except Exception:
+                pass
+        d = http_json(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{int(cik):010d}.json")
+        if d:
+            fc.write_text(json.dumps({"facts": {"us-gaap": (d.get("facts") or {}).get("us-gaap") or {}}}))
+        return ((d or {}).get("facts") or {}).get("us-gaap") or None
     d = http_json(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{int(cik):010d}.json")
     if not d:
         return None
@@ -260,6 +291,26 @@ AUTRES_CIK = {"FERG": ["1832433"]}
 # exercices de son flux d exploitation (controle qualite de septembre 2026) : on aligne.
 FCF_DEPUIS = {"FLEX": 2021}
 
+# Flux de tresorerie libre sans sens (audit 14 oct 2026) : banques, assureurs,
+# credit a la consommation, REIT hypothecaires, banques d affaires et courtiers
+# (le flux d exploitation porte les depots, les placements et les positions de
+# negociation), plus trois gestionnaires dont le flux d exploitation consolide
+# les fonds geres (KKR, APO, ARES). Les codes viennent de la classification
+# GICS de la fiche (src/data/kpi-industrie-par-societe.json).
+GICS_SANS_FCF = ("4010", "4030", "402020", "402040", "40203020")
+TICKERS_SANS_FCF = {"KKR", "APO", "ARES"}
+
+
+def sans_fcf(ticker: str) -> bool:
+    if ticker in TICKERS_SANS_FCF:
+        return True
+    try:
+        soc = json.load(open(ROOT / "src/data/kpi-industrie-par-societe.json")).get("societes") or {}
+    except Exception:
+        return False
+    code = str((soc.get(ticker) or {}).get("code_gics") or "")
+    return code.startswith(GICS_SANS_FCF)
+
 
 def _fusion(us: dict | None, extra: dict | None) -> dict | None:
     if not extra:
@@ -276,6 +327,122 @@ def _fusion(us: dict | None, extra: dict | None) -> dict | None:
             units.setdefault(u, []).extend(entrees)
         out[concept] = {**out[concept], "units": units}
     return out
+
+
+# ── Capex en balise propre a la societe (audit FCF 15 oct 2026) ──────────────────
+# NEE, DTE, PSX, COP, CI, CMS, ABNB publient leurs investissements en immobilisations
+# sous une balise d extension (ou une balise standard assortie d un axe), absente de
+# l API companyfacts. On la lit dans le 10-K inline XBRL du data-lake (data-lake/<T>/10K),
+# contextes annuels, plus recent depot gagnant. Tous les postes d une societe doivent
+# exister pour l exercice, sinon l exercice reste sans flux libre (jamais de capex partiel).
+#   "postes" : balises ADDITIONNEES ; "membre" : axe exige (None = sans axe).
+#   Choix retenus, lus dans le tableau des flux de chaque 10-K 2026 :
+#   NEE : Capital expenditures of FPL + Independent power and other investments of NEER
+#         + Nuclear fuel purchases + Other capital expenditures (les quatre lignes
+#         d investissement en immobilisations du tableau des flux) ;
+#   DTE : Plant and equipment expenditures (utility + non-utility) ;
+#   PSX / COP : "Capital expenditures and investments" ;
+#   CI  : "Property and equipment purchases, net" ;
+#   CMS : "Capital expenditures" (balise standard sous l axe OngoingCapitalExpenditures) ;
+#   ABNB: ligne "Purchases of property and equipment" du rapprochement du flux libre
+#         (MD&A, non balisee) : voir CAPEX_LIGNES.
+CAPEX_SPECIFIQUE = {
+    "NEE": {"postes": ["nee:CapitalExpendituresOfFPL", "nee:IndependentPowerInvestments",
+                       "us-gaap:PaymentsForProceedsFromNuclearFuel", "nee:OtherCapitalExpenditures"],
+            "membre": None},
+    "DTE": {"postes": ["dte:PlantAndEquipmentExpendituresUtility", "dte:PlantAndEquipmentExpendituresNonUtility"],
+            "membre": None},
+    "PSX": {"postes": ["psx:CapitalExpendituresAndInvestments"], "membre": None},
+    "COP": {"postes": ["cop:PaymentToAcquireProductiveAssetsAndInvestments"], "membre": None},
+    "CI":  {"postes": ["ci:PaymentsForProceedsFromPropertyPlantAndEquipment"], "membre": None},
+    "CMS": {"postes": ["us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"],
+            "membre": "cms:OngoingCapitalExpendituresMember"},
+}
+# Lignes de texte (non balisees) : {ticker: libelle de la ligne du rapprochement}.
+CAPEX_LIGNES = {"ABNB": "Purchases of property and equipment"}
+
+
+def _html_ix_valeurs(chemin: Path, postes: list[str], membre: str | None) -> dict:
+    """{annee: {poste: (valeur en dollars, date de fin)}} pour les contextes de 12 mois."""
+    import gzip, re
+    from datetime import date
+    s = gzip.open(chemin, "rt", errors="ignore").read()
+    ctx = {}
+    for m in re.finditer(r'<xbrli:context id="([^"]+)">(.*?)</xbrli:context>', s, re.S):
+        b = m.group(2)
+        deb = re.search(r"<xbrli:startDate>([^<]+)", b)
+        fin = re.search(r"<xbrli:endDate>([^<]+)", b)
+        dims = re.findall(r'dimension="([^"]+)"[^>]*>([^<]+)<', b)
+        if deb and fin:
+            ctx[m.group(1)] = (deb.group(1), fin.group(1), [d[1].strip() for d in dims])
+    out: dict = {}
+    for m in re.finditer(r"<ix:nonFraction\b([^>]*)>(.*?)</ix:nonFraction>", s, re.S):
+        a = m.group(1)
+        nm = re.search(r'name="([^"]+)"', a)
+        if not nm or nm.group(1) not in postes:
+            continue
+        c = re.search(r'contextRef="([^"]+)"', a)
+        if not c or c.group(1) not in ctx:
+            continue
+        deb, fin, dims = ctx[c.group(1)]
+        if (membre is None and dims) or (membre is not None and dims != [membre]):
+            continue
+        try:
+            jours = (date.fromisoformat(fin) - date.fromisoformat(deb)).days
+        except ValueError:
+            continue
+        if not (330 <= jours <= 400):
+            continue
+        brut = re.sub(r"<[^>]+>", "", m.group(2)).replace(",", "").strip()
+        sc = re.search(r'scale="(-?\d+)"', a)
+        try:
+            v = float(brut) * (10 ** int(sc.group(1)) if sc else 1)
+        except ValueError:
+            v = 0.0 if brut in ("", "&#8212;", "-") else None
+        if v is None:
+            continue
+        if 'sign="-"' in a:
+            v = -v
+        out.setdefault(int(fin[:4]), {})[nm.group(1)] = (v, fin)
+    return out
+
+
+def _html_ligne(chemin: Path, libelle: str) -> dict:
+    """Ligne de rapprochement 'Revenue ... <libelle>' sous deux colonnes d annees (ABNB)."""
+    import gzip, html, re
+    s = html.unescape(re.sub(r"<[^>]+>", "|", gzip.open(chemin, "rt", errors="ignore").read()))
+    s = re.sub(r"[\s\xa0]+", " ", s)
+    s = re.sub(r"(\| ?)+", "|", s)
+    m = re.search(r"\|(20\d\d)\|(20\d\d)\|Revenue.{0,400}?" + re.escape(libelle) + r"\|\(?([\d,]+)\)?\|\(?([\d,]+)\)?\|", s)
+    if not m:
+        return {}
+    a1, a2, v1, v2 = int(m.group(1)), int(m.group(2)), m.group(3), m.group(4)
+    return {a1: (float(v1.replace(",", "")) * 1e6, f"{a1}-12-31"), a2: (float(v2.replace(",", "")) * 1e6, f"{a2}-12-31")}
+
+
+def capex_specifique(ticker: str) -> dict:
+    """{annee: {"valeur","fin","concept","accn","depose"}} lu dans les 10-K du data-lake."""
+    spec, ligne = CAPEX_SPECIFIQUE.get(ticker), CAPEX_LIGNES.get(ticker)
+    if not spec and not ligne:
+        return {}
+    out: dict = {}
+    for f in sorted((ROOT / "data-lake" / ticker / "10K").glob(f"{ticker}_*.htm.gz")):   # ancien -> recent
+        depose = f.name.split("_")[1][:10]
+        try:
+            if spec:
+                par_an = _html_ix_valeurs(f, spec["postes"], spec["membre"])
+                valeurs = {an: (sum(d[p][0] for p in spec["postes"]), next(iter(d.values()))[1])
+                           for an, d in par_an.items() if all(p in d for p in spec["postes"])}
+                concept = "+".join(spec["postes"])
+            else:
+                valeurs = _html_ligne(f, ligne)
+                concept = "ligne : " + ligne
+        except Exception:
+            continue
+        for an, (v, fin) in valeurs.items():
+            out[an] = {"valeur": float(v), "fin": fin, "concept": concept, "accn": f.name[:-8], "depose": depose}
+    return out
+
 
 
 def traite(ticker: str, cik: str) -> dict | None:
@@ -306,6 +473,9 @@ def traite(ticker: str, cik: str) -> dict | None:
         rev.setdefault(an, e)
     ocf = valeurs_annuelles(us, CONCEPTS["operating_cash_flow"], instant=False)
     cap = valeurs_annuelles(us, CONCEPTS["capex"], instant=False)
+    # Audit 15 oct : capex en balise propre a la societe, lu dans le 10-K inline (prioritaire
+    # sur les annees ou il existe, pour une definition constante sur la serie).
+    cap.update(capex_specifique(ticker))
     det = dette_totale(us)
     if not det:
         import re as _re
@@ -325,15 +495,26 @@ def traite(ticker: str, cik: str) -> dict | None:
         return None
     # Flux de tresorerie libre : exploitation moins investissements, seulement
     # quand les DEUX viennent du meme exercice (sinon la soustraction est fausse).
+    # Audit 14 oct 2026 : si les investissements sont introuvables, PAS de flux
+    # libre pour l exercice (jamais flux d exploitation seul, qui le surestime).
     fcf = {}
-    for fy in gardees:
-        o, c = ocf.get(fy), cap.get(fy)
-        if o is None:
-            continue
-        montant = o["valeur"] - (c["valeur"] if c else 0.0)
-        fcf[fy] = {"valeur": montant, "fin": o["fin"], "depose": o["depose"],
-                   "concept": "flux_exploitation - investissements" if c else "flux_exploitation (investissements absents)",
-                   "accn": o["accn"]}
+    if not sans_fcf(ticker):
+        autres = valeurs_annuelles(us, CONCEPTS["capex_autres_immos"], instant=False)
+        for fy in gardees:
+            o, c = ocf.get(fy), cap.get(fy)
+            if o is None or c is None:
+                continue
+            investis = c["valeur"]
+            if c["concept"] in CONCEPTS["capex_og"] and fy in autres:
+                investis += autres[fy]["valeur"]
+            fcf[fy] = {"valeur": o["valeur"] - investis, "fin": o["fin"], "depose": o["depose"],
+                       "concept": "flux_exploitation - investissements", "accn": o["accn"]}
+    # Serie en retard : si le dernier flux libre date de deux exercices ou plus
+    # avant le dernier exercice connu (investissements portes par une balise
+    # propre a la societe, absente des donnees SEC), on ne publie rien plutot
+    # qu un chiffre ancien presente comme actuel.
+    if fcf and max(fcf) < max(gardees) - 1:
+        fcf = {}
     if ticker in FCF_DEPUIS:
         fcf = {an: v for an, v in fcf.items() if an >= FCF_DEPUIS[ticker]}
     res = {

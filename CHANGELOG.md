@@ -1060,3 +1060,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.14.1 (14 Oct 2026 00:33, apres b6c4b56b5a)
 - TAM : ancien style par cartes, titres de marche, audit (64 retires) ; logos recadres ; curseur main ; rail ouvert en degrade flou, loupe ; doublons KPI (638) ; libelles sans unite ; LVMH TAM en euros et vote ; PANW NTAP ; hero et espacement
+
+## v2026.10.14.2 (14 Oct 2026 02:38, apres a93ea3c4e7)
+- Lignes institutionnelles ivoire, axe Y Public Sans, barre de recherche au defilement, rail, curseur, FCF corrige, doublons tranches, ASML carnet et prises de commandes, Vercel moins de builds

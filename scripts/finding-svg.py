@@ -54,6 +54,30 @@ W, H = 800, 450
 MARGE_G, MARGE_D = 80, 30
 HAUT, BAS = 32, 380  # Yann 18 sept 2026 : plus de titre dans le SVG, marge haute reduite
 
+# 14 oct 2026 : version mobile (« -mobile ») de chaque graphique. Sur telephone,
+# le SVG de 800 de large s affichait a ~330 px : graduations de 11 unites = ~5 px.
+# La version mobile est dessinee sur 340 x 290 avec des textes de 13 unites,
+# soit au moins 11 px reels des 296 px d affichage (telephones de 360 px).
+# TM = taille unique des textes en mobile (None sur ordinateur).
+TM = None
+GABARIT_ORDI = {"W": 800, "H": 450, "MARGE_G": 80, "MARGE_D": 30, "HAUT": 32, "BAS": 380, "Y_AXE_DERNIERE": 402}
+GABARIT_MOBILE = {"W": 340, "H": 290, "MARGE_G": 40, "MARGE_D": 8, "HAUT": 38, "BAS": 250, "Y_AXE_DERNIERE": 276}
+TAILLE_MOBILE = 13.0
+
+
+class MobileImpossible(Exception):
+    """Graphique trop dense pour une version mobile lisible (repli : version ordinateur)."""
+
+
+def gabarit(mobile: bool) -> None:
+    """Pose les dimensions globales (ordinateur ou mobile) et l echelle des textes de l axe Y."""
+    global W, H, MARGE_G, MARGE_D, HAUT, BAS, Y_AXE_DERNIERE, TM
+    g = GABARIT_MOBILE if mobile else GABARIT_ORDI
+    W, H, MARGE_G, MARGE_D = g["W"], g["H"], g["MARGE_G"], g["MARGE_D"]
+    HAUT, BAS, Y_AXE_DERNIERE = g["HAUT"], g["BAS"], g["Y_AXE_DERNIERE"]
+    TM = TAILLE_MOBILE if mobile else None
+    AXE.ECHELLE_TEXTE = TAILLE_MOBILE / 11 if mobile else 1.0
+
 PALETTE = {
     "violet": "#a78bfa",
     "vert": "#10b981",
@@ -249,6 +273,10 @@ def plan_axe(cats: list) -> dict:
         variantes.append(abr)
     # (lignes_max, taille) : une ligne d abord, puis retour a la ligne
     essais = [(1, t) for t in (11.0, 10.0, 9.5)] + [(LIGNES_MAX, t) for t in (11.0, 10.0, 9.5, 9.0)]
+    if TM:
+        # Mobile : une seule taille (11 px reels) ; les libelles longs passent
+        # a la ligne (5 lignes au plus, le trace se raccourcit d autant).
+        essais = [(k, TM) for k in (1, 2, 3, 4, 5)]
     for pas in range(pas_min, n + 1):
         visibles = [i for i in range(n) if (n - 1 - i) % pas == 0]
         dispo = zone * pas - ECART_AXE
@@ -277,6 +305,7 @@ def plan_axe(cats: list) -> dict:
 
 
 def construit(spec: dict, theme: str) -> str:
+    global MARGE_G, Y_AXE_DERNIERE
     c = THEMES[theme]
     cats = spec["categories"]
     series = spec["series"]
@@ -307,6 +336,23 @@ def construit(spec: dict, theme: str) -> str:
         plafond = math.ceil(maxi / pas) * pas if maxi > 0 else 0
         plancher = math.floor(mini / pas) * pas
         grads = [plancher + pas * k for k in range(int(round((plafond - plancher) / pas)) + 1)]
+    if TM:
+        # Mobile : marge gauche au plus juste des graduations ecrites.
+        st_m = AXE.STYLES[STYLE_AXE]
+        tg = 11 * st_m.get("taille_g", 1) * AXE.ECHELLE_TEXTE
+        def _lg(t):
+            if st_m.get("famille_g") in POLICE.FICHIERS_POLICE:
+                return POLICE.largeur_famille(AXE.texte_graduation(STYLE_AXE, t), tg, st_m["famille_g"])
+            return largeur_texte(t, tg, mono=True)
+        larg = max(_lg(format_valeur(g, "")) for g in grads)
+        pl = AXE.placement(STYLE_AXE)
+        if pl in ("gauche", "trace"):
+            MARGE_G = int(larg + 8 + 6 + (4 if st_m.get("trait") else 0)) + 1
+        elif pl == "regle":
+            MARGE_G = int(larg + st_m["trait"] * AXE.ECHELLE_TEXTE + 4 + 6) + 1
+        # Legende (plusieurs series) : place reservee en bas, avant l axe X.
+        nl = len(lignes_legende(series)) if spec.get("legende", True) and len(series) > 1 else 0
+        Y_AXE_DERNIERE = (H - 12 - 20 * nl - (8 if nl else 0)) if nl else H - 12
     axe = plan_axe(cats)
     bas = axe["bas"]  # ligne de base du graphique : remonte si l axe X prend plusieurs lignes
     ech = (bas - HAUT) / (plafond - plancher) if plafond - plancher else 0
@@ -337,11 +383,21 @@ def construit(spec: dict, theme: str) -> str:
         else:
             out.append(f'<text x="40" y="54" fill="{c["gris"]}" font-size="11">{echappe(st)}</text>')
 
-    for g in grads:
-        y = y0 - g * ech
-        out.append(f'<line x1="{MARGE_G}" y1="{y:.0f}" x2="{W - MARGE_D}" y2="{y:.0f}" stroke="{c["grille"]}" stroke-width="1"/>')
-        out.extend(AXE.graduation(STYLE_AXE, MARGE_G - 8, y, format_valeur(g, ""), c, POLICE.FAMILLE_MONO, MARGE_G))
-    out.extend(AXE.axe_vertical(STYLE_AXE, MARGE_G, y0 - grads[-1] * ech, y0 - grads[0] * ech, c))
+    speciales_apres: list[str] = []
+    if AXE.placement(STYLE_AXE) == "gauche":
+        for g in grads:
+            y = y0 - g * ech
+            out.append(f'<line x1="{MARGE_G}" y1="{y:.0f}" x2="{W - MARGE_D}" y2="{y:.0f}" stroke="{c["grille"]}" stroke-width="1"/>')
+            out.extend(AXE.graduation(STYLE_AXE, MARGE_G - 8, y, format_valeur(g, ""), c, POLICE.FAMILLE_MONO, MARGE_G))
+        out.extend(AXE.axe_vertical(STYLE_AXE, MARGE_G, y0 - grads[-1] * ech, y0 - grads[0] * ech, c))
+    else:
+        # 14 oct 2026 : styles E (chiffres dans le trace) et F (regle graduee).
+        for g in grads:
+            y = y0 - g * ech
+            out.append(f'<line x1="{MARGE_G}" y1="{y:.0f}" x2="{W - MARGE_D}" y2="{y:.0f}" stroke="{c["grille"]}" stroke-width="1"/>')
+        avant, speciales_apres = AXE.graduations_speciales(
+            STYLE_AXE, [(y0 - g * ech, format_valeur(g, "")) for g in grads], c, MARGE_G, W - MARGE_D, marque_axe, None)
+        out.extend(avant)
 
     # Yann 21 sept 2026 : l unite doit se lire en une seconde. Le signe pourcent,
     # ou le libelle d unite de la spec (champ « unite_axe », par exemple
@@ -366,6 +422,19 @@ def construit(spec: dict, theme: str) -> str:
     largeur_zone = (W - MARGE_D - MARGE_G) / len(cats)
     n = len(series)
     barre_w = min(70, (largeur_zone * 0.72) / n)
+    if TM:
+        barre_w = min(34, (largeur_zone * (0.72 if n == 1 else 0.9)) / n)
+        # Etiquettes obliques paralleles : l ecart perpendiculaire entre deux
+        # etiquettes voisines doit depasser la hauteur du texte.
+        etiqs = [format_valeur(v, suffixe_barres) for s_ in series for v in s_["valeurs"] if isinstance(v, (int, float)) and v]
+        # Mobile : si une valeur ne tient pas a l horizontale dans sa barre, TOUTES
+        # les valeurs passent a la verticale (une etiquette oblique de 13 unites
+        # mordait sur la voisine des que les hauteurs de barres different).
+        vertical_mobile = any(largeur_texte(e, TM, mono=True) > barre_w + 2 for e in etiqs)
+        if vertical_mobile and barre_w < TM * 1.05:
+            raise MobileImpossible("barres trop serrees pour des valeurs de 11 px")
+    else:
+        vertical_mobile = False
     # 7 oct 2026 : les PROJECTIONS se distinguent des donnees observees. Une
     # categorie ou une serie dont le libelle contient « (proj.) », « (prevision) »
     # ou « projection » (ou listee dans les champs « proj_categories » et
@@ -378,8 +447,8 @@ def construit(spec: dict, theme: str) -> str:
         proj_series = set(range(len(series)))
     if proj_cats or proj_series:
         out.append(
-            f'<text x="{W - MARGE_D}" y="{HAUT - 11}" text-anchor="end" fill="{c["gris"]}" '
-            f'font-size="10.5">Pointill\u00e9s : projections</text>'
+            f'<text x="{W - MARGE_D}" y="{HAUT - 11 * (AXE.ECHELLE_TEXTE)}" text-anchor="end" fill="{c["gris"]}" '
+            f'font-size="{TM or 10.5:g}">{"Pointill\u00e9s : proj." if TM else "Pointill\u00e9s : projections"}</text>'
         )
     for i, cat in enumerate(cats):
         centre = MARGE_G + largeur_zone * (i + 0.5)
@@ -402,9 +471,26 @@ def construit(spec: dict, theme: str) -> str:
                 out.append(f'<rect x="{x:.0f}" y="{haut_barre:.0f}" width="{barre_w - 4:.0f}" height="{h:.0f}" fill="{couleur}" rx="3"/>')
             cx = x + (barre_w - 4) / 2
             etiquette = format_valeur(v, suffixe_barres)
+            if vertical_mobile:
+                longueur = largeur_texte(etiquette, TM, mono=True)
+                xv = cx + TM * 0.36
+                if v < 0:
+                    yv, ancre, encre = y0 + h + 5, "end", c["titre"]
+                elif y0 - h - 5 - longueur >= 2:
+                    yv, ancre, encre = y0 - h - 5, "start", c["titre"]
+                else:
+                    # Barre trop haute : la valeur descend dans la barre (encre sombre).
+                    yv, ancre, encre = max(y0 - h, 0.0) + longueur + 6, "start", ENCRE_SUR_BARRE
+                out.append(
+                    f'<text x="{xv:.1f}" y="{yv:.1f}" text-anchor="{ancre}" fill="{encre}" font-size="{TM:g}" '
+                    f'font-family="{POLICE.FAMILLE_MONO}" transform="rotate(-90 {xv:.1f} {yv:.1f})">{echappe(etiquette)}</text>'
+                )
+                continue
             if v < 0:
                 # Valeur negative : etiquette sous la barre, a l horizontale.
                 taille_n = next((e for e in (11.0, 10.0, 9.0, 8.0) if largeur_texte(etiquette, e, mono=True) <= barre_w + 6), 8.0)
+                if TM:
+                    taille_n = TM
                 out.append(
                     f'<text x="{cx:.0f}" y="{y0 + h + 14:.0f}" text-anchor="middle" fill="{c["titre"]}" '
                     f'font-size="{taille_n:g}" font-family="{POLICE.FAMILLE_MONO}">{echappe(etiquette)}</text>'
@@ -415,7 +501,7 @@ def construit(spec: dict, theme: str) -> str:
             # a l horizontale. On ne bascule a la verticale que si aucune taille
             # lisible ne tient dans la largeur de la barre.
             taille_h = 0.0
-            for essai in (11.0, 10.0, 9.5, 9.0, 8.5, 8.0):
+            for essai in ((TM,) if TM else (11.0, 10.0, 9.5, 9.0, 8.5, 8.0)):
                 if largeur_texte(etiquette, essai, mono=True) <= barre_w + 2:
                     taille_h = essai
                     break
@@ -441,6 +527,8 @@ def construit(spec: dict, theme: str) -> str:
                     if largeur_oblique(etiquette, essai) <= barre_w - 2:
                         taille = essai
                         break
+                if TM:
+                    taille = TM
                 longueur = largeur_texte(etiquette, taille, mono=True)
                 montee = longueur * SIN_OBL + taille * COS_OBL * 0.7  # hauteur occupee
                 x_lab = cx - largeur_oblique(etiquette, taille) / 2 + taille * 0.6
@@ -466,6 +554,8 @@ def construit(spec: dict, theme: str) -> str:
                     f'fill="{c["axe"]}" font-size="{axe["taille"]:g}">{echappe(ligne)}</text>'
                 )
 
+    # 14 oct 2026 : chiffres poses dans le trace (E) : par-dessus les barres.
+    out.extend(speciales_apres)
     if spec.get("legende", True) and n > 1:
         out.extend(legende(series, c))
 
@@ -474,8 +564,50 @@ def construit(spec: dict, theme: str) -> str:
     return POLICE.integre("\n".join(out))
 
 
+def lignes_legende(series: list[dict]):
+    """Repartition de la legende en lignes (meme calcul que legende())."""
+    return _plan_legende(series)[0]
+
+
+def _plan_legende(series: list[dict]):
+    debut = 8 if TM else MARGE_G + 35
+    dispo = (W - MARGE_D) - debut
+    essais = ((TM, 18, 12),) if TM else ((11, 30, 14), (10, 22, 12), (9.5, 16, 11))
+    for taille, ecart, cote in essais:
+        elements = [(s, cote + 6 + largeur_texte(s["nom"], taille)) for s in series]
+        lignes: list[list] = [[]]
+        courant = 0.0
+        for s, w in elements:
+            if lignes[-1] and courant + ecart + w > dispo:
+                lignes.append([])
+                courant = 0.0
+            courant += (ecart if lignes[-1] else 0) + w
+            lignes[-1].append((s, w))
+        if len(lignes) <= (3 if TM else 2) and all(
+            sum(w for _, w in li) + ecart * (len(li) - 1) <= dispo for li in lignes
+        ):
+            break
+    if TM and len(lignes) > 3:
+        raise MobileImpossible("legende trop longue")
+    return lignes, taille, ecart, cote, debut
+
+
 def legende(series: list[dict], c: dict) -> list[str]:
     """Legende sur une ou deux lignes, espace franc entre deux series."""
+    if TM:
+        lignes, taille, ecart, cote, debut = _plan_legende(series)
+        out = []
+        haut = H - 8 - cote - 20 * (len(lignes) - 1)
+        for k, ligne in enumerate(lignes):
+            out.append(f'<g transform="translate(0,{haut + k * 20})">')
+            x = float(debut)
+            for s, w in ligne:
+                couleur = PALETTE.get(s["couleur"], s["couleur"])
+                out.append(f'<rect x="{x:.0f}" y="0" width="{cote}" height="{cote}" fill="{couleur}" rx="2"/>')
+                out.append(f'<text x="{x + cote + 6:.0f}" y="{cote - 2}" fill="{c["legende"]}" font-size="{taille:g}">{echappe(s["nom"])}</text>')
+                x += w + ecart
+            out.append("</g>")
+        return out
     debut = MARGE_G + 35
     dispo = (W - MARGE_D) - debut
     for taille, ecart, cote in ((11, 30, 14), (10, 22, 12), (9.5, 16, 11)):
@@ -527,6 +659,13 @@ def main() -> None:
         i = args.index("--sortie")
         sortie = args[i + 1]
         del args[i:i + 2]
+    # 14 oct 2026 : --mobile-seul ecrit SEULEMENT les versions mobiles (« -dark-mobile.svg »),
+    # sans toucher aux versions ordinateur ; --sans-mobile ne les ecrit pas.
+    mobile_seul = "--mobile-seul" in args
+    sans_mobile = "--sans-mobile" in args
+    args = [a for a in args if a not in ("--mobile-seul", "--sans-mobile")]
+    nb_mobiles, sans_version_mobile = 0, []
+    gabarit(False)
     for chemin in args:
         spec = json.loads(Path(chemin).read_text())
         if sortie:
@@ -534,6 +673,21 @@ def main() -> None:
             spec["slug"] = f'{spec["slug"]}-{STYLE_AXE}'
         dossier = Path(spec.get("dossier", "public/findings/divers"))
         dossier.mkdir(parents=True, exist_ok=True)
+        if not sans_mobile:
+            gabarit(True)
+            try:
+                mobiles = {theme: construit(json.loads(json.dumps(spec)), theme) for theme in ("dark", "light")}
+                if any(VERIF.verifie_svg(svg) for svg in mobiles.values()):
+                    raise MobileImpossible("axe X en defaut")
+                for theme, svg in mobiles.items():
+                    (dossier / f"{spec['slug']}-{theme}-mobile.svg").write_text(svg)
+                nb_mobiles += 1
+            except (MobileImpossible, ValueError, ZeroDivisionError) as e:
+                sans_version_mobile.append(f"{spec['slug']} ({e})")
+            finally:
+                gabarit(False)
+        if mobile_seul:
+            continue
         rendus = {theme: construit(json.loads(json.dumps(spec)), theme) for theme in ("dark", "light")}
         # Garde : refus d ecrire un graphique dont l axe X est en defaut.
         defauts = {t: VERIF.verifie_svg(svg) for t, svg in rendus.items()}
@@ -547,6 +701,10 @@ def main() -> None:
             cible = dossier / f"{spec['slug']}-{theme}.svg"
             cible.write_text(svg)
             print(cible)
+    if not sans_mobile:
+        print(f"{nb_mobiles} version(s) mobile ecrite(s), {len(sans_version_mobile)} sans version mobile (repli ordinateur)", file=sys.stderr)
+        for x in sans_version_mobile[:20]:
+            print("  sans mobile :", x, file=sys.stderr)
     if refuses:
         print(f"{len(refuses)} graphique(s) refuse(s) car libelles de l axe X en defaut : {', '.join(refuses)}", file=sys.stderr)
         sys.exit(2)

@@ -113,6 +113,7 @@ function isDarkColor(color: string): boolean {
 }
 
 import { logoNeedsLightBg } from "@/components/logos";
+import { garderStyleAxeYExport, embarquerStyleAxeYExport } from "./style-axe-y-export";
 
 /**
  * Yann 20 sept 2026 : logo d une societe depuis la logotheque publique
@@ -360,10 +361,12 @@ export async function downloadSvgAsPng(
     // utilisaient "ui-monospace, monospace" ou des polices web ; on
     // override pour homogénéité PNG.
     t.setAttribute("font-family", PNG_FONT_FAMILY);
-    // 13 oct 2026 : un style d axe Y (src/lib/style-axe-y.ts, A/B/C) pose sa
-    // police en style CSS, qui l emporterait sur l attribut : le PNG garde
-    // Avenir tant que Yann n a pas decide d y porter le style d axe.
-    if (t.hasAttribute("data-axe-y")) {
+    // 13 oct 2026 : un style d axe Y (src/lib/style-axe-y.ts) pose sa police
+    // en style CSS. 14 oct 2026 (Yann : le PNG suit le style choisi) : les
+    // ecritures de l axe gardent leur police et leur graisse
+    // (src/lib/style-axe-y-export.ts) ; en style « actuel », aucune marque.
+    const gardeStyleAxe = garderStyleAxeYExport(t);
+    if (t.hasAttribute("data-axe-y") && !gardeStyleAxe) {
       t.style.removeProperty("font-family");
       t.style.removeProperty("font-variation-settings");
     }
@@ -371,7 +374,7 @@ export async function downloadSvgAsPng(
     // du PNG export (axes, labels valeurs, années, header d'unité). Les
     // <text> injectés ensuite (titre, KPI, footer, CAGR, "par x") posent
     // leur propre font-weight 300 à la création.
-    t.setAttribute("font-weight", "300");
+    if (!gardeStyleAxe) t.setAttribute("font-weight", "300");
   });
 
   // ── PRIO 1b : recoloration axes / structure / gridlines selon thème ──
@@ -1262,6 +1265,8 @@ export async function downloadSvgAsPng(
     styleEl.textContent = fontFaceCss.join("\n");
     clone.insertBefore(styleEl, clone.firstChild);
   }
+  // 14 oct 2026 : police du style d axe Y embarquee (data URL), plaque et repere a l echelle.
+  await embarquerStyleAxeYExport(clone, svg, isLight);
 
   // ── Titre 2 lignes centrées au-dessus du PNG (Yann 2 juin 2026) ──
   // Refonte v7 — style Bourseko / Fiscal.ai :

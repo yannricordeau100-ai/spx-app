@@ -403,9 +403,13 @@ html[data-flot-sur-contenu] .flot-discret:focus-visible { opacity: 1; }
 
 /* Yann 13 oct 2026 : eclair jaune du groupe « Suivis par les institutionnels »
    quand on y arrive par la pastille n/N de l en-tete. */
+/* Yann 14 oct 2026 : ivoire chaud discret. En mode clair la page est inversee par filtre :
+   la valeur est pre-compensee pour rendre un sable doux (~#7d6c3c) lisible sur blanc. */
+:root { --jaune-instit: #e9dfbf; --jaune-instit-clair: #f3ecd4; }
+html[data-theme="light"] { --jaune-instit: #a49363; --jaune-instit-clair: #f3ecd4; }
 @keyframes instit-eclair {
-  0%, 100% { box-shadow: inset 0 0 0 0 rgba(250, 204, 21, 0); }
-  25% { box-shadow: inset 0 0 0 2px rgba(250, 204, 21, 0.55); }
+  0%, 100% { box-shadow: inset 0 0 0 0 color-mix(in srgb, var(--jaune-instit) 0%, transparent); }
+  25% { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--jaune-instit) 40%, transparent); }
 }
 .instit-eclair { animation: instit-eclair 1.6s ease-out 0.6s 1; }
 

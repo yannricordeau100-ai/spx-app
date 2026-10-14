@@ -23,8 +23,8 @@ const axisHeader = chartAxisHeader;
 
 import { formatChartValueLabel } from "@/lib/chart-label-format";
 import { calculeEnteteAxe } from "@/lib/entete-axe";
-import { useStyleAxeY, attrsGraduation, texteGraduation, largeurGraduations, reserveUniteDebout } from "@/lib/style-axe-y";
-import { EnteteAxeY, TraitsGraduationY } from "@/components/charts/axe-y";
+import { useStyleAxeY, texteGraduation, largeurGraduations, reserveUniteDebout } from "@/lib/style-axe-y";
+import { EnteteAxeY, GraduationsY } from "@/components/charts/axe-y";
 
 /** Yann 19 juil 2026 : format label barre unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
@@ -420,22 +420,21 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
         <line key={i} x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={yFor(v)} y2={yFor(v)}
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
-      {ticks.map((v, i) => (
-        <text
-          key={i}
-          // Yann 1er sept 2026 (screen Effectifs "30 00" coupe) : en mode axe
-          // a droite, le libelle est ancre sur le bord DROIT du viewBox et
-          // s etend vers la gauche : plus aucun chiffre coupe, quel que soit
-          // le style de barres.
-          x={yOnRight ? W - 6 : PAD_LEFT - 12}
-          y={yFor(v) + 5}
-          textAnchor="end"
-          {...attrsGraduation(sAxe, 16 * AFX)}
-        >
-          {texteGraduation(sAxe, formatTick(v))}
-        </text>
-      ))}
-      <TraitsGraduationY s={sAxe} ys={ticks.map((v) => yFor(v))} xAxe={yOnRight ? PAD_LEFT + INNER_W : PAD_LEFT} aDroite={yOnRight} />
+      {/* Yann 1er sept 2026 (screen Effectifs "30 00" coupe) : en mode axe
+          a droite, le libelle est ancre sur le bord DROIT du viewBox et
+          s etend vers la gauche : plus aucun chiffre coupe, quel que soit
+          le style de barres. 14 oct 2026 : rendu selon le style d axe
+          (GraduationsY, identique en « actuel »). */}
+      <GraduationsY
+        s={sAxe}
+        ticks={ticks.map((v) => ({ y: yFor(v), texte: texteGraduation(sAxe, formatTick(v)) }))}
+        taille={16 * AFX}
+        xTexte={yOnRight ? W - 6 : PAD_LEFT - 12}
+        xAxe={yOnRight ? PAD_LEFT + INNER_W : PAD_LEFT}
+        xBord={yOnRight ? W - 4 : -extraGauche + 4}
+        aDroite={yOnRight}
+        unite={header ? calculeEnteteAxe(header, yOnRight, { W, PAD_LEFT, INNER_W }).lignes.join(" ") : undefined}
+      />
       {/* Zone cliquable invisible sur l'axe Y. Yann 15 mai 2026. */}
       <rect
         x={yOnRight ? PAD_LEFT + INNER_W : 0}

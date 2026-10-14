@@ -16,8 +16,11 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { smoothScrollTo } from "@/lib/scroll";
 import { hauteurEnteteFiche } from "@/components/fiche-rail";
 
-/** Jaune Mettrik (le meme que les mentions or de la fiche). */
-export const JAUNE_INSTIT = "#facc15";
+/** Yann 14 oct 2026 : ivoire chaud tres proche du blanc (discret). En mode clair, l inversion
+ *  globale de la page le rend en sable fonce doux, lisible. */
+export const JAUNE_INSTIT = "var(--jaune-instit)";
+/** Teinte avec transparence (le jaune est une variable CSS : pas de suffixe hexadecimal). */
+export const jauneInstitA = (pct: number) => `color-mix(in srgb, var(--jaune-instit) ${pct}%, transparent)`;
 export const ID_GROUPE_INSTIT = "kpis-instit";
 
 export type ResumeInstit = { n: number; total: number; industrie: string };
@@ -45,7 +48,7 @@ export function KpiInstitPastille({ resume }: { resume: ResumeInstit }) {
       title={libelle}
       aria-label={libelle}
       className="inline-flex shrink-0 items-center gap-1 self-center whitespace-nowrap rounded-full border px-2 py-[3px] font-mono text-[11px] font-semibold leading-none transition-all hover:scale-105"
-      style={{ borderColor: `${JAUNE_INSTIT}66`, background: `${JAUNE_INSTIT}1a`, color: JAUNE_INSTIT }}
+      style={{ borderColor: jauneInstitA(33), background: jauneInstitA(8), color: JAUNE_INSTIT }}
     >
       <Landmark className="size-3" strokeWidth={2.4} />
       {resume.n}/{resume.total}
@@ -58,19 +61,16 @@ export function KpiInstitEntete({ resume, lignes }: { resume: ResumeInstit; lign
   return (
     <div
       className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b px-5 py-2.5 sm:px-6"
-      style={{ borderColor: `${JAUNE_INSTIT}33`, background: `linear-gradient(90deg, ${JAUNE_INSTIT}1f, ${JAUNE_INSTIT}08 55%, transparent)` }}
+      style={{ borderColor: jauneInstitA(17), background: `linear-gradient(90deg, ${jauneInstitA(8)}, ${jauneInstitA(2)} 55%, transparent)` }}
     >
       <Landmark className="size-3.5 shrink-0" style={{ color: JAUNE_INSTIT }} strokeWidth={2.4} />
       <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.16em]" style={{ color: JAUNE_INSTIT }}>
         Suivis par les institutionnels
       </span>
-      <span className="font-mono text-[10.5px] text-zinc-400">
-        · {resume.n} sur {resume.total} de l’industrie
-      </span>
       <span className="inline-flex align-middle">
         <InfoTooltip color={JAUNE_INSTIT}>
           <div className="text-[12.5px] leading-snug text-zinc-200">
-            <span className="font-semibold" style={{ color: JAUNE_INSTIT }}>Pourquoi en jaune ?</span>{" "}
+            <span className="font-semibold" style={{ color: JAUNE_INSTIT }}>Pourquoi cette teinte ?</span>{" "}
             {texteExplicationInstit(resume.industrie)}
           </div>
           <div className="mt-2 border-t border-white/10 pt-2 text-[12px] leading-snug text-zinc-300">

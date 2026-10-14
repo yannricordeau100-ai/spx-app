@@ -139,7 +139,7 @@ export function nomEnMontant(nom: string): string | null {
 const FREQUENCES_EXPLICITES: Record<string, Record<string, string>> = {
   ASML: {
     CAHIER_SYSTEM_ORDERS_BACKLOG: "Montant annuel des prises de commandes nettes",
-    bookings: "Montant trimestriel des prises de commandes nettes",
+    bookings: "Prises de commandes",
   },
 };
 

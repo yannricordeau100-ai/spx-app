@@ -33,6 +33,7 @@ import { LogoMettrik } from "@/components/logo-mettrik";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { displayTicker } from "@/lib/ticker-display";
 import { lienInscription } from "@/components/freemium/zone-reservee";
+import { useT } from "@/lib/i18n/provider";
 
 /* ------------------------------------------------------------------ */
 /* Blocs                                                               */
@@ -64,6 +65,12 @@ export const BLOCS_FICHE: Bloc[] = [
 const RAIL = 104;
 const RAIL_OUVERT = 400;
 const COMPACT_PX = 60;
+/** Barre de recherche revelee en remontant (Yann 14 oct 2026). */
+const BARRE_PX = 56;
+/** Defilement minimal (px CSS) avant que la barre puisse apparaitre : jamais en haut de page. */
+const SEUIL_BARRE = 320;
+/** Ecart minimal entre deux lectures pour decider du sens (ignore les micro-mouvements). */
+const PAS_SENS = 8;
 const VAR_ENTETE = "--entete-fiche";
 
 /* Le site applique un zoom sur <body> : positions d ecran (getBoundingClientRect,
@@ -476,14 +483,14 @@ function useCours(ticker: string, actif: boolean) {
   return v;
 }
 
-function EnteteCompact({ c, accent, afficherCours }: { c: Company; accent: string; afficherCours: boolean }) {
+function EnteteCompact({ c, accent, afficherCours, decalage = 0 }: { c: Company; accent: string; afficherCours: boolean; decalage?: number }) {
   const cours = useCours(c.ticker, afficherCours);
   const hausse = (cours?.var ?? 0) >= 0;
   const fmt = (n: number, d = 2) => n.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
   return (
     <motion.div initial={{ y: -COMPACT_PX }} animate={{ y: 0 }} exit={{ y: -COMPACT_PX }} transition={{ duration: 0.18, ease: "easeOut" }}
-      className="fixed inset-x-0 top-0 z-[45] flex items-center gap-3 border-b border-white/[0.08] bg-[#050505]/[0.97] px-4 md:left-[var(--v2-rail)] md:px-6"
-      style={{ height: COMPACT_PX, ["--v2-rail" as string]: `${RAIL}px` }}>
+      className="fixed inset-x-0 top-0 z-[45] flex items-center gap-3 border-b border-white/[0.08] bg-[#050505]/[0.97] px-4 transition-[top] duration-200 ease-out md:left-[var(--v2-rail)] md:px-6"
+      style={{ height: COMPACT_PX, top: decalage, ["--v2-rail" as string]: `${RAIL}px` }}>
       <div className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${logoNeedsLightBg(c.ticker) ? "preserve-colors bg-white ring-black/15" : "bg-[#0a0a0a] ring-white/10"}`}>
         <div className="size-full p-1"><CompanyLogo ticker={c.ticker} /></div>
       </div>
@@ -497,6 +504,30 @@ function EnteteCompact({ c, accent, afficherCours }: { c: Company; accent: strin
           <span className="text-[12.5px] font-semibold" style={{ color: hausse ? "#10b981" : "#f43f5e" }}>{hausse ? "+" : ""}{fmt(cours.var)} %</span>
         </div>
       )}
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Barre de recherche revelee en remontant (Yann 14 oct 2026)          */
+/* ------------------------------------------------------------------ */
+
+/** Barre fixe au-dessus de l en-tete, visible seulement quand on remonte la page.
+ * Elle n a pas de moteur propre : un clic ouvre la recherche du site deja montee
+ * par la coque (CompanySearch, meme liste, meme ⌘K, une seule instance). */
+function BarreRechercheDefilement({ onOuvrir }: { onOuvrir: () => void }) {
+  const { t } = useT();
+  return (
+    <motion.div data-barre-recherche-defilement initial={{ y: -BARRE_PX, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -BARRE_PX, opacity: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="fixed inset-x-0 top-0 z-[46] flex items-center border-b border-white/[0.08] bg-[#050505]/[0.97] px-4 backdrop-blur md:left-[var(--v2-rail)] md:px-6"
+      style={{ height: BARRE_PX, ["--v2-rail" as string]: `${RAIL}px` }}>
+      <button type="button" onClick={onOuvrir} aria-label={t("search.placeholder_compact")} aria-haspopup="dialog"
+        className="group relative mx-auto flex h-10 w-full max-w-2xl items-center gap-2.5 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-4 text-left text-zinc-400 transition-all hover:border-white/25 hover:text-zinc-200 hover:shadow-[0_0_40px_-10px_rgba(167,139,250,0.45)]">
+        <Search className="relative size-4 shrink-0 text-zinc-500 transition-colors group-hover:text-violet-300" aria-hidden />
+        <span className="relative min-w-0 flex-1 truncate text-[14px]">{t("search.placeholder_hero")}</span>
+        <kbd className="relative hidden items-center rounded-md border border-white/15 bg-white/5 px-1.5 py-0.5 font-mono text-[10.5px] font-semibold text-zinc-400 sm:inline-flex">⌘K</kbd>
+      </button>
     </motion.div>
   );
 }
@@ -575,6 +606,39 @@ export function FicheRail({
   // defilement, le bloc dont le haut a passe la ligne de l en-tete est actif.
   const verrou = useRef(0);
   const vise = useRef<string | null>(null);
+
+  // Barre de recherche : apparait quand on remonte (au-dela du seuil et, si
+  // l en-tete defile avec la page, une fois celui-ci sorti de l ecran) ;
+  // disparait des qu on redescend ou qu on revient en haut. Jamais pendant un
+  // defilement automatique vers un bloc, ni dans la vitrine anonyme.
+  const [barre, setBarre] = useState(false);
+  useEffect(() => {
+    if (capture) return;
+    let dernier = window.scrollY;
+    const maj = () => {
+      const y = window.scrollY;
+      const z = zoomSite();
+      const el = refEntete.current;
+      const doc = document.documentElement;
+      const enteteDefile = window.innerWidth / z < 768 || (el?.offsetHeight ?? 0) > 140;
+      const horsEcran = !enteteDefile || !el || el.getBoundingClientRect().bottom / z < COMPACT_PX;
+      if (y / z <= SEUIL_BARRE || !horsEcran) { setBarre(false); dernier = y; return; }
+      const d = y - dernier;
+      if (Math.abs(d) < PAS_SENS) return;
+      dernier = y;
+      if (d > 0) { setBarre(false); return; }
+      // Rebond elastique en bas de page (iOS) : pas une vraie remontee.
+      if (y + window.innerHeight > doc.scrollHeight) return;
+      if (Date.now() < verrou.current) return;
+      setBarre(true);
+    };
+    window.addEventListener("scroll", maj, { passive: true });
+    window.addEventListener("resize", maj);
+    return () => { window.removeEventListener("scroll", maj); window.removeEventListener("resize", maj); };
+  }, [capture]);
+  const ouvrirRecherche = () => {
+    refRecherche.current?.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')?.click();
+  };
   useEffect(() => {
     const ids = cleBlocs ? cleBlocs.split(",") : [];
     const maj = () => {
@@ -632,10 +696,7 @@ export function FicheRail({
     // Yann 13 oct 2026 : connecte, « Mon compte et analytics » mene directement
     // a la page compte, sans panneau. Anonyme : panneau de connexion inchange.
     if (id === "compte" && !anon && !capture) { router.push("/account"); return; }
-    if (id === "recherche") {
-      refRecherche.current?.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')?.click();
-      return;
-    }
+    if (id === "recherche") { ouvrirRecherche(); return; }
     setPanneau((p) => (p?.id === id ? null : { id, y }));
   };
 
@@ -654,11 +715,16 @@ export function FicheRail({
       <ThemeApplique paid={paid} />
 
       {/* En-tete collant : la barre du nom de la societe, rien au-dessus. */}
-      <div ref={refEntete} data-entete-fiche className={`${grand ? "relative" : "sticky top-0"} z-[45] -mx-4 -mt-7 border-b border-white/[0.07] bg-[#050505] px-4 pb-3 pt-4 sm:-mx-6 sm:-mt-9 sm:px-6`}>
+      <AnimatePresence>
+        {barre && <BarreRechercheDefilement key="barre-recherche" onOuvrir={ouvrirRecherche} />}
+      </AnimatePresence>
+      {/* Sur ordinateur, l en-tete collant descend sous la barre quand elle est la (rien n est cache dessous). */}
+      <div ref={refEntete} data-entete-fiche style={grand ? undefined : { top: barre ? BARRE_PX : 0 }}
+        className={`${grand ? "relative" : "sticky top-0 transition-[top] duration-200 ease-out"} z-[45] -mx-4 -mt-7 border-b border-white/[0.07] bg-[#050505] px-4 pb-3 pt-4 sm:-mx-6 sm:-mt-9 sm:px-6`}>
         {entete}
       </div>
       <AnimatePresence>
-        {compact && <EnteteCompact key="compact" c={company} accent={accent} afficherCours={afficherCours} />}
+        {compact && <EnteteCompact key="compact" c={company} accent={accent} afficherCours={afficherCours} decalage={barre ? BARRE_PX : 0} />}
       </AnimatePresence>
 
       <AnimatePresence>

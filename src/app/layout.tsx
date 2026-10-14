@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora, Fraunces } from "next/font/google";
+import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora, Fraunces, Public_Sans } from "next/font/google";
 import { PlausibleScript } from "@/components/analytics/plausible";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
@@ -55,6 +55,9 @@ const fraunces = Fraunces({
   weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
 });
+
+// Axe Y des graphiques (14 oct 2026, style « sobre ») : Public Sans, libre (OFL), chiffres tabulaires.
+const axeSobre = Public_Sans({ variable: "--font-axe-sobre", subsets: ["latin"], display: "swap", weight: "variable" });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";
 
@@ -132,7 +135,7 @@ export default async function RootLayout({
       suppressHydrationWarning
       data-theme="dark"
       style={{ colorScheme: "dark" }}
-      className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} ${fraunces.variable} h-full antialiased`}
+      className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} ${fraunces.variable} ${axeSobre.variable} h-full antialiased`}
     >
       <head>
         {/* Yann 20 sept 2026 : marque les pages affichees dans un cadre (les

@@ -204,7 +204,7 @@ export function InfoTooltip({
         className={`relative inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors before:absolute before:-inset-[7px] before:content-[''] hover:bg-[#161616] [touch-action:manipulation] ${
           isSm ? "size-[18px]" : "size-[22px]"
         }`}
-        style={{ borderColor: `${color}99`, color }}
+        style={{ borderColor: color.startsWith("var(") ? `color-mix(in srgb, ${color} 60%, transparent)` : `${color}99`, color }}
         aria-label={t("ui.more_info")}
       >
         {icone ?? (

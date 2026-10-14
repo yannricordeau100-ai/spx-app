@@ -62,8 +62,8 @@ function niceTicks(min: number, max: number, count = 5): number[] {
  */
 import { formatChartValueLabel } from "@/lib/chart-label-format";
 import { calculeEnteteAxe } from "@/lib/entete-axe";
-import { useStyleAxeY, attrsGraduation, texteGraduation, largeurGraduations, reserveUniteDebout } from "@/lib/style-axe-y";
-import { EnteteAxeY, TraitsGraduationY } from "@/components/charts/axe-y";
+import { useStyleAxeY, texteGraduation, largeurGraduations, reserveUniteDebout } from "@/lib/style-axe-y";
+import { EnteteAxeY, GraduationsY } from "@/components/charts/axe-y";
 
 /** Yann 19 juil 2026 : format label point unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
@@ -489,20 +489,19 @@ export function CurveChart({
 
         {/* Y-axis labels — strict Mettrik formatting + taille agrandie.
             Yann 15 mai 2026 : x + textAnchor selon le côté actif. */}
-        {ticks.map(({ v, y }, i) => (
-          <text
-            key={`yn-${i}`}
-            // Yann 1er sept 2026 : meme regle que les barres — ancre sur le
-            // bord droit, texte etendu vers la gauche, zero clipping.
-            x={yOnRight ? W - 6 : PAD_LEFT - 6 - (sAxe.graduation.trait ? 4 : 0)}
-            y={y + 5}
-            textAnchor="end"
-            {...attrsGraduation(sAxe, 16 * AF)}
-          >
-            {texteGraduation(sAxe, formatYTick(v, unit, tickDecimals))}
-          </text>
-        ))}
-        <TraitsGraduationY s={sAxe} ys={ticks.map(({ y }) => y)} xAxe={yOnRight ? PAD_LEFT + innerW : PAD_LEFT} aDroite={yOnRight} />
+        {/* Yann 1er sept 2026 : meme regle que les barres, ancre sur le bord
+            droit, texte etendu vers la gauche, zero clipping. 14 oct 2026 :
+            rendu selon le style d axe (GraduationsY, identique en « actuel »). */}
+        <GraduationsY
+          s={sAxe}
+          ticks={ticks.map(({ v, y }) => ({ y, texte: texteGraduation(sAxe, formatYTick(v, unit, tickDecimals)) }))}
+          taille={16 * AF}
+          xTexte={yOnRight ? W - 6 : PAD_LEFT - 6 - (sAxe.graduation.trait ? 4 : 0)}
+          xAxe={yOnRight ? PAD_LEFT + innerW : PAD_LEFT}
+          xBord={yOnRight ? W - 4 : -extraGauche + 4}
+          aDroite={yOnRight}
+          unite={header ? calculeEnteteAxe(header, yOnRight, { W, PAD_LEFT, INNER_W: innerW }).lignes.join(" ") : undefined}
+        />
 
         {/* Yann 2 sept 2026 : bascule d axe au clic desactivee (le clic ouvre le plein ecran en mobile). */}
 

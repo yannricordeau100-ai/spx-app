@@ -141,7 +141,7 @@ export function KpiRow({
       className={cn(
         "group relative grid w-full cursor-pointer grid-cols-12 items-center gap-3 border-b border-[#1a1a1a] px-5 py-2 text-left transition-colors hover:bg-[#0c0c0c] focus:outline-none focus-visible:bg-[#0c0c0c] sm:px-6 sm:py-2.5",
         active && "bg-[#0d0d0d]",
-        institutionnel && "bg-[#facc15]/[0.035] hover:bg-[#facc15]/[0.06]"
+        institutionnel && "bg-[color-mix(in_srgb,var(--jaune-instit)_3%,transparent)] hover:bg-[color-mix(in_srgb,var(--jaune-instit)_5%,transparent)]"
       )}
     >
       <span
@@ -186,7 +186,7 @@ export function KpiRow({
           <div className="min-w-0 leading-tight">
             {/* Yann 3 sept 2026 : fin du marquage jaune de revue du lot
                 kpi-sept-2026 (META/GOOGL), tous les titres en blanc. */}
-            <div className={cn("text-[14px] font-medium leading-snug", institutionnel ? "text-[#fde68a]" : "text-zinc-100")}>
+            <div className={cn("text-[14px] font-medium leading-snug", institutionnel ? "text-[var(--jaune-instit-clair)]" : "text-zinc-100")}>
               {primaryName}
               {/* 9 sept 2026 : plus de pastille « Nouveau / Allonge / Autre » (demande du proprietaire). */}
               {Array.isArray((kpi as { _estime?: string[] })._estime) && (kpi as { _estime?: string[] })._estime!.length > 0 && (
