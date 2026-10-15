@@ -1468,9 +1468,13 @@ async function loadV17CompanyBrut(
       const auj = new Date().toISOString().slice(0, 10);
       const cur = (data as Record<string, unknown>).next_earnings_date;
       const curJour = typeof cur === "string" ? cur.slice(0, 10) : "";
-      if (!curJour || curJour < auj) {
-        const cal = (calendrierResultatsJson as unknown as { par_ticker?: Record<string, { prochaine?: string }> }).par_ticker ?? {};
-        const prochaine = cal[ticker.toUpperCase()]?.prochaine;
+      const cal = (calendrierResultatsJson as unknown as { par_ticker?: Record<string, { prochaine?: string; source?: string }> }).par_ticker ?? {};
+      const entree = cal[ticker.toUpperCase()];
+      // 15 oct 2026 : une date lue sur le site investisseurs (source « officielle »,
+      // src/data/earnings-dates-officielles.json) prime sur une estimation future.
+      const officielle = entree?.source === "officielle";
+      if (!curJour || curJour < auj || officielle) {
+        const prochaine = entree?.prochaine;
         if (typeof prochaine === "string" && prochaine >= auj) {
           (data as Record<string, unknown>).next_earnings_date = prochaine;
         }

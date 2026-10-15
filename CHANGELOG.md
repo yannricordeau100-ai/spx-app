@@ -1078,3 +1078,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.15.5 (15 Oct 2026 15:45, apres 815fd4a6ce)
 - KPI principal : colonne de texte a 15 %, graphique elargi, gros chiffre inchange
+
+## v2026.10.15.6 (15 Oct 2026 23:35, apres db439c3e13)
+- ASML : résultats du T3 2026 (CA, résultat net, systèmes, base installée, marge brute, EUV et Chine par trimestre), prochaine publication 27/01/2027 ; dates de prochaine publication pour 55 sociétés

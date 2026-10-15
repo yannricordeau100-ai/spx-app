@@ -247,7 +247,9 @@ def telecharge_sec(t, cik, depuis):
         with gzip.open(p, "wb") as f: f.write(b)
         n += 1
         time.sleep(0.15)
-        if d == "8K":
+        # 15 oct 2026 : un 6-K (societe etrangere deposant a la SEC, ex. ASML)
+        # n est lui aussi qu une page de garde ; le communique est en piece 99.
+        if d in ("8K", "6K"):
             n += telecharge_communique(t, cik, date, acc)
     return n, None
 

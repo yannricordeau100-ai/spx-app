@@ -240,6 +240,46 @@ def fusion_stockanalysis(sortie):
     sortie["source"] = sortie.get("source", "") + " + stockanalysis"
     print("stockanalysis fusionne :", n, "societes")
 
+OFFICIELLES = os.path.join(RACINE, "src", "data", "earnings-dates-officielles.json")
+
+
+def fusion_officielles(sortie):
+    """15 oct 2026 : dates posees a la main depuis le site investisseurs des
+    societes (src/data/earnings-dates-officielles.json). Elles priment sur
+    toute date estimee et ne sont jamais ecrasees par une regeneration : une
+    date officielle future reste en place tant qu aucune source automatique
+    ne fournit une date confirmee plus proche. Cas d origine : 55 societes sans
+    prochaine date (ASML : precedente = fin de trimestre, prochaine = None)."""
+    try:
+        off = json.load(open(OFFICIELLES, encoding="utf-8")).get("par_ticker", {})
+    except Exception:
+        return
+    auj = date.today().isoformat()
+    pt = sortie.setdefault("par_ticker", {})
+    n = 0
+    for t, o in off.items():
+        cur = pt.get(t) or {}
+        d = o.get("prochaine")
+        if d and d >= auj:
+            garde = cur.get("prochaine") and cur["prochaine"] >= auj and not cur.get("estimee", True) and not o.get("officielle")
+            if not garde:
+                cur["prochaine"] = d
+                cur["estimee"] = not o.get("officielle", False)
+                cur["source"] = "officielle" if o.get("officielle") else (o.get("source_nom") or "manuelle")
+                n += 1
+        if o.get("precedente") and (not cur.get("precedente") or o["precedente"] > cur["precedente"]):
+            cur["precedente"] = o["precedente"]
+        if cur:
+            pt[t] = cur
+    sortie["couverts"] = len([t for t, e in pt.items() if e.get("prochaine") or e.get("precedente")])
+    intr = sortie.get("introuvables")
+    if isinstance(intr, dict):
+        sortie["introuvables"] = {k: v for k, v in intr.items() if not (pt.get(k) or {}).get("prochaine")}
+    elif isinstance(intr, list):
+        sortie["introuvables"] = [k for k in intr if not (pt.get(k) or {}).get("prochaine")]
+    print("dates officielles fusionnees :", n, "societes")
+
+
 def sans_fmp():
     """13 sept 2026 : FMP est optionnel. Sans cle, le calendrier est construit
     depuis le fichier precedent + MarketBeat (US) + stockanalysis (autres places)."""
@@ -253,6 +293,7 @@ def sans_fmp():
     historique_dates(sortie)
     fusion_marketbeat(sortie)
     fusion_stockanalysis(sortie)
+    fusion_officielles(sortie)
     with open(SORTIE, "w", encoding="utf-8") as f:
         json.dump(sortie, f, ensure_ascii=False, indent=1)
         f.write("\n")
@@ -260,6 +301,15 @@ def sans_fmp():
 
 
 def main():
+    # --officielles-seulement : reapplique les dates officielles au calendrier
+    # existant, sans aucun appel reseau.
+    if "--officielles-seulement" in sys.argv:
+        sortie = json.load(open(SORTIE, encoding="utf-8"))
+        fusion_officielles(sortie)
+        with open(SORTIE, "w", encoding="utf-8") as f:
+            json.dump(sortie, f, ensure_ascii=False, indent=1)
+            f.write("\n")
+        return 0
     # --sans-fmp : n interroge pas FMP du tout (utile quand la cle est
     # restreinte : MarketBeat et stockanalysis suffisent).
     cle = None if "--sans-fmp" in sys.argv else cle_api_optionnelle()
@@ -369,6 +419,7 @@ def main():
     historique_dates(sortie)
     fusion_marketbeat(sortie)
     fusion_stockanalysis(sortie)
+    fusion_officielles(sortie)
     with open(SORTIE, "w", encoding="utf-8") as f:
         json.dump(sortie, f, ensure_ascii=False, indent=1)
         f.write("\n")
