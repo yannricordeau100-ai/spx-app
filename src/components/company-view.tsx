@@ -5,7 +5,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { RachatsBlock, type RachatsFiche } from "@/components/rachats-block";
-import { applyFloutageRules, ajouteAppelsAbonnement, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
+import { applyFloutageRules, ajouteAppelsAbonnement, floutageEnAttente, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
 // Yann 30 aout 2026 : l ancien systeme de flou a chemins CSS
 // (floutage-free-mode.json, selecteurs fragiles casses a chaque refonte) est
 // ARCHIVE : plus importe, plus execute. Le secours si l API des zones est
@@ -386,10 +386,24 @@ export function CompanyView({
     const cleanups: Array<() => void> = [];
     let observer: MutationObserver | null = null;
     let annule = false;
+    const minuteriesReprise: Array<ReturnType<typeof setTimeout>> = [];
     const applique = (rules: FloutageRule[]) => {
       if (annule || rules.length === 0) return;
       cleanups.push(applyFloutageRules(rules));
       cleanups.push(ajouteAppelsAbonnement(String(freemiumTier ?? "")));
+      // 16 oct 2026 : les blocs charges a la demande s hydratent apres ce
+      // passage ; leurs cibles, laissees intactes (erreur #418 sinon), sont
+      // reprises toutes les 250 ms. Au bout de 10 s on applique quand meme.
+      let essais = 0;
+      const reprise = () => {
+        if (annule || !floutageEnAttente(rules)) return;
+        essais += 1;
+        const forcer = essais >= 40;
+        cleanups.push(applyFloutageRules(rules, forcer));
+        cleanups.push(ajouteAppelsAbonnement(String(freemiumTier ?? ""), forcer));
+        if (!forcer) minuteriesReprise.push(setTimeout(reprise, 250));
+      };
+      minuteriesReprise.push(setTimeout(reprise, 250));
       let minuterie: ReturnType<typeof setTimeout> | null = null;
       observer = new MutationObserver(() => {
         if (annule || minuterie) return;
@@ -425,6 +439,7 @@ export function CompanyView({
     return () => {
       annule = true;
       observer?.disconnect();
+      for (const m of minuteriesReprise) clearTimeout(m);
       for (const c of cleanups) c();
     };
   }, [freeBlockedTier, company.ticker]);

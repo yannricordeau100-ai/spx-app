@@ -26,10 +26,48 @@ export type FloutageRulesFile = {
 };
 
 /**
+ * 16 oct 2026 : un element encore dans une frontiere Suspense non hydratee
+ * (composant charge a la demande, ex. le carrousel des stories) ne doit pas
+ * etre modifie : React comparerait ensuite le HTML serveur au DOM retouche et
+ * leverait l erreur d hydratation #418 (« Hydration failed », HTML). On ne
+ * touche donc qu aux noeuds deja pris en charge par React ; les autres sont
+ * repris au passage suivant (voir floutageEnAttente).
+ */
+function estHydrate(el: Element): boolean {
+  let n: Element | null = el;
+  let premier = true;
+  while (n) {
+    const cle = Object.keys(n).find((k) => k.startsWith("__reactFiber$"));
+    if (cle) {
+      if (premier) return true;
+      // Contenu injecte en HTML brut : jamais hydrate noeud par noeud.
+      const props = (n as unknown as Record<string, { dangerouslySetInnerHTML?: unknown } | undefined>)[cle.replace("__reactFiber$", "__reactProps$")];
+      return !!props?.dangerouslySetInnerHTML;
+    }
+    premier = false;
+    n = n.parentElement;
+  }
+  return true;
+}
+
+/** Vrai tant qu une cible des regles attend encore son hydratation. */
+export function floutageEnAttente(rules: FloutageRule[]): boolean {
+  if (typeof document === "undefined") return false;
+  for (const rule of rules) {
+    let els: NodeListOf<Element>;
+    try { els = document.querySelectorAll(rule.dom_selector); } catch { continue; }
+    for (const el of els) {
+      if ((el as HTMLElement).dataset.floutageApplied !== "1" && !estHydrate(el)) return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Applique les règles côté DOM (à appeler dans un useEffect côté client).
  * Retourne un cleanup qui restaure l'état initial.
  */
-export function applyFloutageRules(rules: FloutageRule[]): () => void {
+export function applyFloutageRules(rules: FloutageRule[], forcer = false): () => void {
   if (typeof document === "undefined" || rules.length === 0) {
     return () => {};
   }
@@ -53,6 +91,7 @@ export function applyFloutageRules(rules: FloutageRule[]): () => void {
     els.forEach((node) => {
       const el = node as HTMLElement;
       if (el.dataset.floutageApplied === "1") return;
+      if (!forcer && !estHydrate(el)) return;
       touched.push({
         el,
         prevFilter: el.style.filter,
@@ -301,7 +340,7 @@ export function zonesEnRegles(zones: Zone[]): FloutageRule[] {
  * recoit un appel a l abonnement centre, sans mention de palier. Anonyme : lien
  * vers l inscription ; gratuit : lien vers les offres. Retourne un nettoyage.
  */
-export function ajouteAppelsAbonnement(palier: "anon" | "free" | string): () => void {
+export function ajouteAppelsAbonnement(palier: "anon" | "free" | string, forcer = false): () => void {
   if (typeof document === "undefined" || (palier !== "anon" && palier !== "free")) return () => {};
   const poses: HTMLElement[] = [];
   const restaure: { el: HTMLElement; position: string }[] = [];
@@ -313,6 +352,7 @@ export function ajouteAppelsAbonnement(palier: "anon" | "free" | string): () => 
   });
   blocs.forEach((bloc) => {
     if (bloc.querySelector('[data-appel-abonnement]')) return;
+    if (!forcer && !estHydrate(bloc)) return;
     if (getComputedStyle(bloc).position === "static") { restaure.push({ el: bloc, position: bloc.style.position }); bloc.style.position = "relative"; }
     const a = document.createElement("a");
     a.setAttribute("data-appel-abonnement", "1");
