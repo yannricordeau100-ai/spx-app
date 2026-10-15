@@ -266,6 +266,12 @@ export function AuthModal() {
     next.delete("info");
     next.delete("next");
     const qs = next.toString();
+    // Ouverte depuis une fiche (next=/aapl) : on y retourne (position restauree par la fiche).
+    const retour = params.get("next");
+    if (retour && /^\/(?!\/)[^?#]*$/.test(retour) && retour !== "/" && !/^\/(api|auth)(\/|$)/.test(retour)) {
+      router.replace(retour);
+      return;
+    }
     router.replace(qs ? `/?${qs}` : "/");
   };
 

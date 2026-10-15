@@ -186,6 +186,12 @@ ABREGES = {"M": "millions", "Mds": "milliards", "Md": "milliards", "k": "millier
 
 
 def unite_axe_deduite(spec: dict) -> str:
+    # 15 oct 2026 (Yann) : le texte de l echelle Y commence toujours par une majuscule.
+    u = _unite_axe_brute(spec)
+    return (u[:1].upper() + u[1:]) if u[:1].isalpha() else u
+
+
+def _unite_axe_brute(spec: dict) -> str:
     u = str(spec.get("unite_axe") or "").strip()
     if u:
         return u

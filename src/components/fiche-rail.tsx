@@ -637,7 +637,15 @@ export function FicheRail({
     return () => { window.removeEventListener("scroll", maj); window.removeEventListener("resize", maj); };
   }, [capture]);
   const ouvrirRecherche = () => {
-    refRecherche.current?.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')?.click();
+    // Anonyme : la recherche mene a l inscription. Connecte (gratuit compris) : on ouvre
+    // la recherche du site ; si le declencheur n est pas monte ou ignore le clic, repli par le ⌘K.
+    if (anon) { try { sessionStorage.setItem("mettrik-pos-fiche", JSON.stringify({ p: window.location.pathname, y: window.scrollY, t: Date.now() })); } catch { /* ignore */ } window.location.href = lienInscription(); return; }
+    const decl = refRecherche.current?.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]');
+    decl?.click();
+    window.setTimeout(() => {
+      if (decl?.getAttribute("aria-expanded") === "true") return;
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }));
+    }, 120);
   };
   useEffect(() => {
     const ids = cleBlocs ? cleBlocs.split(",") : [];
@@ -678,7 +686,29 @@ export function FicheRail({
     return () => { window.removeEventListener("scroll", maj); window.removeEventListener("resize", maj); window.removeEventListener("scrollend", fin); };
   }, [cleBlocs]);
 
-  const versInscription = () => { window.location.href = lienInscription(); };
+  // Retour d une fenetre de connexion fermee : on retrouve la position de la fiche.
+  useEffect(() => {
+    try {
+      const brut = sessionStorage.getItem("mettrik-pos-fiche");
+      if (!brut) return;
+      sessionStorage.removeItem("mettrik-pos-fiche");
+      const { p, y, t } = JSON.parse(brut) as { p: string; y: number; t: number };
+      if (p === window.location.pathname && Date.now() - t < 600000 && y > 0) {
+        const aller = () => window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
+        aller(); setTimeout(aller, 400); setTimeout(aller, 1200);
+      }
+    } catch { /* stockage indisponible */ }
+  }, []);
+  useEffect(() => {
+    const noter = () => { try { sessionStorage.setItem("mettrik-pos-fiche", JSON.stringify({ p: window.location.pathname, y: window.scrollY, t: Date.now() })); } catch { /* ignore */ } };
+    const clic = (e: MouseEvent) => { if ((e.target as HTMLElement | null)?.closest?.('a[href*="auth="]')) noter(); };
+    document.addEventListener("click", clic, true);
+    return () => document.removeEventListener("click", clic, true);
+  }, []);
+  const versInscription = () => {
+    try { sessionStorage.setItem("mettrik-pos-fiche", JSON.stringify({ p: window.location.pathname, y: window.scrollY, t: Date.now() })); } catch { /* ignore */ }
+    window.location.href = lienInscription();
+  };
   const choisirBloc = (id: string) => {
     if (capture) { versInscription(); return; }
     const el = sectionDe(id);

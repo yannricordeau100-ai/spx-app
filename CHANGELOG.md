@@ -1072,3 +1072,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.15.3 (15 Oct 2026 14:32, apres 86196b7479)
 - FAQ allegee, accueil : carte des pays complete avec 10 societes par zone
+
+## v2026.10.15.4 (15 Oct 2026 15:15, apres 0da0782386)
+- Axe Y moyen terme avec majuscule (graphiques regeneres), fonctions a Dublin pres de la base, recherche au defilement fiabilisee, fenetre de connexion qui garde la fiche
