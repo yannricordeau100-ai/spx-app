@@ -240,7 +240,7 @@ export function TelemetrieClient() {
     const r = await fetch(`/api/sandbox/telemetrie/compte?id=${id}`, { cache: "no-store" });
     if (r.ok) setFiche(await r.json());
   };
-  const bouton = (actif: boolean) => `rounded-full border px-3 py-1 text-xs ${actif ? "border-purple-500 bg-purple-500/15 text-purple-200" : "border-[#262626] text-zinc-400 hover:border-[#3a3a3a]"}`;
+  const bouton = (actif: boolean) => `whitespace-nowrap rounded-full border px-3 py-1 text-xs ${actif ? "border-purple-500 bg-purple-500/15 text-purple-200" : "border-[#262626] text-zinc-400 hover:border-[#3a3a3a]"}`;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:px-5">

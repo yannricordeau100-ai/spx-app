@@ -164,11 +164,11 @@ export function TelemetrieCollecteur() {
     // Tout part en type « erreur » avec une categorie (props.cat) ; au plus
     // 25 signalements par page chargee, une seule fois par cle identique.
     const dejaSignale = new Set<string>();
-    const probleme = (cat: string, nom: string, props: Evt = {}) => {
-      const cle = `${cat}|${nom}|${location.pathname}`;
+    const probleme = (cat: string, nom: string, props: Evt = {}, chemin: string = location.pathname) => {
+      const cle = `${cat}|${nom}|${chemin}`;
       if (dejaSignale.has(cle) || dejaSignale.size >= 25) return;
       dejaSignale.add(cle);
-      pousse({ type: "erreur", nom: nom.slice(0, 160), props: { cat, ...props } });
+      pousse({ type: "erreur", nom: nom.slice(0, 160), chemin, props: { cat, ...props } });
     };
     // Erreurs React minifiees regroupees par code (#418, #423...) ;
     // 418, 419, 423 et 425 sont des erreurs d hydratation.
@@ -283,12 +283,12 @@ export function TelemetrieCollecteur() {
     const envoieVitaux = () => {
       if (vitauxEnvoyes || (!lcp && !inp && !cls)) return;
       vitauxEnvoyes = true;
-      pousse({ type: "perf", nom: "vitaux", props: { lcp_ms: Math.round(lcp), inp_ms: Math.round(inp), cls: Math.round(cls * 1000) / 1000 } });
+      pousse({ type: "perf", nom: "vitaux", chemin: cheminCourant, props: { lcp_ms: Math.round(lcp), inp_ms: Math.round(inp), cls: Math.round(cls * 1000) / 1000 } });
       const lents: string[] = [];
       if (lcp > 4000) lents.push(`LCP ${(lcp / 1000).toFixed(1)} s`);
       if (inp > 500) lents.push(`INP ${Math.round(inp)} ms`);
       if (cls > 0.25) lents.push(`CLS ${cls.toFixed(2)}`);
-      if (lents.length) probleme("lent", lents.join(", "));
+      if (lents.length) probleme("lent", lents.join(", "), {}, cheminCourant);
     };
 
     // ---- latence API + perf de chargement (couche logicielle) ----
