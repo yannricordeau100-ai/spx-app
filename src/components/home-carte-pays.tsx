@@ -20,7 +20,6 @@ import {
 } from "@/components/home-popular-block";
 import { CarteSteWow, type SteWow } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
-import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
 
 export function HomeCartePays({
   locale,
@@ -47,7 +46,6 @@ export function HomeCartePays({
   const [activeTab, setActiveTab] = useState<string>(() => (zones.world?.length ? "world" : zones[locale]?.length ? locale : "world"));
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   // Yann 30 sept 2026 : vitrine ouverte aux anonymes = liste « 100 % visibles en gratuit » (base).
-  const VITRINE_ANON = useVisiblesGratuit();
   const hoverTimer = useRef<number | null>(null);
 
   const labels = locale === "fr" ? TAB_LABELS_FR : TAB_LABELS_EN;
@@ -74,7 +72,8 @@ export function HomeCartePays({
 
   const buildCompanyHref = (ticker: string): string => {
     const base = routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
-    return anonLinks && !VITRINE_ANON.has(ticker.toUpperCase()) ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
+    // 15 oct 2026 : anonyme = inscription sur toute carte ; connecte = fiche (floutage habituel de la fiche).
+    return anonLinks ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
   };
 
   // Yann 07 sept 2026 : exactement 10 sociétés (2 colonnes de 5), pas de bouton.
@@ -103,7 +102,7 @@ export function HomeCartePays({
         buildHref={buildCompanyHref}
       />
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {visibles.map((s) => (anonLinks && VITRINE_ANON.has(s.ticker.toUpperCase()) ? <CarteSteWow key={s.ticker} s={s} buildHref={buildCompanyHref} /> : wrapGate(s.ticker, <CarteSteWow s={s} buildHref={buildCompanyHref} flouKpis={anonLinks} />)))}
+        {visibles.map((s) => wrapGate(s.ticker, <CarteSteWow s={s} buildHref={buildCompanyHref} />))}
       </div>
 
     </div>

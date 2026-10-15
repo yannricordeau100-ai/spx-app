@@ -817,8 +817,8 @@ export const DICTIONARY: Dict = {
     en: "Can I try Mettrik AI without paying?",
   },
   "faq.a.essai_sans_payer": {
-    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
-    en: "Yes, the Free plan is free forever, no credit card. You can open the profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
+    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf sur 5 sociétés entièrement visibles en gratuit, pour juger la profondeur avant de décider.",
+    en: "Yes, the Free plan is free forever, no credit card. You can open the profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except on 5 companies fully visible for free, to judge the depth before deciding.",
   },
   "faq.q.coverage_plans": {
     fr: "Quelles sociétés sont couvertes en Premium et Max ?",
@@ -865,7 +865,7 @@ export const DICTIONARY: Dict = {
     en: "How much should I trust the scores and rankings?",
   },
   "faq.a.scores_trust": {
-    fr: "Les scores Mettrik AI sont des opinions éditoriales construites à partir d'une méthodologie quantitative documentée (poids des inputs, normalisation, fenêtres temporelles). Ils reflètent une analyse à un instant donné et peuvent évoluer à chaque nouvelle publication officielle. Ils ne sont jamais une note de crédit ni une recommandation, et ne remplacent pas la lecture de la documentation primaire pour une décision engageante.",
+    fr: "Les scores Mettrik AI sont des opinions éditoriales construites à partir d'une méthodologie quantitative documentée (poids des inputs, normalisation, fenêtres temporelles). Ils reflètent une analyse à un instant donné et peuvent évoluer à chaque nouvelle publication officielle. Ils ne sont jamais une note de crédit ni une recommandation.",
     en: "Mettrik AI scores are editorial opinions built from a documented quantitative methodology (input weights, normalization, time windows). They reflect an analysis at a given moment and may evolve with every new official filing. They are not a credit rating nor a recommendation, and do not replace reading primary documentation for any committing decision.",
   },
   "faq.q.coverage": {

@@ -1066,3 +1066,9 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.15.1 (15 Oct 2026 02:11, apres 6670583788)
 - Logos recadres (312), nom complet dans l en-tete, pastille sous le nom, graphique du KPI principal agrandi, tableau elargi, logo Mettrik partout, captcha visible sur contact et support, avertissement fournisseurs prives
+
+## v2026.10.15.2 (15 Oct 2026 02:42, apres 83e22bdb12)
+- Captcha au clic sur Envoyer (contact, support, formulaires), Mon compte sans « Ce qui est mesure » (deplace en confidentialite), bloc Pour les professionnels et question FAQ
+
+## v2026.10.15.3 (15 Oct 2026 14:32, apres 86196b7479)
+- FAQ allegee, accueil : carte des pays complete avec 10 societes par zone

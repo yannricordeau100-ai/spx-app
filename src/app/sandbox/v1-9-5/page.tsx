@@ -17,7 +17,6 @@ import { getServerFreemiumTier } from "@/lib/freemium/server";
 import { comptesGicsPublics } from "@/lib/comptes-gics-public";
 import { estUniversN1 } from "@/lib/univers-actif";
 import { zonesVitrineGratuite } from "@/lib/accueil-vitrine";
-import { chargeVisiblesGratuit } from "@/lib/desk/visibles-gratuit";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
@@ -64,14 +63,7 @@ export default async function SandboxV195HubPage() {
   // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) : ni KPI de vitrine ni carte des
   // pays (elles ne citent que des societes de l univers principal).
   const n1 = estUniversN1();
-  // Yann 13 oct 2026 : aucune valeur de KPI d une societe hors de la liste
-  // « visibles en gratuit » sur l accueil (cartes et KPI personnalises).
-  const gratuites = new Set(await chargeVisiblesGratuit());
-  const accueilKpis = n1
-    ? {}
-    : Object.fromEntries(
-        Object.entries(await kpisAccueilPersonnalises().catch(() => ({}))).filter(([t]) => gratuites.has(t.toUpperCase())),
-      );
+  const accueilKpis = n1 ? {} : await kpisAccueilPersonnalises().catch(() => ({}));
   const zonesVitrine = n1 ? {} : await zonesVitrineGratuite();
   const themePaid = freemiumTier === "premium" || freemiumTier === "max";
 

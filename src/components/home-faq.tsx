@@ -28,7 +28,7 @@ function buildItems(t: (k: string) => string): QA[] {
   // Yann 19 sept 2026 : les questions qui vivaient sur la page des tarifs sont
   // regroupees ici (essai sans payer, changement de plan, couverture par offre),
   // ainsi que « Que deviennent mes donnees personnelles ».
-  const ids = ["what", "kpi_definition", "data_sources", "freshness", "advice", "scores_trust", "coverage", "coverage_plans", "free_or_paid", "essai_sans_payer", "cancel", "changer_plan", "delete", "data_errors", "personal_data", "devenir_donnees", "pro_data", "support"];
+  const ids = ["what", "kpi_definition", "data_sources", "advice", "scores_trust", "coverage", "coverage_plans", "free_or_paid", "essai_sans_payer", "cancel", "pro_data"];
   return ids.map((id) => ({
     q: t(`faq.q.${id}`),
     a: t(`faq.a.${id}`),
