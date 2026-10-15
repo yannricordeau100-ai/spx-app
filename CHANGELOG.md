@@ -1075,3 +1075,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.15.4 (15 Oct 2026 15:15, apres 0da0782386)
 - Axe Y moyen terme avec majuscule (graphiques regeneres), fonctions a Dublin pres de la base, recherche au defilement fiabilisee, fenetre de connexion qui garde la fiche
+
+## v2026.10.15.5 (15 Oct 2026 15:45, apres 815fd4a6ce)
+- KPI principal : colonne de texte a 15 %, graphique elargi, gros chiffre inchange

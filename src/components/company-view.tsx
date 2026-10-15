@@ -640,6 +640,26 @@ export function CompanyView({
   // desactive au palier gratuit.
 
   const heroRef = useRef<HTMLDivElement>(null);
+  // 15 oct 2026 : le gros chiffre + unite peuvent deborder a droite de la colonne etroite ;
+  // l en-tete du graphique (reglages, titre) est decale d autant pour ne rien chevaucher.
+  const heroNombreRef = useRef<HTMLDivElement>(null);
+  const [heroDecal, setHeroDecal] = useState(0);
+  useEffect(() => {
+    const el = heroNombreRef.current;
+    if (!el) return;
+    const mesure = () => {
+      const col = el.parentElement;
+      if (!col || window.innerWidth < 1024) { setHeroDecal(0); return; }
+      const colDroite = col.getBoundingClientRect().right;
+      const depasse = el.getBoundingClientRect().left + el.scrollWidth - colDroite;
+      setHeroDecal(depasse > 12 ? Math.ceil(depasse) - 12 : 0);
+    };
+    mesure();
+    const ro = new ResizeObserver(mesure);
+    ro.observe(el);
+    window.addEventListener("resize", mesure);
+    return () => { ro.disconnect(); window.removeEventListener("resize", mesure); };
+  });
   const handleKpiClick = (short: string) => {
     setActiveKpiShort(short);
     // Yann 13 oct 2026 : « KPI ouvert », restitue dans Mon compte et analytics.
@@ -1495,7 +1515,7 @@ export function CompanyView({
           {/* Yann 15 oct 2026 : colonne de texte a ~20 % de la largeur du bloc (21 % de la grille interieure ; Yann : graphique beaucoup plus grand)
               (contre 4/12 avant), tout le reste au graphique. Le texte passe a
               la ligne. Mobile inchange (empile). */}
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,21fr)_minmax(0,79fr)]">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,15fr)_minmax(0,85fr)]">
             {/* LEFT: hero number — colonne réduite à 2/12 (Yann 21 août 2026,
                 était 3/12) pour donner encore plus d'espace au graph (9 → 10).
                 Tout ce qui est trop large doit glisser à gauche, le bord droit
@@ -1544,7 +1564,7 @@ export function CompanyView({
                   $XX.XX, ABF $XXX.X Mds, etc.). flex-wrap permet à l'unité
                   de basculer en dessous si pas la place. min-w-0 sur la
                   colonne parent côté layout HERO. */}
-              <div className="order-1 max-lg:order-2 mt-0 flex w-full flex-wrap items-baseline gap-x-2 gap-y-1 max-lg:justify-center max-lg:gap-x-3">
+              <div ref={heroNombreRef} className="order-1 max-lg:order-2 mt-0 flex w-full flex-wrap items-baseline lg:w-max lg:flex-nowrap lg:whitespace-nowrap gap-x-2 gap-y-1 max-lg:justify-center max-lg:gap-x-3">
                 {freeBlocked ? (
                   <div style={{ fontSize: "clamp(30px, 3.8vw, 48px)" }}>
                     <BlurredFreeValue
@@ -1846,7 +1866,7 @@ export function CompanyView({
                   son debut sortait a gauche, hors de portee du defilement.
                   Retour a la ligne autorise (2 lignes centrees si besoin) et
                   centrage « sur » qui ne coupe jamais le debut. */}
-              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap items-center justify-center-safe gap-x-2 gap-y-1.5 sm:gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div data-zone-graphique style={heroDecal ? { paddingLeft: heroDecal } : undefined} className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap items-center justify-center-safe gap-x-2 gap-y-1.5 sm:gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {/* Yann 2 sept 2026 (ergonomie mobile) : en mobile, un menu
                     Reglages commun (fenetre + frequence + rendu 2D/3D) et un
                     menu deroulant pour l unite de temps remplacent les
@@ -1903,7 +1923,7 @@ export function CompanyView({
                   <Maximize2 className="size-3.5" />
                 </button>
               </div>
-              <div className="max-lg:order-1 mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
+              <div style={heroDecal ? { paddingLeft: heroDecal } : undefined} className="max-lg:order-1 mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
                 {/* Yann 9 juin 2026 : "i" permanent à GAUCHE du titre hero quand
                     la profondeur de données est limitée. Indépendant du KPI
                     sélectionné (rendu hors KpiSwapTitle, donc persiste au swap). */}
