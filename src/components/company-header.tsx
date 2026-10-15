@@ -683,7 +683,8 @@ export function CompanyHeader({
                 institutionnels, deplacee ici depuis la ligne du nom : sous le nom,
                 a gauche de la capitalisation boursiere. Un clic fait defiler
                 jusqu au groupe jaune du tableau. */}
-            {kpiInstit && <KpiInstitPastille resume={kpiInstit} />}
+            {/* Yann 15 oct 2026 (choix B) : pastille reservee a la vue admin (panneau serveur present). */}
+            {kpiInstit && adminKpiInstit != null && <KpiInstitPastille resume={kpiInstit} />}
           </div>
           {/* Yann (1er juin 05:15) : tagline supprimée de V1.9.5
               (risque hallucination LLM + Yann préfère épure).
