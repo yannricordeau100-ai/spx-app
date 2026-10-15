@@ -51,14 +51,20 @@ function renderCell(value: string | boolean, accent: string) {
 function FeatureCellGroup({ feature, plans }: { feature: FeatureRow; plans: PlanDisplay[] }) {
   return (
     <div className="grid grid-cols-3 items-center gap-x-1.5 gap-y-2 border-b border-white/[0.04] py-3.5 sm:grid-cols-[1.5fr_1fr_1fr_1fr] sm:gap-3">
-      <div className="col-span-3 flex items-center gap-1.5 sm:col-span-1">
-        <span className="text-[13px] text-zinc-200">{feature.label}</span>
+      {/* 15 oct 2026 (Yann) : le « i » suit toujours le dernier mot, meme sur 2 lignes */}
+      <div className="col-span-3 sm:col-span-1">
+        <span className="text-[13px] text-zinc-200">
+          {feature.help ? feature.label.replace(/\S+$/, "") : feature.label}
+        </span>
         {feature.help && (
-          <span className="group/h relative">
+          <span className="whitespace-nowrap text-[13px] text-zinc-200">
+          {feature.label.match(/\S+$/)?.[0]}
+          <span className="group/h relative ml-1.5 inline-block align-[-1px]">
             <Info className="size-3 cursor-help text-zinc-600" />
             <span className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1.5 hidden w-56 -translate-x-1/2 rounded-md border border-white/10 bg-[#0a0a0a] p-2 text-[11px] leading-relaxed text-zinc-300 shadow-xl group-hover/h:block">
               {feature.help}
             </span>
+          </span>
           </span>
         )}
       </div>
