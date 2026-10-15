@@ -809,6 +809,26 @@ export function HomeView({
         {/* Yann 19 sept 2026 : les questions frequentes ferment la page, apres
             les categories. L accueil reel (hub V1.9.5) les affichait a false
             depuis des mois, elles n etaient donc jamais visibles. */}
+        {/* Yann 15 oct 2026 (choix A) : offre professionnels, juste avant la FAQ. */}
+        {showFAQ && (
+          <section className="mx-auto mt-14 max-w-3xl px-2 sm:mt-20" aria-labelledby="pro-title">
+            <div className="rounded-2xl border border-white/8 bg-white/[0.02] px-5 py-6 text-center sm:px-8 sm:py-8">
+              <h2 id="pro-title" className="font-display text-[22px] font-bold tracking-tight text-zinc-50 sm:text-[26px]">
+                Pour les professionnels
+              </h2>
+              <p className="mx-auto mt-2 max-w-xl text-[14px] leading-relaxed text-zinc-400">
+                Mettrik peut fournir, prêt à l’usage, une base de données référencée de KPI sur des milliers d’actions de tous pays.
+              </p>
+              <Link
+                href={{ pathname: "/contact", query: { sujet: "Données pour les professionnels" } }}
+                className="mt-4 inline-flex min-h-11 items-center rounded-lg border border-violet-400/40 px-4 text-[13.5px] font-medium text-violet-200 transition-colors hover:border-violet-300 hover:text-white"
+              >
+                Nous contacter
+              </Link>
+            </div>
+          </section>
+        )}
+
         {showFAQ && <HomeFAQ />}
 
         {/* Yann 12 sept 2026 : mention « Mettrik AI · KPI Intelligence » retiree. */}

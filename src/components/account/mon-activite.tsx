@@ -6,7 +6,7 @@
  * vide qui dit pourquoi.
  */
 import Link from "next/link";
-import { Activity, BarChart3, CalendarClock, GitCompareArrows, Lock, ShieldCheck } from "lucide-react";
+import { Activity, BarChart3, CalendarClock, GitCompareArrows, Lock } from "lucide-react";
 import type { AnalyticsCompte } from "@/lib/analytics-compte";
 import { MESSAGE_OFFRE_PREMIUM } from "@/lib/freemium/visibles-gratuit-defaut";
 import { effacerMonHistorique, reglerMesureActivite } from "@/app/account/analytics-actions";
@@ -297,16 +297,7 @@ export function MonActivite({ a, abonne }: { a: AnalyticsCompte; abonne: boolean
 
       {/* 4. Vie privée */}
       <div className="mt-4 rounded-xl border border-[#1f1f1f] bg-[#0c0c0c] p-4">
-        <h3 className="flex items-center gap-2 text-[13.5px] font-semibold text-zinc-100">
-          <ShieldCheck className="size-4 shrink-0 text-emerald-300" aria-hidden />
-          Ce qui est mesuré
-        </h3>
-        <ul className="mt-2 list-disc space-y-1 pl-5 text-[12.5px] leading-relaxed text-zinc-400">
-          <li>Les pages que tu ouvres (adresse de la page, date, type d’appareil), les indicateurs que tu ouvres sur une fiche et les comparaisons que tu lances.</li>
-          <li>Jamais ce que tu tapes, ni tes mots de passe, ni ton adresse IP en clair. Rien n’est transmis à un tiers : tout reste dans la base de Mettrik.</li>
-          <li>Ces données ne servent qu’à toi sur cette page et aux statistiques globales du service. Elles sont rattachées à ton compte 1 an au plus, puis anonymisées.</li>
-        </ul>
-        <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
           <BoutonEffacer action={effacerMonHistorique} />
           <form action={reglerMesureActivite}>
             <input type="hidden" name="refuse" value={a.raison === "opposition" ? "0" : "1"} />

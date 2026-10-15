@@ -27,7 +27,7 @@ import {
   TriangleAlert,
   X,
 } from "lucide-react";
-import { TurnstileWidget } from "@/components/turnstile-widget";
+import { TurnstileAuClic, type CaptchaAuClicApi } from "@/components/turnstile-widget";
 import { ListeReponsesFaq, categoriesSupport, chercheFaq } from "./support-faq";
 import { ADRESSE_SUPPORT, TEXTES, type LangueSupport } from "./support-strings";
 
@@ -106,6 +106,7 @@ export function SupportPanel({
 }) {
   const T = TEXTES[langue];
   const idTitre = useId();
+  const captcha = useRef<CaptchaAuClicApi | null>(null);
   const panneauRef = useRef<HTMLDivElement | null>(null);
   const emailRef = useRef("");
 
@@ -260,14 +261,17 @@ export function SupportPanel({
       setErreur(T.erreur_message);
       return;
     }
-    const captchaToken =
-      (e.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? "";
-    if (!captchaToken) {
-      setErreur("Vérification anti-robot non terminée, patientez une seconde puis renvoyez.");
-      return;
-    }
     setErreur(null);
     setEnvoi(true);
+    // Yann 15 oct 2026 : captcha AU CLIC (rien de visible avant « Envoyer »).
+    let captchaToken = "";
+    try {
+      if (!captcha.current) throw new Error("captcha_non_pret");
+      captchaToken = await captcha.current.obtenirJeton();
+    } catch {
+      setEnvoi(false);
+      return;
+    }
     try {
       const reponse = await fetch("/api/support/tickets", {
         method: "POST",
@@ -297,7 +301,7 @@ export function SupportPanel({
     } catch (ex) {
       setErreur(
         ex instanceof Error && /captcha/i.test(ex.message)
-          ? "Vérification anti-robot non terminée, patientez une seconde puis renvoyez."
+          ? "Vérification anti-robot refusée, recommencez en cliquant à nouveau sur Envoyer."
           : T.erreur_envoi,
       );
     } finally {
@@ -514,7 +518,7 @@ export function SupportPanel({
               </div>
             )}
 
-            <TurnstileWidget theme="dark" size="flexible" cadre />
+            <TurnstileAuClic apiRef={captcha} theme="dark" />
             <div className="flex items-center gap-2 pt-0.5">
               <button
                 type="button"

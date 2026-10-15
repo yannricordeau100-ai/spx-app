@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { Send, Mail, ChevronDown } from "lucide-react";
 import type { Locale } from "@/lib/i18n/types";
-import { TurnstileWidget } from "@/components/turnstile-widget";
+import { TurnstileAuClic, type CaptchaAuClicApi } from "@/components/turnstile-widget";
 
 type Strings = {
   recipient_label: string;
@@ -61,6 +61,7 @@ export function ContactV18Client({
   const [err, setErr] = useState<string | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
+  const captcha = useRef<CaptchaAuClicApi | null>(null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -71,13 +72,13 @@ export function ContactV18Client({
     setBusy(true);
     setErr(null);
     try {
-      // Lit le token Turnstile injecté dans le form par le widget
-      const fd = new FormData(formRef.current ?? undefined);
-      const captchaToken = (fd.get("cf-turnstile-response") as string | null) ?? null;
-      if (!captchaToken) {
-        setErr(strings.error);
-        setBusy(false);
-        return;
+      // Yann 15 oct 2026 : captcha AU CLIC, jeton attendu par callback.
+      let captchaToken = "";
+      try {
+        if (!captcha.current) throw new Error("captcha_non_pret");
+        captchaToken = await captcha.current.obtenirJeton();
+      } catch {
+        return; // message affiche par le composant ; finally relache le bouton
       }
       // Recipient "sales" routé sur "contact" côté server (ils traitent
       // tout en un mailbox commercial pour l'instant).
@@ -224,10 +225,8 @@ export function ContactV18Client({
 
       {err && <div className="text-[12px] text-rose-300">{err}</div>}
 
-      {/* Captcha Cloudflare Turnstile (invisible/managed selon config). */}
-      <div className="flex justify-center">
-        <TurnstileWidget theme="dark" />
-      </div>
+      {/* Captcha Cloudflare Turnstile au clic : rien de visible avant Envoyer. */}
+      <TurnstileAuClic apiRef={captcha} theme="dark" />
 
       <button
         type="submit"

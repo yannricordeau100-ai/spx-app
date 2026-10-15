@@ -918,6 +918,14 @@ export const DICTIONARY: Dict = {
     fr: "Oui. Authentification via Supabase, mots de passe stockés sous forme de hash, paiements traités exclusivement par Stripe (norme PCI-DSS, aucune donnée bancaire ne transite par nos serveurs), aucune revente de données à des tiers. Détail complet dans la politique de confidentialité.",
     en: "Yes. Authentication via Supabase, passwords stored as hashes, payments handled exclusively by Stripe (PCI-DSS compliant, no card data transits through our servers), no resale of data to third parties. Full details in the privacy policy.",
   },
+  "faq.q.pro_data": {
+    fr: "Proposez-vous des données pour les professionnels ?",
+    en: "Do you offer data for professionals?",
+  },
+  "faq.a.pro_data": {
+    fr: "Oui. Mettrik peut fournir, prêt à l'usage, une base de données référencée de KPI sur des milliers d'actions de tous pays. Écrivez-nous via la page contact.",
+    en: "Yes. Mettrik can supply a ready-to-use, referenced database of KPIs on thousands of stocks from all countries. Write to us through the contact page.",
+  },
   "faq.q.support": {
     fr: "Comment vous contacter ?",
     en: "How can I reach you?",

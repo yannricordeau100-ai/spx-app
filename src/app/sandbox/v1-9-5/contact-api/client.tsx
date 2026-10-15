@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { Send } from "lucide-react";
 import type { Locale } from "@/lib/i18n/types";
-import { TurnstileWidget } from "@/components/turnstile-widget";
+import { TurnstileAuClic, type CaptchaAuClicApi } from "@/components/turnstile-widget";
 
 /**
  * Formulaire dédié pros pour demander un accès API Mettrik AI
@@ -37,6 +37,7 @@ export function ContactApiClient({ locale }: { locale: Locale }) {
   const [err, setErr] = useState<string | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
+  const captcha = useRef<CaptchaAuClicApi | null>(null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -51,16 +52,14 @@ export function ContactApiClient({ locale }: { locale: Locale }) {
     setBusy(true);
     setErr(null);
     try {
-      const fd = new FormData(formRef.current ?? undefined);
-      const captchaToken = (fd.get("cf-turnstile-response") as string | null) ?? null;
-      if (!captchaToken) {
-        setErr(
-          isFr
-            ? "Captcha non rempli. Recharge la page si besoin."
-            : "Captcha not filled. Reload the page if needed.",
-        );
+      // Yann 15 oct 2026 : captcha AU CLIC, jeton attendu par callback.
+      let captchaToken = "";
+      try {
+        if (!captcha.current) throw new Error("captcha_non_pret");
+        captchaToken = await captcha.current.obtenirJeton();
+      } catch {
         setBusy(false);
-        return;
+        return; // message affiche par le composant
       }
       const r = await fetch("/api/contact-api", {
         method: "POST",
@@ -193,7 +192,7 @@ export function ContactApiClient({ locale }: { locale: Locale }) {
         />
       </div>
 
-      <TurnstileWidget />
+      <TurnstileAuClic apiRef={captcha} theme="dark" />
 
       <label className="flex cursor-pointer items-start gap-2.5 rounded-lg border border-white/[0.06] bg-white/[0.02] p-3">
         <input

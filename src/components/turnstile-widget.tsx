@@ -34,6 +34,10 @@ declare global {
           "timeout-callback"?: () => void;
           "before-interactive-callback"?: () => void;
           "after-interactive-callback"?: () => void;
+          "unsupported-callback"?: () => void;
+          "refresh-expired"?: "auto" | "manual" | "never";
+          retry?: "auto" | "never";
+          "retry-interval"?: number;
         },
       ) => string;
       remove: (widgetId: string) => void;
@@ -469,6 +473,170 @@ export function TurnstileWidget(props?: {
       {status === "expired" && !invisible && (
         <p className="mt-1.5 text-[11px] text-amber-400">
           Captcha expiré. Recommence l'opération.
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Captcha AU CLIC (Yann 15 oct 2026)                                        */
+/* ------------------------------------------------------------------------ */
+// Regle : rien de visible tant que l utilisateur n a pas clique sur « Envoyer ».
+// Au clic, le widget est rendu (API officielle : render explicite,
+// appearance « interaction-only », execution « render ») dans un conteneur
+// normal, en flux, jamais masque ni de taille nulle. Si Cloudflare n exige
+// aucun geste, le cadre ne s affiche pas, le jeton arrive par le callback et
+// le message part. Si Cloudflare exige un geste, le cadre apparait a cet
+// endroit. Le jeton est attendu par callback, jamais lu dans un champ.
+// Delai : 20 s, reportes de 20 s quand Cloudflare demande un geste humain.
+
+export type CaptchaAuClicApi = { obtenirJeton: () => Promise<string> };
+
+const DELAI_CAPTCHA_MS = 20000;
+
+export function TurnstileAuClic(props: {
+  apiRef: { current: CaptchaAuClicApi | null };
+  theme?: "dark" | "light" | "auto";
+  language?: string;
+  siteKey?: string;
+}) {
+  const { apiRef } = props;
+  const theme = props.theme ?? "dark";
+  const language = props.language ?? "fr";
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const widgetIdRef = useRef<string | null>(null);
+  const finRef = useRef<((err: Error | null, tok?: string) => void) | null>(null);
+  const [phase, setPhase] = useState<"repos" | "verif" | "interaction" | "echec">("repos");
+  const [codeErreur, setCodeErreur] = useState("");
+  const proprietes = useRef(props);
+  proprietes.current = props;
+
+  // Le script seul ne cree aucune iframe : on le precharge pour gagner du
+  // temps au clic.
+  useEffect(() => {
+    loadScript().catch(() => { /* retente au clic */ });
+  }, []);
+
+  const retirerWidget = () => {
+    if (widgetIdRef.current && window.turnstile) {
+      try { window.turnstile.remove(widgetIdRef.current); } catch { /* deja retire */ }
+    }
+    widgetIdRef.current = null;
+  };
+
+  useEffect(() => {
+    apiRef.current = {
+      obtenirJeton: () =>
+        new Promise<string>((resolve, reject) => {
+          // Un envoi precedent encore en attente est abandonne.
+          if (finRef.current) finRef.current(new Error("captcha_relance"));
+          retirerWidget();
+          setCodeErreur("");
+          setPhase("verif");
+          let minuteur: ReturnType<typeof setTimeout> | null = null;
+          let termine = false;
+          const fin = (err: Error | null, tok?: string) => {
+            if (termine) return;
+            termine = true;
+            finRef.current = null;
+            if (minuteur) clearTimeout(minuteur);
+            retirerWidget();
+            if (err) {
+              if (err.message !== "captcha_relance") setPhase("echec");
+              reject(err);
+            } else {
+              setPhase("repos");
+              resolve(tok as string);
+            }
+          };
+          finRef.current = fin;
+          const armer = () => {
+            if (minuteur) clearTimeout(minuteur);
+            minuteur = setTimeout(() => fin(new Error("captcha_timeout")), DELAI_CAPTCHA_MS);
+          };
+          armer();
+          loadScript()
+            .then(() => {
+              if (termine) return;
+              const el = containerRef.current;
+              if (!el || !window.turnstile) {
+                fin(new Error("captcha_non_pret"));
+                return;
+              }
+              const relais = (window as unknown as { __turnstileSiteKey?: unknown }).__turnstileSiteKey;
+              const siteKey =
+                proprietes.current.siteKey ??
+                (typeof relais === "string" && relais.length > 0 ? relais : getTurnstileSiteKey());
+              const largeur = Math.floor(largeurDeMiseEnPage(el));
+              const size: "flexible" | "compact" =
+                largeur > 0 && largeur < LARGEUR_MINI_FLEXIBLE ? "compact" : "flexible";
+              try {
+                widgetIdRef.current = window.turnstile.render(el, {
+                  sitekey: siteKey,
+                  theme,
+                  size,
+                  appearance: "interaction-only",
+                  execution: "render",
+                  language,
+                  "response-field": false,
+                  "refresh-expired": "never",
+                  "retry-interval": 2000,
+                  callback: (tok: string) => {
+                    if (tok) fin(null, tok);
+                  },
+                  "error-callback": (code?: string) => {
+                    const c = String(code ?? "");
+                    // 3xxxxx / 6xxxxx : echecs passagers, Cloudflare relance
+                    // seul (retry « auto ») tant que le delai court.
+                    if (!/^(3|6)\d{5}$/.test(c)) {
+                      setCodeErreur(c);
+                      fin(new Error("captcha_erreur_" + c));
+                    }
+                    return true;
+                  },
+                  "timeout-callback": () => fin(new Error("captcha_timeout")),
+                  "unsupported-callback": () => fin(new Error("captcha_navigateur")),
+                  "before-interactive-callback": () => {
+                    setPhase("interaction");
+                    armer();
+                  },
+                  "after-interactive-callback": () => setPhase("verif"),
+                });
+              } catch {
+                fin(new Error("captcha_rendu_impossible"));
+              }
+            })
+            .catch(() => fin(new Error("captcha_script")));
+        }),
+    };
+    return () => {
+      apiRef.current = null;
+      if (finRef.current) finRef.current(new Error("captcha_relance"));
+      retirerWidget();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apiRef, theme, language]);
+
+  const actif = phase === "verif" || phase === "interaction";
+  return (
+    <div className="w-full max-w-full" data-captcha-au-clic={phase}>
+      {/* Conteneur en flux, jamais masque : vide (hauteur nulle) tant que rien
+          n est rendu ; Cloudflare n y dessine le cadre que s il exige un geste. */}
+      <div
+        ref={containerRef}
+        className={`cf-turnstile-zone mx-auto flex w-full min-w-0 max-w-[330px] justify-center ${phase === "interaction" ? "my-1" : ""}`}
+      />
+      {actif && (
+        <p role="status" className="mt-1.5 text-center text-[11.5px] text-zinc-400">
+          {phase === "interaction"
+            ? "Vérification anti-robot : cochez la case ci-dessus pour envoyer."
+            : "Vérification anti-robot en cours…"}
+        </p>
+      )}
+      {phase === "echec" && (
+        <p role="alert" className="mt-1.5 text-center text-[11.5px] text-rose-400">
+          Vérification anti-robot non terminée{codeErreur ? ` (code ${codeErreur})` : ""}, recommencez en cliquant à nouveau sur Envoyer.
         </p>
       )}
     </div>

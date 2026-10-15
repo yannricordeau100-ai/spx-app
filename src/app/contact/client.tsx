@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { TurnstileWidget } from "@/components/turnstile-widget";
+import { useRef, useState } from "react";
+import { TurnstileAuClic, type CaptchaAuClicApi } from "@/components/turnstile-widget";
 import { motion } from "motion/react";
 import { Send } from "lucide-react";
 import type { Locale } from "@/lib/i18n/types";
@@ -37,20 +37,24 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const captcha = useRef<CaptchaAuClicApi | null>(null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    // Audit 2 sept 2026 : le jeton anti-robot n etait jamais envoye, le
-    // serveur refusait 100 % des messages (400 no_token). Le widget pose un
-    // champ cache "cf-turnstile-response" dans le formulaire.
-    const captchaToken =
-      (e.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? "";
-    if (!captchaToken) {
-      setErr("Vérification anti-robot non terminée, patientez une seconde puis renvoyez.");
-      return;
-    }
+    if (busy) return;
     setBusy(true);
     setErr(null);
+    // Yann 15 oct 2026 : captcha AU CLIC. La verification Cloudflare demarre
+    // ici ; le cadre n apparait que si Cloudflare exige un geste. Le message
+    // d echec est affiche par le composant lui meme.
+    let captchaToken = "";
+    try {
+      if (!captcha.current) throw new Error("captcha_non_pret");
+      captchaToken = await captcha.current.obtenirJeton();
+    } catch {
+      setBusy(false);
+      return;
+    }
     try {
       const r = await fetch("/api/contact", {
         method: "POST",
@@ -59,7 +63,7 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
       });
       if (!r.ok) {
         const d = (await r.json().catch(() => null)) as { error?: string } | null;
-        setErr(d?.error === "captcha_failed" ? "Vérification anti-robot non terminée, patientez une seconde puis renvoyez." : strings.error);
+        setErr(d?.error === "captcha_failed" ? "Vérification anti-robot refusée, recommencez en cliquant à nouveau sur Envoyer." : strings.error);
       } else {
         setDone(true);
       }
@@ -174,7 +178,7 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
         </div>
       )}
 
-      <TurnstileWidget size="flexible" cadre />
+      <TurnstileAuClic apiRef={captcha} theme="dark" />
 
       <div className="flex items-center justify-between gap-3 pt-2">
         {/* Yann 24 sept 2026 : mention « Aucune revente » retiree. */}
