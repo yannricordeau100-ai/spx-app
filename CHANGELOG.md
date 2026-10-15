@@ -1063,3 +1063,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.14.2 (14 Oct 2026 02:38, apres a93ea3c4e7)
 - Lignes institutionnelles ivoire, axe Y Public Sans, barre de recherche au defilement, rail, curseur, FCF corrige, doublons tranches, ASML carnet et prises de commandes, Vercel moins de builds
+
+## v2026.10.15.1 (15 Oct 2026 02:11, apres 6670583788)
+- Logos recadres (312), nom complet dans l en-tete, pastille sous le nom, graphique du KPI principal agrandi, tableau elargi, logo Mettrik partout, captcha visible sur contact et support, avertissement fournisseurs prives

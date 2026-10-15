@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoMettrik } from "@/components/logo-mettrik";
 import { TurnstileWidget } from "@/components/turnstile-widget";
 import { redirect } from "next/navigation";
 import { Star, User, KeyRound, AtSign, CreditCard, ArrowLeft, SunMoon, ExternalLink } from "lucide-react";
@@ -150,12 +151,7 @@ export default async function AccountPage({
           href="/"
           className="group mb-8 inline-flex items-center gap-2.5 transition-opacity hover:opacity-90"
         >
-          <span className="inline-flex size-7 items-center justify-center rounded-lg border border-[#2a2a2a] bg-[#0a0a0a]">
-            <span className="size-1.5 animate-pulse-dot rounded-full bg-violet-400" />
-          </span>
-          <span className="font-display text-xl tracking-tight text-zinc-50">
-            Mettrik
-          </span>
+          <LogoMettrik emplacement="retour-societe" size="lg" animated={false} showRail={false} hauteurPng="84px" className="-ml-1 -mt-5 -mb-9" />
           <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
         </Link>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { LogoMettrik } from "@/components/logo-mettrik";
 import Link from "next/link";
 import { useEffect } from "react";
 import { Home, RotateCw } from "lucide-react";
@@ -72,9 +73,9 @@ export default function ErrorPage({
           </Link>
         </div>
 
-        <div className="mt-12 inline-flex items-baseline gap-2 text-[11px] text-zinc-500">
-          <span className="size-1.5 rounded-full bg-rose-400/50" />
-          <span>Mettrik AI · KPI Intelligence</span>
+        <div className="mt-12 inline-flex items-center gap-2 text-[11px] text-zinc-500">
+          <LogoMettrik emplacement="retour-societe" size="lg" animated={false} showRail={false} hauteurPng="56px" className="-ml-1 -mt-3.5 -mb-6" />
+          <span>KPI Intelligence</span>
         </div>
       </div>
     </div>

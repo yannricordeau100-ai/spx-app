@@ -180,7 +180,30 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
       const el = blockRef.current;
       if (!el) return;
       const row = el.closest('[data-header-row="true"]') as HTMLElement | null;
-      const leftBound = (row ?? el.parentElement ?? el).getBoundingClientRect().left;
+      let leftBound = (row ?? el.parentElement ?? el).getBoundingClientRect().left;
+      // Yann 15 oct 2026 : le degrade ne passe plus SOUS le texte de l en-tete
+      // (nom, ticker, alias, secteur, pastille). Sur /googl, le texte pose sur
+      // le rouge etait a moitie illisible. Le fondu commence apres le dernier
+      // caractere ou icone de la colonne du nom (+ 24 px), jamais avant le logo.
+      const zoneTexte = row?.querySelector("[data-entete-texte]");
+      if (zoneTexte) {
+        const blocTop = el.getBoundingClientRect().top;
+        const blocBas = el.getBoundingClientRect().bottom;
+        let fin = 0;
+        const prendre = (r: DOMRect) => {
+          // seul le texte a la hauteur du bandeau compte
+          if (r.width > 0 && r.bottom > blocTop && r.top < blocBas) fin = Math.max(fin, r.right);
+        };
+        const marcheur = document.createTreeWalker(zoneTexte, NodeFilter.SHOW_TEXT);
+        const plage = document.createRange();
+        for (let n = marcheur.nextNode(); n; n = marcheur.nextNode()) {
+          if (!n.textContent?.trim()) continue;
+          plage.selectNodeContents(n);
+          prendre(plage.getBoundingClientRect());
+        }
+        zoneTexte.querySelectorAll("svg, button").forEach((x) => prendre(x.getBoundingClientRect()));
+        if (fin > 0) leftBound = Math.max(leftBound, fin + 24);
+      }
       const next = Math.max(0, el.getBoundingClientRect().left - leftBound);
       setExtWidth(next);
     };
@@ -190,6 +213,10 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
     if (el) ro.observe(el);
     const row = el?.closest('[data-header-row="true"]');
     if (row) ro.observe(row);
+    const zoneTexte = row?.querySelector("[data-entete-texte]");
+    if (zoneTexte) ro.observe(zoneTexte);
+    // polices web chargees apres le premier rendu : la largeur du texte change
+    document.fonts?.ready.then(measure).catch(() => {});
     window.addEventListener("resize", measure);
     return () => {
       ro.disconnect();

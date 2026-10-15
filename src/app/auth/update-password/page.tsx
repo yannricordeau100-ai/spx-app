@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoMettrik } from "@/components/logo-mettrik";
 import { redirect } from "next/navigation";
 import { KeyRound } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -31,12 +32,7 @@ export default async function UpdatePasswordPage({
 
       <div className="relative mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-4 py-10 sm:px-6">
         <Link href="/" className="mb-8 flex items-center gap-2.5">
-          <span className="inline-flex size-7 items-center justify-center rounded-lg border border-[#2a2a2a] bg-[#0a0a0a]">
-            <span className="size-1.5 animate-pulse-dot rounded-full bg-violet-400" />
-          </span>
-          <span className="font-display text-xl tracking-tight text-zinc-50">
-            Mettrik
-          </span>
+          <LogoMettrik emplacement="retour-societe" size="lg" animated={false} showRail={false} hauteurPng="84px" className="-ml-1 -mt-5 -mb-9" />
         </Link>
 
         <div className="w-full rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">

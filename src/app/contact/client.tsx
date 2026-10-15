@@ -45,6 +45,10 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
     // champ cache "cf-turnstile-response" dans le formulaire.
     const captchaToken =
       (e.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? "";
+    if (!captchaToken) {
+      setErr("Vérification anti-robot non terminée, patientez une seconde puis renvoyez.");
+      return;
+    }
     setBusy(true);
     setErr(null);
     try {
@@ -54,7 +58,8 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
         body: JSON.stringify({ recipient, name, email, subject, body, locale, captchaToken }),
       });
       if (!r.ok) {
-        setErr(strings.error);
+        const d = (await r.json().catch(() => null)) as { error?: string } | null;
+        setErr(d?.error === "captcha_failed" ? "Vérification anti-robot non terminée, patientez une seconde puis renvoyez." : strings.error);
       } else {
         setDone(true);
       }
@@ -169,6 +174,8 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
         </div>
       )}
 
+      <TurnstileWidget size="flexible" cadre />
+
       <div className="flex items-center justify-between gap-3 pt-2">
         {/* Yann 24 sept 2026 : mention « Aucune revente » retiree. */}
         <span />
@@ -181,7 +188,6 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
           {busy ? strings.sending : strings.submit}
         </button>
       </div>
-          <TurnstileWidget />
     </form>
   );
 }

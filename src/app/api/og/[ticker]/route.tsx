@@ -33,13 +33,19 @@ export async function GET(req: Request, ctx: { params: Promise<{ ticker: string 
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#fafafa",
-            fontSize: 64,
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
           }}
         >
-          Mettrik AI
+          {/* 15 oct 2026 : vrai logo Mettrik (version claire sur fond sombre), recadre sur le trace. */}
+          <div style={{ display: "flex", width: 640, height: 119, overflow: "hidden", position: "relative" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${new URL(req.url).origin}/brand/mettrik-ai-white-purple.png`}
+              width={716}
+              height={358}
+              alt="Mettrik AI"
+              style={{ position: "absolute", left: -43, top: -108, width: 716, height: 358 }}
+            />
+          </div>
         </div>
       ),
       { width: 1200, height: 630 }
@@ -66,16 +72,17 @@ export async function GET(req: Request, ctx: { params: Promise<{ ticker: string 
       >
         {/* Top : Mettrik AI wordmark */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div
-            style={{
-              width: 12,
-              height: 12,
-              borderRadius: 6,
-              background: accent,
-            }}
-          />
-          <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.01em" }}>
-            Mettrik AI
+          {/* 15 oct 2026 : vrai logo Mettrik (version claire, fond sombre) a la place de la pastille + texte.
+              Le PNG fait 2048x1024 avec marges : on le recadre sur le trace (1829x341 a partir de 122,309). */}
+          <div style={{ display: "flex", width: 236, height: 44, overflow: "hidden", position: "relative" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${new URL(req.url).origin}/brand/mettrik-ai-white-purple.png`}
+              width={264}
+              height={132}
+              alt="Mettrik AI"
+              style={{ position: "absolute", left: -16, top: -40, width: 264, height: 132 }}
+            />
           </div>
           <div style={{ fontSize: 13, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase", marginLeft: 8 }}>
             KPI Intelligence

@@ -260,10 +260,14 @@ export function SupportPanel({
       setErreur(T.erreur_message);
       return;
     }
-    setErreur(null);
-    setEnvoi(true);
     const captchaToken =
       (e.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? "";
+    if (!captchaToken) {
+      setErreur("Vérification anti-robot non terminée, patientez une seconde puis renvoyez.");
+      return;
+    }
+    setErreur(null);
+    setEnvoi(true);
     try {
       const reponse = await fetch("/api/support/tickets", {
         method: "POST",
@@ -290,8 +294,12 @@ export function SupportPanel({
       effaceBrouillon();
       setNumero(`${recu}`.trim());
       setEtape("confirme");
-    } catch {
-      setErreur(T.erreur_envoi);
+    } catch (ex) {
+      setErreur(
+        ex instanceof Error && /captcha/i.test(ex.message)
+          ? "Vérification anti-robot non terminée, patientez une seconde puis renvoyez."
+          : T.erreur_envoi,
+      );
     } finally {
       setEnvoi(false);
     }
@@ -506,6 +514,7 @@ export function SupportPanel({
               </div>
             )}
 
+            <TurnstileWidget theme="dark" size="flexible" cadre />
             <div className="flex items-center gap-2 pt-0.5">
               <button
                 type="button"
@@ -525,7 +534,6 @@ export function SupportPanel({
               </button>
             </div>
             <p className="text-[11px] text-zinc-600">{T.confidentialite}</p>
-            <TurnstileWidget theme="dark" />
           </form>
         )}
 

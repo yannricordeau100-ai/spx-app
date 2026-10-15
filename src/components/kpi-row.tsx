@@ -50,6 +50,16 @@ const TYPE_COLOR: Record<string, string> = {
   Prix: "#f43f5e",
 };
 
+/**
+ * Yann 15 oct 2026 : grille du tableau « Indicateurs cles » a partir de 1280 px.
+ * Valeur (vs N-1) a la largeur de son contenu (232 px), Tendance retrecie
+ * (100 px), Qualite inchangee (1/3 de la largeur utile) ; tout l espace gagne
+ * va a la premiere colonne (nom du KPI). Partagee par l en-tete du tableau et
+ * par chaque ligne pour que les colonnes restent alignees. Entre 640 et
+ * 1279 px, l ancienne grille en 12 colonnes s applique.
+ */
+export const GRILLE_KPI_XL = "xl:grid-cols-[minmax(0,1fr)_232px_100px_calc((100%_-_36px)/3)]";
+
 export function KpiRow({
   kpi,
   active = false,
@@ -139,7 +149,7 @@ export function KpiRow({
         if (e.key === "Enter" || e.key === " ") onClick?.();
       }}
       className={cn(
-        "group relative grid w-full cursor-pointer grid-cols-12 items-center gap-3 border-b border-[#1a1a1a] px-5 py-2 text-left transition-colors hover:bg-[#0c0c0c] focus:outline-none focus-visible:bg-[#0c0c0c] sm:px-6 sm:py-2.5",
+        "group relative grid w-full cursor-pointer grid-cols-12 items-center gap-3 " + GRILLE_KPI_XL + " border-b border-[#1a1a1a] px-5 py-2 text-left transition-colors hover:bg-[#0c0c0c] focus:outline-none focus-visible:bg-[#0c0c0c] sm:px-6 sm:py-2.5",
         active && "bg-[#0d0d0d]",
         institutionnel && "bg-[color-mix(in_srgb,var(--jaune-instit)_3%,transparent)] hover:bg-[color-mix(in_srgb,var(--jaune-instit)_5%,transparent)]"
       )}
@@ -175,7 +185,7 @@ export function KpiRow({
 
       {/* COL 1 — Indicateur (3 cols, Yann 24 aout 2026 : colonne retrecie,
           le nom peut passer sur 2 lignes). */}
-      <div className="col-span-12 sm:col-span-3">
+      <div className="col-span-12 sm:col-span-3 xl:col-span-1">
         {/* Zone floutable palier gratuit : nom du KPI + son "i". */}
         <div data-blur-part="indicateur" className="flex items-center gap-2.5">
           {/* Yann (1er juin 05:15) : badge violet kpi.short retiré.
@@ -293,7 +303,7 @@ export function KpiRow({
       </div>
 
       {/* COL 2 — Valeur · variation (3 cols) */}
-      <div data-blur-part="valeur" className="col-span-6 sm:col-span-3">
+      <div data-blur-part="valeur" className="col-span-6 sm:col-span-3 xl:col-span-1">
         {/* Yann 24 aout 2026 : valeur et variation sur UNE ligne, la
             variation entre parentheses a droite de la valeur, nettement
             detachee (gap-x-4). */}
@@ -478,7 +488,7 @@ export function KpiRow({
       </div>
 
       {/* COL 3 — Tendance (2 cols) */}
-      <div className="col-span-6 self-start pt-1.5 sm:col-span-2 sm:self-auto sm:pt-0">
+      <div className="col-span-6 self-start pt-1.5 sm:col-span-2 sm:self-auto sm:pt-0 xl:col-span-1">
         <Sparkline data={(() => {
           const h = Array.isArray(kpi.history) ? kpi.history : [];
           if (plageTendance === "max") return h;
@@ -489,7 +499,7 @@ export function KpiRow({
       </div>
 
       {/* COL 4 — Qualité (stacked) + Signal */}
-      <div data-blur-part="qualite" className="col-span-12 sm:col-span-4">
+      <div data-blur-part="qualite" className="col-span-12 sm:col-span-4 xl:col-span-1">
         {isIncompleteKpi ? (
           // Yann (26 mai 2026) : retire le badge alarmant "Données partielles"
           // qui apparaissait sur 5-10 KPIs par société ayant une valeur claire mais

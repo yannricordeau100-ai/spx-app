@@ -21,7 +21,7 @@ function RappelImportant({ compact = false }: { compact?: boolean }) {
     >
       <strong className="font-semibold text-zinc-400">Rappel important :</strong> Mettrik AI donne une information
       générale, non personnalisée, qui n&apos;est pas un conseil en investissement. Les données, issues des documents
-      officiels des sociétés, peuvent contenir des erreurs ou des retards. Les performances passées ne préjugent pas
+      officiels des sociétés et de fournisseurs privés, peuvent contenir des erreurs ou des retards. Les performances passées ne préjugent pas
       des performances futures. Tout investissement comporte un risque de perte en capital.
     </p>
   );

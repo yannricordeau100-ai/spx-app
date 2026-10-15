@@ -58,7 +58,7 @@ import { NumberTicker } from "@/components/effects/number-ticker";
 import { CagrChip, ChartCycle, ChartCycleControls, useChartMode, computeChartDisplay } from "@/components/chart-cycle";
 import { TimeFractionToggle, timeFractionDivisor, type TimeFraction } from "@/components/charts/time-fraction-toggle";
 import { ChartSettingsMenu, TimeUnitSelect, ChartFullscreen } from "@/components/charts/chart-mobile-controls";
-import { KpiRow } from "@/components/kpi-row";
+import { KpiRow, GRILLE_KPI_XL } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
 import { ThemeApplique } from "@/components/theme-toggle";
@@ -1492,7 +1492,10 @@ export function CompanyView({
             style={{ background: `${accent}33` }}
           />
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          {/* Yann 15 oct 2026 : colonne de texte a ~20 % de la largeur du bloc (21 % de la grille interieure ; Yann : graphique beaucoup plus grand)
+              (contre 4/12 avant), tout le reste au graphique. Le texte passe a
+              la ligne. Mobile inchange (empile). */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,21fr)_minmax(0,79fr)]">
             {/* LEFT: hero number — colonne réduite à 2/12 (Yann 21 août 2026,
                 était 3/12) pour donner encore plus d'espace au graph (9 → 10).
                 Tout ce qui est trop large doit glisser à gauche, le bord droit
@@ -1500,7 +1503,7 @@ export function CompanyView({
                 Yann 13 juin 2026 : flex flex-col + order-* pour remonter le
                 gros chiffre (order-1) et descendre les badges meta sous les
                 chips (order-3). */}
-            <div className="max-lg:contents order-2 flex min-w-0 flex-col lg:order-none lg:col-span-4">
+            <div className="max-lg:contents order-2 flex min-w-0 flex-col lg:order-none">
               {/*
                 ┌────────────────────────────────────────────────────────────┐
                 │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)        │
@@ -1813,7 +1816,7 @@ export function CompanyView({
 
             {/* RIGHT: chart — élargi à 10/12 (était 9) pour plus de place au
                 graph principal. */}
-            <div className="max-lg:contents order-1 min-w-0 lg:order-none lg:col-span-8">
+            <div className="max-lg:contents order-1 min-w-0 lg:order-none">
               {/* Toolbar au-dessus du graph en 2 LIGNES :
                     Ligne 1 : titre du KPI centré, agrandi
                     Ligne 2 : styles graph (gauche) + période 5/10/20 (droite)
@@ -2193,11 +2196,11 @@ export function CompanyView({
           {/* 9 sept 2026 : groupe « KPI avances » (bloc de floutage kpis), puis
               groupe « KPI standard » (bloc kpis_standard), pilotes separement. */}
           <div data-blur="kpis">
-            <div className="hidden sm:grid grid-cols-12 gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6">
-              <div className="col-span-3">{t("company.kpi_table.col_indicator")}</div>
-              <div className="col-span-3">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span></div>
-              <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>
-              <div className="col-span-4">{t("company.kpi_table.col_quality")}</div>
+            <div className={`hidden sm:grid grid-cols-12 ${GRILLE_KPI_XL} gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6`}>
+              <div className="col-span-3 xl:col-span-1">{t("company.kpi_table.col_indicator")}</div>
+              <div className="col-span-3 xl:col-span-1">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span></div>
+              <div className="col-span-2 xl:col-span-1">{t("company.kpi_table.col_trend")}</div>
+              <div className="col-span-4 xl:col-span-1">{t("company.kpi_table.col_quality")}</div>
             </div>
             {/* Yann 13 oct 2026 : groupe des KPI suivis par les institutionnels,
                 EN PREMIER et en jaune ; cible de la pastille n/N de l en-tete. */}

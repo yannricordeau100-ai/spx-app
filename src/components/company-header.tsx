@@ -96,7 +96,6 @@ function CompanyName({
   alsoKnownLabel,
   outilsAdmin = true,
   adminKpiInstit,
-  kpiInstit,
 }: {
   name: string;
   ticker: string;
@@ -105,7 +104,6 @@ function CompanyName({
   alsoKnownLabel: string;
   outilsAdmin?: boolean;
   adminKpiInstit?: React.ReactNode;
-  kpiInstit?: ResumeInstit | null;
 }) {
   // Yann 31 mai 2026 : liste les alias pointant vers ce ticker canonique
   // (ex : GOOG → GOOGL ; BRK.A/BRK-A/BRK.B → BRK-B ; FOX → FOXA ; NWSA → NWS ;
@@ -132,13 +130,17 @@ function CompanyName({
         : "text-[0.9rem] sm:text-[1.1rem]";
   return (
     <div className="min-w-0 max-w-full">
-      <div className="group/name flex flex-wrap sm:flex-nowrap items-baseline gap-x-3 gap-y-0.5 min-w-0 max-w-full">
+      {/* Yann 15 oct 2026 : le nom n est plus jamais tronque (« Alphabet… » sur
+          /googl, nom vide a 1280). La rangee passe a la ligne a toutes les
+          largeurs : le nom prend sa largeur naturelle et revient a la ligne
+          entre deux mots si besoin ; ticker, etoile et alias suivent. */}
+      <div className="group/name flex flex-wrap items-baseline gap-x-3 gap-y-0.5 min-w-0 max-w-full">
         <h1
-          className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 truncate min-w-0`}
-          style={{ lineHeight: 1.2 }}
+          className={`relative ${fontSize} min-w-0 max-w-full font-bold tracking-tight text-zinc-50 [overflow-wrap:anywhere] [text-wrap:balance]`}
+          style={{ lineHeight: 1.2, textShadow: "0 1px 8px rgba(0,0,0,0.45)" }}
           title={name}
         >
-          <span className="relative inline-block max-w-full truncate align-bottom">
+          <span className="relative">
             {name}
             <span
               className="pointer-events-none absolute -bottom-1 left-0 h-[3px] w-0 rounded-full transition-[width] duration-500 ease-out group-hover/name:w-full"
@@ -156,18 +158,17 @@ function CompanyName({
         </span>
         {/* Yann 13 sept 2026 : mise en favori de la societe ici, a droite du ticker. */}
         <StarButton ticker={ticker} mode="company" size="sm" />
-        {/* Yann 13 oct 2026 : pastille PUBLIQUE n/N des KPI suivis par les
-            institutionnels ; un clic fait defiler jusqu au groupe jaune du tableau. */}
-        {kpiInstit && <KpiInstitPastille resume={kpiInstit} />}
+        {/* Yann 15 oct 2026 : la pastille n/N des institutionnels est passee sur
+            la ligne du dessous (ligne du secteur), a gauche de la capitalisation. */}
         {/* Yann 25 sept 2026 : KPI d industrie suivis par les institutionnels, vue admin seulement. */}
         {/* Yann 13 oct 2026 : quand la page serveur fournit le panneau des statuts
             (admin verifie, jamais sur mettrik.ai), il remplace le bouton client ;
             null = visiteur non admin, rien n est rendu. */}
         {adminKpiInstit !== undefined ? adminKpiInstit : outilsAdmin && <KpiInstitutionnelsButton ticker={ticker} accent={accent} />}
         {aliases.length > 0 && (
-          <span className="self-baseline text-[11px] font-medium text-zinc-500 whitespace-nowrap">
+          <span className="self-baseline text-[11px] font-medium text-zinc-300 whitespace-nowrap" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}>
             {alsoKnownLabel}{" "}
-            <span className="font-mono text-zinc-400">{aliases.join(" / ")}</span>
+            <span className="font-mono text-zinc-200">{aliases.join(" / ")}</span>
           </span>
         )}
       </div>
@@ -635,7 +636,7 @@ export function CompanyHeader({
       >
         {!logoDisabled && <LogoTile ticker={company.ticker} />}
         {/* Yann 5 oct 2026 : le nom garde au moins 13 rem ; le bloc capitalisation passe a la ligne au lieu de l ecraser (paysage 812 px). */}
-        <div className="min-w-[min(100%,13rem)] flex-1 basis-[13rem]">
+        <div data-entete-texte className="min-w-[min(100%,13rem)] flex-1 basis-[13rem]">
           <CompanyName
             name={company.name}
             ticker={company.ticker}
@@ -644,7 +645,6 @@ export function CompanyHeader({
             alsoKnownLabel={t("company.also_known_as")}
             outilsAdmin={outilsAdmin}
             adminKpiInstit={adminKpiInstit}
-            kpiInstit={kpiInstit}
           />
           {/* Yann 22 septembre 2026 : les QUATRE niveaux de la classification
               (secteur, groupe d industries, industrie, sous-industrie), toujours
@@ -652,7 +652,7 @@ export function CompanyHeader({
               du Cahier. Chemin hierarchique qui passe a la ligne (flex-wrap) :
               aucune troncature, aucun defilement horizontal a 380 comme a 1024.
               Repli sur l ancien couple secteur / sous-secteur si le code manque. */}
-          <div className="mt-1.5 text-[13px] leading-snug text-zinc-400 sm:text-[14px]">
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] leading-snug text-zinc-400 sm:text-[14px]">
             {(() => {
               const code = (company as { gics_code?: string }).gics_code;
               const niveaux = gicsNiveaux(code);
@@ -679,6 +679,11 @@ export function CompanyHeader({
                 </span>
               );
             })()}
+            {/* Yann 15 oct 2026 : pastille PUBLIQUE n/N des KPI suivis par les
+                institutionnels, deplacee ici depuis la ligne du nom : sous le nom,
+                a gauche de la capitalisation boursiere. Un clic fait defiler
+                jusqu au groupe jaune du tableau. */}
+            {kpiInstit && <KpiInstitPastille resume={kpiInstit} />}
           </div>
           {/* Yann (1er juin 05:15) : tagline supprimée de V1.9.5
               (risque hallucination LLM + Yann préfère épure).
