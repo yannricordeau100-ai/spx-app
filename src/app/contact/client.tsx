@@ -63,7 +63,15 @@ export function ContactClient({ locale, strings, initialRecipient, initialSubjec
       });
       if (!r.ok) {
         const d = (await r.json().catch(() => null)) as { error?: string } | null;
-        setErr(d?.error === "captcha_failed" ? "Vérification anti-robot refusée, recommencez en cliquant à nouveau sur Envoyer." : strings.error);
+        // 15 oct 2026 : message precis selon le refus du serveur
+        const MSG: Record<string, string> = {
+          captcha_failed: "Vérification anti-robot refusée, recommencez en cliquant à nouveau sur Envoyer.",
+          invalid_email: "Adresse email non valide ou non joignable.",
+          inappropriate_content: "Le message contient un terme refusé.",
+          too_long: "Message trop long (5 000 caractères maximum).",
+          missing_fields: "Merci de remplir tous les champs.",
+        };
+        setErr((d?.error && MSG[d.error]) || strings.error);
       } else {
         setDone(true);
       }

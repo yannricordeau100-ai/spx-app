@@ -73,8 +73,10 @@ export function contientGrossierete(texte: string): boolean {
   const n = ` ${normaliser(texte)} `;
   return GROSSIER.some((g) => {
     const mot = g.normalize("NFD").replace(/[̀-ͯ]/g, "");
-    if (mot.length <= 3) return new RegExp(`[^a-z]${mot.trim()}[^a-z]`).test(t);
-    return t.includes(mot.trim()) || n.includes(mot.trim());
+    // 15 oct 2026 : mot entier seulement (« technique », « unique », « habite », « reputé »
+    // etaient refuses par simple inclusion de « nique », « bite », « pute »).
+    const re = new RegExp(`[^a-z]${mot.trim()}(s|e|es)?[^a-z]`);
+    return re.test(t) || re.test(n);
   });
 }
 
