@@ -63,7 +63,7 @@ try:
         if m: c.add(m.group(1).upper())
         c |= {x.upper() for x in pth.split("/")[:-1]}
         return not (c & _vague)
-    modifs = [l for l in modifs if _hors_vague(l) and not l.rstrip().endswith("_kpi-lint-report.json") and "univers-sp5001000" not in l and "scripts/_tmp" not in l]  # rapport interne reecrit par chaque lint
+    modifs = [l for l in modifs if _hors_vague(l) and not l.rstrip().endswith("_kpi-lint-report.json") and "univers-sp5001000" not in l and "scripts/_tmp" not in l and "src/data/cours-fmp/" not in l and not l.rstrip().endswith("-watcher-status.json")]  # 15 oct : fichiers de veille reecrits en continu  # rapport interne reecrit par chaque lint
 except Exception:
     pass
 feu("rouge" if modifs else "vert", "Code", "Aucune modification non commitee dans le code et les donnees servies",
