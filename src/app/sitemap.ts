@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { URL_APP } from "@/lib/domaine-app";
 import { promises as fs } from "fs";
 import path from "path";
 import { estAlias } from "@/lib/ticker-aliases";
@@ -70,8 +71,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   const vues = new Set<string>();
+  // 15 oct 2026 : les fiches sont servies sur app.mettrik.ai.
+  const fiches = new Set(tickerRoutes.map((r) => r.path));
   return [...staticRoutes, ...tickerRoutes].filter((r) => estAutorisee(r.path) && !vues.has(r.path) && !!vues.add(r.path)).map((r) => ({
-    url: `${base}${r.path}`,
+    url: `${fiches.has(r.path) ? URL_APP : base}${r.path}`,
     lastModified: now,
     changeFrequency: r.changeFrequency,
     priority: r.priority,

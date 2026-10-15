@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { domaineCookies } from "@/lib/domaine-app";
 import { cache } from "react";
 
 /**
@@ -11,11 +12,17 @@ import { cache } from "react";
  */
 export async function createSupabaseServerClient() {
   const cookieStore = await cookies();
+  // 15 oct 2026 : session partagee mettrik.ai / app.mettrik.ai.
+  let domaine: string | undefined;
+  try {
+    domaine = domaineCookies((await headers()).get("host") ?? "");
+  } catch {}
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...(domaine ? { cookieOptions: { domain: domaine } } : {}),
       cookies: {
         getAll() {
           return cookieStore.getAll();

@@ -1,4 +1,5 @@
 import { avecDonneesFiche } from "@/lib/donnees-fiche-client";
+import { URL_APP } from "@/lib/domaine-app";
 import { notFound, redirect } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
@@ -262,10 +263,11 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `${base}/${slug}`,
+      // 15 oct 2026 : fiches servies sur app.mettrik.ai.
+      canonical: `${URL_APP}/${slug}`,
       languages: {
-        en: `${base}/${slug}`,
-        fr: `${base}/fr/${slug}`,
+        en: `${URL_APP}/${slug}`,
+        fr: `${URL_APP}/fr/${slug}`,
       },
     },
     openGraph: {

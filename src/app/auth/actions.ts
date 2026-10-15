@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { origineAuth } from "@/lib/domaine-app";
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { headers, cookies } from "next/headers";
@@ -36,7 +37,8 @@ async function getOrigin(): Promise<string> {
   const h = await headers();
   const host = h.get("host") ?? "localhost:3000";
   const proto = h.get("x-forwarded-proto") ?? "http";
-  return `${proto}://${host}`;
+  // 15 oct 2026 : depuis mettrik.ai, les liens d auth menent a app.mettrik.ai.
+  return origineAuth(host, proto);
 }
 
 /**

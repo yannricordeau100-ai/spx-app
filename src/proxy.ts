@@ -5,6 +5,7 @@ import { estUniversN1, ficheServie, tickersUniversActif } from "./lib/univers-ac
 import RETIREES from "./data/societes-retirees.json";
 import { TICKER_ALIASES } from "./lib/ticker-aliases";
 import { COOKIE_ADMIN_2FA, PAGE_VERIFICATION, cookieAdminValide, estRouteOutillage2FA } from "./lib/security/admin-2fa";
+import { URL_APP, URL_VITRINE, domaineCookies, estHoteApp, estHoteVitrine } from "./lib/domaine-app";
 
 // Yann 3 sept 2026 : seules les fiches de l univers en ligne (666) sont
 // publiques sans compte. Tout autre chemin d un segment (/account, /admin,
@@ -322,6 +323,34 @@ export async function proxy(request: NextRequest) {
   // Plus aucun chemin n'est en "FR-locale via préfixe" : tout est FR par défaut.
   const isFrLocale = false;
 
+  // 15 oct 2026 : sous-domaine app.mettrik.ai (docs/APP-SOUS-DOMAINE.md).
+  // Uniquement sur mettrik.ai, www.mettrik.ai et app.mettrik.ai : jamais sur
+  // *.vercel.app (niveaux 1 et 2) ni en local. /api, /_next, /auth/callback et
+  // les fichiers statiques ne sont jamais rediriges.
+  {
+    const hoteDom = (request.headers.get("host") ?? "").toLowerCase();
+    const p = routePathname;
+    const exclu =
+      p.startsWith("/api/") || p === "/api" || p.startsWith("/_next/") ||
+      p === "/auth/callback" || p.startsWith("/auth/callback/") || EXT_FICHIER.test(p);
+    if (!exclu && (estHoteVitrine(hoteDom) || estHoteApp(hoteDom))) {
+      const premier = p.split("/")[1] ?? "";
+      const sousChemin = (r: string) => p === r || p.startsWith(r + "/");
+      let cible: string | null = null;
+      if (estHoteVitrine(hoteDom)) {
+        let seg = "";
+        try { seg = decodeURIComponent(premier).toUpperCase(); } catch {}
+        const estTicker = !!seg && (estFichePublique(seg) || TICKERS_V17.has(seg) || seg in TICKER_ALIASES);
+        if (estTicker || sousChemin("/account") || sousChemin("/favorites")) cible = URL_APP;
+      } else if (p === "/" || p === "/pricing" || p === "/contact" || sousChemin("/legal")) {
+        cible = URL_VITRINE;
+      }
+      if (cible) {
+        return NextResponse.redirect(`${cible}${p}${request.nextUrl.search}`, 308);
+      }
+    }
+  }
+
   // 1.bis Détection auto LANGUE + DEVISE par IP (header Vercel
   // `x-vercel-ip-country`, injecté gratuitement par le edge runtime).
   //
@@ -486,7 +515,7 @@ export async function proxy(request: NextRequest) {
   //    (mettrik-staging.vercel.app). La règle est attachée au domaine, pas
   //    seulement à l'env var.
   const host = (request.headers.get("host") ?? "").toLowerCase();
-  const isProdDomain = host === "mettrik.ai" || host === "www.mettrik.ai";
+  const isProdDomain = host === "mettrik.ai" || host === "www.mettrik.ai" || host === "app.mettrik.ai";
   const maintenanceMode = (process.env.MAINTENANCE_MODE ?? "").toLowerCase();
   const maintenanceParEnv =
     maintenanceMode === "on" || maintenanceMode === "true" || maintenanceMode === "1";
@@ -633,6 +662,7 @@ export async function proxy(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...(domaineCookies(host) ? { cookieOptions: { domain: domaineCookies(host) } } : {}),
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -688,7 +718,7 @@ export async function proxy(request: NextRequest) {
   const adminEmail = (process.env.DESK_OWNER_EMAIL ?? "yannricordeau100@gmail.com")
     .toLowerCase()
     .trim();
-  const isLiveHost = host === "www.mettrik.ai" || host === "mettrik.ai";
+  const isLiveHost = host === "www.mettrik.ai" || host === "mettrik.ai" || host === "app.mettrik.ai";
   const isPreLiveHost = host === "pre.mettrik.ai";
   const isDevHost = !isLiveHost && !isPreLiveHost;
   const currentLevel = isLiveHost ? "live" : isPreLiveHost ? "pre-live" : "dev";
