@@ -233,7 +233,14 @@ def telecharge_sec(t, cik, depuis):
         dossier = os.path.join(ROOT, "data-lake", t, d)
         os.makedirs(dossier, exist_ok=True)
         p = os.path.join(dossier, f"{t}_{date}_{acc}.htm.gz")
-        if os.path.exists(p) or os.path.exists(os.path.join(dossier, f"{t}_{date}.htm.gz")): continue
+        if os.path.exists(p) or os.path.exists(os.path.join(dossier, f"{t}_{date}.htm.gz")):
+            # 16 oct 2026 : page de garde deja deposee par un autre veilleur
+            # (daily-doc-watcher) : le communique (piece 99) n etait alors jamais
+            # telecharge et l extraction relisait le 10-Q du trimestre precedent
+            # (BLK, JPM, GS, MS, WFC... au T3 2026). On le recupere ici aussi.
+            if d in ("8K", "6K"):
+                n += telecharge_communique(t, cik, date, acc)
+            continue
         url = f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{acc.replace('-','')}/{prim}"
         try:
             b = urllib.request.urlopen(urllib.request.Request(url, headers=UA), context=CTX, timeout=60).read()
@@ -272,6 +279,13 @@ def telecharge_communique(t, cik, date, acc):
         if not nom.lower().endswith((".htm", ".html")) or nom.startswith(("R", acc)): continue
         if re.search(r"ex(?:hibit)?[-_]?99|earnings|results|release|pressrelease", nom, re.I) and taille > 30000:
             noms.append(nom)
+    if not noms:
+        # 16 oct 2026 : pieces nommees sans « 99 » (JBHT : ex_1025956.htm) :
+        # on prend alors la plus grosse piece « ex... » du depot.
+        noms = [it.get("name", "") for it in sorted(idx.get("directory", {}).get("item", []),
+                key=lambda it: -int(it.get("size") or 0))
+                if re.match(r"ex", it.get("name", ""), re.I) and it.get("name", "").lower().endswith((".htm", ".html"))
+                and int(it.get("size") or 0) > 30000][:1]
     n = 0
     for k, nom in enumerate(noms[:2]):
         try:

@@ -1081,3 +1081,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.15.6 (15 Oct 2026 23:35, apres db439c3e13)
 - ASML : résultats du T3 2026 (CA, résultat net, systèmes, base installée, marge brute, EUV et Chine par trimestre), prochaine publication 27/01/2027 ; dates de prochaine publication pour 55 sociétés
+
+## v2026.10.16.1 (16 Oct 2026 01:59, apres bda55bc3f0)
+- Rattrapage des résultats du T3 2026 pour 23 sociétés (KPI trimestriels, KPI des présentations de résultats), chaîne post-résultats réparée

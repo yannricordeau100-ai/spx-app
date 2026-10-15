@@ -224,8 +224,16 @@ def documents(ticker: str) -> list[Path]:
         d = base / rel
         if not d.exists():
             continue
-        for pattern in ("*.pdf", "*.htm.gz", "*.html.gz", "*.txt.gz", "*.htm"):
+        for pattern in ("*.pdf", "*.htm.gz", "*.html.gz", "*.txt.gz", "*.htm", "*.html"):
             found.extend(d.glob(pattern))
+    # 16 oct 2026 : la page de garde d un 8-K / 6-K (2 Ko de texte) occupait une
+    # des 4 places alors que son communique (ER) du meme jour etait present ;
+    # le moteur lisait ensuite le 10-Q du trimestre precedent (BLK, JPM, MS,
+    # WFC... au T3 2026, periode lue Q2-2026). On l ecarte des que l ER existe.
+    dates_er = {m.group(0) for p in found if p.parent.name in ("ER", "EP")
+                for m in [re.search(r"20\d{2}-\d{2}-\d{2}", p.name)] if m}
+    found = [p for p in found if not (p.parent.name in ("8K", "6K") and
+             (re.search(r"20\d{2}-\d{2}-\d{2}", p.name) or [None])[0] in dates_er)]
     found.sort(key=date_doc, reverse=True)
     # Un meme document existe souvent en deux formats (.pdf et .txt.gz) : on ne
     # garde qu'un exemplaire par document, le texte plutot que le PDF.
@@ -236,6 +244,14 @@ def documents(ticker: str) -> list[Path]:
         if actuel is None or (actuel.suffix == ".pdf" and chemin.suffix != ".pdf"):
             uniques[cle] = chemin
     dedup = sorted(uniques.values(), key=date_doc, reverse=True)
+    # 16 oct 2026 : seuls les documents de la publication la plus recente (45 jours
+    # au plus avant le plus recent) : le 10-Q du trimestre precedent faisait lire
+    # Q2-2026 au moteur et toutes les valeurs etaient rejetees.
+    from datetime import date as _d, timedelta as _td
+    dates = [date_doc(p)[0] for p in dedup if date_doc(p)[0]]
+    if dates:
+        borne = (_d.fromisoformat(max(dates)) - _td(days=45)).isoformat()
+        dedup = [p for p in dedup if not date_doc(p)[0] or date_doc(p)[0] >= borne]
     return dedup[:MAX_DOCS]
 
 
@@ -286,7 +302,7 @@ CLES_MOTEURS = ("CEREBRAS_API_KEY", "CEREBRAS2_API_KEY", "CEREBRAS3_API_KEY",
 
 def build_prompt(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> str:
     lignes = []
-    for k in kpis[:20]:
+    for k in kpis:
         lignes.append(
             f'- "{k["short"]}" | {k.get("name_fr") or k.get("name_en")} '
             f'| unite {k.get("unit")} | cadence {k.get("frequency") or "?"} '
@@ -313,7 +329,9 @@ def build_prompt(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> 
         "- `evidence` = la phrase exacte contenant le chiffre.",
         "- Un KPI absent des documents n est pas mentionne.",
         "",
-        '{"periode":"Q2-2026","valeurs":[{"short":"...","value":123.4,"periode":"H1-2026","evidence":"..."}]}',
+        # 16 oct 2026 : l exemple portait « Q2-2026 » et le moteur le recopiait
+        # (BLK, JPM, MS au T3 2026) : exemple neutre.
+        '{"periode":"<periode du document>","valeurs":[{"short":"...","value":123.4,"periode":"<periode de la valeur>","evidence":"..."}]}',
         "",
         corpus,
     ])
@@ -632,6 +650,44 @@ def write_dossier(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) ->
 
 # ── 5. Traitement d'une société ─────────────────────────────────────────────
 
+def maj_variation_et_signal(kpi: dict, periode: str, val: float) -> None:
+    """16 oct 2026 : apres l ajout d un point, la variation sur un an et la
+    phrase de la fiche restaient celles du trimestre precedent (« T2-2026 : ... »
+    affiche a cote d une valeur du T3). On les recalcule sur le meme trimestre
+    de l annee precedente, quand il est dans l historique."""
+    hist = kpi.get("history") or []
+    m = re.match(r"^([QTHS][1-4])-(FY)?(\d{4})$", periode or "")
+    if not m or not hist or not isinstance(hist[-1], dict):
+        return
+    cible = f"{m.group(1)}-{m.group(2) or ''}{int(m.group(3)) - 1}"
+    prec = next((h.get("v") for h in hist if str(h.get("q")) == cible), None)
+    unite = str(kpi.get("unit") or "")
+    def fr(x):
+        s = f"{x:,.2f}".rstrip("0").rstrip(".") if abs(x) < 1000 else f"{x:,.0f}"
+        return s.replace(",", " ").replace(".", ",")
+    var = ""
+    if isinstance(prec, (int, float)) and prec:
+        if unite.strip() in ("%", "pts", "points"):
+            var = f"{val - prec:+.1f} pt".replace(".", ",")
+        else:
+            var = f"{(val / prec - 1) * 100:+.1f}%".replace(".", ",")
+        kpi["yoy"] = var
+    lib = periode.replace("-", " ").replace("Q", "T", 1)
+    kpi["signal"] = f"{lib} : {fr(val)} {unite}".strip() + (f" ({var} sur un an, {fr(prec)} {unite} un an plus tot)".replace(" )", ")") if var else "")
+
+
+def normalise_periode(p: str) -> str:
+    """16 oct 2026 : le moteur gratuit ecrit souvent « 3Q26 », « 3Q2026 » ou
+    « Q3 2026 » (WFC, IBKR) : toutes les valeurs etaient rejetees pour periode
+    incompatible. On ramene ces formes a « Q3-2026 »."""
+    s = (p or "").strip().upper()
+    m = re.match(r"^([1-4])Q[- ]?(\d{2}|\d{4})$", s) or re.match(r"^Q([1-4])[- ]?(?:FY)?(\d{2}|\d{4})$", s)
+    if m:
+        a = m.group(2)
+        return f"Q{m.group(1)}-{'20' + a if len(a) == 2 else a}"
+    return p
+
+
 def process(ticker: str, apply: bool, moteur: str) -> dict:
     sources = kpi_sources(ticker)
     if not sources:
@@ -655,7 +711,20 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
                 "kpis": len(kpis), "documents": len(docs)}
 
     try:
-        parsed, fournisseur = appelle_moteur(ticker, build_prompt(ticker, kpis, docs))
+        # 16 oct 2026 : seuls les 20 premiers KPI etaient soumis au moteur ; les
+        # suivants n etaient jamais mis a jour. Envoi par paquets de 15.
+        parsed, fournisseur = {"periode": "", "valeurs": []}, None
+        for i in range(0, len(kpis), 15):
+            try:
+                p_, fournisseur = appelle_moteur(ticker, build_prompt(ticker, kpis[i:i + 15], docs))
+            except (RuntimeError, ValueError):
+                if i == 0 and len(kpis) <= 15:
+                    raise
+                continue
+            parsed["periode"] = parsed["periode"] or p_.get("periode") or ""
+            parsed["valeurs"].extend(p_.get("valeurs") or [])
+        if fournisseur is None:
+            raise RuntimeError("aucun paquet traite par le moteur")
     except (RuntimeError, ValueError) as err:
         # MoteurIndisponible descend de RuntimeError : aucun moteur gratuit n a
         # repondu. On ecrit le brouillon et on n ecrit RIEN dans src/data.
@@ -668,7 +737,7 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
                 "kpis": len(kpis), "documents": len(docs),
                 "motif": str(err)[:180]}
 
-    periode = str(parsed.get("periode") or "").strip()
+    periode = normalise_periode(str(parsed.get("periode") or "").strip())
     corpus = [t for _, t in docs]
     corpus_mots = [_mots_normalises(t) for t in corpus]
     index = {k["short"]: k for k in kpis}
@@ -714,7 +783,7 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             continue
         # La periode propre a la valeur prime : une publication semestrielle
         # porte souvent des KPI trimestriels et des KPI semestriels a la fois.
-        periode_v = str(v.get("periode") or periode).strip()
+        periode_v = normalise_periode(str(v.get("periode") or periode).strip())
         if not periode_v or not periode_compatible(kpi, periode_v):
             rejeter(f"periode {periode_v or '?'} incompatible avec {kpi.get('period_type') or '?'}")
             continue
@@ -732,6 +801,10 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             journalise_rejet(ticker, short, val, periode_v, "ordre de grandeur etranger a la serie", v.get("evidence") or "")
             continue
         hist = kpi["history"]
+        # 16 oct 2026 : serie en exercice decale (« Q3-FY2026 », CPB) : le moteur
+        # ecrit « Q4-2026 ». On garde le libelle fiscal de la serie.
+        if hist and isinstance(hist[-1], dict) and re.match(r"^[QT][1-4]-FY\d{4}$", str(hist[-1].get("q") or "")):
+            periode_v = re.sub(r"^([QT][1-4])-(\d{4})$", r"\1-FY\2", periode_v)
         # Yann 4 sept 2026 : ne JAMAIS ajouter un point qui laisserait un trou.
         # La passe du 4 sept avait ajoute Q2-2026 apres Q2-2025 chez Marsh, et
         # H1-2026 apres H1-2025 chez Renault : le graphique posait les barres
@@ -749,16 +822,30 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
         else:
             hist.append(val)
         kpi["value"] = val
+        maj_variation_et_signal(kpi, periode_v, val)
         # 8 oct 2026 : date de fin de la periode publiee (et non date du jour,
         # qui faisait croire a une donnee du jour, ex. IRM Q2-2026 date du 8 oct).
-        kpi["last_data_date"] = fin_periode(periode_v) or kpi.get("last_data_date")
+        fin = fin_periode(periode_v)
+        if not fin and "FY" in periode_v and re.match(r"^\d{4}-\d{2}-\d{2}$", str(kpi.get("last_data_date") or "")):
+            from datetime import date as _d, timedelta as _td
+            fin = (_d.fromisoformat(kpi["last_data_date"]) + _td(days=91)).isoformat()
+        kpi["last_data_date"] = fin or kpi.get("last_data_date")
         retenus.append(short)
 
     if retenus and apply:
         for path, data in sources:
             # 3 sept 2026 : ecriture sure. Sauvegarde de l original, ecriture dans un
             # fichier temporaire, relecture JSON, puis remplacement atomique.
-            texte = json.dumps(data, ensure_ascii=False)
+            # 16 oct 2026 : on garde l indentation d origine (sinon tout le fichier
+            # tient sur une ligne et le diff git devient illisible).
+            ind = None
+            try:
+                debut = path.read_text(encoding="utf8")[:200]
+                m = re.match(r"\{\s*\n( +)\"", debut)
+                ind = len(m.group(1)) if m else None
+            except OSError:
+                pass
+            texte = json.dumps(data, ensure_ascii=False, indent=ind)
             json.loads(texte)
             bk = ROOT / ".conv-state" / "quarterly-refresh-backups"
             bk.mkdir(parents=True, exist_ok=True)
