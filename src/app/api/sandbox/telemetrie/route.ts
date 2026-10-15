@@ -7,7 +7,7 @@
  */
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
+import { DESK_OWNER_EMAIL, estAdminSandbox } from "@/lib/desk/auth";
 import { calculeAnalytics, zurichVersUtc } from "@/lib/telemetrie/analytics-site";
 import {
   chargeReglageTelemetrie,
@@ -32,7 +32,8 @@ async function estProprietaire(): Promise<boolean> {
  * Calcul : src/lib/telemetrie/analytics-site.ts (Yann 15 oct 2026).
  */
 export async function GET(req: NextRequest) {
-  if (!(await estProprietaire())) {
+  // Lecture : proprietaire, ou jeton d audit de la page (comme requireDeskOwner).
+  if (!(await estProprietaire()) && !(await estAdminSandbox(req))) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
   const sp = req.nextUrl.searchParams;
