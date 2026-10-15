@@ -24,7 +24,7 @@ export default function ErrorPage({
   }, [error]);
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-[#050505] text-zinc-100">
+    <div data-mtk-statut="5xx" className="relative flex min-h-screen flex-col bg-[#050505] text-zinc-100">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[600px]"
         style={{

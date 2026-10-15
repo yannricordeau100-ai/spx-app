@@ -22,7 +22,7 @@ const pluriel = (n: number, un: string, plusieurs: string) => `${n.toLocaleStrin
 
 const MESSAGES_RAISON: Record<Exclude<AnalyticsCompte["raison"], null>, string> = {
   exclu_compte: "Ce compte est un compte interne de Mettrik : ses visites sont volontairement exclues de la mesure, pour ne pas fausser les statistiques du service. Aucune visite n’est donc enregistrée, et cette section reste vide.",
-  exclu_reseau: "Les visites faites depuis ce réseau sont exclues de la mesure (réseau interne de Mettrik) : elles ne sont pas enregistrées.",
+  exclu_reseau: "Les visites faites depuis ce réseau sont exclues de la mesure (réseau interne de Mettrik) : elles ne comptent pas dans les statistiques.",
   mesure_coupee: "La mesure est désactivée pour le moment sur Mettrik : aucune nouvelle visite n’est enregistrée.",
   opposition: "Tu as choisi de ne plus mesurer ton activité : aucune nouvelle visite n’est enregistrée.",
 };

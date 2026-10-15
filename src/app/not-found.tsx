@@ -52,7 +52,7 @@ const retard = (s: number) => ({ animationDelay: `${s}s` });
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-screen flex-col overflow-hidden bg-[#050505] text-zinc-100">
+    <main data-mtk-statut="404" className="relative flex min-h-screen flex-col overflow-hidden bg-[#050505] text-zinc-100">
       <script dangerouslySetInnerHTML={{ __html: THEME }} />
       <style>{CSS}</style>
 

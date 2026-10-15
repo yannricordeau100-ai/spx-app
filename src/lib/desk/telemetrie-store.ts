@@ -50,10 +50,20 @@ export async function chargeReglageTelemetrie(): Promise<boolean> {
 }
 
 export async function enregistreReglageTelemetrie(actif: boolean): Promise<void> {
+  // 15 oct 2026 : fusion. Avant, l interrupteur reecrivait la ligne entiere
+  // et effacait les listes d exclusion (IP hachees, comptes de Yann).
+  const { data: actuel } = await admin()
+    .from("desk_page_content")
+    .select("content_fr")
+    .eq("page_key", PAGE_KEY)
+    .eq("section_key", SECTION_KEY)
+    .maybeSingle();
+  let cfg: Record<string, unknown> = {};
+  try { cfg = JSON.parse((actuel as { content_fr?: string } | null)?.content_fr ?? "{}") ?? {}; } catch { cfg = {}; }
   const { error } = await admin()
     .from("desk_page_content")
     .upsert(
-      { page_key: PAGE_KEY, section_key: SECTION_KEY, content_fr: JSON.stringify({ actif }) },
+      { page_key: PAGE_KEY, section_key: SECTION_KEY, content_fr: JSON.stringify({ ...cfg, actif }) },
       { onConflict: "page_key,section_key" },
     );
   if (error) throw new Error(error.message);

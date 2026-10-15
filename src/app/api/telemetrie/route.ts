@@ -16,13 +16,37 @@ import {
   nettoieEvenement,
   type EvenementTelemetrie,
 } from "@/lib/telemetrie/serveur";
-import { chargeConfigTelemetrie, chargeReglageTelemetrie } from "@/lib/desk/telemetrie-store";
+import { chargeConfigTelemetrie, chargeReglageTelemetrie, type ConfigTelemetrie } from "@/lib/desk/telemetrie-store";
+import { COOKIE_PROPRIO, COOKIE_PROPRIO_DUREE_S, familleClient, villeDepuisEntete } from "@/lib/telemetrie/proprietaire";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+/** Compte de Yann (proprietaire, comptes internes, comptes exclus en base). */
+function compteProprio(email: string | null, userId: string | null, config: ConfigTelemetrie): boolean {
+  const owner = process.env.DESK_OWNER_EMAIL?.toLowerCase();
+  const mail = (email ?? "").toLowerCase();
+  return (!!mail && (mail === owner || mail.endsWith("@mettrik-internal.test"))) || (!!userId && config.usersExclus.includes(userId));
+}
+
+/** Cookie « mtk_owner » (Yann 15 oct 2026) : pose a chaque visite connectee
+ *  en proprietaire, il continue d isoler l appareil une fois deconnecte. */
+function poseCookieProprio(res: NextResponse) {
+  res.cookies.set(COOKIE_PROPRIO, "1", { maxAge: COOKIE_PROPRIO_DUREE_S, path: "/", sameSite: "lax", secure: true, httpOnly: true });
+}
+
+export async function GET(req: NextRequest) {
   const actif = await chargeReglageTelemetrie();
-  return NextResponse.json({ actif }, { headers: { "cache-control": "no-store" } });
+  const res = NextResponse.json({ actif }, { headers: { "cache-control": "no-store" } });
+  // Lecture de session seulement si un cookie Supabase est present (pas
+  // d appel d authentification pour un visiteur anonyme).
+  if (req.cookies.getAll().some((c) => c.name.startsWith("sb-"))) {
+    try {
+      const supabase = await createSupabaseServerClient();
+      const { data } = await supabase.auth.getUser();
+      if (data.user && compteProprio(data.user.email ?? null, data.user.id, await chargeConfigTelemetrie())) poseCookieProprio(res);
+    } catch { /* jamais bloquant */ }
+  }
+  return res;
 }
 
 export async function POST(req: NextRequest) {
@@ -57,24 +81,34 @@ export async function POST(req: NextRequest) {
   } catch { /* visiteur anonyme */ }
   if (opposition) return NextResponse.json({ ok: true, ignore: true, opposition: true });
 
-  // Exclusions (Yann 2 sept 2026) : les visites de Yann et du compte de test
-  // audit.claude ne sont pas des visites normales, on ne les enregistre pas.
-  // 3 filets : compte proprietaire (email), user_id exclu, ip_hash exclu.
-  const owner = process.env.DESK_OWNER_EMAIL?.toLowerCase();
+  // Yann 15 oct 2026 : les visites de Yann, de ses comptes et des outils
+  // automatiques ne sont plus jetees mais ETIQUETEES, puis isolees par
+  // l analytics (interrupteur « Exclure mes visites », retroactif).
+  // Etiquettes : _moi = compte | ip | cookie ; _client = robot | x.
   const hash = ip ? hacheIp(ip) : null;
-  if (
-    (userEmail && (userEmail.toLowerCase() === owner || userEmail.endsWith("@mettrik-internal.test"))) ||
-    (userId && config.usersExclus.includes(userId)) ||
-    (hash && config.hashesExclus.includes(hash))
-  ) {
-    return NextResponse.json({ ok: true, ignore: true, exclu: true });
-  }
+  const moi = compteProprio(userEmail, userId, config)
+    ? "compte"
+    : hash && config.hashesExclus.includes(hash)
+      ? "ip"
+      : req.cookies.get(COOKIE_PROPRIO)?.value
+        ? "cookie"
+        : null;
+  const ua = req.headers.get("user-agent");
+  const ville = villeDepuisEntete(req.headers.get("x-vercel-ip-city"));
 
   for (const e of evts) {
+    const p = (e.props ??= {});
+    const client = familleClient(ua, p.wd);
+    delete p.wd;
+    if (moi) p._moi = moi;
+    if (client) p._client = client;
+    if (ville) p.ville = ville;
     e.pays = pays ?? null;
     e.ip_hash = hash;
     e.user_id = userId;
   }
   const ok = await insereEvenements(evts);
-  return NextResponse.json({ ok, recus: evts.length });
+  const res = NextResponse.json({ ok, recus: evts.length });
+  if (moi === "compte") poseCookieProprio(res);
+  return res;
 }

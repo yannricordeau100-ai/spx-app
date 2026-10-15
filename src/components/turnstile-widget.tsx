@@ -280,6 +280,8 @@ export function TurnstileWidget(props?: {
               }
               setCodeErreur(c);
               setStatus("error");
+              // Analytics « Problemes vus par les visiteurs » (15 oct 2026).
+              window.dispatchEvent(new CustomEvent("mtk:probleme", { detail: { cat: "captcha", nom: `Turnstile ${c || "erreur"}` } }));
               return true;
             },
             "expired-callback": () => {
@@ -296,7 +298,10 @@ export function TurnstileWidget(props?: {
         }
       })
       .catch(() => {
-        if (!cancelled) setStatus("error");
+        if (!cancelled) {
+          setStatus("error");
+          window.dispatchEvent(new CustomEvent("mtk:probleme", { detail: { cat: "captcha", nom: "Turnstile non charge" } }));
+        }
       });
     return () => {
       cancelled = true;

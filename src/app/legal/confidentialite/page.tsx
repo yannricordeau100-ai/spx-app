@@ -9,7 +9,7 @@ export const metadata = {
 const STR = {
   fr: {
     title: "Politique de confidentialité",
-    updatedAt: "29 avril 2026",
+    updatedAt: "15 octobre 2026",
     intro_1_a: "La présente politique de confidentialité décrit la manière dont Mettrik AI collecte, utilise, conserve et protège vos données personnelles dans le cadre de l'utilisation du site",
     intro_site: "www.mettrik.ai",
     intro_1_b: "et de ses services.",
@@ -97,10 +97,12 @@ const STR = {
     s8_p3: "Votre activité (pages vues, indicateurs ouverts, comparaisons lancées, favoris) vous est restituée dans « Mon compte et analytics », visible de vous seul. Elle reste rattachée à votre compte 1 an au maximum, puis elle est anonymisée. Depuis cette page, vous pouvez à tout moment effacer cet historique ou cesser la mesure de votre activité.",
     s9a_title: "9. Mesure d'audience et activité du compte",
     s9a_intro: "Mettrik AI mesure l'usage du service avec son propre outil, sans tiers :",
-    s9a_li1: "Sont enregistrés : les pages que vous ouvrez (adresse de la page, date, type d'appareil), les indicateurs que vous ouvrez sur une fiche et les comparaisons que vous lancez.",
+    s9a_li1: "Sont enregistrés : les pages que vous ouvrez (adresse de la page, date, durée, type d'appareil et de navigateur), le site ou le lien d'où vous arrivez (référent et paramètres de campagne utm), le pays et la ville approximative déduits de la connexion, les indicateurs que vous ouvrez sur une fiche et les comparaisons que vous lancez.",
+    s9a_li1b: "Sont aussi enregistrés, pour corriger le service, les problèmes rencontrés : erreurs techniques, pages lentes ou introuvables, images cassées, boutons sans effet, échecs d'envoi d'un formulaire. L'agent utilisateur du navigateur sert seulement à reconnaître les robots et l'application X ; il n'est pas conservé.",
     s9a_li2: "Ne sont jamais enregistrés : ce que vous tapez, vos mots de passe, ni votre adresse IP en clair. Rien n'est transmis à un tiers : tout reste dans la base de Mettrik AI.",
     s9a_li3: "Ces données ne servent qu'à vous les restituer dans « Mon compte et analytics » et aux statistiques globales du service. Elles sont rattachées à votre compte 1 an au plus, puis anonymisées.",
     s9a_li4: "Depuis « Mon compte et analytics », vous pouvez à tout moment effacer cet historique ou cesser la mesure de votre activité.",
+    s9a_li5: "Un cookie technique « mtk_owner » (1 an) est déposé uniquement sur les appareils de l'éditeur du site, pour exclure ses propres visites des statistiques. Il n'est jamais déposé chez les autres visiteurs.",
     s9_title: "10. Sécurité",
     s9_p1: "Mettrik AI met en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données contre l'accès, la modification, la divulgation ou la destruction non autorisés : chiffrement HTTPS, authentification sécurisée, accès restreint aux bases de données.",
     s10_title: "11. Modifications",
@@ -108,7 +110,7 @@ const STR = {
   },
   en: {
     title: "Privacy Policy",
-    updatedAt: "April 29, 2026",
+    updatedAt: "October 15, 2026",
     intro_1_a: "This privacy policy describes how Mettrik AI collects, uses, retains and protects your personal data in connection with your use of the website",
     intro_site: "www.mettrik.ai",
     intro_1_b: "and its services.",
@@ -196,10 +198,12 @@ const STR = {
     s8_p3: "Your activity (pages viewed, indicators opened, comparisons run, favorites) is shown back to you in “My account and analytics”, visible to you alone. It stays linked to your account for 1 year at most, then it is anonymized. From that page you can erase this history or stop the measurement of your activity at any time.",
     s9a_title: "9. Audience measurement and account activity",
     s9a_intro: "Mettrik AI measures use of the service with its own tool, with no third party:",
-    s9a_li1: "Recorded: the pages you open (page address, date, device type), the indicators you open on a company page and the comparisons you run.",
+    s9a_li1: "Recorded: the pages you open (page address, date, duration, device and browser type), the site or link you came from (referrer and utm campaign parameters), the country and approximate city derived from the connection, the indicators you open on a company page and the comparisons you run.",
+    s9a_li1b: "To fix the service, problems you run into are also recorded: technical errors, slow or missing pages, broken images, buttons with no effect, failed form submissions. The browser user agent is only used to recognise robots and the X app; it is not kept.",
     s9a_li2: "Never recorded: what you type, your passwords, or your IP address in clear. Nothing is sent to a third party: everything stays in Mettrik AI's database.",
     s9a_li3: "This data is only used to show it back to you in “My account and analytics” and for global statistics of the service. It stays linked to your account for 1 year at most, then it is anonymized.",
     s9a_li4: "From “My account and analytics” you can erase this history or stop the measurement of your activity at any time.",
+    s9a_li5: "A technical cookie “mtk_owner” (1 year) is set only on the site publisher's own devices, to exclude his visits from the statistics. It is never set for other visitors.",
     s9_title: "10. Security",
     s9_p1: "Mettrik AI implements appropriate technical and organizational measures to protect your data against unauthorized access, modification, disclosure or destruction: HTTPS encryption, secure authentication, restricted access to databases.",
     s10_title: "11. Changes",
@@ -313,9 +317,11 @@ export default async function ConfidentialitePage() {
         <p>{t.s9a_intro}</p>
         <ul className="list-disc space-y-1.5 pl-6">
           <li>{t.s9a_li1}</li>
+          <li>{t.s9a_li1b}</li>
           <li>{t.s9a_li2}</li>
           <li>{t.s9a_li3}</li>
           <li>{t.s9a_li4}</li>
+          <li>{t.s9a_li5}</li>
         </ul>
       </LegalSection>
 
