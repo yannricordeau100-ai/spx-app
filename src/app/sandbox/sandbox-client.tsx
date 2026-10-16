@@ -413,9 +413,9 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/telemetrie",
-        mots: ["statistiques d usage", "audience", "clics", "erreurs", "latence", "emails envoyés", "télémétrie"],
+        mots: ["analytics", "analytique", "statistiques d usage", "audience", "visiteurs", "trafic", "origine des visiteurs", "comptes créés", "inscriptions", "conversion", "rétention", "problèmes vus par les visiteurs", "clics", "erreurs", "latence", "emails envoyés", "télémétrie"],
         icon: Activity,
-        label: "Statistiques",
+        label: "Statistiques (analytics)",
         desc: "Toutes les métriques d'usage première partie : audience, pages, clics, pays, erreurs, latence API, emails. Interrupteur global.",
       },
       {
