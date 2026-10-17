@@ -120,7 +120,7 @@ const SECTIONS: SandboxSection[] = [
       {
         href: "/sandbox/comptes-kpi",
         icon: Layers,
-        label: "Totaux des KPI (automatiques)",
+        label: "Totaux des KPIs (automatiques)",
         desc: "Nombre de KPI par bloc (long terme, moyen terme, court terme), total général et détail par industrie GICS, recalculés à chaque mise en ligne.",
         accent: "highlight",
         mots: ["totaux", "compteur", "nombre de KPI", "par industrie", "GICS", "accueil"],

@@ -232,7 +232,7 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   remuneration: "les lignes de rémunération",
   actionnaires: "les top 3 votes et capital",
   fleches: "les flèches de navigation",
-  suivi: "le sous bloc Suivi des KPI",
+  suivi: "le sous bloc Suivi des KPIs",
   "cites-une-fois": "le sous bloc Cités une fois",
   reglage: "le réglage du taux",
   ecart: "l'écart au taux",

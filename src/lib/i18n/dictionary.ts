@@ -429,7 +429,7 @@ export const DICTIONARY: Dict = {
     en: "See {n} more indicators",
   },
   /* 9 sept 2026 : deux groupes dans le tableau, KPI avances puis KPI standard. */
-  "company.kpi_table.advanced_label": { fr: "KPI avancés", en: "Advanced KPIs", de: "Erweiterte KPIs" },
+  "company.kpi_table.advanced_label": { fr: "KPIs avancés", en: "Advanced KPIs", de: "Erweiterte KPIs" },
   "company.kpi_table.standard_label": { fr: "KPI standard", en: "Standard KPIs", de: "Standard-KPIs" },
   "company.kpi_table.see_standard_one": { fr: "Voir 1 KPI standard", en: "See 1 standard KPI", de: "1 Standard-KPI anzeigen" },
   "company.kpi_table.see_standard_many": { fr: "Voir {n} KPI standard", en: "See {n} standard KPIs", de: "{n} Standard-KPIs anzeigen" },
@@ -1180,7 +1180,7 @@ export const DICTIONARY: Dict = {
     de: "Geprüfte Daten",
   },
   "pricing.trust1_body": {
-    fr: "Chaque chiffre vient des documents ou des communications officielles de la société ; nous utilisons plus de 20 sources. Certains KPI utilisent des données externes sourcées ou un croisement de plusieurs données pour constituer ou reconstituer des indicateurs spécifiques propriétaires.",
+    fr: "Chaque chiffre vient des documents ou des communications officielles de la société ; nous utilisons plus de 20 sources. Certains KPIs utilisent des données externes sourcées ou un croisement de plusieurs données pour constituer ou reconstituer des indicateurs spécifiques propriétaires.",
     en: "Every figure comes from official company documents or communications, we use more than 20 sources. Some major KPIs are no longer publicly disclosed by the company in 2026, so we rely on sourced external data to compute the most recent KPI values. Non-official computed KPIs with an uncertainty index above 5% are not displayed on mettrik.ai.",
     de: "Jede Zahl stammt aus offiziellen Dokumenten oder Mitteilungen des Unternehmens. Wir verwenden über 20 Quellen. Einige wichtige KPIs werden 2026 vom Unternehmen nicht mehr öffentlich kommuniziert. Wir nutzen daher gut belegte externe Daten zur Berechnung der aktuellen Werte. Berechnete nicht-offizielle KPIs mit einem Unsicherheitsindex über 5 % werden auf mettrik.ai nicht angezeigt.",
   },

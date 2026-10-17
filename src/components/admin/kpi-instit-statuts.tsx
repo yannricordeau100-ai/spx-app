@@ -82,8 +82,8 @@ export function KpiInstitStatuts({ ticker, accent = "#a78bfa" }: { ticker: strin
       <button
         type="button"
         popoverTarget={id}
-        title="Statut des KPI d’industrie suivis par les institutionnels (admin)"
-        aria-label="Statut des KPI d’industrie suivis par les institutionnels"
+        title="Statut des KPIs d’industrie suivis par les institutionnels (admin)"
+        aria-label="Statut des KPIs d’industrie suivis par les institutionnels"
         className="relative inline-flex size-7 shrink-0 items-center justify-center self-center rounded-lg border transition-transform hover:scale-105"
         style={{ borderColor: `${accent}66`, background: `linear-gradient(135deg, ${accent}26, transparent)`, color: accent }}
       >
@@ -100,14 +100,14 @@ export function KpiInstitStatuts({ ticker, accent = "#a78bfa" }: { ticker: strin
         id={id}
         popover="auto"
         role="dialog"
-        aria-label="Statut des KPI d’industrie suivis par les institutionnels"
+        aria-label="Statut des KPIs d’industrie suivis par les institutionnels"
         style={{ margin: "auto" }}
         className="max-h-[88%] w-[calc(100%-1.5rem)] max-w-[44rem] flex-col overflow-hidden [&:popover-open]:flex rounded-2xl border border-white/10 bg-[#0a0a0d] p-0 text-left text-zinc-200 shadow-2xl backdrop:bg-black/60"
       >
         <div className="relative shrink-0 border-b border-white/[0.07] px-4 py-3.5 sm:px-5" style={{ background: `linear-gradient(120deg, ${accent}1f, transparent 60%)` }}>
           <div className="flex items-center gap-2 pr-8 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-400">
             <Landmark className="size-3.5 shrink-0" style={{ color: accent }} />
-            Statut des KPI d’industrie (institutionnels)
+            Statut des KPIs d’industrie (institutionnels)
             <span className="rounded-full border border-amber-400/40 bg-amber-500/10 px-1.5 py-px text-[9px] text-amber-200">admin</span>
           </div>
           <h2 className="mt-1.5 text-[18px] font-bold leading-tight text-zinc-50">{res?.ind.industrie ?? "Industrie non référencée"}</h2>

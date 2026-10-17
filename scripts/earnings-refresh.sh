@@ -107,6 +107,10 @@ print(','.join(reversed(ms)))")
   nice -n 10 python3 scripts/marketbeat-calendar.py || true
   nice -n 10 python3 scripts/stockanalysis-calendar.py || true
   nice -n 10 python3 scripts/build-earnings-calendar.py || true
+  # 17 oct 2026 (Yann) : date des prochains resultats servie par le vrai chargeur
+  # sur les 662 fiches ; alerte rouge (bloc dates_resultats) si passee ou absente.
+  # Mecanique, aucun appel a Claude ni a Gemini.
+  nice -n 10 npx tsx scripts/controle-dates-resultats.ts 2>/dev/null | grep -E '^(dates|  )' || true
   python3 scripts/alerte-mises-a-jour.py --email || true
   echo "=== $(date '+%F %T') fin ==="
 } >> /tmp/earnings-refresh.log 2>&1

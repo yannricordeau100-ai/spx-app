@@ -130,7 +130,7 @@ export const FEATURES: FeatureRow[] = [
   {
     id: "kpis",
     category: "Analyse",
-    label: "Indicateurs clés (KPI principaux + secondaires)",
+    label: "Indicateurs clés (KPIs principaux + secondaires)",
     free: "Limité à Google + Meta",
     premium: true,
     max: true,

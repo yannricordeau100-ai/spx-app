@@ -12,7 +12,7 @@ import type { CompteBlocs, FichierComptesKpi } from "@/lib/comptes-kpi";
  * servies. L accueil n en recoit que le total par industrie et le total general.
  */
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Totaux des KPI · Mettrik AI", robots: { index: false, follow: false } };
+export const metadata = { title: "Totaux des KPIs · Mettrik AI", robots: { index: false, follow: false } };
 
 const nf = (n: number) => n.toLocaleString("fr-FR");
 
@@ -68,7 +68,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 text-zinc-100">
-      <h1 className="font-display text-[22px] font-bold">Totaux des KPI</h1>
+      <h1 className="font-display text-[22px] font-bold">Totaux des KPIs</h1>
       <p className="mt-1 text-[13px] text-zinc-400">
         Calculés sur les fiches réellement servies, avec les mêmes règles que la fiche, et recalculés à chaque mise en ligne. Dernier calcul : {genere}.
       </p>
@@ -93,7 +93,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
         </div>
       </div>
       <p className="mt-2 text-[12px] text-zinc-500">
-        Long terme : {nf(g.avances)} KPI avancés, {nf(g.standards)} KPI standard, {nf(g.arretes)} KPI arrêtés par la société. Total général = long terme + moyen terme + court terme.
+        Long terme : {nf(g.avances)} KPIs avancés, {nf(g.standards)} KPI standard, {nf(g.arretes)} KPI arrêtés par la société. Total général = long terme + moyen terme + court terme.
         {sansIndustrie > 0 ? ` ${sansIndustrie} société(s) sans code d’industrie : comptées dans le total général seulement.` : ""}
       </p>
 

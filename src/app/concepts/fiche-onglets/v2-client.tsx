@@ -661,7 +661,7 @@ function Fiche({ f, admin }: { f: FicheDemo; admin: React.ReactNode }) {
               <span className="text-[13px] text-zinc-200">Suivre {c.name}</span>
             </div>
             <Link href="/mes-societes" className="flex items-center gap-2 px-3.5 py-2.5 text-[13px] text-zinc-200 hover:bg-[#141414]"><Bookmark className="size-4 text-violet-300" /> Mes sociétés</Link>
-            <Link href="/account/favorites" className="flex items-center gap-2 px-3.5 py-2.5 text-[13px] text-zinc-200 hover:bg-[#141414]"><Star className="size-4 text-amber-300" /> Mes KPI</Link>
+            <Link href="/account/favorites" className="flex items-center gap-2 px-3.5 py-2.5 text-[13px] text-zinc-200 hover:bg-[#141414]"><Star className="size-4 text-amber-300" /> Mes KPIs</Link>
           </PanneauOutil>
         )}
         {panneau?.id === "comparer" && kpiObjet && (

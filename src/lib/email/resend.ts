@@ -151,11 +151,11 @@ const WELCOME_COPY: Record<
   { preheader: string; title: string; body: (n: string) => string; cta: string }
 > = {
   fr: {
-    preheader: "Ton accès est actif : explore les KPI des plus grandes sociétés cotées.",
+    preheader: "Ton accès est actif : explore les KPIs des plus grandes sociétés cotées.",
     title: "Bienvenue sur Mettrik AI",
     body: (n) =>
       p(`Bonjour${n ? " " + n : ""},`) +
-      p("Bienvenue sur Mettrik AI. Tu peux dès maintenant explorer les KPI des plus grandes sociétés cotées et comparer leurs indicateurs sectoriels.") +
+      p("Bienvenue sur Mettrik AI. Tu peux dès maintenant explorer les KPIs des plus grandes sociétés cotées et comparer leurs indicateurs sectoriels.") +
       p("Une question ? Réponds simplement à cet email."),
     cta: "Ouvrir Mettrik AI",
   },

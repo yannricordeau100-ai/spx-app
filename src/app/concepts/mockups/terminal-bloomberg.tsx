@@ -212,7 +212,7 @@ function Terminal({ variante }: { variante: keyof typeof THEMES }) {
         </Panel>
 
         {/* KPI avancés */}
-        <Panel t={t} code="KPI" titre="Indicateurs clés · KPI avancés" className="lg:col-span-7">
+        <Panel t={t} code="KPI" titre="Indicateurs clés · KPIs avancés" className="lg:col-span-7">
           <Tableau t={t} lignes={AVANCES} />
           <div className="mt-2 text-[10.5px]" style={{ color: t.accent }}>▸ Voir 6 KPIs standard</div>
           <div className="mt-1 opacity-70"><Tableau t={t} lignes={STANDARD.slice(0, 3)} zebra={false} /></div>
@@ -275,7 +275,7 @@ export function MockupTerminalBloomberg() {
   return (
     <div className="space-y-14 px-4 pb-16 pt-6">
       <p className="mx-auto max-w-3xl text-center text-[13px] text-zinc-400">
-        Trois styles « terminal de marché » pour la page société, à partir de Microsoft (exercice 2026). Design uniquement : rien n’est cliquable, les blocs (hero, KPI avancés et standard, TAM, Moat, clients, unités, anti-thèse, répartition) sont représentés en grille dense.
+        Trois styles « terminal de marché » pour la page société, à partir de Microsoft (exercice 2026). Design uniquement : rien n’est cliquable, les blocs (hero, KPIs avancés et standard, TAM, Moat, clients, unités, anti-thèse, répartition) sont représentés en grille dense.
       </p>
       {([
         ["V1 · Terminal ambre : noir, orange et blanc, grille dense, codes de fonction", "ambre"],

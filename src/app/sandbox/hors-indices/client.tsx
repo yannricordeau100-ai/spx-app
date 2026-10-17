@@ -44,7 +44,7 @@ export function HorsIndicesClient({ data }: { data: Ste[] }) {
         <h1 className="font-display text-[22px] font-bold">Sociétés hors indices</h1>
         <p className="mt-1 max-w-3xl text-[13px] leading-relaxed text-zinc-400">
           Retirées de la mise en ligne le 28 août 2026 : elles n appartiennent à aucun des
-          indices retenus (S&amp;P 500, Nasdaq 100, SOX, CAC 40, SMI, AEX, DAX). Leurs KPI
+          indices retenus (S&amp;P 500, Nasdaq 100, SOX, CAC 40, SMI, AEX, DAX). Leurs KPIs
           restent consultables ici.
         </p>
 

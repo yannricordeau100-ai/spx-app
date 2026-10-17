@@ -175,6 +175,26 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
       }
     }
   }
+  // 17 oct 2026 (Yann) : date des prochains resultats servie par le vrai chargeur
+  // (scripts/controle-dates-resultats.ts, chaine 23h). Rouge si elle est absente
+  // ou passee ; recalcule ici chaque jour, comme le chargeur qui prend la date
+  // future du calendrier quand la date de la fiche est echue.
+  {
+    const b = parId.dates_resultats;
+    const ctl = await lire<{ calcule_le?: string; par_ticker?: Record<string, { servie: string | null; calendrier: string | null }> }>(
+      path.join(ROOT, "src/data/controle-dates-resultats.json"),
+    );
+    if (b && ctl?.par_ticker) {
+      const le = iso(ctl.calcule_le);
+      for (const [t, l] of Object.entries(ctl.par_ticker)) {
+        const nom = noms[t]?.name ?? t;
+        const d = l.servie && l.servie >= today ? l.servie : l.calendrier && l.calendrier >= today ? l.calendrier : null;
+        if (d) { b.vert++; continue; }
+        const motif = l.servie ? `date servie passée (${l.servie}), aucune date future au calendrier` : "aucune date de prochains résultats servie";
+        pose(b, { ticker: t, nom, feu: "rouge", bloc_date: l.servie, reference: today, jours: l.servie ? jours(today, l.servie) : null, motif: motif + (le ? `, contrôle du ${le}` : "") });
+      }
+    }
+  }
   for (const b of blocs) b.rouges.sort((a, c) => (c.jours ?? 0) - (a.jours ?? 0));
   return { calculeLe: new Date().toISOString(), univers: uni.length, blocs, rougesTotal: blocs.reduce((n, b) => n + b.rouge, 0), stesRouges: [...stesRouges].sort() };
 }

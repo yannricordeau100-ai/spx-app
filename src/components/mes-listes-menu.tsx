@@ -54,7 +54,7 @@ export function MesListesMenu({
             <Bookmark className="size-4 text-violet-300" /> Mes sociétés
           </Link>
           <Link href="/account/favorites" className={lien} onClick={() => setOuvert(false)}>
-            <Star className="size-4 text-amber-300" /> Mes KPI
+            <Star className="size-4 text-amber-300" /> Mes KPIs
           </Link>
         </div>
       )}

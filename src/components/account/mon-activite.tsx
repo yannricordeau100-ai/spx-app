@@ -190,7 +190,7 @@ export function MonActivite({ a, abonne }: { a: AnalyticsCompte; abonne: boolean
 
       {/* 2. KPI et prochaines publications : favoris, indépendants de la mesure */}
       <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-        <Repliable titre="Mes KPI" sousTitre={a.kpiFavorisDisponibles ? "Tes KPI favoris, puis ceux que tu ouvres le plus" : "Les KPI que tu ouvres le plus sur les fiches"} icone={<BarChart3 className="mt-0.5 size-4 shrink-0 text-violet-300" aria-hidden />}>
+        <Repliable titre="Mes KPIs" sousTitre={a.kpiFavorisDisponibles ? "Tes KPIs favoris, puis ceux que tu ouvres le plus" : "Les KPIs que tu ouvres le plus sur les fiches"} icone={<BarChart3 className="mt-0.5 size-4 shrink-0 text-violet-300" aria-hidden />}>
           {a.kpiFavoris.length === 0 && a.kpiOuverts.length === 0 ? (
             <Vide>
               {a.kpiFavorisDisponibles
